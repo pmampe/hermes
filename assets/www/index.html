@@ -1,11 +1,183 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Hermes</title>
-  <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>jQuery Mobile: SU Demo</title>
+	
+	<link rel="stylesheet"  href="css/jquery.mobile-1.1.1.css" />
+    <link rel="stylesheet"  href="css/mapapp.css" />
+        
+        
+	<script src="cordova-2.0.0.js"></script>
+	<script src="js/jquery-1.8.1.js"></script>
+	<script src="js/jquery.mobile-1.1.1.js"></script>
+	
+	
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="js/jquery.ui.map/jquery.ui.map.js"></script>
+	<script src="js/jquery.ui.map/jquery.ui.map.services.js"></script>
+    <script src="js/mapapp.complete.js"></script>
+	
+	<style>
+		.ui-content {
+			padding: 0;
+		}
+		
+		.ui-grid-c > *:nth-child(n) {
+			padding: 15px;
+		}
+	</style>
+	
 </head>
 <body>
-<h1>Hello Hermes</h1>
+    
+<div data-role="page" class="type-home" id="page-home" style="background-image: url(img/su-app-background.png);">
+	<div data-role="content">
+		<p class="jqm-version"></p>
+		
+		
+		<!-- Home -->
+	    <div data-role="content" style="/*padding: 15px*/">
+	        <div class="ui-grid-c">
+	            <div class="ui-block-a">
+					<a href="http://www-test.su.se"><img src="img/icons/Address_Book.png"></a>
+	            </div>
+	            <div class="ui-block-b">
+					<a href="http://www-test.su.se"><img src="img/icons/Announcement.png"></a>
+	            </div>
+	            <div class="ui-block-c">
+					<a href="appLaud.html"><img src="img/icons/Calender.png"></a>
+	            </div>
+	            <div class="ui-block-d">
+					<img src="img/icons/Chat.png">
+	            </div>
+	            <div class="ui-block-a">
+					<img src="img/icons/Key.png">
+	            </div>
+	            <div class="ui-block-b">
+					<img src="img/icons/Mail_Read.png">
+	            </div>
+	            <div class="ui-block-c">
+					<a href="#page-map"><img id="map-button" src="img/icons/maps.png"></a>
+	            </div>
+	            <div class="ui-block-d">
+					<img src="img/icons/Portfolio.png">
+	            </div>
+	            <div class="ui-block-a">
+					<img src="img/icons/Search.png">
+	            </div>
+	            <div class="ui-block-b">
+					<img src="img/icons/Stats.png">
+	            </div>
+	            <div class="ui-block-c">
+					<img src="img/icons/System.png">
+	            </div>
+	            <div class="ui-block-d">
+					<a href="#external-page"><img src="img/icons/Web.png"></a>
+	            </div>
+	        </div>
+	    </div>
+
+        <div data-role="footer" data-theme="d" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#page-home">Home</a></li>
+                    <li><a href="#page-map" class="refresh">Refresh</a></li>
+                    <li><a href="#page-dir">Directions</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div><!-- /footer -->
+        
+	</div>
+
+</div>
+
+<div data-role="page" id="external-page">
+    
+    <div data-role="header">
+        <h1 id="title">Title</h1>
+    </div><!-- /header -->
+    
+    <div data-role="content" id="external-content">
+        <p>Loading...</p>
+    </div><!-- /content -->
+    
+    <div data-role="footer" id="footer" data-position="fixed">
+        <div data-role="navbar" id="navbar">
+        </div>
+    </div><!-- /footer -->
+</div><!-- /page -->
+
+<style>
+    $(document).on('pageinit', "#external-page", function() {
+        // for example: displayFooter();
+        console.log("loading...");
+        loadContent();
+        loadMenu("default");
+    });
+    
+    function loadContent() {
+        return $('#external-content').load("http://www.su.se", function() {
+            $(this).trigger('create');
+        });
+    }
+    function loadMenu(location) {
+        $("#menu").remove();
+        $("#navbar").remove();
+        
+        $("#footer").html('<div data-role="navbar" id="navbar">');
+        $("#navbar").html('<ul id="menu"></ul>');
+        
+//        $("#menu").load("views/menus/"+location+".html", function() { $("#menu").parent().navbar(); });
+        $("#footer").html('<div data-role="navbar" class="nav-glyphish-example" data-grid="d">' +
+                        '<ul>' +
+                        '<li><a href="#" id="menuitem1" data-icon="custom">Menu Item 1</a></li>' +
+                        '<li><a href="#" id="menuitem2" data-icon="custom">Menu Item 2</a></li>' +
+                        '<li><a href="#" id="menuitem3" data-icon="custom">Menu Item 3</a></li>' +
+                        '</ul>' +
+        '</div>');
+        
+        return true;
+    }
+</style>
+    
+    
+    
+    
+<div data-role="page" data-theme="c" data-fullscreen="true" id="page-map">
+
+    <div data-role="content" id="map-content">
+        <div id="map_canvas"></div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="d" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#page-home">Home</a></li>
+                <li><a href="#page-map" class="refresh">Refresh</a></li>
+                <li><a href="#page-dir">Directions</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /footer -->
+</div><!-- /page-map -->
+
+    
+<div data-role="page" data-theme="c" data-fullscreen="true" id="page-dir">
+
+    <div data-role="content">
+        <div id="dir_panel"></div>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="d" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+            <li><a href="#page-home">Home</a></li>
+            <li><a href="#page-map">Map</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /footer -->
+</div><!-- /page-dir -->
+
 </body>
 </html>
