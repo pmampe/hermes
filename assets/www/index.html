@@ -27,6 +27,19 @@
 		.ui-grid-c > *:nth-child(n) {
 			padding: 15px;
 		}
+		
+		.ui-field-contain, .ui-mobile fieldset.ui-field-contain {
+			margin: 0.2em 0;
+		}
+		
+		.ui-field-contain label.ui-select {
+			vertical-align: inherit;
+			width: inherit;
+		}
+		
+		.ui-header .ui-btn-left, .ui-header .ui-btn-right, .ui-footer .ui-btn-left, .ui-footer .ui-btn-right {
+			top: inherit;
+		}		
 	</style>
 	
 </head>
@@ -79,16 +92,6 @@
 	        </div>
 	    </div>
 
-        <div data-role="footer" data-theme="d" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#page-home">Home</a></li>
-                    <li><a href="#page-map" class="refresh">Refresh</a></li>
-                    <li><a href="#page-dir">Directions</a></li>
-                </ul>
-            </div><!-- /navbar -->
-        </div><!-- /footer -->
-        
 	</div>
 
 </div>
@@ -109,49 +112,40 @@
     </div><!-- /footer -->
 </div><!-- /page -->
 
-<style>
-    $(document).on('pageinit', "#external-page", function() {
-        // for example: displayFooter();
-        console.log("loading...");
-        loadContent();
-        loadMenu("default");
-    });
-    
-    function loadContent() {
-        return $('#external-content').load("http://www.su.se", function() {
-            $(this).trigger('create');
-        });
-    }
-    function loadMenu(location) {
-        $("#menu").remove();
-        $("#navbar").remove();
-        
-        $("#footer").html('<div data-role="navbar" id="navbar">');
-        $("#navbar").html('<ul id="menu"></ul>');
-        
-//        $("#menu").load("views/menus/"+location+".html", function() { $("#menu").parent().navbar(); });
-        $("#footer").html('<div data-role="navbar" class="nav-glyphish-example" data-grid="d">' +
-                        '<ul>' +
-                        '<li><a href="#" id="menuitem1" data-icon="custom">Menu Item 1</a></li>' +
-                        '<li><a href="#" id="menuitem2" data-icon="custom">Menu Item 2</a></li>' +
-                        '<li><a href="#" id="menuitem3" data-icon="custom">Menu Item 3</a></li>' +
-                        '</ul>' +
-        '</div>');
-        
-        return true;
-    }
-</style>
-    
-    
     
     
 <div data-role="page" data-theme="c" data-fullscreen="true" id="page-map">
+
+    <div data-theme="c" data-role="header">
+        <div data-role="fieldcontain">
+            <select name="destination" id="destination">
+                <option value="-">
+                    Destination
+                </option>
+                <option value="su-south">
+                    SU Södra
+                </option>
+                <option value="su-north">
+                    SU Norra
+                </option>
+                <option value="kraftriket">
+                    Kräftriket
+                </option>
+            </select>
+            
+	        <a id="getDirections" data-role="button" data-transition="fade" href="javascript://nop" 
+	        	class="ui-btn-right" data-icon="search" data-iconpos="left">
+	            Get directions
+	        </a>
+            
+        </div>
+    </div>
 
     <div data-role="content" id="map-content">
         <div id="map_canvas"></div>
     </div><!-- /content -->
 
-    <div data-role="footer" data-theme="d" data-position="fixed">
+    <div data-role="footer" data-theme="c" data-position="fixed" data-tap-toggle="false">
         <div data-role="navbar">
             <ul>
                 <li><a href="#page-home">Home</a></li>
