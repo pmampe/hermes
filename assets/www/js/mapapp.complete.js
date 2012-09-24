@@ -78,6 +78,20 @@ $('.refresh').live("tap", function() {
 	    // END: Tracking location with device geolocation
 	
 	
+	// Toggle between two origins to test refresh, force new route to be calculated
+	var destinationCoords = {};
+	if (toggleval) {
+		toggleval = false;
+		destinationCoords = { destination: new google.maps.LatLng(59.363339, 18.060319) }; // SU södra
+		//destinationCoords = { coords: { latitude: 59.365558, longitude: 18.055104 } }; // Subway
+	} else {
+		toggleval = true;
+		destinationCoords = { destination: new google.maps.LatLng(59.361436, 18.053988) }; // Kräftriket
+	}
+
+	if (accuracy != -1)
+		makeMap(currCoords, destinationCoords.destination);
+
 	$(this).removeClass($.mobile.activeBtnClass);
 	return false;
 });
