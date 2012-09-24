@@ -22,8 +22,11 @@
     access elements control the Android whitelist.
     Domains are assumed blocked unless set otherwise
      -->
-
-    <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
+<!--  	<access origin=".*"/> -->
+	
+	<access origin="http://www.su.se" /> 
+	
+    <access origin="http://127.0.0.1*"/>  <!-- allow local pages --> 
 
     <!-- <access origin="https://example.com" /> allow any secure requests to example.com -->
     <!-- <access origin="https://example.com" subdomains="true" /> such as above, but including subdomains, such as www -->
@@ -49,6 +52,7 @@
     <plugin name="Capture" value="org.apache.cordova.Capture"/>
     <plugin name="Battery" value="org.apache.cordova.BatteryListener"/>
     <plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+    <plugin name="ChildBrowser" value="com.phonegap.plugins.childBrowser.ChildBrowser"/>
 </plugins>
 </cordova>
 
