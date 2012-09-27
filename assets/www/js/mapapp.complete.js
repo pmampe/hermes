@@ -11,103 +11,36 @@ function fadingMsg (locMsg) {
    });
 }
 
+function addTestMarkers() {
+	var pois = [[59.364782,18.054589], [59.365558,18.054997], [59.366575,18.057915], [59.356952,18.053409], [59.363678,18.06313]];
+	$.each(pois, function(i,v) {
+		$('#map_canvas').gmap('addMarker', { 
+			'position': new google.maps.LatLng(v[0], v[1]),
+			'poiType': 'location',
+			'visible': false
+		}).click(function() {
+			$('#map_canvas').gmap('openInfoWindow', { content : 'Very interesting point!' }, this);
+		});
+	});
+}
 
-
-// Home page
-$('#page-home').live("pageinit", function() {
-	$('#map_square').gmap(
-	    { 'center' : mapdata.destination, 
-	      'zoom' : 12, 
-	      'mapTypeControl' : false,
-	      'navigationControl' : false,
-	      'streetViewControl' : false 
-	    })
-	    .bind('init', function(evt, map) { 
-	        $('#map_square').gmap('addMarker', 
-	            { 'position': map.getCenter(), 
-	              'animation' : google.maps.Animation.DROP 
-	            });                                                                                                                                                                                                                
-	    });
-    $('#map_square').click( function() { 
-        $.mobile.changePage($('#page-map'), {});
-    });
-});
-
-//Create the map then make 'displayDirections' request
-$('#page-map').live("pageinit", function() {
-    $('#map_canvas').gmap({'center' : mapdata.destination,
-    	'zoom': 12,
-        'mapTypeControl' : true, 
-        'navigationControl' : true,
-        'navigationControlOptions' : {'position':google.maps.ControlPosition.LEFT_TOP}
-        })
-    .bind('init', function() {
-        $('.refresh').trigger('tap');        
-    });
-});
-
-$('#page-map').live("pageshow", function() {
-    $('#map_canvas').gmap('refresh');
-});
-
-// Request display of directions, requires jquery.ui.map.services.js
-var toggleval = true; // used for test case: static locations
-$('.refresh').live("tap", function() {
-	$('#map_canvas').gmap('refresh');
+function toogleShowPOI() {
+	var poiVisible = $("#choosePOI").prop("checked");
 	
-	currCoords = mapdata.destination;
-	var accuracy = -1;
-	
-	// START: Tracking location with device geolocation
-	if ( navigator.geolocation ) { 
-		fadingMsg('Using device geolocation to get current position.');
-	    
-	    navigator.geolocation.getCurrentPosition ( 
-	        function(position) {
-	        	currCoords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	        	accuracy = position.coords.accuracy;
-	        	showCurrentPosition(currCoords, accuracy);
-	        }, 
-	        function(error){ 
-	            alert('Unable to get location');
-	            //$.mobile.changePage($('#page-home'), {}); 
-	        }); 
-	} else {
-		alert('Unable to get location2.');
-	}            
-	    // END: Tracking location with device geolocation
-	
-	
-	// Toggle between two origins to test refresh, force new route to be calculated
-	var destinationCoords = {};
-	if (toggleval) {
-		toggleval = false;
-		destinationCoords = { destination: new google.maps.LatLng(59.363339, 18.060319) }; // SU södra
-		//destinationCoords = { coords: { latitude: 59.365558, longitude: 18.055104 } }; // Subway
-	} else {
-		toggleval = true;
-		destinationCoords = { destination: new google.maps.LatLng(59.361436, 18.053988) }; // Kräftriket
+	if (poiVisible) {
+		$('#map_canvas').gmap('find', 'markers', { 'property': 'poiType', 'value': ['location','geo'] }, function(marker, found) {
+			marker.setVisible(true);
+		});
+	} else if (!poiVisible) {
+		$('#map_canvas').gmap('find', 'markers', { 'property': 'poiType', 'value': 'location' }, function(marker, found) {
+			// weird bug in api, takes all markers
+			if (marker.poiType == 'location') {
+				marker.setVisible(false);
+			}
+		});
 	}
+}
 
-	if (accuracy != -1)
-		makeMap(currCoords, destinationCoords.destination);
-
-	$(this).removeClass($.mobile.activeBtnClass);
-	return false;
-});
-
-// Go to map page to see instruction detail (zoom) on map page
-$('#map-button2').live("tap", function() {
-    $.mobile.changePage($('#page-map'), {});
-});
-
-// Briefly show hint on using instruction tap/zoom
-$('#page-dir').live("pageshow", function() {
-    fadingMsg("Tap any instruction<br/>to see details on map");
-});
-
-
-$("#getDirections").live("click", showDirections);
 
 
 function showDirections() {
@@ -151,9 +84,103 @@ function showCurrentPosition (curCoords, accuracy) {
 		'title': 'You are here!', 
 		'bound': true, 
 		'animation': google.maps.Animation.DROP, 
-		'position': curCoords 
+		'position': curCoords,
+		'poiType': 'geo'
 	}).click(function() {
 		$('#map_canvas').gmap('openInfoWindow', { 'content': 'You are here!' }, this);
 	});
 }
+
+
+
+
+$(document).ready(function() {
+	$("#getDirections").live("click", showDirections);
+	$("#choosePOI").prop("checked", false); // make sure it's not checked when reloading page
+	$("#choosePOI").live("change", toogleShowPOI);
+});
+
+
+// Home page
+$('#page-home').live("pageinit", function() {
+	$('#map_square').gmap(
+	    { 'center' : mapdata.destination, 
+	      'zoom' : 12, 
+	      'mapTypeControl' : false,
+	      'navigationControl' : false,
+	      'streetViewControl' : false 
+	    })
+	    .bind('init', function(evt, map) { 
+	        $('#map_square').gmap('addMarker', 
+	            { 'position': map.getCenter(), 
+	              'animation' : google.maps.Animation.DROP 
+	            });                                                                                                                                                                                                                
+	    });
+    $('#map_square').click( function() { 
+        $.mobile.changePage($('#page-map'), {});
+    });
+});
+
+//Create the map then make 'displayDirections' request
+$('#page-map').live("pageinit", function() {
+    $('#map_canvas').gmap({'center' : mapdata.destination,
+    	'zoom': 12,
+        'mapTypeControl' : true, 
+        'navigationControl' : true,
+        'navigationControlOptions' : {'position':google.maps.ControlPosition.LEFT_TOP}
+        })
+    .bind('init', function() {
+        $('.refresh').trigger('tap');        
+    });
+    
+});
+
+
+$('#page-map').live("pageshow", function() {
+    $('#map_canvas').gmap('refresh');
+});
+
+// Request display of directions, requires jquery.ui.map.services.js
+$('.refresh').live("tap", function() {
+	$('#map_canvas').gmap('clear', 'markers');
+    addTestMarkers();
+
+	currCoords = mapdata.destination;
+	var accuracy = -1;
+	
+	// START: Tracking location with device geolocation
+	if ( navigator.geolocation ) { 
+		fadingMsg('Using device geolocation to get current position.');
+	    
+	    navigator.geolocation.getCurrentPosition ( 
+	        function(position) {
+	        	currCoords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	        	accuracy = position.coords.accuracy;
+	        	showCurrentPosition(currCoords, accuracy);
+	        }, 
+	        function(error){ 
+	            alert('Unable to get location');
+	            //$.mobile.changePage($('#page-home'), {}); 
+	        }); 
+	} else {
+		alert('Unable to get location2.');
+	}            
+	    // END: Tracking location with device geolocation
+	
+	
+	$(this).removeClass($.mobile.activeBtnClass);
+	return false;
+});
+
+// Go to map page to see instruction detail (zoom) on map page
+$('#map-button2').live("tap", function() {
+    $.mobile.changePage($('#page-map'), {});
+});
+
+// Briefly show hint on using instruction tap/zoom
+$('#page-dir').live("pageshow", function() {
+    fadingMsg("Tap any instruction<br/>to see details on map");
+});	
+
+
 

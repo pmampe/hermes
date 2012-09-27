@@ -41,6 +41,11 @@
 		
 		.ui-header .ui-btn-left, .ui-header .ui-btn-right, .ui-footer .ui-btn-left, .ui-footer .ui-btn-right {
 			top: inherit;
+		}
+		
+		.ui-field-contain .ui-select {
+		    width: inherit;
+		    display: inline-block;
 		}		
 	</style>
 	
@@ -105,7 +110,7 @@
     
 <div data-role="page" data-theme="c" data-fullscreen="true" id="page-map">
 
-    <div data-theme="c" data-role="header">
+    <div data-theme="c" data-role="header" data-position="inline">
         <div data-role="fieldcontain">
             <select name="destination" id="destination">
                 <option value="-">
@@ -122,15 +127,55 @@
                 </option>
             </select>
             
+            <div data-role="fieldcontain" style="position: absolute; top: -7px; left: 40%; margin: 0; padding: 0">            
+            <input name="" id="choosePOI" type="checkbox">
+            <label for="choosePOI">POI</label>
+            </div>
+            
+            <div data-role="fieldcontain" style="position: absolute; top: 0; right: 0; margin: 0; padding: 0">
 	        <a id="getDirections" data-role="button" data-transition="fade" href="javascript://nop" 
 	        	class="ui-btn-right" data-icon="search" data-iconpos="left">
-	            Get directions
+	            Directions
 	        </a>
-            
+	        </div>
         </div>
     </div>
 
-    <div data-role="content" id="map-content">
+		<!-- Hidden until get to work with street view microformat -->
+		<div class="vevent" style="display: none">
+			<a href="#spinaltap" class="url summary">Spinal Tap</a> 
+			<span class="description">
+				After their highly-publicized search for
+				a new drummer, Spinal Tap kicks off their latest comeback tour with
+				a San Francisco show.
+			</span> 
+			When: 
+			<span class="dtstart"> 
+				Oct 15,7:00PM<span class="value-title" title="2015-10-15T19:00-08:00"></span>
+			</span>- 
+			<span class="dtend"> 
+				9:00PM<span class="value-title" title="2015-10-15T21:00-08:00"></span>
+			</span> 
+			Where:
+			<div class="location vcard">
+				<span class="fn org">Warfield Theatre</span>, 
+				<span class="adr">
+					<span class="street-address">982 Market St</span>, 
+					<span class="locality">San Francisco</span>, 
+					<span class="region">CA</span>
+				</span> 
+				<span class="geo"> 
+					<span class="latitude"> 
+						<span class="value-title" title="37.774929"></span>
+					</span> 
+					<span class="longitude"> 
+						<span class="value-title" title="-122.419416"></span>
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div data-role="content" id="map-content">
         <div id="map_canvas"></div>
     </div><!-- /content -->
 
@@ -152,7 +197,7 @@
         <div id="dir_panel"></div>
     </div><!-- /content -->
 
-    <div data-role="footer" data-theme="d" data-position="fixed">
+    <div data-role="footer" data-theme="d" data-position="fixed" data-tap-toggle="false">
         <div data-role="navbar">
             <ul>
             <li><a href="#page-home">Home</a></li>
@@ -190,6 +235,7 @@
    window.plugins.childBrowser.onClose = function () {
 	    window.plugins.childBrowser.close();
 	};
+	
 </script>
     
 </body>
