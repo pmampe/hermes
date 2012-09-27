@@ -182,5 +182,8 @@ $('#page-dir').live("pageshow", function() {
     fadingMsg("Tap any instruction<br/>to see details on map");
 });	
 
+$('#page-dir table').live("tap", function() {
+	$.mobile.changePage($('#page-map'), {});
+});	
 
 
