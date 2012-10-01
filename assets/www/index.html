@@ -18,6 +18,8 @@
 	<script src="js/jquery.ui.map/jquery.ui.map.js"></script>
 	<script src="js/jquery.ui.map/jquery.ui.map.services.js"></script>
     <script src="js/mapapp.complete.js"></script>
+    <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
+    
 	
 	<style>
 		.ui-content {
@@ -27,6 +29,24 @@
 		.ui-grid-c > *:nth-child(n) {
 			padding: 15px;
 		}
+		
+		.ui-field-contain, .ui-mobile fieldset.ui-field-contain {
+			margin: 0.2em 0;
+		}
+		
+		.ui-field-contain label.ui-select {
+			vertical-align: inherit;
+			width: inherit;
+		}
+		
+		.ui-header .ui-btn-left, .ui-header .ui-btn-right, .ui-footer .ui-btn-left, .ui-footer .ui-btn-right {
+			top: inherit;
+		}
+		
+		.ui-field-contain .ui-select {
+		    width: inherit;
+		    display: inline-block;
+		}		
 	</style>
 	
 </head>
@@ -80,85 +100,93 @@
 	            <div class="ui-block-c">
 					<img src="img/icons/System.png">
 	            </div>
-	            <div class="ui-block-d">
-					<a href="#external-page"><img src="img/icons/Web.png"></a>
+	            <div class="ui-block-d">	              
+					<a onclick="ontap=openChildBrowser('http://www-test.su.se',null)"><img src="img/icons/Web.png"></a>									
 	            </div>
+				<div class="ui-block-a">
+					<a onclick="ontap=openChildBrowser('http://www.sub.su.se/mobil',null)"><img src="img/icons/Library.png"></a>
+	            </div>
+	            
 	        </div>
 	    </div>
 
-        <div data-role="footer" data-theme="d" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#page-home">Home</a></li>
-                    <li><a href="#page-map" class="refresh">Refresh</a></li>
-                    <li><a href="#page-dir">Directions</a></li>
-                </ul>
-            </div><!-- /navbar -->
-        </div><!-- /footer -->
-        
 	</div>
 
 </div>
 
-<div data-role="page" id="external-page">
-    
-    <div data-role="header">
-        <h1 id="title">Title</h1>
-    </div><!-- /header -->
-    
-    <div data-role="content" id="external-content">
-        <p>Loading...</p>
-    </div><!-- /content -->
-    
-    <div data-role="footer" id="footer" data-position="fixed">
-        <div data-role="navbar" id="navbar">
-        </div>
-    </div><!-- /footer -->
-</div><!-- /page -->
-
-<style>
-    $(document).on('pageinit', "#external-page", function() {
-        // for example: displayFooter();
-        console.log("loading...");
-        loadContent();
-        loadMenu("default");
-    });
-    
-    function loadContent() {
-        return $('#external-content').load("http://www.su.se", function() {
-            $(this).trigger('create');
-        });
-    }
-    function loadMenu(location) {
-        $("#menu").remove();
-        $("#navbar").remove();
-        
-        $("#footer").html('<div data-role="navbar" id="navbar">');
-        $("#navbar").html('<ul id="menu"></ul>');
-        
-//        $("#menu").load("views/menus/"+location+".html", function() { $("#menu").parent().navbar(); });
-        $("#footer").html('<div data-role="navbar" class="nav-glyphish-example" data-grid="d">' +
-                        '<ul>' +
-                        '<li><a href="#" id="menuitem1" data-icon="custom">Menu Item 1</a></li>' +
-                        '<li><a href="#" id="menuitem2" data-icon="custom">Menu Item 2</a></li>' +
-                        '<li><a href="#" id="menuitem3" data-icon="custom">Menu Item 3</a></li>' +
-                        '</ul>' +
-        '</div>');
-        
-        return true;
-    }
-</style>
-    
-    
-    
     
 <div data-role="page" data-theme="c" data-fullscreen="true" id="page-map">
 
-    <div data-role="content" id="map-content">
+    <div data-theme="c" data-role="header" data-position="inline">
+        <div data-role="fieldcontain">
+            <select name="destination" id="destination">
+                <option value="-">
+                    Destination
+                </option>
+                <option value="su-south">
+                    SU Södra
+                </option>
+                <option value="su-north">
+                    SU Norra
+                </option>
+                <option value="kraftriket">
+                    Kräftriket
+                </option>
+            </select>
+            
+            <div data-role="fieldcontain" style="position: absolute; top: -7px; left: 40%; margin: 0; padding: 0">            
+	            <input name="" id="choosePOI" type="checkbox">
+	            <label for="choosePOI">POI</label>
+            </div>
+            
+            <div data-role="fieldcontain" style="position: absolute; top: 0; right: 0; margin: 0; padding: 0">
+		        <a id="getDirections" data-role="button" data-transition="fade" href="javascript://nop" 
+		        	class="ui-btn-right" data-icon="search" data-iconpos="left">
+		            Directions
+		        </a>
+	        </div>
+        </div>
+    </div>
+
+		<!-- Hidden until get to work with street view microformat -->
+		<div class="vevent" style="display: none">
+			<a href="#spinaltap" class="url summary">Spinal Tap</a> 
+			<span class="description">
+				After their highly-publicized search for
+				a new drummer, Spinal Tap kicks off their latest comeback tour with
+				a San Francisco show.
+			</span> 
+			When: 
+			<span class="dtstart"> 
+				Oct 15,7:00PM<span class="value-title" title="2015-10-15T19:00-08:00"></span>
+			</span>- 
+			<span class="dtend"> 
+				9:00PM<span class="value-title" title="2015-10-15T21:00-08:00"></span>
+			</span> 
+			Where:
+			<div class="location vcard">
+				<span class="fn org">Warfield Theatre</span>, 
+				<span class="adr">
+					<span class="street-address">982 Market St</span>, 
+					<span class="locality">San Francisco</span>, 
+					<span class="region">CA</span>
+				</span> 
+				<span class="geo"> 
+					<span class="latitude"> 
+						<span class="value-title" title="37.774929"></span>
+					</span> 
+					<span class="longitude"> 
+						<span class="value-title" title="-122.419416"></span>
+					</span>
+				</span>
+			</div>
+		</div>
+
+	<div data-role="content" id="map-content">
         <div id="map_canvas"></div>
     </div><!-- /content -->
 
-    <div data-role="footer" data-theme="d" data-position="fixed">
+    <div data-role="footer" data-theme="c" data-position="fixed" data-tap-toggle="false">
         <div data-role="navbar">
             <ul>
                 <li><a href="#page-home">Home</a></li>
@@ -176,7 +204,7 @@
         <div id="dir_panel"></div>
     </div><!-- /content -->
 
-    <div data-role="footer" data-theme="d" data-position="fixed">
+    <div data-role="footer" data-theme="d" data-position="fixed" data-tap-toggle="false">
         <div data-role="navbar">
             <ul>
             <li><a href="#page-home">Home</a></li>
@@ -186,5 +214,36 @@
     </div><!-- /footer -->
 </div><!-- /page-dir -->
 
+
+<script>
+	$( document ).bind( "mobileinit", function() {
+	    // Make your jQuery Mobile framework configuration changes here!
+		$.support.cors = true;
+	    $.mobile.allowCrossDomainPages = true;
+	});
+
+
+   function openChildBrowser(url) {
+	   window.plugins.childBrowser.showWebPage(url, { showLocationBar: true });
+	   /*
+       try {
+    	   var childBrowser;
+    	   childBrowser = new ChildBrowser();
+           childBrowser.showWebPage(url);
+          
+       }
+       catch (err)
+       {
+           alert(err);
+       }
+       */
+   }
+  
+   window.plugins.childBrowser.onClose = function () {
+	    window.plugins.childBrowser.close();
+	};
+	
+</script>
+    
 </body>
 </html>
