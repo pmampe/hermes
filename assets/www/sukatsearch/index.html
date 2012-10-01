@@ -5,8 +5,21 @@
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
   <title>Search persons</title>
 
+  <link rel="stylesheet"  href="../css/jquery.mobile-1.1.1.css" />
+
   <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>
   <!-- script src="http://debug.phonegap.com/target/target-script-min.js#fookaka"></script -->
+
+  <script type="text/template" id="search_template">
+    <div id='search_form'>
+      <fieldset data-role="controlgroup">
+        <label for="search_input"></label>
+        <input name="" id="search_input" placeholder="" value="" type="search" />
+        <input type="button" id="search_button" value="Search" />
+      </fieldset>
+    </div>
+    <div id='result_content'></div>
+  </script>
 
   <script type="text/template" id="result_template">
     <div id='result_header'>Result header</div>
@@ -32,6 +45,6 @@
     $(document).ready(function() {startModule() })
   </script>
 
-  <div id="search_view">Search employees</div>
+  <div id="search_view"></div>
 </body>
 </html>
