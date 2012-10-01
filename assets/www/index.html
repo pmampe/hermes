@@ -61,14 +61,8 @@
 	    <div data-role="content" style="/*padding: 15px*/">
 	        <div class="ui-grid-c">
 	            <div class="ui-block-a">
-					<a id="sukat_search_button" href="#"><img src="img/icons/Address_Book.png"></a>
+					<a onclick="ontap=openChildBrowser('sukatsearch/index.html',null)"><img src="img/icons/Address_Book.png"></a>
 	            </div>
-
-                <script>
-                  $("#sukat_search_button").live("tap", function () {
-                    window.location.href = "sukatsearch/index.html";
-                  });
-                </script>
 
 	            <div class="ui-block-b">
 					<a href="http://www-test.su.se"><img src="img/icons/Announcement.png"></a>
@@ -98,8 +92,8 @@
 					<img src="img/icons/Stats.png">
 	            </div>
 	            <div class="ui-block-c">
-					<img src="img/icons/System.png">
-	            </div>
+                  <a onclick="ontap=openChildBrowser('https://mondo.su.se/portal/pda',null)"><img src="img/icons/System.png"></a>
+                </div>
 	            <div class="ui-block-d">	              
 					<a onclick="ontap=openChildBrowser('http://www-test.su.se',null)"><img src="img/icons/Web.png"></a>									
 	            </div>
