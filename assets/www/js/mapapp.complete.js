@@ -87,7 +87,15 @@ function showCurrentPosition (curCoords, accuracy) {
 		'position': curCoords,
 		'poiType': 'geo'
 	}).click(function() {
-		$('#map_canvas').gmap('openInfoWindow', { 'content': 'You are here!' }, this);
+		var image = getImagePathVariable();	
+		if(image){
+		  var html = '<div><img src=' + image + ' width=300 height=300>';
+		  $('#map_canvas').gmap('openInfoWindow', { 'content': html }, this);
+		  setImagePathVariable(null);
+		}
+		else{
+		  $('#map_canvas').gmap('openInfoWindow', { 'content': 'You are here!' }, this);
+		}
 	});
 }
 
@@ -123,6 +131,9 @@ $('#page-home').live("pageinit", function() {
 
 //Create the map then make 'displayDirections' request
 $('#page-map').live("pageinit", function() {
+	
+	
+	
     $('#map_canvas').gmap({'center' : mapdata.destination,
     	'zoom': 12,
         'mapTypeControl' : true, 
@@ -130,7 +141,19 @@ $('#page-map').live("pageinit", function() {
         'navigationControlOptions' : {'position':google.maps.ControlPosition.LEFT_TOP}
         })
     .bind('init', function() {
-        $('.refresh').trigger('tap');        
+        $('.refresh').trigger('tap');  
+        
+        
+        
+        
+  
+        
+        
+        
+        
+        
+        
+        
     });
     
 });
