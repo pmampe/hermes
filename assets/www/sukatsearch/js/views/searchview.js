@@ -15,7 +15,7 @@ var SearchView = Backbone.View.extend({
   },
 
   events: {
-    "click input[type=button]": "doSearch"
+    "click a[id=search_button]": "doSearch"
   },
 
   doSearch: function( event ){
@@ -34,6 +34,9 @@ var SearchView = Backbone.View.extend({
     _.each(this.collection.models, function (item) {
       that.renderPerson(item);
     });
+
+    $('#search_page').trigger( "pagecreate" );
+    $('#search_page').listview('refresh');
   },
 
   renderPerson: function (item) {
