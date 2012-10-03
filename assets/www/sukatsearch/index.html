@@ -48,11 +48,28 @@
 
   <script type="text/template" id="personDetailsTemplate">
     <h2><%= displayName %></h2>
-    Username: <%= uid %><br />
-    E-mail: <%= mail %><br />
-    Phone: <%= telephoneNumber %><br />
 
-    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Madison, WI&amp;zoom=14&amp;size=150x150&amp;markers=Madison, WI&amp;sensor=false" height="150" width="150" />
+    <b>Username:</b> <%= uid %><br />
+    <b>E-mail:</b> <%= mail %><br />
+    <b>Phone:</b> <%= telephoneNumber %><br />
+
+    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Stockholm University&amp;zoom=14&amp;size=100x100&amp;markers=Universitetsvägen 10D&amp;sensor=false" height="100" width="100" />
+
+    <a id="add_contact_button" href="#" data-role="button">
+      Add to contacts
+    </a>
+
+    <a id="make_call_button" href="tel:<%= telephoneNumber %>" data-role="button">
+      Call
+    </a>
+
+    <a id="make_sms_button" href="sms:<%= telephoneNumber %>" data-role="button">
+      SMS
+    </a>
+
+    <a id="send_mail_button" href="mailto:<%= mail %>" data-role="button">
+      Send mail
+    </a>
   </script>
 
   <!-- maximum scale added to stop zoom on select controls -->

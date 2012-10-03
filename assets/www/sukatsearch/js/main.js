@@ -12,7 +12,7 @@ function startModule() {
       itemId = $('#details_page').jqmData('itemId'),
       itemModel = searchView.collection.get(itemId);
 
-    itemDetailsView = new PersonDetailsView({model: itemModel, viewContainer: itemsDetailsContainer});
+    itemDetailsView = new PersonDetailsView({el:$('#details_view'), model: itemModel, viewContainer: itemsDetailsContainer});
     itemDetailsView.render();
   });
 }
