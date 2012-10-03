@@ -44,6 +44,12 @@ var SearchView = Backbone.View.extend({
       model:item
     });
 
-    this.$el.find('#result_list').append(personView.render().el);
+    var $item = personView.render().el;
+    $item.jqmData('itemId', item.get('id'));
+    $item.bind('click', function() {
+      $('#details_page').jqmData('itemId', $(this).jqmData('itemId'));
+    });
+
+    this.$el.find('#result_list').append($item);
   }
 });

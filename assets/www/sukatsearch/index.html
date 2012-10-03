@@ -40,10 +40,19 @@
 
   <script type="text/template" id="personTemplate">
     <li data-theme="c">
-      <a data-transition="slide" href="#">
-        <%= givenName %> <%= sn %> (<%= uid %>)
+      <a data-transition="slide" href="#details_page"  identifier="person_<%= uid %>">
+        <%= displayName %> (<%= uid %>)
       </a>
     </li>
+  </script>
+
+  <script type="text/template" id="personDetailsTemplate">
+    <h2><%= displayName %></h2>
+    Username: <%= uid %><br />
+    E-mail: <%= mail %><br />
+    Phone: <%= telephoneNumber %><br />
+
+    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Madison, WI&amp;zoom=14&amp;size=150x150&amp;markers=Madison, WI&amp;sensor=false" height="150" width="150" />
   </script>
 
   <!-- maximum scale added to stop zoom on select controls -->
@@ -62,8 +71,19 @@
   <script type="text/javascript">
     $(document).ready(function() {startModule() })
   </script>
-  <div id="search_page" data-role="page">
+
+  <div id="search_page" data-role="page" data-add-back-btn="true">
+    <div data-theme="a" data-role="header">
+      <h3>Contacts</h3>
+    </div>
     <div id="search_view" data-role="content"></div>
+  </div>
+
+  <div id="details_page" data-role="page" data-add-back-btn="true">
+    <div data-theme="a" data-role="header">
+      <h3>Contact details</h3>
+    </div>
+    <div id="details_view" data-role="content"></div>
   </div>
 </body>
 </html>
