@@ -13,7 +13,6 @@
 	<script src="js/jquery-1.8.1.js"></script>
 	<script src="js/jquery.mobile-1.1.1.js"></script>
 	
-	
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script src="js/jquery.ui.map/jquery.ui.map.js"></script>
 	<script src="js/jquery.ui.map/jquery.ui.map.services.js"></script>
@@ -97,14 +96,17 @@
 					<img src="img/icons/Stats.png">
 	            </div>
 	            <div class="ui-block-c">
-                  <a onclick="ontap=openChildBrowser('https://mondo.su.se/portal/pda',null)"><img src="img/icons/System.png"></a>
-                </div>
+					<a href="#page-camera"><img src="img/icons/System.png"></a>
+	            </div>
+          
 	            <div class="ui-block-d">	              
 					<a onclick="ontap=openChildBrowser('http://www-test.su.se',null)"><img src="img/icons/Web.png"></a>									
 	            </div>
 				<div class="ui-block-a">
 					<a onclick="ontap=openChildBrowser('http://www.sub.su.se/mobil',null)"><img src="img/icons/Library.png"></a>
 	            </div>
+	            
+	           
 	            
 	        </div>
 	    </div>
@@ -243,6 +245,75 @@
 	};
 	
 </script>
+    
+    
+   <div data-role="page"  data-fullscreen="true" id="page-camera"> 
+    
+    
+    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    
+    
+    
+    <!-- 
+    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+     -->
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />  
+    
+   </div> 
+    
+    
+        <script type="text/javascript" charset="utf-8">
+
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value 
+    
+    
+    // Wait for PhoneGap to connect with the device
+        
+    document.addEventListener("deviceready",onDeviceReady,false);
+
+    // PhoneGap is ready to be used!
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {  	
+    setImagePathVariable(imageData);	
+	$.mobile.changePage($("#page-map"));
+    } 
+
+    function capturePhoto() {
+     navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });           
+    }
+    
+    // Called if something bad happens.
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+    
+    
+    function setImagePathVariable(variable)
+    {
+        window.imagePath = variable;
+    }
+
+    function getImagePathVariable()
+    {
+        return(window.imagePath); 
+    }
+    
+    
+    
+
+    </script>
+    
     
 </body>
 </html>
