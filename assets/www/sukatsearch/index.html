@@ -12,7 +12,7 @@
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>
 
-  <script src="../js/jquery-1.8.1.js"></script>
+  <script src="../js/jquery-1.8.2.min.js"></script>
   <script src="../js/jquery.mobile-1.1.1.min.js"></script>
   <script src="js/jquery-mobile-custom.js"></script>
   <!-- script src="http://debug.phonegap.com/target/target-script-min.js#fookaka"></script -->
@@ -86,12 +86,15 @@
   <script src="js/main.js"></script>
 
   <script type="text/javascript">
-    $(document).ready(function() {startModule() })
+    $(document).ready(function() { startModule() })
   </script>
 
-  <div id="search_page" data-role="page" data-add-back-btn="true">
+  <div id="search_page" data-role="page">
     <div data-theme="a" data-role="header">
       <h3>Contacts</h3>
+      <a data-role="button" rel="external" data-ajax="false" data-transition="slide" href="../index.html" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+        Back
+      </a>
     </div>
     <div id="search_view" data-role="content"></div>
   </div>
