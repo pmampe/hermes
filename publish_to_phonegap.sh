@@ -9,7 +9,7 @@ TAR_FILE="su.tar.gz"
 
 rm assets/www/cordova*.js
 
-sed -i 's,cordova-2.0.0.js,phonegap.js,' assets/www/index.html
+find assets/www -type f -name \*.html -exec sed -i 's,cordova-.*\.js,phonegap.js,' {} \;
 
 rm ${TAR_FILE}
 tar -C assets/ -czvf ${TAR_FILE} www/
