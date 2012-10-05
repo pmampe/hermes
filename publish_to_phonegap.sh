@@ -7,6 +7,10 @@ TOKEN_URL="https://build.phonegap.com/token"
 API_URL="https://build.phonegap.com/api/v1/apps"
 TAR_FILE="su.tar.gz"
 
+rm assets/www/cordova*.js
+
+sed -i 's,cordova-2.0.0.js,phonegap.js,' assets/www/index.html
+
 rm ${TAR_FILE}
 tar -C assets/ -czvf ${TAR_FILE} www/
 
