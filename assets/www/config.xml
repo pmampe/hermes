@@ -31,5 +31,5 @@
   <gap:plugin name="ChildBrowser" />
 
   <access origin="http://su.se" subdomains="true" />
-  <access origin="http://*.su.se" />
+  <access origin="http://*su.se" />
 </widget>
