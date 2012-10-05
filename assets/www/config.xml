@@ -22,11 +22,16 @@
   <preference name="target-device" value="universal" />
   <preference name="fullscreen" value="false" />
 
+  <!-- Android specific -->
+
+  <preference name="android-minSdkVersion" value="8" />
+
   <icon src="icon.png" />
 
   <feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/contacts"/>
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <feature name="http://api.phonegap.com/1.0/file" />
 
   <gap:plugin name="ChildBrowser" />
 
