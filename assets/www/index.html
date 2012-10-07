@@ -12,11 +12,9 @@
   <script src="js/jquery-1.8.2.min.js"></script>
   <script src="js/jquery.mobile-1.1.1.min.js"></script>
 
-  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-  <script src="js/jquery.ui.map/jquery.ui.map.js"></script>
-  <script src="js/jquery.ui.map/jquery.ui.map.services.js"></script>
-  <script src="js/mapapp.complete.js"></script>
   <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
+  <script src="js/su-app-global.js"></script>
+  <script src="js/su-app-take-photo.js"></script>
 
   <style>
     .ui-content {
@@ -181,36 +179,6 @@
   </div><!-- /footer -->
 </div><!-- /page-dir -->
 
-<script>
-  $( document ).bind( "mobileinit", function() {
-    // Make your jQuery Mobile framework configuration changes here!
-    $.support.cors = true;
-    $.mobile.allowCrossDomainPages = true;
-  });
-  $.mobile.pushStateEnabled=false;
-  $.mobile.loadPage( 'sukatsearch/index.html', { showLoadMsg: true } );
-  $.mobile.page.prototype.options.domCache = true;
-
-  function openChildBrowser(url) {
-    window.plugins.childBrowser.showWebPage(url, { showLocationBar: true });
-    /*
-     try {
-     var childBrowser;
-     childBrowser = new ChildBrowser();
-     childBrowser.showWebPage(url);
-
-     }
-     catch (err)
-     {
-     alert(err);
-     }
-     */
-  }
-
-  window.plugins.childBrowser.onClose = function () {
-    window.plugins.childBrowser.close();
-  };
-</script>
 
 <div data-role="page"  data-fullscreen="true" id="page-camera">
   <div data-theme="a" data-role="header">
@@ -232,47 +200,12 @@
   </div>
 </div>
 
-<script type="text/javascript" charset="utf-8">
 
-  var pictureSource;   // picture source
-  var destinationType; // sets the format of returned value
 
-  // Wait for PhoneGap to connect with the device
+  <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <script src="js/jquery.ui.map/jquery.ui.map.js"></script>
+  <script src="js/jquery.ui.map/jquery.ui.map.services.js"></script>
+  <script src="js/mapapp.complete.js"></script>
 
-  document.addEventListener("deviceready",onDeviceReady,false);
-
-  // PhoneGap is ready to be used!
-  //
-  function onDeviceReady() {
-    pictureSource=navigator.camera.PictureSourceType;
-    destinationType=navigator.camera.DestinationType;
-  }
-
-  // Called when a photo is successfully retrieved
-  //
-  function onPhotoDataSuccess(imageData) {
-    setImagePathVariable(imageData);
-    $.mobile.changePage($("#page-map"));
-  }
-
-  function capturePhoto() {
-    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
-  }
-
-  // Called if something bad happens.
-  function onFail(message) {
-    alert('Failed because: ' + message);
-  }
-
-  function setImagePathVariable(variable)
-  {
-    window.imagePath = variable;
-  }
-
-  function getImagePathVariable()
-  {
-    return(window.imagePath);
-  }
-</script>
 </body>
 </html>
