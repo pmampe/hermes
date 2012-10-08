@@ -1,7 +1,10 @@
 var Person = Backbone.Model.extend({
   defaults: {
-    "givenName": 'Foo',
-    "sn": 'bar'
+    "givenName": 'Unknown',
+    "sn": 'Unknown',
+    "displayName": "Unknown",
+    "mail": "",
+    "telephoneNumber": "+468162000"
   }
 });
 
