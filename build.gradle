@@ -1,0 +1,106 @@
+import groovy.json.JsonSlurper
+import javax.net.ssl.HttpsURLConnection
+
+def archiveFile = 'su.tar.gz'
+def appId = '219084'
+def user = 'utveckling@it.su.se'
+def pass = System.getenv('PG_PASS')
+
+task replaceCordova << {
+
+  new File( 'assets/www/' ).eachFileMatch(~/cordova.*\.js/) { f -> f.delete() }
+
+  new File("assets/").eachDirRecurse() { dir ->
+    dir.eachFileMatch(~/.*\.html/) { file ->
+      def text = file.text
+      file.write(text.replaceAll(/cordova-.*\.js/,'phonegap.js'))
+    }
+  }
+}
+
+task removeTar << {
+  // Remove old zip file
+  def zipFile = new File(archiveFile)
+  zipFile.delete()
+}
+
+task buildTar(type: Tar, dependsOn: [replaceCordova, removeTar]) {
+  archiveName archiveFile
+  compression Compression.GZIP
+  includes ["www"]
+  from new File("assets/")
+}
+
+task toPhonegap(dependsOn: buildTar) {
+  doLast {
+
+    def token = getToken(user, pass)
+
+    String charset = "UTF-8"
+    String boundary = Long.toHexString(System.currentTimeMillis())
+    String CRLF = "\r\n"
+
+    def apiCall = "https://build.phonegap.com/api/v1/apps/${appId}?auth_token=${token}"
+
+    def connection = apiCall.toURL().openConnection()
+    connection.doOutput = true
+    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=${boundary}")
+    connection.requestMethod = "PUT"
+
+    OutputStream output = connection.outputStream
+    PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true)
+
+    writer << "--${boundary}" << CRLF
+    writer << "Content-Disposition: form-data; name=\"binaryFile\"; filename=\"${archiveFile}\"" << CRLF
+    writer << "Content-Type: application/x-gzip" << CRLF
+    writer << "Content-Transfer-Encoding: binary" << CRLF
+    writer << CRLF
+    writer.flush()
+
+    InputStream input = null
+    try {
+      input = new FileInputStream(new File(archiveFile))
+      byte[] buffer = new byte[1024]
+      for (int length = 0; (length = input.read(buffer)) > 0;)
+        output.write(buffer, 0, length)
+      output.flush()
+    } finally {
+      input?.close()
+    }
+
+    writer << CRLF
+    writer.flush()
+    writer << "--${boundary}--" << CRLF
+
+    writer?.close()
+
+    if(connection?.responseCode != 200)
+      throw new Exception( "Failed to publish to phonegap: ${connection?.responseCode}: ${connection?.responseMessage}" )
+    else {
+      def json = new JsonSlurper().parseText( connection?.content?.text )
+
+      if(json?.error?.size() > 0)
+        throw new Exception("Error during publish to phonegap: ${json.error}")
+      }
+    }
+  }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.2'
+}
+
+String getToken(String user, String pass) {
+
+  def authString = "${user}:${pass}".getBytes().encodeBase64().toString()
+
+  def connection = (HttpsURLConnection) "https://build.phonegap.com/token".toURL().openConnection()
+  connection.setRequestProperty("Authorization", "Basic ${authString}")
+  connection.setRequestProperty("Accept", "application/json")
+  connection.requestMethod = "POST"
+
+  if(connection?.responseCode != 200)
+    throw new Exception( "Failed to get token: ${connection?.responseCode}: ${connection?.responseMessage}" )
+
+  def json = new JsonSlurper().parseText( connection?.content?.text )
+  json?.token
+}
