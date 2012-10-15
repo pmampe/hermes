@@ -4,7 +4,7 @@ var PersonView = Backbone.View.extend({
   render:function () {
     var tmpl = _.template(this.template);
 
-    this.el = $(tmpl(this.model.toJSON()))
+    this.el = $(tmpl(this.model.toJSON()));
     return this;
   }
 });
