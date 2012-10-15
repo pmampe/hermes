@@ -9,11 +9,9 @@ var Person = Backbone.Model.extend({
 });
 
 var Persons = Backbone.Collection.extend({
-
   model: Person,
 
   url: function() {
-    return 'http://melkor.it.su.se:8080/hermes-broker/sukat/search'
+    return 'http://pgbroker-dev.it.su.se/sukat/search'
   }
-
 });
