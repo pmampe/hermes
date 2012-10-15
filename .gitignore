@@ -2,3 +2,7 @@
 .idea
 /bin
 /.classpath
+*.iml
+/build
+/out
+su.tar.gz
