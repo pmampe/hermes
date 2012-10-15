@@ -1,6 +1,31 @@
 import groovy.json.JsonSlurper
 import javax.net.ssl.HttpsURLConnection
 
+buildscript {
+  repositories{
+    maven{
+      url = 'http://kellyrob99.github.com/Jenkins-api-tour/repository'
+    }
+  }
+  dependencies {
+    classpath 'org.kar:gradle-jslint-plugin:0.2'
+  }
+}
+
+repositories{
+  mavenCentral() //needed by the plugin to retrieve the jslint jar
+}
+
+apply plugin: 'jslint'
+
+jslint {
+  inputDirs = ['assets/www/']
+  haltOnFailure = false
+  excludes = '**/cordova*.js,**/*.min.js,**/*-min.js'
+  options = 'rhino'
+  formatterType = 'html'
+}
+
 def archiveFile = 'su.tar.gz'
 def appId = '219084'
 def user = 'utveckling@it.su.se'
