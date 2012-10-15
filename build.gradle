@@ -106,9 +106,11 @@ task toPhonegap(dependsOn: buildTar) {
 
       if(json?.error?.size() > 0)
         throw new Exception("Error during publish to phonegap: ${json.error}")
-      }
+      else
+        println "Successfully published app '${json.title}' v${json.version} build nr ${json.build_count} to phonegap."
     }
   }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.2'
