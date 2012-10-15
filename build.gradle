@@ -23,7 +23,7 @@ jslint {
   haltOnFailure = false
   excludes = '**/cordova*.js,**/*.min.js,**/*-min.js'
   options = 'rhino'
-  formatterType = 'html'
+  formatterType = 'xml'
 }
 
 def archiveFile = 'su.tar.gz'
