@@ -12,6 +12,6 @@ var Persons = Backbone.Collection.extend({
   model: Person,
 
   url: function() {
-    return 'http://pgbroker-dev.it.su.se/sukat/search'
+    return 'http://pgbroker-dev.it.su.se/sukat/search';
   }
 });
