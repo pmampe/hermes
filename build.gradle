@@ -67,7 +67,7 @@ task toPhonegap(dependsOn: buildTar) {
 
     def apiCall = "https://build.phonegap.com/api/v1/apps/${appId}?auth_token=${token}"
 
-    def connection = apiCall.toURL().openConnection()
+    def connection = (HttpsURLConnection) apiCall.toURL().openConnection()
     connection.doOutput = true
     connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=${boundary}")
     connection.requestMethod = "PUT"
