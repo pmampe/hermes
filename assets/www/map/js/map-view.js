@@ -5,15 +5,10 @@ $(function() {
 		el: $('#map_canvas'),
 		
 		map: null,
-		locations: { // format [lat, lng, zoom]
-			"freskati": [59.363317, 18.0592, 15],
-			"kraftriket": [59.35774, 18.054399, 15],
-			"kista": [59.405477, 17.946543, 17],
-			"socialhs": [59.351243, 18.049204, 17]
-		},
+
 		pois: {
 			"parkering": {
-				freskati: {text:"Freskati Parkering", locations:[[59.362027, 18.060873], [59.366488, 18.060401], [59.366706, 18.055895]]},
+				frescati: {text:"Freskati Parkering", locations:[[59.362027, 18.060873], [59.366488, 18.060401], [59.366706, 18.055895]]},
 				kraftriket: {text:"Freskati Parkering", locations:[[59.357018, 18.055891], [59.356493, 18.055353]]},
 				kista: {text:"Freskati Parkering", locations:[[59.40569, 17.945758], [59.405488, 17.945886]]},
 				socialhs: {text:"Freskati Parkering", locations:[[59.350521, 18.050727], [59.351133, 18.047723]]}
@@ -108,12 +103,11 @@ $(function() {
 			//END: Tracking location with device geolocation
 		},
 		
-		centerOnLocation: function(location) {
-			if (location != "") {
-				var opts = this.locations[location];
-				var googleCoords = new google.maps.LatLng(opts[0], opts[1]);
+		centerOnLocation: function(coords, zoom) {
+			if (coords != "" && zoom != "") {
+				var googleCoords = new google.maps.LatLng(coords[0], coords[1]);
 				this.map.panTo(googleCoords);
-				this.map.setZoom(opts[2]);
+				this.map.setZoom(zoom);
 			}
 		},
 		

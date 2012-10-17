@@ -4,18 +4,37 @@ $(function() {
 
     el: $('#page-map'),
 
+    initialize: function() {
+      this.campuses = new Campuses();
+      this.campuses.on("reset", this.renderCampuses, this);
+
+      this.campuses.fetch({
+        error: function() {alert("ERROR! Failed to fetch campuses.")}
+      });
+
+      this.togglePoiType();
+    },
+
     events: {
       "change #campus": "changeCampus",
       "change #poiType": "showPOIs"
     },
 
-    initialize: function() {
-      this.togglePoiType();
+    renderCampuses: function() {
+      var template = _.template( $("#campus_template").html(), {
+        defaultOptionName: "Campus",
+        campusOptions: this.campuses.toJSON()
+      } );
+
+      this.$el.children('#page-map-header').append(template);
+      this.$el.find('#campus').selectmenu();
+      this.$el.find('#campus').selectmenu("refresh", true);
     },
 
     changeCampus: function(e, v) {
       this.togglePoiType();
-      window.MapView.centerOnLocation($("#campus").val());
+      var campus = this.campuses.get($("#campus").val());
+      window.MapView.centerOnLocation(campus.get("coords"), campus.get("zoom"));
 
       // Reset poiType (show: -- Category --), trigger change to remove pois
       $('#poiType').val("");
