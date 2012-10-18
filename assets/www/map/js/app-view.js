@@ -5,6 +5,8 @@ $(function() {
     el: $('#page-map'),
 
     initialize: function() {
+      this.togglePoiType();
+
       this.campuses = new Campuses();
       this.campuses.on("reset", this.renderCampuses, this);
 
@@ -12,7 +14,13 @@ $(function() {
         error: function() {alert("ERROR! Failed to fetch campuses.")}
       });
 
-      this.togglePoiType();
+      this.locations = new Locations();
+      //this.locations.on("reset", this.renderLocations([]), this);
+      //this.renderLocations([]);
+
+      this.locations.fetch({
+        error: function() {alert("ERROR! Failed to fetch locations.")}
+      });
     },
 
     events: {
@@ -23,12 +31,38 @@ $(function() {
     renderCampuses: function() {
       var template = _.template( $("#campus_template").html(), {
         defaultOptionName: "Campus",
-        campusOptions: this.campuses.toJSON()
+        options: this.campuses.toJSON()
       } );
 
-      this.$el.children('#page-map-header').append(template);
+      this.$el.find('#campus').replaceWith(template);
       this.$el.find('#campus').selectmenu();
       this.$el.find('#campus').selectmenu("refresh", true);
+      this.$el.trigger("refresh");
+    },
+
+    renderLocations: function(locations) {
+      var template = _.template( $("#location_template").html(), {
+        defaultOptionName: "Filter",
+        options: locations
+      } );
+
+      var type = $('#poiType').val();
+
+      this.$el.find('#poiType')
+        .find('option')
+        .remove()
+        .end()
+        .append(template)
+        .val('');
+
+      $('#poiType option[value="' + type + '"]').attr('selected', 'selected');
+
+      this.$el.find('#poiType').selectmenu();
+
+      this.togglePoiType();
+
+      this.$el.find('#poiType').selectmenu("refresh", true);
+      this.$el.trigger("refresh");
     },
 
     changeCampus: function(e, v) {
@@ -36,14 +70,30 @@ $(function() {
       var campus = this.campuses.get($("#campus").val());
       window.MapView.centerOnLocation(campus.get("coords"), campus.get("zoom"));
 
+      var locationsByCampus = this.locations.byCampus(campus.get("name"));
+
+      var types = [];
+      locationsByCampus.each(function (item) {
+        types.push(item.get("type"));
+      });
+
+      this.renderLocations(_.uniq(types));
+
       // Reset poiType (show: -- Category --), trigger change to remove pois
-      $('#poiType').val("");
       $('#poiType').trigger("change"); // doesn't work from here for some reason..
-      $('#poiType').selectmenu("refresh");
     },
 
     showPOIs: function() {
-      window.MapView.showPOIs($("#campus").val(), $('#poiType').val());
+      var campus = this.campuses.get($("#campus").val());
+      if (campus != null)
+        campus = campus.get("name");
+
+      var type = $('#poiType').val();
+
+      if (type != null && type != "") {
+        var locations = this.locations.byCampusAndType(campus, type);
+        window.MapView.showPOIs(campus, type, locations);
+      }
     },
 
     // disable poiType if no campus is chosen, else enable

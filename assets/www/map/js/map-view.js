@@ -6,18 +6,6 @@ $(function() {
 		
 		map: null,
 
-		pois: {
-			"parkering": {
-				frescati: {text:"Freskati Parkering", locations:[[59.362027, 18.060873], [59.366488, 18.060401], [59.366706, 18.055895]]},
-				kraftriket: {text:"Freskati Parkering", locations:[[59.357018, 18.055891], [59.356493, 18.055353]]},
-				kista: {text:"Freskati Parkering", locations:[[59.40569, 17.945758], [59.405488, 17.945886]]},
-				socialhs: {text:"Freskati Parkering", locations:[[59.350521, 18.050727], [59.351133, 18.047723]]}
-			},
-			"handikapstoa": {},
-			"konferans": {},
-			"mat": {}
-		},
-
 		initialize: function() {
 
 			// Stockholms Universitet
@@ -111,39 +99,29 @@ $(function() {
 			}
 		},
 		
-		showPOIs: function(location, poiType) {
+		showPOIs: function(campus, type, locations) {
 			var mapDiv = $('#map_canvas');
-			
-			if (location != "" && poiType != "") {
-				var pois = this.pois[poiType][location];
-				
-				// Add pois to map
-				if (pois) {
-					$.each(pois.locations, function(i,v) {
-						mapDiv.gmap('addMarker', {
-							'position': new google.maps.LatLng(v[0], v[1]),
-							'poiType': location + "." + poiType,
-							'visible': true
-						}).click(function() {
-							mapDiv.gmap('openInfoWindow', { content : pois.text }, this);
-						});
-					});
-				}
-				
-				
-				// Hide other pois (except geo-location)
-				mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
-					if (marker.poiType != location + "." + poiType && marker.poiType != "geo") {
-						marker.setVisible(false);
-					}
-				});
 
-			}			
+            locations.each(function(item) {
+              var itemLocation = item.get("locations");
+
+              mapDiv.gmap('addMarker', {
+                  'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+                  'poiType': item.get("campus") + "." + item.get("type"),
+                  'visible': true
+              }).click(function() {
+                  mapDiv.gmap('openInfoWindow', { content : item.get("text") }, this);
+              });
+            });
+
+            // Hide other pois (except geo-location)
+            mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
+                if (marker.poiType != campus + "." + type && marker.poiType != "geo") {
+                    marker.setVisible(false);
+                }
+            });
 		}
-
-		
 	}); //-- End of Map view
 
-	
 	window.MapView = new Map;
 });
