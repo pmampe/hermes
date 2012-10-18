@@ -19,6 +19,7 @@ $(function() {
 					navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
 					streetViewControl: false
+
 			};
 
 			// Force the height of the map to fit the window
@@ -57,11 +58,19 @@ $(function() {
 
 		showCurrentPosition: function(curCoords, animate) {
 //			console.log("curCoords = " + curCoords);
+
+
+          var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|A7B7FA",
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0,0),
+            new google.maps.Point(10, 34));
+
 			var options = {
 					'title': 'You are here!',
 					'bound': true,
 					'position': curCoords,
-					'poiType': 'geo'
+					'poiType': 'geo',
+                    'icon': pinImage
 			};
 			if (animate) options.animation = google.maps.Animation.DROP;
 
@@ -104,13 +113,14 @@ $(function() {
 
             locations.each(function(item) {
               var itemLocation = item.get("locations");
+              var text = item.get("text");
 
               mapDiv.gmap('addMarker', {
                   'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-                  'poiType': item.get("campus") + "." + item.get("type"),
+                  'poiType': campus + "." + type,
                   'visible': true
               }).click(function() {
-                  mapDiv.gmap('openInfoWindow', { content : item.get("text") }, this);
+                  mapDiv.gmap('openInfoWindow', { content: text }, this);
               });
             });
 
