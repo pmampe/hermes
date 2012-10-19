@@ -27,10 +27,10 @@ var Locations = Backbone.Collection.extend({
     }));
   },
 
-  byCampusAndType: function(campus, type){
+  byCampusAndType: function(campus, types){
     var ret = this.byCampus(campus)
     return _(ret.filter(function(data) {
-      return data.get("type") == type;
+      return _.contains(types, data.get("type"));
     }));
   }
 });

@@ -108,25 +108,29 @@ $(function() {
 			}
 		},
 		
-		showPOIs: function(campus, type, locations) {
+		showPOIs: function(campus, types, locations) {
 			var mapDiv = $('#map_canvas');
 
             locations.each(function(item) {
               var itemLocation = item.get("locations");
-              var text = item.get("text");
+              var itemText = item.get("text");
+              var itemCampus = item.get("campus");
+              var itemType = item.get("type");
 
               mapDiv.gmap('addMarker', {
                   'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-                  'poiType': campus + "." + type,
+                  'poiType': itemCampus + "." + itemType,
                   'visible': true
               }).click(function() {
-                  mapDiv.gmap('openInfoWindow', { content: text }, this);
+                  mapDiv.gmap('openInfoWindow', { content: itemText }, this);
               });
             });
 
+            var poiTypesNames = _.map(types, function(type){ return campus + "." + type; });
+
             // Hide other pois (except geo-location)
             mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
-                if (marker.poiType != campus + "." + type && marker.poiType != "geo") {
+                if (! _.contains(poiTypesNames, marker.poiType) && marker.poiType != "geo") {
                     marker.setVisible(false);
                 }
             });

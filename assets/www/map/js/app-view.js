@@ -46,7 +46,7 @@ $(function() {
         options: locations
       } );
 
-      var type = $('#poiType').val();
+      var types = $('#poiType').val();
 
       this.$el.find('#poiType')
         .find('option')
@@ -55,7 +55,7 @@ $(function() {
         .append(template)
         .val('');
 
-      $('#poiType option[value="' + type + '"]').attr('selected', 'selected');
+      $('#poiType').val(types);
 
       this.$el.find('#poiType').selectmenu();
 
@@ -88,11 +88,11 @@ $(function() {
       if (campus != null)
         campus = campus.get("name");
 
-      var type = $('#poiType').val();
+      var types = $('#poiType').val();
 
-      if (type != null && type != "") {
-        var locations = this.locations.byCampusAndType(campus, type);
-        window.MapView.showPOIs(campus, type, locations);
+      if (types != null) {
+        var locations = this.locations.byCampusAndType(campus, types);
+        window.MapView.showPOIs(campus, types, locations);
       }
     },
 
