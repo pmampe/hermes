@@ -57,13 +57,12 @@ $(function() {
 		},
 
 		showCurrentPosition: function(curCoords, animate) {
-//			console.log("curCoords = " + curCoords);
 
-
-          var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|A7B7FA",
-            new google.maps.Size(21, 34),
-            new google.maps.Point(0,0),
-            new google.maps.Point(10, 34));
+          var pinImage = new google.maps.MarkerImage(
+            'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+            new google.maps.Size(22,22),
+            new google.maps.Point(0,18),
+            new google.maps.Point(11,11));
 
 			var options = {
 					'title': 'You are here!',
