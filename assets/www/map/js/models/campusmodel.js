@@ -2,7 +2,7 @@ var Campus = Backbone.Model.extend({
   defaults: {
     "id": 0,
     "name": 'Unknown',
-    "coords": [59.363317,18.0592],
+    "coords": [59.363317, 18.0592], // Default to Frescati campus.
     "zoom": 15
   }
 });
