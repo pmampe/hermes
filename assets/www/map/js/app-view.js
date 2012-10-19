@@ -11,21 +11,39 @@ $(function() {
       this.campuses.on("reset", this.renderCampuses, this);
 
       this.campuses.fetch({
-        error: function() {alert("ERROR! Failed to fetch campuses.")}
+        error: function() { alert("ERROR! Failed to fetch campuses.") }
       });
 
       this.locations = new Locations();
-      //this.locations.on("reset", this.renderLocations([]), this);
-      //this.renderLocations([]);
+      this.locations.on("reset", this.resetLocations, this);
 
       this.locations.fetch({
-        error: function() {alert("ERROR! Failed to fetch locations.")}
+        error: function() { alert("ERROR! Failed to fetch locations.") }
       });
     },
 
     events: {
       "change #campus": "changeCampus",
       "change #poiType": "showPOIs"
+    },
+
+    resetLocations: function() {
+      var mapDiv = $('#map_canvas');
+
+      this.locations.each(function(item) {
+        var itemLocation = item.get("locations");
+        var itemText = item.get("text");
+        var itemCampus = item.get("campus");
+        var itemType = item.get("type");
+
+        mapDiv.gmap('addMarker', {
+          'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+          'poiType': itemCampus + "." + itemType,
+          'visible': false
+        }).click(function() {
+            mapDiv.gmap('openInfoWindow', { content: itemText }, this);
+          });
+      });
     },
 
     renderCampuses: function() {
