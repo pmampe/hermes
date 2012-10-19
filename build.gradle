@@ -1,19 +1,37 @@
 import groovy.json.JsonSlurper
 import javax.net.ssl.HttpsURLConnection
+import org.apache.http.client.methods.HttpPut
+import org.apache.http.impl.client.DefaultHttpClient
+import org.apache.http.entity.mime.MultipartEntity
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.content.FileBody
+import org.apache.http.HttpVersion
+import org.apache.http.params.CoreProtocolPNames
+import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy
+import org.apache.http.HttpResponse
+import org.apache.http.protocol.HttpContext
+import org.apache.http.util.EntityUtils
 
 buildscript {
   repositories{
     maven{
       url = 'http://kellyrob99.github.com/Jenkins-api-tour/repository'
     }
+    mavenCentral()
   }
   dependencies {
     classpath 'org.kar:gradle-jslint-plugin:0.2'
+    classpath 'org.apache.httpcomponents:httpclient:4.2.1'
+    classpath 'org.apache.httpcomponents:httpmime:4.2.1'
+
   }
 }
 
 repositories{
   mavenCentral() //needed by the plugin to retrieve the jslint jar
+}
+
+dependencies {
 }
 
 apply plugin: 'jslint'
@@ -56,53 +74,35 @@ task buildTar(type: Tar, dependsOn: [replaceCordova, removeTar]) {
   from new File("assets/")
 }
 
+buildTar {
+  outputs.upToDateWhen { false }
+}
+
 task toPhonegap(dependsOn: buildTar) {
   doLast {
 
     def token = getToken(user, pass)
-
-    String charset = "UTF-8"
-    String boundary = Long.toHexString(System.currentTimeMillis())
-    String CRLF = "\r\n"
-
     def apiCall = "https://build.phonegap.com/api/v1/apps/${appId}?auth_token=${token}"
 
-    def connection = (HttpsURLConnection) apiCall.toURL().openConnection()
-    connection.doOutput = true
-    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=${boundary}")
-    connection.requestMethod = "PUT"
+    DefaultHttpClient httpclient = new DefaultHttpClient();
+    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+    HttpPut httpPut = new HttpPut(apiCall)
+    httpPut.getParams().setBooleanParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE, true)
+    httpPut.setHeader("Accept", "*/*")
 
-    OutputStream output = connection.outputStream
-    PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true)
+    MultipartEntity mp = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+    FileBody fileBody = new FileBody(new File(archiveFile), "binary/octet-stream");
+    mp.addPart('file', fileBody);
+    httpPut.setEntity(mp);
+    HttpResponse response = httpclient.execute(httpPut)
 
-    writer << "--${boundary}" << CRLF
-    writer << "Content-Disposition: form-data; name=\"binaryFile\"; filename=\"${archiveFile}\"" << CRLF
-    writer << "Content-Type: application/x-gzip" << CRLF
-    writer << "Content-Transfer-Encoding: binary" << CRLF
-    writer << CRLF
-    writer.flush()
+    def status = response.statusLine.statusCode
 
-    InputStream input = null
-    try {
-      input = new FileInputStream(new File(archiveFile))
-      byte[] buffer = new byte[1024]
-      for (int length = 0; (length = input.read(buffer)) > 0;)
-        output.write(buffer, 0, length)
-      output.flush()
-    } finally {
-      input?.close()
-    }
-
-    writer << CRLF
-    writer.flush()
-    writer << "--${boundary}--" << CRLF
-
-    writer?.close()
-
-    if(connection?.responseCode != 200)
-      throw new Exception( "Failed to publish to phonegap: ${connection?.responseCode}: ${connection?.responseMessage}" )
+    if(status != 200)
+      throw new Exception( "Failed to publish to phonegap: ${status}: ${response.statusLine.reasonPhrase}" )
     else {
-      def json = new JsonSlurper().parseText( connection?.content?.text )
+
+      def json = new JsonSlurper().parseText( EntityUtils.toString(response.entity) )
 
       if(json?.error?.size() > 0)
         throw new Exception("Error during publish to phonegap: ${json.error}")
