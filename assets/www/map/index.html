@@ -48,8 +48,8 @@
 
 <script src="js/models/campusmodel.js"></script>
 <script src="js/models/locationmodel.js"></script>
-<script src="js/app-view.js"></script>
-<script src="js/map-view.js"></script>
+<script src="js/views/app-view.js"></script>
+<script src="js/views/map-view.js"></script>
 <!-- script src="js/location.js"></script -->
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map">
@@ -109,7 +109,7 @@
     <div data-role="navbar">
       <ul>
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a href="#page-map" class="refresh">Refresh</a></li>
+        <li><a href="#page-search" class="refresh">Search</a></li>
         <li><a href="#page-dir">Directions</a></li>
       </ul>
     </div><!-- /navbar -->
@@ -127,6 +127,31 @@
       <ul>
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
         <li><a href="#page-map">Map</a></li>
+      </ul>
+    </div><!-- /navbar -->
+  </div><!-- /footer -->
+</div><!-- /page-dir -->
+
+<div data-role="page" data-fullscreen="true" id="page-search">
+
+  <div data-role="content">
+    <div data-role="fieldcontain">
+      <fieldset data-role="controlgroup">
+        <label for="searchinput1">
+        </label>
+        <input name="" id="searchinput1" placeholder="" value="" type="search">
+      </fieldset>
+      <a id="search_button" href="#page-search" data-role="button">
+        Search
+      </a>
+    </div>
+  </div>
+
+  <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#page-map">Back</a></li>
+        <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
       </ul>
     </div><!-- /navbar -->
   </div><!-- /footer -->
