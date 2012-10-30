@@ -5,6 +5,7 @@ $(function() {
 		el: $('#map_canvas'),
 		map: null,
 		currLoc: null,
+		
 
 		initialize: function() {
 
@@ -76,7 +77,7 @@ $(function() {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-		        var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+				var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
 		        	"<h3>You are here!</h3>" +
 	        	"</div>";
 				self.$el.gmap('openInfoWindow', { 'content': itemText }, this);
@@ -126,6 +127,7 @@ $(function() {
             });
 		},
 		
+		
 		// origin optional parameter
 		getDirections: function(destination, origin) {
 			var orig = origin? origin: this.currLoc;
@@ -146,6 +148,7 @@ $(function() {
 				}
 			);
 		}
+		
 	}); //-- End of Map view
 
 	window.MapView = new Map;

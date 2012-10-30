@@ -48,8 +48,8 @@
 
 <script src="js/models/campusmodel.js"></script>
 <script src="js/models/locationmodel.js"></script>
-<script src="js/app-view.js"></script>
-<script src="js/map-view.js"></script>
+<script src="js/views/app-view.js"></script>
+<script src="js/views/map-view.js"></script>
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map">
 
@@ -102,13 +102,31 @@
 
   <div data-role="content" id="map-content">
     <div id="map_canvas"></div>
+
+    <div data-role="popup" id="search-popup">
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+          <label for="search_input">
+          </label>
+          <input name="" id="search_input" placeholder="" value="" type="search">
+        </fieldset>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">
+            <a id="search_button" href="#" data-role="button">Search</a>
+          </div>
+          <div class="ui-block-b">
+            <a href="#" data-rel="back" data-role="button" data-theme="a">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div><!-- /content -->
 
   <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
     <div data-role="navbar">
       <ul>
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a href="#page-map" class="refresh">Refresh</a></li>
+        <li><a href="#search-popup" data-rel="popup">Search</a></li>
         <li><a href="#page-dir">Directions</a></li>
       </ul>
     </div><!-- /navbar -->
