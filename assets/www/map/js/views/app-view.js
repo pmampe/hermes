@@ -14,6 +14,9 @@ $(function() {
         error: function() { alert("ERROR! Failed to fetch campuses.") }
       });
 
+      this.searchResults = new LocationSearchResult();
+      this.searchResults.on("reset", this.renderResultList, this);
+
       this.locations = new Locations();
       this.locations.on("reset", this.resetLocations, this);
 
@@ -24,7 +27,15 @@ $(function() {
 
     events: {
       "change #campus": "changeCampus",
-      "change #poiType": "showPOIs"
+      "change #poiType": "showPOIs",
+      "click a[id=search_button]": "doSearch"
+    },
+
+    doSearch: function( event ){
+      this.searchResults.fetch({
+        data: {q: $("#search_input").val().trim()},
+        error: function() {alert("ERROR! Failed to fetch search results.")}
+      });
     },
 
     resetLocations: function() {
@@ -50,7 +61,7 @@ $(function() {
           'icon': redPin
         }).click(function() {
             mapDiv.gmap('openInfoWindow', { content: itemText }, this);
-          });
+        });
       });
     },
 
@@ -139,6 +150,38 @@ $(function() {
         .fadeOut( 1000, function(){
           $(this).remove();
         });
+    },
+
+    renderResultList: function() {
+      var mapDiv = $('#map_canvas');
+
+      // Hide other pois (except geo-location)
+      mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
+        if (marker.poiType != "geo") {
+          marker.setVisible(false);
+        }
+      });
+
+      var redPin =    new google.maps.MarkerImage(
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
+          'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
+          'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
+          'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
+          'AAAABJRU5ErkJggg==');
+
+      this.searchResults.each(function(item) {
+        var itemLocation = item.get("locations");
+        var itemText = item.get("text");
+
+        mapDiv.gmap('addMarker', {
+          'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+          'poiType': "search_result",
+          'visible': true,
+          'icon': redPin
+        }).click(function() {
+            mapDiv.gmap('openInfoWindow', { content: itemText }, this);
+          });
+      });
     }
 
   }); //-- End of App view

@@ -28,9 +28,17 @@ var Locations = Backbone.Collection.extend({
   },
 
   byCampusAndType: function(campus, types){
-    var ret = this.byCampus(campus)
+    var ret = this.byCampus(campus);
     return _(ret.filter(function(data) {
       return _.contains(types, data.get("type"));
     }));
+  }
+});
+
+var LocationSearchResult = Backbone.Collection.extend({
+  model: Location,
+
+  url: function() {
+    return 'http://pgbroker-dev.it.su.se/geo/search';
   }
 });
