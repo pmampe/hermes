@@ -3,13 +3,14 @@ $(function() {
 	var Map = Backbone.View.extend({
 
 		el: $('#map_canvas'),
-		
 		map: null,
+		currLoc: null,
 
 		initialize: function() {
 
 			// Stockholms Universitet
 			var latlng = new google.maps.LatLng(59.364213,18.058383);
+			this.currLoc = latlng; // store current position
 
 			// Google Maps Options
 			var myOptions = {
@@ -75,7 +76,10 @@ $(function() {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				self.$el.gmap('openInfoWindow', { 'content': 'You are here!' }, this);
+		        var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+		        	"<h3>You are here!</h3>" +
+	        	"</div>";
+				self.$el.gmap('openInfoWindow', { 'content': itemText }, this);
 			});
 		},
 		
@@ -88,6 +92,7 @@ $(function() {
 						function(position) {
 							window.App.fadingMsg('Using device geolocation to get current position.');
 							var currCoords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+							self.currLoc = currCoords; // store current position
 							// accuracy = position.coords.accuracy;
 							self.showCurrentPosition(currCoords, true);
 						},
@@ -108,11 +113,10 @@ $(function() {
 		},
 		
 		showPOIs: function(campus, types, locations) {
-			var mapDiv = $('#map_canvas');
             var poiTypesNames = _.map(types, function(type){ return campus + "." + type; });
 
             // Hide other pois (except geo-location)
-            mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
+            this.$el.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
                 if (_.contains(poiTypesNames, marker.poiType) || marker.poiType == "geo") {
                     marker.setVisible(true);
                 }
@@ -120,6 +124,27 @@ $(function() {
                     marker.setVisible(false);
                 }
             });
+		},
+		
+		// origin optional parameter
+		getDirections: function(destination, origin) {
+			var orig = origin? origin: this.currLoc;
+			
+			this.$el.gmap('displayDirections', { 
+				'origin' : orig,
+				'destination' : destination,
+				'travelMode' : google.maps.DirectionsTravelMode.WALKING },
+				{ 'panel' : document.getElementById('dir_panel') },
+				function (result, status) {
+					if (status === 'OK') {
+						var center = result.routes[0].bounds.getCenter();
+						$('#map_canvas').gmap('option', 'center', center);
+						$('#map_canvas').gmap('refresh');
+					} else {
+						alert('Unable to get route');
+					}
+				}
+			);
 		}
 	}); //-- End of Map view
 

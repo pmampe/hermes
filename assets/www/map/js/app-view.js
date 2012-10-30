@@ -39,7 +39,10 @@ $(function() {
 
       this.locations.each(function(item) {
         var itemLocation = item.get("locations");
-        var itemText = item.get("text");
+        var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+        	"<h3>" + item.get("text") + "</h3>" +
+        	"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
+        "</div>";
         var itemCampus = item.get("campus");
         var itemType = item.get("type");
 
