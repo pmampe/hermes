@@ -5,6 +5,7 @@ $(function() {
 		el: $('#map_canvas'),
 		map: null,
 		currLoc: null,
+		infoWindow: null,
 		
 
 		initialize: function() {
@@ -32,6 +33,23 @@ $(function() {
 			this.map = this.$el.gmap("get", "map");
 
 			this.showCurrentPositionIfGpsAvailable();
+			
+
+			/* Using the two blocks below istead of creating a new view for
+			 * page-dir, which holds the direction details. This because
+			 * it's of the small amount of functionality.
+			 */
+			// Briefly show hint on using instruction tap/zoom
+			$('#page-dir').live("pageshow", function() {
+				window.App.fadingMsg("Tap any instruction<br/>to see details on map");
+			});
+
+			$('#page-dir table').live("tap", function() {
+				$.mobile.changePage($('#page-map'), {});
+			});
+			/* ------------------------------------------------------------- */
+			
+
 
 			/*
         // Bind an event to add tweets from the collection
@@ -57,6 +75,14 @@ $(function() {
 
 			 */
 		},
+		
+		showNewInfoWindowAndCloseOldOnesIfOpen: function(itemText, self) {
+			if (self.infoWindow) {
+				self.infoWindow.close();
+			}
+			self.infoWindow = new google.maps.InfoWindow({content: itemText});
+			self.$el.gmap('openInfoWindow', self.infoWindow, self);
+		},
 
 		showCurrentPosition: function(curCoords, animate) {
 
@@ -77,10 +103,12 @@ $(function() {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+				var itemText = "<div class='iw'>" +
 		        	"<h3>You are here!</h3>" +
 	        	"</div>";
-				self.$el.gmap('openInfoWindow', { 'content': itemText }, this);
+				
+				// TODO: Get to work
+				self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self);
 			});
 		},
 		
@@ -127,6 +155,39 @@ $(function() {
             });
 		},
 		
+		
+		renderResultList: function(searchResults) {
+			self = this;
+
+			// Hide other pois (except geo-location)
+			this.$el.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
+				if (marker.poiType != "geo") {
+					marker.setVisible(false);
+				}
+			});
+
+			var redPin =    new google.maps.MarkerImage(
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
+				'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
+				'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
+				'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
+				'AAAABJRU5ErkJggg==');
+
+			searchResults.each(function(item) {
+				var itemLocation = item.get("locations");
+				var itemText = item.get("text");
+
+				this.$el.gmap('addMarker', {
+					'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+					'poiType': "search_result",
+					'visible': true,
+					'icon': redPin
+				}).click(function() {
+					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self);
+				});
+			});
+		},
+
 		
 		// origin optional parameter
 		getDirections: function(destination, origin) {
