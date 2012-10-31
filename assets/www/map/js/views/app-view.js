@@ -1,5 +1,5 @@
 $(function() {
-
+	
   var AppView = Backbone.View.extend({
 
     el: $('#page-map'),
@@ -39,33 +39,7 @@ $(function() {
     },
 
     resetLocations: function() {
-      var mapDiv = $('#map_canvas');
-
-      var redPin =    new google.maps.MarkerImage(
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-        'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-        'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-        'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-        'AAAABJRU5ErkJggg==');
-
-      this.locations.each(function(item) {
-        var itemLocation = item.get("locations");
-        var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
-	    	"<h3>" + item.get("text") + "</h3>" +
-	    	"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
-	    "</div>";
-        var itemCampus = item.get("campus");
-        var itemType = item.get("type");
-
-        mapDiv.gmap('addMarker', {
-          'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-          'poiType': itemCampus + "." + itemType,
-          'visible': false,
-          'icon': redPin
-        }).click(function() {
-            mapDiv.gmap('openInfoWindow', { content: itemText }, this);
-        });
-      });
+    	window.MapView.resetLocations(this.locations);
     },
 
     renderCampuses: function() {
@@ -145,46 +119,8 @@ $(function() {
       }
     },
 
-    fadingMsg: function(locMsg) {
-      $("<div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div>")
-        .css({ "display": "block", "opacity": 0.9, "top": $(window).scrollTop() + 100 })
-        .appendTo( $.mobile.pageContainer )
-        .delay( 2200 )
-        .fadeOut( 1000, function(){
-          $(this).remove();
-        });
-    },
-
     renderResultList: function() {
-      var mapDiv = $('#map_canvas');
-
-      // Hide other pois (except geo-location)
-      mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
-        if (marker.poiType != "geo") {
-          marker.setVisible(false);
-        }
-      });
-
-      var redPin =    new google.maps.MarkerImage(
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-          'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-          'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-          'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-          'AAAABJRU5ErkJggg==');
-
-      this.searchResults.each(function(item) {
-        var itemLocation = item.get("locations");
-        var itemText = item.get("text");
-
-        mapDiv.gmap('addMarker', {
-          'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-          'poiType': "search_result",
-          'visible': true,
-          'icon': redPin
-        }).click(function() {
-            mapDiv.gmap('openInfoWindow', { content: itemText }, this);
-          });
-      });
+    	window.MapView.renderResultList(this.searchResults);
     }
 
   }); //-- End of App view

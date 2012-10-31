@@ -5,6 +5,7 @@ $(function() {
 		el: $('#map_canvas'),
 		map: null,
 		currLoc: null,
+		infoWindow: null,
 		
 
 		initialize: function() {
@@ -32,6 +33,24 @@ $(function() {
 			this.map = this.$el.gmap("get", "map");
 
 			this.showCurrentPositionIfGpsAvailable();
+			
+
+			/* Using the two blocks below istead of creating a new view for
+			 * page-dir, which holds the direction details. This because
+			 * it's of the small amount of functionality.
+			 */
+			// Briefly show hint on using instruction tap/zoom
+			var self = this;
+			$('#page-dir').live("pageshow", function() {
+				self.fadingMsg("Tap any instruction<br/>to see details on map");
+			});
+
+			$('#page-dir table').live("tap", function() {
+				$.mobile.changePage($('#page-map'), {});
+			});
+			/* ------------------------------------------------------------- */
+			
+
 
 			/*
         // Bind an event to add tweets from the collection
@@ -57,6 +76,29 @@ $(function() {
 
 			 */
 		},
+		
+		fadingMsg: function(locMsg) {
+			$("<div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div>")
+			.css({ "display": "block", "opacity": 0.9, "top": $(window).scrollTop() + 100 })
+			.appendTo( $.mobile.pageContainer )
+			.delay( 2200 )
+			.fadeOut( 1000, function(){
+				$(this).remove();
+			});
+		},		
+		
+		
+		/** For some reason, can't use self as callback, resulting in the function bellow having
+		 * 3 parameters instead of 2.
+		 */
+		showNewInfoWindowAndCloseOldOnesIfOpen: function(itemText, self, callback) {
+			if (self.infoWindow) {
+				self.infoWindow.close();
+			}
+			
+			self.infoWindow = new google.maps.InfoWindow({content: itemText});
+            self.$el.gmap('openInfoWindow', self.infoWindow, callback);
+		},
 
 		showCurrentPosition: function(curCoords, animate) {
 
@@ -77,10 +119,11 @@ $(function() {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+				var itemText = "<div class='iw'>" +
 		        	"<h3>You are here!</h3>" +
 	        	"</div>";
-				self.$el.gmap('openInfoWindow', { 'content': itemText }, this);
+				
+				self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this);
 			});
 		},
 		
@@ -91,14 +134,14 @@ $(function() {
 				var self = this; // once inside block bellow, this will be the function
 				navigator.geolocation.getCurrentPosition (
 						function(position) {
-							window.App.fadingMsg('Using device geolocation to get current position.');
+							self.fadingMsg('Using device geolocation to get current position.');
 							var currCoords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 							self.currLoc = currCoords; // store current position
 							// accuracy = position.coords.accuracy;
 							self.showCurrentPosition(currCoords, true);
 						},
 						function(error){
-							window.App.fadingMsg('Unable to get location\n');
+							self.fadingMsg('Unable to get location\n');
 							console.log(error);
 						});
 			}
@@ -128,7 +171,74 @@ $(function() {
 		},
 		
 		
-		// origin optional parameter
+		renderResultList: function(searchResults) {
+			// Hide other pois (except geo-location)
+			this.$el.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
+				if (marker.poiType != "geo") {
+					marker.setVisible(false);
+				}
+			});
+
+			var redPin =    new google.maps.MarkerImage(
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
+				'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
+				'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
+				'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
+				'AAAABJRU5ErkJggg==');
+
+			self = this;
+			searchResults.each(function(item) {
+				var itemLocation = item.get("locations");
+
+				self.$el.gmap('addMarker', {
+					'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+					'poiType': "search_result",
+					'visible': true,
+					'icon': redPin
+				}).click(function() {
+					var itemText = "<div class='iw'>" +
+						"<h3>" + item.get("text") + "</h3>" +
+						"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
+					"</div>";
+					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this);
+				});
+			});
+		},
+		
+		resetLocations: function(locations) {
+			var redPin =    new google.maps.MarkerImage(
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
+				'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
+				'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
+				'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
+				'AAAABJRU5ErkJggg==');
+
+			var self = this;
+			locations.each(function(item) {
+				var itemLocation = item.get("locations");
+				var itemCampus = item.get("campus");
+				var itemType = item.get("type");
+
+				self.$el.gmap('addMarker', {
+					'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+					'poiType': itemCampus + "." + itemType,
+					'visible': false,
+					'icon': redPin
+				}).click(function() {
+					var itemText = "<div class='iw'>" +
+						"<h3>" + item.get("text") + "</h3>" +
+						"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
+					"</div>";
+
+					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this);
+				});
+			});
+		},
+
+
+		
+		/** origin optional parameter, defaults to currLoc (global variable)
+		 */
 		getDirections: function(destination, origin) {
 			var orig = origin? origin: this.currLoc;
 			
