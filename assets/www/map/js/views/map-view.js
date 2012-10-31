@@ -5,6 +5,7 @@ $(function () {
 		el: $('#map_canvas'),
 		map: null,
 		currLoc: null,
+		destination: null, // used when showing directions
 		infoWindow: null,
 		
 
@@ -34,13 +35,13 @@ $(function () {
 
 			this.showCurrentPositionIfGpsAvailable();
 			
+			var self = this;
 
 			/* Using the two blocks below istead of creating a new view for
 			 * page-dir, which holds the direction details. This because
 			 * it's of the small amount of functionality.
 			 */
 			// Briefly show hint on using instruction tap/zoom
-			var self = this;
 			$('#page-dir').live("pageshow", function() {
 				self.fadingMsg("Tap any instruction<br/>to see details on map");
 			});
@@ -50,6 +51,17 @@ $(function () {
 			});
 			/* ------------------------------------------------------------- */
 			
+
+			
+			// TODO: Break out infoWindow into an own propper backbone view (functionality amounting..)
+			$(".dir-button").live("click", function() {
+				self.infoWindow.close();
+				$(".dir-button").each(function() {
+					$(this).removeClass("selected");
+				});
+				$(this).addClass("selected");
+				window.MapView.getDirections(this.id);
+			});
 
 
 			/*
@@ -87,12 +99,34 @@ $(function () {
 		/** For some reason, can't use self as callback, resulting in the function bellow having
 		 * 3 parameters instead of 2.
 		 */
-		showNewInfoWindowAndCloseOldOnesIfOpen: function(itemText, self, callback) {
+		showNewInfoWindowAndCloseOldOnesIfOpen: function(itemText, self, callback, destination) {
 			if (self.infoWindow) {
 				self.infoWindow.close();
 			}
 			
-			self.infoWindow = new google.maps.InfoWindow({content: itemText});
+			this.destination = destination? new google.maps.LatLng(destination[0], destination[1]): null;
+			
+			var destinationHtml = 			
+				'<div>Directions:</div>' +
+				'<div id="travel_modes_div" class="dir-tm kd-buttonbar kd-button">' +
+					'<a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking" title="Walking">' +
+						'<img class="dir-tm-w" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
+					'</a>' +
+					'<a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="publicTransp" title="By public transit">' +
+						'<img class="dir-tm-r" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
+					'</a>' +
+					'<a class="kd-button kd-button-right dir-button" href="javascript:void(0)" id="driving" title="By car">' +
+						'<img class="dir-tm-d" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
+					'</a>' +
+				'</div>';
+			
+			var htmlText = "<div class='iw'>" +
+				"<h3>" + itemText + "</h3>" +
+				(destination? destinationHtml: "") +
+			"</div>";
+			
+			
+			self.infoWindow = new google.maps.InfoWindow({content: htmlText});
             self.$el.gmap('openInfoWindow', self.infoWindow, callback);
 		},
 		
@@ -115,10 +149,7 @@ $(function () {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
-				"<h3>You are here!</h3>" +
-				"</div>";
-				self.$el.gmap('openInfoWindow', { 'content': itemText }, this);
+				self.showNewInfoWindowAndCloseOldOnesIfOpen("You are here!", self, this);
 			});
 		},
 
@@ -173,28 +204,20 @@ $(function () {
 				}
 			});
 
-			var redPin =    new google.maps.MarkerImage(
-				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-				'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-				'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-				'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-				'AAAABJRU5ErkJggg==');
+			var pin = searchResults.pin;
 
 			self = this;
 			searchResults.each(function(item) {
 				var itemLocation = item.get("locations");
+				var itemText = item.get("text");
 
 				self.$el.gmap('addMarker', {
 					'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
 					'poiType': "search_result",
 					'visible': true,
-					'icon': redPin
+					'icon': pin
 				}).click(function() {
-					var itemText = "<div class='iw'>" +
-						"<h3>" + item.get("text") + "</h3>" +
-						"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
-					"</div>";
-					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this);
+					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this, itemLocation);
 				});
 			});
 		},
@@ -204,6 +227,7 @@ $(function () {
 
 			var self = this;
 			locations.each(function(item) {
+				var itemText = item.get("text");
 				var itemLocation = item.get("locations");
 				var itemCampus = item.get("campus");
 				var itemType = item.get("type");
@@ -214,27 +238,34 @@ $(function () {
 					'visible': false,
 					'icon': pin
 				}).click(function() {
-					var itemText = "<div class='iw'>" +
-						"<h3>" + item.get("text") + "</h3>" +
-						"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
-					"</div>";
-
-					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this);
+					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this, itemLocation);
 				});
 			});
 		},
 
 
 		
-		/** origin optional parameter, defaults to currLoc (global variable)
+		/** @param travelMode: walking, drving or public transportation
+		 * 	@param origin: optional parameter, defaults to currLoc (global variable)
+		 * 	@param destination: optional parameter, defaults to destination (global variable)
 		 */
-		getDirections: function(destination, origin) {
+		getDirections: function(travelMode, origin, destination) {
 			var orig = origin? origin: this.currLoc;
+			var dest = destination? destination: this.destination;
+			var travMode = null;
+			
+			if (travelMode == "walking") {
+				travMode = google.maps.DirectionsTravelMode.WALKING;
+			} else if (travelMode == "driving") {
+				travMode = google.maps.DirectionsTravelMode.DRIVING;				
+			} else if (travelMode == "publicTransp") {
+				travMode = google.maps.DirectionsTravelMode.TRANSIT;				
+			}
 			
 			this.$el.gmap('displayDirections', { 
 				'origin' : orig,
-				'destination' : destination,
-				'travelMode' : google.maps.DirectionsTravelMode.WALKING },
+				'destination' : dest,
+				'travelMode' : travMode },
 				{ 'panel' : document.getElementById('dir_panel') },
 				function (result, status) {
 					if (status === 'OK') {
