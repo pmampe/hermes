@@ -1,6 +1,6 @@
-$(function() {
+$(function () {
 
-	var Map = Backbone.View.extend({
+  var Map = Backbone.View.extend({
 
 		el: $('#map_canvas'),
 		map: null,
@@ -70,10 +70,6 @@ $(function() {
               //icon: 'images/marker.png', 
               description: model.text
             });
-
-
-        });
-
 			 */
 		},
 		
@@ -99,35 +95,33 @@ $(function() {
 			self.infoWindow = new google.maps.InfoWindow({content: itemText});
             self.$el.gmap('openInfoWindow', self.infoWindow, callback);
 		},
-
+		
 		showCurrentPosition: function(curCoords, animate) {
 
-          var pinImage = new google.maps.MarkerImage(
-            'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-            new google.maps.Size(22,22),
-            new google.maps.Point(0,18),
-            new google.maps.Point(11,11));
+			var pinImage = new google.maps.MarkerImage(
+					'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+					new google.maps.Size(22,22),
+					new google.maps.Point(0,18),
+					new google.maps.Point(11,11));
 
 			var options = {
 					'title': 'You are here!',
 					'bound': true,
 					'position': curCoords,
 					'poiType': 'geo',
-                    'icon': pinImage
+					'icon': pinImage
 			};
 			if (animate) options.animation = google.maps.Animation.DROP;
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				var itemText = "<div class='iw'>" +
-		        	"<h3>You are here!</h3>" +
-	        	"</div>";
-				
-				self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this);
+				var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+				"<h3>You are here!</h3>" +
+				"</div>";
+				self.$el.gmap('openInfoWindow', { 'content': itemText }, this);
 			});
 		},
-		
-		
+
 		showCurrentPositionIfGpsAvailable: function() {
 			//START: Tracking location with device geolocation
 			if ( navigator.geolocation) {
@@ -158,7 +152,7 @@ $(function() {
 		
 		showPOIs: function(campus, types, locations) {
             var poiTypesNames = _.map(types, function(type){ return campus + "." + type; });
-
+            
             // Hide other pois (except geo-location)
             this.$el.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
                 if (_.contains(poiTypesNames, marker.poiType) || marker.poiType == "geo") {
@@ -206,12 +200,7 @@ $(function() {
 		},
 		
 		resetLocations: function(locations) {
-			var redPin =    new google.maps.MarkerImage(
-				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-				'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-				'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-				'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-				'AAAABJRU5ErkJggg==');
+		    var pin = locations.pin;
 
 			var self = this;
 			locations.each(function(item) {
@@ -223,7 +212,7 @@ $(function() {
 					'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
 					'poiType': itemCampus + "." + itemType,
 					'visible': false,
-					'icon': redPin
+					'icon': pin
 				}).click(function() {
 					var itemText = "<div class='iw'>" +
 						"<h3>" + item.get("text") + "</h3>" +
@@ -260,6 +249,6 @@ $(function() {
 		}
 		
 	}); //-- End of Map view
-
-	window.MapView = new Map;
+  
+  window.MapView = new Map;
 });

@@ -1,17 +1,19 @@
-$(function() {
-	
+$(function () {
+
   var AppView = Backbone.View.extend({
 
-    el: $('#page-map'),
+    el:$('#page-map'),
 
-    initialize: function() {
+    initialize:function () {
       this.togglePoiType();
 
       this.campuses = new Campuses();
       this.campuses.on("reset", this.renderCampuses, this);
 
       this.campuses.fetch({
-        error: function() { alert("ERROR! Failed to fetch campuses.") }
+        error:function () {
+          alert("ERROR! Failed to fetch campuses.")
+        }
       });
 
       this.searchResults = new LocationSearchResult();
@@ -21,20 +23,33 @@ $(function() {
       this.locations.on("reset", this.resetLocations, this);
 
       this.locations.fetch({
-        error: function() { alert("ERROR! Failed to fetch locations.") }
+        error:function () {
+          alert("ERROR! Failed to fetch locations.")
+        }
       });
     },
 
-    events: {
-      "change #campus": "changeCampus",
-      "change #poiType": "showPOIs",
-      "click a[id=search_button]": "doSearch"
+    events:{
+      "change #campus":"changeCampus",
+      "change #poiType":"showPOIs",
+      "click a[id=search_button]":"doSearch"
     },
 
-    doSearch: function( event ){
+    doSearch:function (event) {
+      var campus = this.campuses.get($("#campus").val());
+      var types = _.reject($('#poiType').val(), function (val) {
+        return val == "";
+      });
+
       this.searchResults.fetch({
-        data: {q: $("#search_input").val().trim()},
-        error: function() {alert("ERROR! Failed to fetch search results.")}
+        data:{
+          q:$("#search_input").val().trim(),
+          campus:campus.get('name'),
+          types:types
+        },
+        error:function () {
+          alert("ERROR! Failed to fetch search results.")
+        }
       });
     },
 
@@ -42,11 +57,11 @@ $(function() {
     	window.MapView.resetLocations(this.locations);
     },
 
-    renderCampuses: function() {
-      var template = _.template( $("#campus_template").html(), {
-        defaultOptionName: "Campus",
-        options: this.campuses.toJSON()
-      } );
+    renderCampuses:function () {
+      var template = _.template($("#campus_template").html(), {
+        defaultOptionName:"Campus",
+        options:this.campuses.toJSON()
+      });
 
       this.$el.find('#campus').replaceWith(template);
       this.$el.find('#campus').selectmenu();
@@ -54,11 +69,11 @@ $(function() {
       this.$el.trigger("refresh");
     },
 
-    renderLocations: function(locations) {
-      var template = _.template( $("#location_template").html(), {
-        defaultOptionName: "Filter",
-        options: locations
-      } );
+    renderLocations:function (locations) {
+      var template = _.template($("#location_template").html(), {
+        defaultOptionName:"Filter",
+        options:locations
+      });
 
       var types = $('#poiType').val();
 
@@ -79,9 +94,10 @@ $(function() {
       this.$el.trigger("refresh");
     },
 
-    changeCampus: function(e, v) {
+    changeCampus:function (e, v) {
       this.togglePoiType();
       var campus = this.campuses.get($("#campus").val());
+      console.log(campus);
       window.MapView.centerOnLocation(campus.get("coords"), campus.get("zoom"));
 
       var locationsByCampus = this.locations.byCampus(campus.get("name"));
@@ -97,8 +113,9 @@ $(function() {
       $('#poiType').trigger("change"); // doesn't work from here for some reason..
     },
 
-    showPOIs: function() {
+    showPOIs:function () {
       var campus = this.campuses.get($("#campus").val());
+      console.log(campus);
       if (campus != null)
         campus = campus.get("name");
 
@@ -111,7 +128,7 @@ $(function() {
     },
 
     // disable poiType if no campus is chosen, else enable
-    togglePoiType: function() {
+    togglePoiType:function () {
       if ($("#campus").val() == "") {
         $('#poiType').selectmenu("disable");
       } else {
