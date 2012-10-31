@@ -32,21 +32,22 @@ $(function() {
     },
 
     doSearch: function( event ){
+      var campus = this.campuses.get($("#campus").val());
+      var types = _.reject($('#poiType').val(), function(val){ return val == ""; });
+
       this.searchResults.fetch({
-        data: {q: $("#search_input").val().trim()},
+        data: {
+          q: $("#search_input").val().trim(),
+          campus: campus.get('name'),
+          types: types
+        },
         error: function() {alert("ERROR! Failed to fetch search results.")}
       });
     },
 
     resetLocations: function() {
       var mapDiv = $('#map_canvas');
-
-      var redPin =    new google.maps.MarkerImage(
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-        'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-        'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-        'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-        'AAAABJRU5ErkJggg==');
+      var pin = this.locations.pin;
 
       this.locations.each(function(item) {
         var itemLocation = item.get("locations");
@@ -61,7 +62,7 @@ $(function() {
           'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
           'poiType': itemCampus + "." + itemType,
           'visible': false,
-          'icon': redPin
+          'icon': pin
         }).click(function() {
             mapDiv.gmap('openInfoWindow', { content: itemText }, this);
         });
@@ -165,12 +166,7 @@ $(function() {
         }
       });
 
-      var redPin =    new google.maps.MarkerImage(
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-          'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-          'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-          'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-          'AAAABJRU5ErkJggg==');
+      var pin = this.searchResults.pin;
 
       this.searchResults.each(function(item) {
         var itemLocation = item.get("locations");
@@ -180,7 +176,7 @@ $(function() {
           'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
           'poiType': "search_result",
           'visible': true,
-          'icon': redPin
+          'icon': pin
         }).click(function() {
             mapDiv.gmap('openInfoWindow', { content: itemText }, this);
           });
