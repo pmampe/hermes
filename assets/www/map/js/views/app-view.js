@@ -1,5 +1,5 @@
 $(function() {
-
+	
   var AppView = Backbone.View.extend({
 
     el: $('#page-map'),
@@ -46,28 +46,29 @@ $(function() {
     },
 
     resetLocations: function() {
-      var mapDiv = $('#map_canvas');
-      var pin = this.locations.pin;
+        var mapDiv = $('#map_canvas');
 
-      this.locations.each(function(item) {
-        var itemLocation = item.get("locations");
-        var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
-	    	"<h3>" + item.get("text") + "</h3>" +
-	    	"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
-	    "</div>";
-        var itemCampus = item.get("campus");
-        var itemType = item.get("type");
+        var pin = this.locations.pin;
 
-        mapDiv.gmap('addMarker', {
-          'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-          'poiType': itemCampus + "." + itemType,
-          'visible': false,
-          'icon': pin
-        }).click(function() {
-            mapDiv.gmap('openInfoWindow', { content: itemText }, this);
+        this.locations.each(function(item) {
+          var itemLocation = item.get("locations");
+          var itemText = "<div style='font: 12px/1.5 Verdana, sans-serif;color: #2A3333;text-shadow:none'>" +
+  	    	"<h3>" + item.get("text") + "</h3>" +
+  	    	"<a href='javascript://noop' onclick='window.MapView.getDirections(new google.maps.LatLng(" + itemLocation[0] + "," + itemLocation[1] + "))'>Directions to here</a>" +
+  	    "</div>";
+          var itemCampus = item.get("campus");
+          var itemType = item.get("type");
+
+          mapDiv.gmap('addMarker', {
+            'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
+            'poiType': itemCampus + "." + itemType,
+            'visible': false,
+            'icon': pin
+          }).click(function() {
+              mapDiv.gmap('openInfoWindow', { content: itemText }, this);
+          });
         });
-      });
-    },
+      },
 
     renderCampuses: function() {
       var template = _.template( $("#campus_template").html(), {
@@ -157,30 +158,7 @@ $(function() {
     },
 
     renderResultList: function() {
-      var mapDiv = $('#map_canvas');
-
-      // Hide other pois (except geo-location)
-      mapDiv.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
-        if (marker.poiType != "geo") {
-          marker.setVisible(false);
-        }
-      });
-
-      var pin = this.searchResults.pin;
-
-      this.searchResults.each(function(item) {
-        var itemLocation = item.get("locations");
-        var itemText = item.get("text");
-
-        mapDiv.gmap('addMarker', {
-          'position': new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-          'poiType': "search_result",
-          'visible': true,
-          'icon': pin
-        }).click(function() {
-            mapDiv.gmap('openInfoWindow', { content: itemText }, this);
-          });
-      });
+    	window.MapView.renderResultList(this.searchResults);
     }
 
   }); //-- End of App view

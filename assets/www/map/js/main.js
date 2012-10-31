@@ -1,3 +1,11 @@
+/**
+ * DEPRICATED. 
+ * 
+ * Used for the time being for re-using functionality from earlier prototype.
+ * 
+ * Lucien
+ */
+
 function startModule() {
 // Home page
   $('#page-map').live("pageinit", function() {
