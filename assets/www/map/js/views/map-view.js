@@ -34,9 +34,10 @@ $(function () {
 			this.map = this.$el.gmap("get", "map");
 
 			this.showCurrentPositionIfGpsAvailable();
+
 			
 			var self = this;
-
+			
 			/* Using the two blocks below istead of creating a new view for
 			 * page-dir, which holds the direction details. This because
 			 * it's of the small amount of functionality.
@@ -49,13 +50,16 @@ $(function () {
 			$('#page-dir table').live("tap", function() {
 				$.mobile.changePage($('#page-map'), {});
 			});
-			/* ------------------------------------------------------------- */
+			/* ------------------------------------------------------------- */      
 			
 
-			
 			// TODO: Break out infoWindow into an own propper backbone view (functionality amounting..)
 			$(".dir-button").live("click", function() {
-				self.infoWindow.close();
+				self.infoWindow.close(); // not working for some reason..
+				
+				$("#footer-buttons1").hide();
+				$("#footer-buttons2").show();
+				
 				$(".dir-button").each(function() {
 					$(this).removeClass("selected");
 				});

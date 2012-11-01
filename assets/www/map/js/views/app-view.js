@@ -24,6 +24,7 @@ $(function () {
           alert("ERROR! Failed to fetch locations.")
         }
       });
+      
     },
 
     events:{
