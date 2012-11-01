@@ -1,11 +1,12 @@
 var SearchView = Backbone.View.extend({
 
-  campus:null,
-  types:[],
+  campus:null, // Holds the campus associated with this search
+  types:[], // Holds the filter types associated with this search
 
   initialize:function () {
     _.bindAll(this, "render", "doSearch");
 
+    // Create a collection to keep the search results.
     this.searchResults = new LocationSearchResult();
     this.searchResults.on("reset", this.renderResultList, this);
   },
@@ -17,14 +18,20 @@ var SearchView = Backbone.View.extend({
   render:function () {
     var self = this;
 
+    // Clean the filter container, to avoid duplicates.
+    var filtersContainer = this.$el.children("#search-popup-filters");
+    filtersContainer.empty();
+
+    // Add a filter button for the campus (if one is selected)
     var campus = window.App.campuses.get($("#campus").val());
     if (campus) {
       this.campus = campus.get('name');
 
-      var template = _.template($("#search-popup_campus_button_template").html(), { name:this.campus });
-      this.$el.children("#search-popup-filters").append(template);
+      var template = _.template($("#search-popup_filter_button_template").html(), { id:"search-popup_campus_button", name:this.campus });
+      filtersContainer.append(template);
     }
 
+    // Add filter buttons for the selected filter types.
     this.types = _.reject($('#poiType').val(), function (val) {
       return val == "";
     });
@@ -35,11 +42,14 @@ var SearchView = Backbone.View.extend({
       var typeId = "search-popup_type_button_" + type;
       typeIds.push(typeId);
 
-      var template = _.template($("#search-popup_type_button_template").html(), { id:typeId, name:type });
-      self.$el.children("#search-popup-filters").append(template);
+      var template = _.template($("#search-popup_filter_button_template").html(), { id:typeId, name:type });
+      filtersContainer.append(template);
     });
 
+    // Open the search popup.
     this.$el.popup("open");
+
+    // Attach functionality to clicks on the filter buttons.
 
     var campusButton = $("#search-popup_campus_button");
     if (campusButton) {
