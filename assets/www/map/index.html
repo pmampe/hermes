@@ -5,13 +5,13 @@
   <!-- maximum scale added to stop zoom on select controls -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  
+
   <title>Search persons</title>
 
-  <link rel="stylesheet" href="../css/jquery.mobile-1.2.0.min.css" />
-  <link rel="stylesheet" href="../css/jquery.mobile.theme-1.2.0.min.css" />
+  <link rel="stylesheet" href="../css/jquery.mobile-1.2.0.min.css"/>
+  <link rel="stylesheet" href="../css/jquery.mobile.theme-1.2.0.min.css"/>
 
-  <link rel="stylesheet"  href="css/mapapp.css" />
+  <link rel="stylesheet" href="css/mapapp.css"/>
 
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>
@@ -27,7 +27,7 @@
     <select name="campus" id="campus" data-native-menu="false">
       <option value=""><%= defaultOptionName %></option>
       <% _(options).each(function(item) { %>
-        <option value="<%= item.id %>"><%= item.name %></option>
+      <option value="<%= item.id %>"><%= item.name %></option>
       <% }); %>
     </select>
   </script>
@@ -35,124 +35,166 @@
   <script type="text/template" id="location_template">
     <option value=""><%= defaultOptionName %></option>
     <% _(options).each(function(item) { %>
-      <option value="<%= item %>"><%= item %></option>
+    <option value="<%= item %>"><%= item %></option>
     <% }); %>
   </script>
-  
+
+  <script type="text/template" id="search-popup_campus_button_template">
+    <a id="search-popup_campus_button" data-role="button" data-inline="true" data-mini="true" href="#"
+       data-icon="delete" data-iconpos="right"><%= name %></a>
+  </script>
+
+  <script type="text/template" id="search-popup_type_button_template">
+    <a id="<%= id %>" data-role="button" data-inline="true" data-mini="true" href="#" data-icon="delete"
+       data-iconpos="right"><%= name %></a>
+  </script>
+
   <style type="text/css">
-    .iw { /* direction text style */
+    .iw {
+      /* direction text style */
       font: 12px/1.5 Verdana, sans-serif;
       color: #2A3333;
-      text-shadow:none;
+      text-shadow: none;
     }
-    
-    
-    // --- Direction styles ---    
+
+    /
+    /
+    -
+    -
+    -
+    Direction styles
+
+    -
+    -
+    -
     .kd-buttonbar {
-        overflow: hidden;
+      overflow: hidden;
     }
-        
+
     .kd-buttonbar .kd-button:first-child {
-        margin-left: 0;
+      margin-left: 0;
     }
+
     .dir-tm .kd-button {
-        min-width: 50px;
-        padding: 0;
-        width: 50px;
+      min-width: 50px;
+      padding: 0;
+      width: 50px;
     }
+
     .kd-buttonbar .kd-button-left {
-        border-radius: 2px 0 0 2px;
+      border-radius: 2px 0 0 2px;
     }
+
     .kd-buttonbar .kd-button {
-        float: left;
-        margin: 0 0 0 16px;
-        position: relative;
-        z-index: 1;
+      float: left;
+      margin: 0 0 0 16px;
+      position: relative;
+      z-index: 1;
     }
+
     .kd-button.selected {
-        background-color: #EEEEEE;
-        background-image: -moz-linear-gradient(center top , #EEEEEE, #E0E0E0);
-        border: 1px solid #CCCCCC;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-        color: #333333;
+      background-color: #EEEEEE;
+      background-image: -moz-linear-gradient(center top, #EEEEEE, #E0E0E0);
+      border: 1px solid #CCCCCC;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+      color: #333333;
     }
+
     .kd-button-left {
-        border-radius: 2px 0 0 2px;
+      border-radius: 2px 0 0 2px;
     }
+
     .kd-button {
-        background-color: #F5F5F5;
-        background-image: -moz-linear-gradient(center top , #F5F5F5, #F1F1F1);
-        //border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 2px 2px 2px 2px;
-        color: #444444;
-        display: inline-block;
-        font-size: 85%;
-        font-weight: bold;
-        height: 27px;
-        line-height: 27px;
-        min-width: 54px;
-        padding: 0; // 8px;
-        text-align: center;
-        transition: all 0.218s ease 0s;
-    }    
-        
-        
+      background-color: #F5F5F5;
+      background-image: -moz-linear-gradient(center top, #F5F5F5, #F1F1F1);
+    / / border : 1 px solid rgba ( 0, 0, 0, 0.1 );
+      border-radius: 2px 2px 2px 2px;
+      color: #444444;
+      display: inline-block;
+      font-size: 85%;
+      font-weight: bold;
+      height: 27px;
+      line-height: 27px;
+      min-width: 54px;
+      padding: 0;
+    / / 8 px;
+      text-align: center;
+      transition: all 0.218s ease 0s;
+    }
+
     .dir-tm .kd-button img {
-        margin: 0;
-        opacity: 0.667;
-        vertical-align: -4px;
+      margin: 0;
+      opacity: 0.667;
+      vertical-align: -4px;
     }
+
     .kd-button.selected img {
-        opacity: 0.9 !important;
+      opacity: 0.9 !important;
     }
+
     .kd-button img {
-        display: inline-block;
-        margin: -3px 0 0;
-        opacity: 0.55;
-        vertical-align: middle;
+      display: inline-block;
+      margin: -3px 0 0;
+      opacity: 0.55;
+      vertical-align: middle;
     }
+
     .dir-tm-d {
-        background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -96px transparent;
-        height: 12px;
-        width: 15px;
-        margin: 10px !important;
+      background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -96px transparent;
+      height: 12px;
+      width: 15px;
+      margin: 10px !important;
     }
+
     .dir-tm-r {
-        background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -426px transparent;
-        height: 15px;
-        width: 13px;
-        margin: 8px !important;
+      background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -426px transparent;
+      height: 15px;
+      width: 13px;
+      margin: 8px !important;
     }
+
     .dir-tm-w {
-        background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -489px transparent;
-        height: 16px;
-        width: 10px;
-        margin: 6px !important;
+      background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -489px transparent;
+      height: 16px;
+      width: 10px;
+      margin: 6px !important;
     }
+
     img {
-        -moz-user-select: none;
-        border: 0 none;
-        margin: 0;
-        padding: 0;
+      -moz-user-select: none;
+      border: 0 none;
+      margin: 0;
+      padding: 0;
     }
+
     .kd-button.selected {
-        color: #333333;
+      color: #333333;
     }
-    
-    /*
-    .kd-button {
-        color: #444444;
-        font-size: 85%;
-        font-weight: bold;
-        line-height: 27px;
-        text-align: center;
-    }
-    */
-    
+
+      /*
+      .kd-button {
+          color: #444444;
+          font-size: 85%;
+          font-weight: bold;
+          line-height: 27px;
+          text-align: center;
+      }
+      */
+
     a {
-        color: #1155CC;
+      color: #1155CC;
     }
-    // --- End Direction styles ---    
+
+    /
+    /
+    -
+    -
+    -
+    End Direction styles
+
+    -
+    -
+    -
   </style>
 
 </head>
@@ -166,6 +208,7 @@
 <script src="js/models/locationmodel.js"></script>
 <script src="js/views/app-view.js"></script>
 <script src="js/views/map-view.js"></script>
+<script src="js/views/search-view.js"></script>
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map">
 
@@ -226,34 +269,41 @@
           </label>
           <input name="" id="search_input" placeholder="" value="" type="search">
         </fieldset>
-        <div class="ui-grid-a">
-          <div class="ui-block-a">
-            <a id="search_button" href="#" data-role="button">Search</a>
-          </div>
-          <div class="ui-block-b">
-            <a href="#" data-rel="back" data-role="button" data-theme="a">Cancel</a>
-          </div>
+      </div>
+      <div id="search-popup-filters">
+      </div>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">
+          <a id="search_button" href="#" data-mini="true" data-role="button">Search</a>
+        </div>
+        <div class="ui-block-b">
+          <a href="#" data-rel="back" data-mini="true" data-role="button" data-theme="a">Cancel</a>
         </div>
       </div>
     </div>
-  </div><!-- /content -->
+  </div>
+  <!-- /content -->
 
   <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
     <div data-role="navbar">
       <ul>
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a href="#search-popup" data-rel="popup">Search</a></li>
+        <li><a id="menu-search" href="#">Search</a></li>
         <li><a href="#page-dir">Directions</a></li>
       </ul>
-    </div><!-- /navbar -->
-  </div><!-- /footer -->
-</div><!-- /page-map -->
+    </div>
+    <!-- /navbar -->
+  </div>
+  <!-- /footer -->
+</div>
+<!-- /page-map -->
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-dir">
 
   <div data-role="content">
     <div id="dir_panel"></div>
-  </div><!-- /content -->
+  </div>
+  <!-- /content -->
 
   <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
     <div data-role="navbar">
@@ -261,8 +311,11 @@
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
         <li><a href="#page-map">Map</a></li>
       </ul>
-    </div><!-- /navbar -->
-  </div><!-- /footer -->
-</div><!-- /page-dir -->
+    </div>
+    <!-- /navbar -->
+  </div>
+  <!-- /footer -->
+</div>
+<!-- /page-dir -->
 </body>
 </html>
