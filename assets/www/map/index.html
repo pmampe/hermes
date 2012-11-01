@@ -5,13 +5,13 @@
   <!-- maximum scale added to stop zoom on select controls -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  
+
   <title>Search persons</title>
 
-  <link rel="stylesheet" href="../css/jquery.mobile-1.2.0.min.css" />
-  <link rel="stylesheet" href="../css/jquery.mobile.theme-1.2.0.min.css" />
+  <link rel="stylesheet" href="../css/jquery.mobile-1.2.0.min.css"/>
+  <link rel="stylesheet" href="../css/jquery.mobile.theme-1.2.0.min.css"/>
 
-  <link rel="stylesheet"  href="css/mapapp.css" />
+  <link rel="stylesheet" href="css/mapapp.css"/>
 
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.0.0.js"></script>
@@ -27,7 +27,7 @@
     <select name="campus" id="campus" data-native-menu="false">
       <option value=""><%= defaultOptionName %></option>
       <% _(options).each(function(item) { %>
-        <option value="<%= item.id %>"><%= item.name %></option>
+      <option value="<%= item.id %>"><%= item.name %></option>
       <% }); %>
     </select>
   </script>
@@ -35,10 +35,19 @@
   <script type="text/template" id="location_template">
     <option value=""><%= defaultOptionName %></option>
     <% _(options).each(function(item) { %>
-      <option value="<%= item %>"><%= item %></option>
+    <option value="<%= item %>"><%= item %></option>
     <% }); %>
   </script>
-  
+
+  <script type="text/template" id="search-popup_campus_button_template">
+    <a id="search-popup_campus_button" data-role="button" data-inline="true" data-mini="true" href="#"
+       data-icon="delete" data-iconpos="right"><%= name %></a>
+  </script>
+
+  <script type="text/template" id="search-popup_type_button_template">
+    <a id="<%= id %>" data-role="button" data-inline="true" data-mini="true" href="#" data-icon="delete"
+       data-iconpos="right"><%= name %></a>
+  </script>
 </head>
 <body>
 
@@ -50,6 +59,7 @@
 <script src="js/models/locationmodel.js"></script>
 <script src="js/views/app-view.js"></script>
 <script src="js/views/map-view.js"></script>
+<script src="js/views/search-view.js"></script>
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map">
 
@@ -76,34 +86,41 @@
           </label>
           <input name="" id="search_input" placeholder="" value="" type="search">
         </fieldset>
-        <div class="ui-grid-a">
-          <div class="ui-block-a">
-            <a id="search_button" href="#" data-role="button">Search</a>
-          </div>
-          <div class="ui-block-b">
-            <a href="#" data-rel="back" data-role="button" data-theme="a">Cancel</a>
-          </div>
+      </div>
+      <div id="search-popup-filters">
+      </div>
+      <div class="ui-grid-a">
+        <div class="ui-block-a">
+          <a id="search_button" href="#" data-mini="true" data-role="button">Search</a>
+        </div>
+        <div class="ui-block-b">
+          <a href="#" data-rel="back" data-mini="true" data-role="button" data-theme="a">Cancel</a>
         </div>
       </div>
     </div>
-  </div><!-- /content -->
+  </div>
+  <!-- /content -->
 
   <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
     <div data-role="navbar">
       <ul>
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a href="#search-popup" data-rel="popup">Search</a></li>
+        <li><a id="menu-search" href="#">Search</a></li>
         <li><a href="#page-dir">Directions</a></li>
       </ul>
-    </div><!-- /navbar -->
-  </div><!-- /footer -->
-</div><!-- /page-map -->
+    </div>
+    <!-- /navbar -->
+  </div>
+  <!-- /footer -->
+</div>
+<!-- /page-map -->
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-dir">
 
   <div data-role="content">
     <div id="dir_panel"></div>
-  </div><!-- /content -->
+  </div>
+  <!-- /content -->
 
   <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
     <div data-role="navbar">
@@ -111,8 +128,11 @@
         <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
         <li><a href="#page-map">Map</a></li>
       </ul>
-    </div><!-- /navbar -->
-  </div><!-- /footer -->
-</div><!-- /page-dir -->
+    </div>
+    <!-- /navbar -->
+  </div>
+  <!-- /footer -->
+</div>
+<!-- /page-dir -->
 </body>
 </html>

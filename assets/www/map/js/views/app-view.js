@@ -16,9 +16,6 @@ $(function () {
         }
       });
 
-      this.searchResults = new LocationSearchResult();
-      this.searchResults.on("reset", this.renderResultList, this);
-
       this.locations = new Locations();
       this.locations.on("reset", this.resetLocations, this);
 
@@ -32,29 +29,16 @@ $(function () {
     events:{
       "change #campus":"changeCampus",
       "change #poiType":"showPOIs",
-      "click a[id=search_button]":"doSearch"
+      "click a[id=menu-search]":"openSearchPopup"
     },
 
-    doSearch:function (event) {
-      var campus = this.campuses.get($("#campus").val());
-      var types = _.reject($('#poiType').val(), function (val) {
-        return val == "";
-      });
-
-      this.searchResults.fetch({
-        data:{
-          q:$("#search_input").val().trim(),
-          campus:campus.get('name'),
-          types:types
-        },
-        error:function () {
-          alert("ERROR! Failed to fetch search results.")
-        }
-      });
+    openSearchPopup:function (event) {
+      var searchView = new SearchView({ el:$('#search-popup') });
+      searchView.render();
     },
 
-    resetLocations: function() {
-    	window.MapView.resetLocations(this.locations);
+    resetLocations:function () {
+      window.MapView.resetLocations(this.locations);
     },
 
     renderCampuses:function () {
@@ -132,12 +116,7 @@ $(function () {
       } else {
         $('#poiType').selectmenu("enable");
       }
-    },
-
-    renderResultList: function() {
-    	window.MapView.renderResultList(this.searchResults);
     }
-
   }); //-- End of App view
 
   window.App = new AppView;
