@@ -4,15 +4,27 @@ var SearchView = Backbone.View.extend({
   types:[], // Holds the filter types associated with this search
 
   initialize:function () {
-    _.bindAll(this, "render", "doSearch");
+    _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "closeSearch");
 
     // Create a collection to keep the search results.
     this.searchResults = new LocationSearchResult();
     this.searchResults.on("reset", this.renderResultList, this);
+
+    this.$el.on({
+      popupbeforeposition:function () {
+        var w = $(window).width();
+        $("#search-popup").css("width", w);
+
+        var pos = $("#page-map-header").height();
+        $("#search-popup").css("top", pos);
+      }
+    });
   },
 
   events:{
-    "click a[id=search_button]":"doSearch"
+    "click a[id=search_button]":"doSearch",
+    "keypress input[id=search_input]":'doSearchOnEnter',
+    "click a[id=search_button_close]":"closeSearch"
   },
 
   render:function () {
@@ -47,7 +59,7 @@ var SearchView = Backbone.View.extend({
     });
 
     // Open the search popup.
-    this.$el.popup("open");
+    this.$el.popup("open", { transition:'slidedown'});
 
     // Attach functionality to clicks on the filter buttons.
 
@@ -74,6 +86,11 @@ var SearchView = Backbone.View.extend({
     });
   },
 
+  doSearchOnEnter:function (event) {
+    if (event.keyCode != 13) return;
+    this.doSearch(event);
+  },
+
   doSearch:function (event) {
     var self = this;
 
@@ -91,5 +108,9 @@ var SearchView = Backbone.View.extend({
 
   renderResultList:function () {
     window.MapView.renderResultList(this.searchResults);
+  },
+
+  closeSearch:function (event) {
+    this.$el.hide();
   }
 }); //-- End of Search view

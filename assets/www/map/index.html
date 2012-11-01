@@ -69,30 +69,20 @@
         </select>
       </div>
     </div>
+
   </div>
 
   <div data-role="content" id="map-content">
-    <div id="map_canvas"></div>
-
-    <div data-role="popup" id="search-popup">
+    <div data-role="popup" data-corners="false" data-theme="a" data-shadow="false" data-tolerance="0,0"
+         id="search-popup">
       <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-          <label for="search_input">
-          </label>
-          <input name="" id="search_input" placeholder="" value="" type="search">
-        </fieldset>
+        <input name="search_input" id="search_input" data-theme="a" placeholder="Enter search string" value=""
+               type="search" data-mini="true">
       </div>
-      <div id="search-popup-filters">
-      </div>
-      <div class="ui-grid-a">
-        <div class="ui-block-a">
-          <a id="search_button" href="#" data-mini="true" data-role="button">Search</a>
-        </div>
-        <div class="ui-block-b">
-          <a href="#" data-rel="back" data-mini="true" data-role="button" data-theme="a">Cancel</a>
-        </div>
-      </div>
+      <!--<a id="search_button" href="#" data-mini="true" data-role="button">Search</a>-->
+      <div id="search-popup-filters"></div>
     </div>
+    <div id="map_canvas"></div>
   </div>
   <!-- /content -->
 
