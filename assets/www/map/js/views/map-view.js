@@ -112,6 +112,9 @@ $(function () {
 					'<a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking" title="Walking">' +
 						'<img class="dir-tm-w" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
 					'</a>' +
+					'<a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="bicycling" title="Bicycling">' +
+						'<img class="dir-tm-b" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
+					'</a>' +
 					'<a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="publicTransp" title="By public transit">' +
 						'<img class="dir-tm-r" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
 					'</a>' +
@@ -256,6 +259,8 @@ $(function () {
 			
 			if (travelMode == "walking") {
 				travMode = google.maps.DirectionsTravelMode.WALKING;
+			} else if (travelMode == "bicycling") {
+				travMode = google.maps.DirectionsTravelMode.BICYCLING;				
 			} else if (travelMode == "driving") {
 				travMode = google.maps.DirectionsTravelMode.DRIVING;				
 			} else if (travelMode == "publicTransp") {
