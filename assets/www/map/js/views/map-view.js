@@ -7,6 +7,7 @@ $(function () {
 		currLoc: null,
 		destination: null, // used when showing directions
 		infoWindow: null,
+		locationName: null,
 		
 
 		initialize: function() {
@@ -62,8 +63,13 @@ $(function () {
 			.fadeOut( 1000, function(){
 				$(this).remove();
 			});
-		},		
+		},
 		
+		showInfoWindow: function(itemText, self, callback, destinationCoords) {
+			var displayDirections = destinationCoords? true: false;
+			this.destination = displayDirections? new google.maps.LatLng(destinationCoords[0], destinationCoords[1]): null;
+			window.MapInfoWindowView.render(itemText, self, callback, displayDirections);
+		},
 		
 		showCurrentPosition: function(curCoords, animate) {
 
@@ -84,7 +90,7 @@ $(function () {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				window.MapInfoWindowView.render("You are here!", self, this);
+				self.showInfoWindow("You are here!", self, this);
 			});
 		},
 
@@ -108,20 +114,44 @@ $(function () {
 			//END: Tracking location with device geolocation
 		},
 		
-		centerOnLocation: function(coords, zoom) {
+		centerOnLocation: function(coords, zoom, name) {
 			if (coords != "" && zoom != "") {
 				var googleCoords = new google.maps.LatLng(coords[0], coords[1]);
 				this.map.panTo(googleCoords);
 				this.map.setZoom(zoom);
+
+				
+				this.locationName = name;
+				
+				// TODO: choose pinImage for campusLocations or remove pinImage var
+				var pinImage = new google.maps.MarkerImage(
+						'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+						new google.maps.Size(22,22),
+						new google.maps.Point(0,18),
+						new google.maps.Point(11,11));
+
+
+				// show location pin (if wanting to get directions)
+				var self = this;
+				self.$el.gmap('addMarker', {
+					'position': googleCoords,
+					'poiType': this.locationName,
+					'visible': true,
+//					'icon': pinImage,
+					'animate': google.maps.Animation.DROP
+				}).click(function() {
+					self.showInfoWindow(name, self, this, coords);
+				});
 			}
 		},
 		
 		showPOIs: function(campus, types, locations) {
+			var self = this;
             var poiTypesNames = _.map(types, function(type){ return campus + "." + type; });
             
-            // Hide other pois (except geo-location)
+            // Hide other pois (except geo-location, and current campus)
             this.$el.gmap('find', 'markers', { 'property': 'poiType'}, function(marker, found) {
-                if (_.contains(poiTypesNames, marker.poiType) || marker.poiType == "geo") {
+                if (_.contains(poiTypesNames, marker.poiType) || marker.poiType == "geo" || marker.poiType == self.locationName) {
                     marker.setVisible(true);
                 }
                 else {
@@ -152,7 +182,7 @@ $(function () {
 					'visible': true,
 					'icon': pin
 				}).click(function() {
-					window.MapInfoWindowView.render(itemText, self, this, itemLocation);
+					self.showInfoWindow(itemText, self, this, itemLocation);
 				});
 			});
 		},
@@ -173,7 +203,7 @@ $(function () {
 					'visible': false,
 					'icon': pin
 				}).click(function() {
-					window.MapInfoWindowView.render(itemText, self, this, itemLocation);
+					self.showInfoWindow(itemText, self, this, itemLocation);
 				});
 			});
 		},

@@ -9,6 +9,7 @@ $(function () {
 		initialize: function() {
 			var self = this;
 
+			// TODO: refactor to (backbone) events: { [selector]: [function] }, couldn't get this to work. /lucien
 			$(".dir-button").live("click", function() {
 				self.remove();
 
@@ -26,15 +27,10 @@ $(function () {
 		/** For some reason, can't use self as callback, resulting in the function bellow having
 		 * both a self and a callback parameter (normally it's the same - 'this').
 		 */
-		render: function(itemText, self, callback, destinationCoords) {
+		render: function(itemText, self, callback, displayDirections) {
 			this.remove(); // remove previous infowindow
 			
-			// TODO: remove dependency to MapView
-			if (destinationCoords) {
-				window.MapView.destination = new google.maps.LatLng(destinationCoords[0], destinationCoords[1]);
-			}
-
-			var displayMode = destinationCoords? "display:inline": "display:none";
+			var displayMode = displayDirections? "display:inline": "display:none";
 			var variables = { itemText: itemText, displayMode: displayMode };
 			var template = _.template( $("#infoWindow_template").html(), variables );
 

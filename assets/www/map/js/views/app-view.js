@@ -82,7 +82,7 @@ $(function () {
     changeCampus:function (e, v) {
       this.togglePoiType();
       var campus = this.campuses.get($("#campus").val());
-      window.MapView.centerOnLocation(campus.get("coords"), campus.get("zoom"));
+      window.MapView.centerOnLocation(campus.get("coords"), campus.get("zoom"), campus.get("name"));
 
       var locationsByCampus = this.locations.byCampus(campus.get("name"));
 
