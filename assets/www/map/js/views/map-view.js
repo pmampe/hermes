@@ -52,41 +52,6 @@ $(function () {
 			});
 			/* ------------------------------------------------------------- */      
 			
-
-			// TODO: Break out infoWindow into an own propper backbone view (functionality amounting..)
-			$(".dir-button").live("click", function() {
-				self.infoWindow.close(); // not working for some reason..
-				
-				$("#footer-buttons1").hide();
-				$("#footer-buttons2").show();
-				
-				$(".dir-button").each(function() {
-					$(this).removeClass("selected");
-				});
-				$(this).addClass("selected");
-				window.MapView.getDirections(this.id);
-			});
-
-
-			/*
-        // Bind an event to add tweets from the collection
-
-        this.collection.bind('add', function(model) {
-
-            // Stores the tweet's location
-            var position = new google.maps.LatLng( model.get("geo").coordinates[0], model.get("geo").coordinates[1]); 
-
-            // Creates the marker
-            // Uncomment the 'icon' property to enable sexy markers. Get the icon Github repo:
-            // https://github.com/nhunzaker/twittermap/tree/master/images
-            var marker = new google.maps.Marker({                         
-              position: position,
-              map: map,
-              title: model.from_user,                  
-              //icon: 'images/marker.png', 
-              description: model.text
-            });
-			 */
 		},
 		
 		fadingMsg: function(locMsg) {
@@ -99,43 +64,6 @@ $(function () {
 			});
 		},		
 		
-		
-		/** For some reason, can't use self as callback, resulting in the function bellow having
-		 * 3 parameters instead of 2.
-		 */
-		showNewInfoWindowAndCloseOldOnesIfOpen: function(itemText, self, callback, destination) {
-			if (self.infoWindow) {
-				self.infoWindow.close();
-			}
-			
-			this.destination = destination? new google.maps.LatLng(destination[0], destination[1]): null;
-			
-			var destinationHtml = 			
-				'<div>Directions:</div>' +
-				'<div id="travel_modes_div" class="dir-tm kd-buttonbar kd-button">' +
-					'<a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking" title="Walking">' +
-						'<img class="dir-tm-w" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
-					'</a>' +
-					'<a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="bicycling" title="Bicycling">' +
-						'<img class="dir-tm-b" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
-					'</a>' +
-					'<a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="publicTransp" title="By public transit">' +
-						'<img class="dir-tm-r" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
-					'</a>' +
-					'<a class="kd-button kd-button-right dir-button" href="javascript:void(0)" id="driving" title="By car">' +
-						'<img class="dir-tm-d" src="http://maps.gstatic.com/mapfiles/transparent.png">' +
-					'</a>' +
-				'</div>';
-			
-			var htmlText = "<div class='iw'>" +
-				"<h3>" + itemText + "</h3>" +
-				(destination? destinationHtml: "") +
-			"</div>";
-			
-			
-			self.infoWindow = new google.maps.InfoWindow({content: htmlText});
-            self.$el.gmap('openInfoWindow', self.infoWindow, callback);
-		},
 		
 		showCurrentPosition: function(curCoords, animate) {
 
@@ -156,7 +84,7 @@ $(function () {
 
 			var self = this; // once inside block bellow, this will be the function
 			this.$el.gmap('addMarker', options).click(function() {
-				self.showNewInfoWindowAndCloseOldOnesIfOpen("You are here!", self, this);
+				window.MapInfoWindowView.render("You are here!", self, this);
 			});
 		},
 
@@ -224,7 +152,7 @@ $(function () {
 					'visible': true,
 					'icon': pin
 				}).click(function() {
-					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this, itemLocation);
+					window.MapInfoWindowView.render(itemText, self, this, itemLocation);
 				});
 			});
 		},
@@ -245,7 +173,7 @@ $(function () {
 					'visible': false,
 					'icon': pin
 				}).click(function() {
-					self.showNewInfoWindowAndCloseOldOnesIfOpen(itemText, self, this, itemLocation);
+					window.MapInfoWindowView.render(itemText, self, this, itemLocation);
 				});
 			});
 		},
