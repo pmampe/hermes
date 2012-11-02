@@ -24,7 +24,7 @@
   <!-- script src="http://debug.phonegap.com/target/target-script-min.js#fookaka"></script -->
 
   <script type="text/template" id="campus_template">
-    <select name="campus" id="campus" data-native-menu="false">
+    <select name="campus" id="campus" data-native-menu="true">
       <option value=""><%= defaultOptionName %></option>
       <% _(options).each(function(item) { %>
       <option value="<%= item.id %>"><%= item.name %></option>
@@ -89,7 +89,7 @@
         <div id="campus"></div>
       </div>
       <div class="ui-block-b">
-        <select name="poiType" id="poiType" data-native-menu="false" multiple>
+        <select name="poiType" id="poiType" data-native-menu="true" multiple>
           <option value="">Filter</option>
         </select>
       </div>
