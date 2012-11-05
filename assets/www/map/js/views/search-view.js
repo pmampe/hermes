@@ -92,6 +92,8 @@ var SearchView = Backbone.View.extend({
   },
 
   doSearch:function (event) {
+    $.mobile.loading('show', { text:'Loading search results...', textVisible: true });
+
     var self = this;
 
     this.searchResults.fetch({
@@ -102,12 +104,14 @@ var SearchView = Backbone.View.extend({
       },
       error:function () {
         alert("ERROR! Failed to fetch search results.")
+        $.mobile.loading('hide');
       }
     });
   },
 
   renderResultList:function () {
     window.MapView.renderResultList(this.searchResults);
+    $.mobile.loading('hide');
   },
 
   closeSearch:function (event) {
