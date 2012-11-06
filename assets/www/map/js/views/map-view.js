@@ -28,7 +28,6 @@ $(function () {
 			};
 
 			// Force the height of the map to fit the window
-			//this.$el.height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
 			$("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
 
 			// Add the Google Map to the page
