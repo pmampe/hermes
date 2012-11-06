@@ -28,14 +28,15 @@ $(function () {
 			};
 
 			// Force the height of the map to fit the window
-			// this.$el.height($(window).height() - $("header").height());
+			//this.$el.height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
+			$("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
 
 			// Add the Google Map to the page
 			this.$el.gmap(myOptions);
 			this.map = this.$el.gmap("get", "map");
 
 			this.showCurrentPositionIfGpsAvailable();
-
+			
 			
 			var self = this;
 			
