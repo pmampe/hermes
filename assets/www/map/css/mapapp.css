@@ -59,6 +59,7 @@
 #search-popup-popup {
   top: 0 !important;
   bottom: auto !important;
+  z-index: 99999;
 }
 
 #search-popup {
