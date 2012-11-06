@@ -59,7 +59,7 @@
 #search-popup-popup {
   top: 0 !important;
   bottom: auto !important;
-  z-index: 99999;
+  z-index: 9000001;
 }
 
 #search-popup {
@@ -67,6 +67,7 @@
   border-bottom: 1px solid #000;
   background: rgba(0, 0, 0, .5);
   margin: 0;
+  z-index: 9000002;
 }
 
 #search-popup .ui-grid-a .ui-block-a {
