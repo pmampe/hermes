@@ -24,7 +24,8 @@ $(function () {
           alert("ERROR! Failed to fetch locations.")
         }
       });
-      
+
+      this.searchView = new SearchView({ el:$('#search-popup') });
     },
 
     events:{
@@ -34,8 +35,7 @@ $(function () {
     },
 
     openSearchPopup:function (event) {
-      var searchView = new SearchView({ el:$('#search-popup') });
-      searchView.render();
+      this.searchView.render();
     },
 
     resetLocations:function () {
