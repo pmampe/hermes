@@ -1,12 +1,10 @@
-$(function () {
-
-	var InfoWindow = Backbone.View.extend({
+var InfoWindow = Backbone.View.extend({
 
 		infoWindow: null,
 		destination: null,
 
-
-		initialize: function() {
+		initialize: function(options) {
+          _.bindAll(this, 'render');
 			var self = this;
 
 			// TODO: refactor to (backbone) events: { [selector]: [function] }, couldn't get this to work. /lucien
@@ -20,7 +18,7 @@ $(function () {
 					$(this).removeClass("selected");
 				});
 				$(this).addClass("selected");
-				window.MapView.getDirections(this.id);
+				options.mapView.getDirections(this.id);
 			});
 		},
 
@@ -29,7 +27,7 @@ $(function () {
 		 */
 		render: function(itemText, self, callback, displayDirections) {
 			this.remove(); // remove previous infowindow
-			
+
 			var displayMode = displayDirections? "display:inline": "display:none";
 			var variables = { itemText: itemText, displayMode: displayMode };
 			var template = _.template( $("#infoWindow_template").html(), variables );
@@ -41,11 +39,9 @@ $(function () {
 		remove: function() {
 			if (this.infoWindow) {
 				this.infoWindow.close();
-			}			
+			}
 		}
 
 
 	}); //-- End of InfoWindow view
 
-	window.MapInfoWindowView = new InfoWindow;
-});

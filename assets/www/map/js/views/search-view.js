@@ -2,9 +2,14 @@ var SearchView = Backbone.View.extend({
 
   campus:null, // Holds the campus associated with this search
   types:[], // Holds the filter types associated with this search
+  appView: null,
+  mapView: null,
 
-  initialize:function () {
+  initialize:function (options) {
     _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "closeSearch");
+
+    this.appView = options.appView;
+    this.mapView = options.mapView;
 
     // Create a collection to keep the search results.
     this.searchResults = new LocationSearchResult();
@@ -35,7 +40,7 @@ var SearchView = Backbone.View.extend({
     filtersContainer.empty();
 
     // Add a filter button for the campus (if one is selected)
-    var campus = window.App.campuses.get($("#campus").val());
+    var campus = this.appView.campuses.get($("#campus").val());
     if (campus) {
       this.campus = campus.get('name');
 
@@ -110,7 +115,7 @@ var SearchView = Backbone.View.extend({
   },
 
   renderResultList:function () {
-    window.MapView.renderResultList(this.searchResults);
+    this.mapView.renderResultList(this.searchResults);
     $.mobile.loading('hide');
   },
 

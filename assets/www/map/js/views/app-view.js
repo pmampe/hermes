@@ -1,10 +1,8 @@
-$(function () {
-
-  var AppView = Backbone.View.extend({
-
-    el:$('#page-map'),
+var AppView = Backbone.View.extend({
 
     initialize:function () {
+      _.bindAll(this, "render", "resetLocations", "changeCampus", "showPOIs");
+
       this.togglePoiType();
 
       this.campuses = new Campuses();
@@ -25,7 +23,9 @@ $(function () {
         }
       });
 
-      this.searchView = new SearchView({ el:$('#search-popup') });
+      var self = this
+      this.mapView = new MapView({ el: $('#map_canvas'), appView:self });
+      this.searchView = new SearchView({ el:$('#search-popup'), appView: self, mapView: self.mapView });
     },
 
     events:{
@@ -39,7 +39,7 @@ $(function () {
     },
 
     resetLocations:function () {
-      window.MapView.resetLocations(this.locations);
+      this.mapView.resetLocations(this.locations);
     },
 
     renderCampuses:function () {
@@ -82,7 +82,7 @@ $(function () {
     changeCampus:function (e, v) {
       this.togglePoiType();
       var campus = this.campuses.get($("#campus").val());
-      window.MapView.centerOnLocation(campus.get("coords"), campus.get("zoom"), campus.get("name"));
+      this.mapView.centerOnLocation(campus.get("coords"), campus.get("zoom"), campus.get("name"));
 
       var locationsByCampus = this.locations.byCampus(campus.get("name"));
 
@@ -106,7 +106,7 @@ $(function () {
 
       if (types != null) {
         var locations = this.locations.byCampusAndType(campus, types);
-        window.MapView.showPOIs(campus, types, locations);
+        this.mapView.showPOIs(campus, types, locations);
       }
     },
 
@@ -118,7 +118,4 @@ $(function () {
         $('#poiType').selectmenu("enable");
       }
     }
-  }); //-- End of App view
-
-  window.App = new AppView;
 });
