@@ -22,10 +22,9 @@
   <script src="js/jquery.ui.map/jquery.ui.map.js"></script>
   <script src="js/jquery.ui.map/jquery.ui.map.overlays.js"></script>
   <script src="js/jquery.ui.map/jquery.ui.map.services.js"></script>
-  <!-- script src="http://debug.phonegap.com/target/target-script-min.js#fookaka"></script -->
 
   <script type="text/template" id="campus_template">
-    <select name="campus" id="campus" data-native-menu="true">
+    <select name="campus" data-native-menu="false" id="campus">
       <option value=""><%= defaultOptionName %></option>
       <% _(options).each(function(item) { %>
       <option value="<%= item.id %>"><%= item.name %></option>
@@ -34,7 +33,7 @@
   </script>
 
   <script type="text/template" id="location_template">
-    <option value=""><%= defaultOptionName %></option>
+    <option value="" data-placeholder="true"><%= defaultOptionName %></option>
     <% _(options).each(function(item) { %>
     <option value="<%= item %>"><%= item %></option>
     <% }); %>
@@ -90,8 +89,8 @@
         <div id="campus"></div>
       </div>
       <div class="ui-block-b">
-        <select name="poiType" id="poiType" data-native-menu="true" multiple>
-          <option value="">Filter</option>
+        <select name="poiType" id="poiType" data-native-menu="false" multiple>
+          <option value="" data-placeholder="true">Filter</option>
         </select>
       </div>
     </div>
