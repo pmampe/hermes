@@ -1,7 +1,7 @@
 var MapView = Backbone.View.extend({
 
+  model: new MapModel(),
 		map: null,
-		currLoc: null,
 		destination: null, // used when showing directions
 		infoWindow: null,
 		locationName: null,
@@ -11,20 +11,22 @@ var MapView = Backbone.View.extend({
 		initialize: function() {
           _.bindAll(this, "render", "showInfoWindow");
 
-			// Stockholms Universitet
-			var latlng = new google.maps.LatLng(59.364213,18.058383);
-			this.currLoc = latlng; // store current position
-
 			// Google Maps Options
 			var myOptions = {
 					zoom: 15,
-					center: latlng,
+					center: this.model.get('location'),
 					mapTypeControl: false,
 					navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
 					streetViewControl: false
 
 			};
+
+          var self = this;
+
+          this.model.on('change:location', function(){
+            self.showCurrentPosition(true);
+          });
 
 			// Force the height of the map to fit the window
 			$("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
@@ -33,7 +35,7 @@ var MapView = Backbone.View.extend({
 			this.$el.gmap(myOptions);
 			this.map = this.$el.gmap("get", "map");
 
-			this.showCurrentPositionIfGpsAvailable();
+			this.updateGPSPosition();
 
 
 			var self = this;
@@ -71,7 +73,7 @@ var MapView = Backbone.View.extend({
 	      this.mapInfoWindowView.render(itemText, self, callback, displayDirections);
 		},
 
-		showCurrentPosition: function(curCoords, animate) {
+		showCurrentPosition: function(animate) {
 
 			var pinImage = new google.maps.MarkerImage(
 					'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
@@ -82,7 +84,7 @@ var MapView = Backbone.View.extend({
 			var options = {
 					'title': 'You are here!',
 					'bound': true,
-					'position': curCoords,
+					'position': this.model.get('location'),
 					'poiType': 'geo',
 					'icon': pinImage
 			};
@@ -94,24 +96,21 @@ var MapView = Backbone.View.extend({
 			});
 		},
 
-		showCurrentPositionIfGpsAvailable: function() {
-			//START: Tracking location with device geolocation
+		updateGPSPosition: function() {
 			if ( navigator.geolocation) {
 				var self = this; // once inside block bellow, this will be the function
 				navigator.geolocation.getCurrentPosition (
 						function(position) {
 							self.fadingMsg('Using device geolocation to get current position.');
-							var currCoords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-							self.currLoc = currCoords; // store current position
+							self.model.setLocation(position.coords.latitude, position.coords.longitude); // store current position
+
 							// accuracy = position.coords.accuracy;
-							self.showCurrentPosition(currCoords, true);
 						},
 						function(error){
 							self.fadingMsg('Unable to get location\n');
 							console.log(error);
 						});
 			}
-			//END: Tracking location with device geolocation
 		},
 
 		centerOnLocation: function(coords, zoom, name) {
@@ -211,11 +210,11 @@ var MapView = Backbone.View.extend({
 
 
 		/** @param travelMode: walking, drving or public transportation
-		 * 	@param origin: optional parameter, defaults to currLoc (global variable)
+		 * 	@param origin: optional parameter, defaults to map location (model variable)
 		 * 	@param destination: optional parameter, defaults to destination (global variable)
 		 */
 		getDirections: function(travelMode, origin, destination) {
-			var orig = origin? origin: this.currLoc;
+			var orig = origin? origin: this.model.get('location');
 			var dest = destination? destination: this.destination;
 			var travMode = null;
 
