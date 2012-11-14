@@ -68,7 +68,7 @@ var MapView = Backbone.View.extend({
 		showInfoWindow: function(itemText, self, callback, destinationCoords) {
 			var displayDirections = destinationCoords? true: false;
 			this.destination = displayDirections? new google.maps.LatLng(destinationCoords[0], destinationCoords[1]): null;
-	      this.mapInfoWindowView.render(itemText, self, callback, displayDirections);
+			this.mapInfoWindowView.render(itemText, self, callback, displayDirections);
 		},
 
 		showCurrentPosition: function(curCoords, animate) {
@@ -183,6 +183,53 @@ var MapView = Backbone.View.extend({
 					'icon': pin
 				}).click(function() {
 					self.showInfoWindow(itemText, self, this, itemLocation);
+				});
+			});
+		},
+		
+		showParkingAreas: function(parkingAreas) {
+			var self = this;
+			
+			var pin = new google.maps.MarkerImage(
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
+				'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
+				'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
+				'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
+				'AAAABJRU5ErkJggg==');
+
+			
+			// iterate over different parking areas
+			parkingAreas.each(function(parkingArea) {
+				
+				// iterate over individual coordinates
+				var points = [];
+				$.each(parkingArea.get("coords"), function(index, point) {
+					var coord = new google.maps.LatLng(point[0], point[1])
+					/*
+					self.$el.gmap('addMarker', {
+						'position': coord,
+						'poiType': "geo",
+						'visible': true,
+						'icon': pin
+					}).click(function() {
+						self.showInfoWindow(parkingArea.get("id") + ":" + index, self, this);
+					});
+					*/
+					
+					points.push(coord);
+				});
+
+				self.$el.gmap('addShape', parkingArea.get("drawType"), {
+					'strokeColor': "#000000",
+					'strokeOpacity': 0.8,
+					'strokeWeight': 3,
+					'fillColor': "#00ff00",
+					'fillOpacity': 0.35,
+					'path': points,
+					'visible': true
+				}).click(function() {
+					var text = parkingArea.get("streetName") + ": " + parkingArea.get("info");
+					self.showInfoWindow(text, self, this);
 				});
 			});
 		},

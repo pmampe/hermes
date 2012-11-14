@@ -23,6 +23,9 @@ var AppView = Backbone.View.extend({
         }
       });
 
+      this.parkingAreas = new ParkingAreas();
+      this.parkingAreas.on("reset", this.showParkingAreas, this);
+
       var self = this
       this.mapView = new MapView({ el: $('#map_canvas'), appView:self });
       this.searchView = new SearchView({ el:$('#search-popup'), appView: self, mapView: self.mapView });
@@ -37,9 +40,13 @@ var AppView = Backbone.View.extend({
     openSearchPopup:function (event) {
       this.searchView.render();
     },
+    
+    showParkingAreas: function() {
+    	this.mapView.showParkingAreas(this.parkingAreas);
+    },
 
     resetLocations:function () {
-      this.mapView.resetLocations(this.locations);
+    	this.mapView.resetLocations(this.locations);
     },
 
     renderCampuses:function () {
@@ -103,10 +110,19 @@ var AppView = Backbone.View.extend({
         campus = campus.get("name");
 
       var types = $('#poiType').val();
-
+      
       if (types != null) {
         var locations = this.locations.byCampusAndType(campus, types);
         this.mapView.showPOIs(campus, types, locations);
+        
+        if (types.indexOf("Parkeringar") != -1) {
+          this.parkingAreas.fetch({
+            data: {campusName: campus},
+            error:function () {
+              alert("ERROR! Failed to fetch parkingAreas.")
+            }
+          });
+        }
       }
     },
 
