@@ -2,8 +2,8 @@ var SearchView = Backbone.View.extend({
 
   campus:null, // Holds the campus associated with this search
   types:[], // Holds the filter types associated with this search
-  appView: null,
-  mapView: null,
+  appView:null,
+  mapView:null,
 
   initialize:function (options) {
     _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "closeSearch");
@@ -97,7 +97,7 @@ var SearchView = Backbone.View.extend({
   },
 
   doSearch:function (event) {
-    $.mobile.loading('show', { text:'Loading search results...', textVisible: true });
+    $.mobile.loading('show', { text:'Loading search results...', textVisible:true });
 
     var self = this;
 
@@ -108,7 +108,7 @@ var SearchView = Backbone.View.extend({
         types:self.types
       },
       error:function () {
-        alert("ERROR! Failed to fetch search results.")
+        alert("ERROR! Failed to fetch search results.");
         $.mobile.loading('hide');
       }
     });
