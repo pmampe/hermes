@@ -219,15 +219,18 @@ var MapView = Backbone.View.extend({
 					points.push(coord);
 				});
 
-				self.$el.gmap('addShape', parkingArea.get("drawType"), {
-					'strokeColor': "#000000",
-					'strokeOpacity': 0.8,
-					'strokeWeight': 3,
-					'fillColor': "#00ff00",
-					'fillOpacity': 0.35,
-					'path': points,
-					'visible': true
-				}).click(function() {
+				var drawType = parkingArea.get("drawType");
+				var options = {
+						'strokeColor': "#000000",
+						'strokeOpacity': 0.8,
+						'strokeWeight': 3,
+						'fillColor': "#00ff00",
+						'fillOpacity': 0.35,
+						'visible': true
+				};
+				var pathKey = drawType == "Polyline"? "path": "paths";
+				options[pathKey] = points;
+				self.$el.gmap('addShape', drawType, options).click(function() {
 					var text = parkingArea.get("streetName") + ": " + parkingArea.get("info");
 					self.showInfoWindow(text, self, this);
 				});
