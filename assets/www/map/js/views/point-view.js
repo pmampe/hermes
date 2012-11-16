@@ -12,6 +12,12 @@ var PointView = Backbone.View.extend({
       map:null
     });
 
+    var self = this;
+
+    this.model.on('change:locations', function () {
+      self.marker.setPosition(self.model.getGLocation());
+    });
+
     // render the initial point state
     this.render();
   },
