@@ -1,8 +1,10 @@
 var ParkingArea = Backbone.Model.extend({
 	defaults: {
 		"id": 0,
+		"dirctionAware": false,
 		"coords": [],
 		"streetName": "",
+		"text": "Test street",
 		"info": "",
 		"type": 'unknown',
 		"objectId": "",

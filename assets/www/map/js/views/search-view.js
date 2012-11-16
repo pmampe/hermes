@@ -1,19 +1,12 @@
 var SearchView = Backbone.View.extend({
 
-  campus:null, // Holds the campus associated with this search
   types:[], // Holds the filter types associated with this search
-  appView: null,
-  mapView: null,
 
   initialize:function (options) {
     _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "closeSearch");
 
-    this.appView = options.appView;
-    this.mapView = options.mapView;
-
-    // Create a collection to keep the search results.
-    this.searchResults = new LocationSearchResult();
-    this.searchResults.on("reset", this.renderResultList, this);
+    this.campus = options.campus;
+    this.searchResults = options.searchResults;
 
     this.$el.on({
       popupbeforeposition:function () {
@@ -40,10 +33,7 @@ var SearchView = Backbone.View.extend({
     filtersContainer.empty();
 
     // Add a filter button for the campus (if one is selected)
-    var campus = this.appView.campuses.get($("#campus").val());
-    if (campus) {
-      this.campus = campus.get('name');
-
+    if (this.campus) {
       var template = _.template($("#search-popup_filter_button_template").html(), { id:"search-popup_campus_button", name:this.campus });
       filtersContainer.append(template);
     }
@@ -97,7 +87,7 @@ var SearchView = Backbone.View.extend({
   },
 
   doSearch:function (event) {
-    $.mobile.loading('show', { text:'Loading search results...', textVisible: true });
+    $.mobile.loading('show', { text:'Loading search results...', textVisible:true });
 
     var self = this;
 
@@ -108,15 +98,10 @@ var SearchView = Backbone.View.extend({
         types:self.types
       },
       error:function () {
-        alert("ERROR! Failed to fetch search results.")
+        alert("ERROR! Failed to fetch search results.");
         $.mobile.loading('hide');
       }
     });
-  },
-
-  renderResultList:function () {
-    this.mapView.renderResultList(this.searchResults);
-    $.mobile.loading('hide');
   },
 
   closeSearch:function (event) {

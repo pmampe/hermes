@@ -44,27 +44,28 @@
   </script>
 
   <script type="text/template" id="infoWindow_template">
-	<div class='iw'>
-	  <h3><%= itemText %></h3>
+    <div class='iw'>
+      <h3><%= itemText %></h3>
 
-	  <div id="directions" style="<%= displayMode %>">
-		<div>Directions:</div>
-		<div id="travel_modes_div" class="dir-tm kd-buttonbar kd-button">
-		  <a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking" title="Walking">
-			<img class="dir-tm-w" src="http://maps.gstatic.com/mapfiles/transparent.png">
-		  </a>
-		  <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="bicycling" title="Bicycling">
-			<img class="dir-tm-b" src="http://maps.gstatic.com/mapfiles/transparent.png">
-		  </a>
-		  <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="publicTransp" title="By public transit">
-			<img class="dir-tm-r" src="http://maps.gstatic.com/mapfiles/transparent.png">
-		  </a>
-		  <a class="kd-button kd-button-right dir-button" href="javascript:void(0)" id="driving" title="By car">
-			<img class="dir-tm-d" src="http://maps.gstatic.com/mapfiles/transparent.png">
-		  </a>
-		</div>
-	  </div>
-	</div>
+      <div id="directions" style="<%= displayMode %>">
+        <div>Directions:</div>
+        <div id="travel_modes_div" class="dir-tm kd-buttonbar kd-button">
+          <a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking" title="Walking">
+            <img class="dir-tm-w" src="http://maps.gstatic.com/mapfiles/transparent.png">
+          </a>
+          <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="bicycling" title="Bicycling">
+            <img class="dir-tm-b" src="http://maps.gstatic.com/mapfiles/transparent.png">
+          </a>
+          <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="publicTransp"
+             title="By public transit">
+            <img class="dir-tm-r" src="http://maps.gstatic.com/mapfiles/transparent.png">
+          </a>
+          <a class="kd-button kd-button-right dir-button" href="javascript:void(0)" id="driving" title="By car">
+            <img class="dir-tm-d" src="http://maps.gstatic.com/mapfiles/transparent.png">
+          </a>
+        </div>
+      </div>
+    </div>
   </script>
 </head>
 <body>
@@ -76,15 +77,19 @@
 <script src="js/models/campusmodel.js"></script>
 <script src="js/models/locationmodel.js"></script>
 <script src="js/models/parkingAreaModel.js"></script>
+<script src="js/models/map-model.js"></script>
+<script src="js/views/point-view.js"></script>
 <script src="js/views/search-view.js"></script>
 <script src="js/views/map-infoWindow-view.js"></script>
 <script src="js/views/map-view.js"></script>
 <script src="js/views/app-view.js"></script>
 <script src="js/main.js"></script>
 
-  <script type="text/javascript">
-    $(document).ready(function() { startModule() })
-  </script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    startModule()
+  })
+</script>
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map">
 
@@ -94,12 +99,9 @@
         <div id="campus"></div>
       </div>
       <div class="ui-block-b">
-        <select name="poiType" id="poiType" data-native-menu="false" multiple>
-          <option value="" data-placeholder="true">Filter</option>
-        </select>
+        <select name="poiType" id="poiType" data-native-menu="false" multiple></select>
       </div>
     </div>
-
   </div>
 
   <div data-role="content" id="map-content">
