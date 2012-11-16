@@ -5,12 +5,8 @@ var SearchView = Backbone.View.extend({
   initialize:function (options) {
     _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "closeSearch");
 
-    this.mapView = options.mapView;
     this.campus = options.campus;
-
-    // Create a collection to keep the search results.
-    this.searchResults = new LocationSearchResult();
-    this.searchResults.on("reset", this.renderResultList, this);
+    this.searchResults = options.searchResults;
 
     this.$el.on({
       popupbeforeposition:function () {
@@ -106,11 +102,6 @@ var SearchView = Backbone.View.extend({
         $.mobile.loading('hide');
       }
     });
-  },
-
-  renderResultList:function () {
-    this.mapView.renderResultList(this.searchResults);
-    $.mobile.loading('hide');
   },
 
   closeSearch:function (event) {

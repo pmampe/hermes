@@ -50,8 +50,7 @@ var AppView = Backbone.View.extend({
     if (campus)
       campus = campus.get('name');
 
-    var searchView = new SearchView({ el:$('#search-popup'), campus:campus, mapView:this.mapView });
-    searchView.render();
+    this.mapView.showSearchView(campus);
   },
 
   renderCampuses:function () {

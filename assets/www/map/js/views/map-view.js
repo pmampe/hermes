@@ -9,7 +9,7 @@ var MapView = Backbone.View.extend({
 
 
   initialize:function () {
-    _.bindAll(this, "render", "showInfoWindow");
+    _.bindAll(this, "render", "showInfoWindow", "resetSearchResults", "resetLocations");
 
     // Google Maps Options
     var myOptions = {
@@ -42,7 +42,10 @@ var MapView = Backbone.View.extend({
     });
 
     this.locations = new Locations();
+    this.searchResults = new LocationSearchResult();
+
     this.locations.on("reset", this.resetLocations, this);
+    this.searchResults.on("reset", this.resetSearchResults, this);
 
     this.pointViews = {};
 
@@ -94,6 +97,11 @@ var MapView = Backbone.View.extend({
     var displayDirections = destinationCoords ? true : false;
     this.destination = displayDirections ? destinationCoords : null;
     this.mapInfoWindowView.render(itemText, self, callback, displayDirections);
+  },
+
+  showSearchView:function (campus) {
+    var searchView = new SearchView({ el:$('#search-popup'), campus:campus, searchResults:this.searchResults });
+    searchView.render();
   },
 
   updateCurrentPosition:function () {
@@ -167,36 +175,16 @@ var MapView = Backbone.View.extend({
     });
   },
 
-
-  renderResultList:function (searchResults) {
-    // Hide other pois (except geo-location)
-    this.$el.gmap('find', 'markers', { 'property':'poiType'}, function (marker, found) {
-      if (marker.poiType != "geo") {
-        marker.setVisible(false);
-      }
-    });
-
-    this.locations.reset();
-
-    var pin = searchResults.pin;
-
-    self = this;
-    searchResults.each(function (item) {
-      var itemLocation = item.get("locations");
-      var itemText = item.get("text");
-
-      self.$el.gmap('addMarker', {
-        'position':new google.maps.LatLng(itemLocation[0], itemLocation[1]),
-        'poiType':"search_result",
-        'visible':true,
-        'icon':item.get('pin')
-      }).click(function () {
-            self.showInfoWindow(itemText, self, this, new google.maps.LatLng(itemLocation[0], itemLocation[1]));
-          });
-    });
+  resetSearchResults:function () {
+    this.replacePoints(this.searchResults);
+    $.mobile.loading('hide');
   },
 
   resetLocations:function () {
+    this.replacePoints(this.locations);
+  },
+
+  replacePoints:function (newPoints) {
     var self = this;
 
     _.each(_.values(self.pointViews), function (pointView) {
@@ -208,7 +196,7 @@ var MapView = Backbone.View.extend({
       delete self.pointViews[k];
     }
 
-    this.locations.each(function (item) {
+    newPoints.each(function (item) {
       var point = new PointView({ model:item, gmap:self.map});
 
       self.pointViews[point.cid] = point;
