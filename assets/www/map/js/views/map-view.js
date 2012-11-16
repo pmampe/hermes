@@ -87,10 +87,10 @@ var MapView = Backbone.View.extend({
         });
   },
 
-  showInfoWindow:function (model, anchor) {
+  showInfoWindow:function (model, anchor, latlng) {
     this.destination = model.get('directionAware') ? model.getGLocation() : null;
 
-    this.mapInfoWindowView.render(model, anchor);
+    this.mapInfoWindowView.render(model, anchor, latlng);
   },
 
   showSearchView:function (campus) {
@@ -260,8 +260,8 @@ var MapView = Backbone.View.extend({
 				'map': self.map,
 				'path': points
 			});
-			google.maps.event.addListener(shape, 'click', function () {
-				self.showInfoWindow(parkingArea, this);
+			google.maps.event.addListener(shape, 'click', function (evt) {
+				self.showInfoWindow(parkingArea, this, evt.latLng);
 			});
 
 			

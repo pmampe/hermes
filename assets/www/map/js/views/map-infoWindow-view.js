@@ -28,7 +28,7 @@ var InfoWindow = Backbone.View.extend({
   /** For some reason, can't use self as callback, resulting in the function bellow having
    * both a self and a callback parameter (normally it's the same - 'this').
    */
-  render:function (model, anchor) {
+  render:function (model, anchor, latlng) {
     this.remove(); // remove previous infowindow
 
     var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
@@ -36,7 +36,12 @@ var InfoWindow = Backbone.View.extend({
     var template = _.template($("#infoWindow_template").html(), variables);
 
     this.infoWindow.setContent(template);
-    this.infoWindow.open(anchor.getMap(), anchor);
+    if (latlng) {
+    	this.infoWindow.setPosition(latlng);
+    	this.infoWindow.open(anchor.getMap());
+    } else {
+    	this.infoWindow.open(anchor.getMap(), anchor);
+    }
   },
 
   remove:function () {
