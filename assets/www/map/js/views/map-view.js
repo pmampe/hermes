@@ -6,7 +6,6 @@ var MapView = Backbone.View.extend({
   infoWindow:null,
   mapInfoWindowView:null,
 
-
   initialize:function () {
     _.bindAll(this, "render", "showInfoWindow", "resetSearchResults", "resetLocations");
 
@@ -18,10 +17,11 @@ var MapView = Backbone.View.extend({
       navigationControlOptions:{ position:google.maps.ControlPosition.LEFT_TOP },
       mapTypeId:google.maps.MapTypeId.ROADMAP,
       streetViewControl:false
-
     };
 
-    var self = this;
+    // Add the Google Map to the page
+    this.$el.gmap(myOptions);
+    this.map = this.$el.gmap("get", "map");
 
     this.model.set({currentPosition:new Location({
       id:-100,
@@ -36,15 +36,12 @@ var MapView = Backbone.View.extend({
           new google.maps.Point(11, 11))
     })});
 
-    this.model.on('change:location', function () {
-      self.updateCurrentPosition();
-    });
-
     this.locations = new Locations();
     this.searchResults = new LocationSearchResult();
 
     this.locations.on("reset", this.resetLocations, this);
     this.searchResults.on("reset", this.resetSearchResults, this);
+    this.model.on('change:location', this.updateCurrentPosition, this);
 
     this.pointViews = {};
     this.campusPoint = null;
@@ -52,15 +49,12 @@ var MapView = Backbone.View.extend({
     // Force the height of the map to fit the window
     $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
 
-    // Add the Google Map to the page
-    this.$el.gmap(myOptions);
-    this.map = this.$el.gmap("get", "map");
-
     this.currentPositionPoint = new PointView({ model:this.model.get('currentPosition'), gmap:self.map});
     this.currentPositionPoint.render();
 
+    var self = this;
     google.maps.event.addListener(this.currentPositionPoint.marker, 'click', function () {
-      self.showInfoWindow(this.currentPositionPoint.model.get("text"), self, this, this.currentPositionPoint.model.getGLocation());
+      self.showInfoWindow(self.currentPositionPoint.model.get("text"), self, this, self.currentPositionPoint.model.getGLocation());
     });
 
     this.updateGPSPosition();
