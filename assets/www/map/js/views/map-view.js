@@ -4,7 +4,6 @@ var MapView = Backbone.View.extend({
   map:null,
   destination:null, // used when showing directions
   infoWindow:null,
-  locationName:null,
   mapInfoWindowView:null,
 
 
@@ -48,6 +47,7 @@ var MapView = Backbone.View.extend({
     this.searchResults.on("reset", this.resetSearchResults, this);
 
     this.pointViews = {};
+    this.campusPoint = null;
 
     // Force the height of the map to fit the window
     $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
@@ -126,35 +126,33 @@ var MapView = Backbone.View.extend({
     }
   },
 
-  centerOnLocation:function (coords, zoom, name) {
-    if (coords != "" && zoom != "") {
-      var googleCoords = new google.maps.LatLng(coords[0], coords[1]);
-      this.map.panTo(googleCoords);
-      this.map.setZoom(zoom);
-
-
-      this.locationName = name;
-
-      // TODO: choose pinImage for campusLocations or remove pinImage var
-      var pinImage = new google.maps.MarkerImage(
-          'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-          new google.maps.Size(22, 22),
-          new google.maps.Point(0, 18),
-          new google.maps.Point(11, 11));
-
-
-      // show location pin (if wanting to get directions)
-      var self = this;
-      self.$el.gmap('addMarker', {
-        'position':googleCoords,
-        'poiType':this.locationName,
-        'visible':true,
-//					'icon': pinImage,
-        'animate':google.maps.Animation.DROP
-      }).click(function () {
-            self.showInfoWindow(name, self, this, new google.maps.LatLng(coords[0], coords[1]));
-          });
+  updateCampusPoint:function (coords, zoom, name) {
+    if (this.campusPoint) {
+      this.campusPoint.remove();
     }
+
+    var googleCoords = new google.maps.LatLng(coords[0], coords[1]);
+    this.map.panTo(googleCoords);
+    this.map.setZoom(zoom);
+
+    var self = this;
+
+    // TODO: choose pinImage for campusLocations or remove pinImage var
+    this.campusPoint = new PointView({
+      model:new Location({
+        id:-200,
+        campus:name,
+        type:'Campus',
+        text:name,
+        locations:coords,
+        pin:null
+      }),
+      gmap:self.map
+    });
+
+    google.maps.event.addListener(this.campusPoint.marker, 'click', function () {
+      self.showInfoWindow(self.campusPoint.model.get("text"), self, this, self.campusPoint.model.getGLocation());
+    });
   },
 
   resetSearchResults:function () {
@@ -188,7 +186,6 @@ var MapView = Backbone.View.extend({
       });
     });
   },
-
 
   /** @param travelMode: walking, drving or public transportation
    *     @param origin: optional parameter, defaults to map location (model variable)
@@ -225,5 +222,4 @@ var MapView = Backbone.View.extend({
         }
     );
   }
-
 }); //-- End of Map view

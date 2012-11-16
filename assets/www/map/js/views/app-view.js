@@ -69,7 +69,7 @@ var AppView = Backbone.View.extend({
     this.togglePoiType();
 
     var campus = this.campuses.get($("#campus").val());
-    this.mapView.centerOnLocation(campus.get("coords"), campus.get("zoom"), campus.get("name"));
+    this.mapView.updateCampusPoint(campus.get("coords"), campus.get("zoom"), campus.get("name"));
   },
 
   showPOIs:function () {
