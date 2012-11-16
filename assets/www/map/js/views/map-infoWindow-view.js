@@ -1,47 +1,50 @@
 var InfoWindow = Backbone.View.extend({
 
-		infoWindow: null,
-		destination: null,
+  infoWindow:null,
+  destination:null,
 
-		initialize: function(options) {
-          _.bindAll(this, 'render');
-			var self = this;
+  initialize:function (options) {
+    _.bindAll(this, 'render');
 
-			// TODO: refactor to (backbone) events: { [selector]: [function] }, couldn't get this to work. /lucien
-			$(".dir-button").live("click", function() {
-				self.remove();
+    this.infoWindow = new google.maps.InfoWindow();
 
-				$("#footer-buttons1").hide();
-				$("#footer-buttons2").show();
+    var self = this;
 
-				$(".dir-button").each(function() {
-					$(this).removeClass("selected");
-				});
-				$(this).addClass("selected");
-				options.mapView.getDirections(this.id);
-			});
-		},
+    // TODO: refactor to (backbone) events: { [selector]: [function] }, couldn't get this to work. /lucien
+    $(".dir-button").live("click", function () {
+      self.remove();
 
-		/** For some reason, can't use self as callback, resulting in the function bellow having
-		 * both a self and a callback parameter (normally it's the same - 'this').
-		 */
-		render: function(itemText, self, callback, displayDirections) {
-			this.remove(); // remove previous infowindow
+      $("#footer-buttons1").hide();
+      $("#footer-buttons2").show();
 
-			var displayMode = displayDirections? "display:inline": "display:none";
-			var variables = { itemText: itemText, displayMode: displayMode };
-			var template = _.template( $("#infoWindow_template").html(), variables );
+      $(".dir-button").each(function () {
+        $(this).removeClass("selected");
+      });
+      $(this).addClass("selected");
+      options.mapView.getDirections(this.id);
+    });
+  },
 
-			this.infoWindow = new google.maps.InfoWindow({content: template});
-			self.$el.gmap('openInfoWindow', this.infoWindow, callback);
-		},
+  /** For some reason, can't use self as callback, resulting in the function bellow having
+   * both a self and a callback parameter (normally it's the same - 'this').
+   */
+  render:function (itemText, anchor, displayDirections) {
+    this.remove(); // remove previous infowindow
 
-		remove: function() {
-			if (this.infoWindow) {
-				this.infoWindow.close();
-			}
-		}
+    var displayMode = displayDirections ? "display:inline" : "display:none";
+    var variables = { itemText:itemText, displayMode:displayMode };
+    var template = _.template($("#infoWindow_template").html(), variables);
+
+    this.infoWindow.setContent(template);
+    this.infoWindow.open(anchor.getMap(), anchor);
+  },
+
+  remove:function () {
+    if (this.infoWindow) {
+      this.infoWindow.close();
+    }
+  }
 
 
-	}); //-- End of InfoWindow view
+}); //-- End of InfoWindow view
 

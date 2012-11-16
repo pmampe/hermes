@@ -49,12 +49,12 @@ var MapView = Backbone.View.extend({
     // Force the height of the map to fit the window
     $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
 
-    this.currentPositionPoint = new PointView({ model:this.model.get('currentPosition'), gmap:self.map});
+    this.currentPositionPoint = new PointView({ model:this.model.get('currentPosition'), gmap:this.map});
     this.currentPositionPoint.render();
 
     var self = this;
     google.maps.event.addListener(this.currentPositionPoint.marker, 'click', function () {
-      self.showInfoWindow(self.currentPositionPoint.model.get("text"), self, this, self.currentPositionPoint.model.getGLocation());
+      self.showInfoWindow(self.currentPositionPoint.model.get("text"), this, null);
     });
 
     this.updateGPSPosition();
@@ -86,10 +86,10 @@ var MapView = Backbone.View.extend({
         });
   },
 
-  showInfoWindow:function (itemText, self, callback, destinationCoords) {
+  showInfoWindow:function (itemText, anchor, destinationCoords) {
     var displayDirections = destinationCoords ? true : false;
     this.destination = displayDirections ? destinationCoords : null;
-    this.mapInfoWindowView.render(itemText, self, callback, displayDirections);
+    this.mapInfoWindowView.render(itemText, anchor, displayDirections);
   },
 
   showSearchView:function (campus) {
@@ -145,7 +145,7 @@ var MapView = Backbone.View.extend({
     });
 
     google.maps.event.addListener(this.campusPoint.marker, 'click', function () {
-      self.showInfoWindow(self.campusPoint.model.get("text"), self, this, self.campusPoint.model.getGLocation());
+      self.showInfoWindow(self.campusPoint.model.get("text"), this, self.campusPoint.model.getGLocation());
     });
   },
 
@@ -176,7 +176,7 @@ var MapView = Backbone.View.extend({
       self.pointViews[point.cid] = point;
 
       google.maps.event.addListener(point.marker, 'click', function () {
-        self.showInfoWindow(point.model.get("text"), self, this, point.model.getGLocation());
+        self.showInfoWindow(point.model.get("text"), this, point.model.getGLocation());
       });
     });
   },
