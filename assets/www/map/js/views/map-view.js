@@ -65,7 +65,6 @@ var MapView = Backbone.View.extend({
 
     this.updateGPSPosition();
 
-
     /* Using the two blocks below istead of creating a new view for
      * page-dir, which holds the direction details. This because
      * it's of the small amount of functionality.
@@ -156,23 +155,6 @@ var MapView = Backbone.View.extend({
             self.showInfoWindow(name, self, this, new google.maps.LatLng(coords[0], coords[1]));
           });
     }
-  },
-
-  showPOIs:function (campus, types, locations) {
-    var self = this;
-    var poiTypesNames = _.map(types, function (type) {
-      return campus + "." + type;
-    });
-
-    // Hide other pois (except geo-location, and current campus)
-    this.$el.gmap('find', 'markers', { 'property':'poiType'}, function (marker, found) {
-      if (_.contains(poiTypesNames, marker.poiType) || marker.poiType == "geo" || marker.poiType == self.locationName) {
-        marker.setVisible(true);
-      }
-      else {
-        marker.setVisible(false);
-      }
-    });
   },
 
   resetSearchResults:function () {
