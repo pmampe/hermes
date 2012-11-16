@@ -16,7 +16,6 @@ var AppView = Backbone.View.extend({
 
     var self = this;
     this.mapView = new MapView({ el:$('#map_canvas'), appView:self });
-    this.searchView = new SearchView({ el:$('#search-popup'), appView:self, mapView:self.mapView });
 
     this.render();
   },
@@ -48,7 +47,12 @@ var AppView = Backbone.View.extend({
   },
 
   openSearchPopup:function (event) {
-    this.searchView.render();
+    var campus = this.campuses.get($("#campus").val());
+    if (campus)
+      campus = campus.get('name');
+
+    var searchView = new SearchView({ el:$('#search-popup'), campus:campus, mapView:this.mapView });
+    searchView.render();
   },
 
   renderCampuses:function () {

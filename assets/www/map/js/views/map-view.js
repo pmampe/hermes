@@ -24,8 +24,21 @@ var MapView = Backbone.View.extend({
 
     var self = this;
 
+    this.model.set({currentPosition:new Location({
+      id:-100,
+      campus:null,
+      type:'CurrentPosition',
+      text:'You are here!',
+      locations:[this.model.get('location').lat(), this.model.get('location').lng()],
+      pin:new google.maps.MarkerImage(
+          'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+          new google.maps.Size(22, 22),
+          new google.maps.Point(0, 18),
+          new google.maps.Point(11, 11))
+    })});
+
     this.model.on('change:location', function () {
-      self.showCurrentPosition(true);
+      self.updateCurrentPosition();
     });
 
     this.locations = new Locations();
@@ -40,10 +53,15 @@ var MapView = Backbone.View.extend({
     this.$el.gmap(myOptions);
     this.map = this.$el.gmap("get", "map");
 
+    this.currentPositionPoint = new PointView({ model:this.model.get('currentPosition'), gmap:self.map});
+    this.currentPositionPoint.render();
+
+    google.maps.event.addListener(this.currentPositionPoint.marker, 'click', function () {
+      self.showInfoWindow(this.currentPositionPoint.model.get("text"), self, this, this.currentPositionPoint.model.getGLocation());
+    });
+
     this.updateGPSPosition();
 
-
-    var self = this;
 
     /* Using the two blocks below istead of creating a new view for
      * page-dir, which holds the direction details. This because
@@ -78,26 +96,9 @@ var MapView = Backbone.View.extend({
     this.mapInfoWindowView.render(itemText, self, callback, displayDirections);
   },
 
-  showCurrentPosition:function (animate) {
-
-    var pinImage = new google.maps.MarkerImage(
-        'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-        new google.maps.Size(22, 22),
-        new google.maps.Point(0, 18),
-        new google.maps.Point(11, 11));
-
-    var options = {
-      'title':'You are here!',
-      'bound':true,
-      'position':this.model.get('location'),
-      'poiType':'geo',
-      'icon':pinImage
-    };
-    if (animate) options.animation = google.maps.Animation.DROP;
-
-    var self = this; // once inside block bellow, this will be the function
-    this.$el.gmap('addMarker', options).click(function () {
-      self.showInfoWindow("You are here!", self, this);
+  updateCurrentPosition:function () {
+    this.model.get('currentPosition').set({
+      locations:[this.model.get('location').lat(), this.model.get('location').lng()]
     });
   },
 
@@ -188,7 +189,7 @@ var MapView = Backbone.View.extend({
         'position':new google.maps.LatLng(itemLocation[0], itemLocation[1]),
         'poiType':"search_result",
         'visible':true,
-        'icon':pin
+        'icon':item.get('pin')
       }).click(function () {
             self.showInfoWindow(itemText, self, this, new google.maps.LatLng(itemLocation[0], itemLocation[1]));
           });
