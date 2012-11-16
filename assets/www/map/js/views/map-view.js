@@ -29,6 +29,7 @@ var MapView = Backbone.View.extend({
       type:'CurrentPosition',
       text:'You are here!',
       locations:[this.model.get('location').lat(), this.model.get('location').lng()],
+      directionAware:false,
       pin:new google.maps.MarkerImage(
           'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
           new google.maps.Size(22, 22),
@@ -54,7 +55,7 @@ var MapView = Backbone.View.extend({
 
     var self = this;
     google.maps.event.addListener(this.currentPositionPoint.marker, 'click', function () {
-      self.showInfoWindow(self.currentPositionPoint.model.get("text"), this, null);
+      self.showInfoWindow(self.currentPositionPoint.model, this);
     });
 
     this.updateGPSPosition();
@@ -86,10 +87,10 @@ var MapView = Backbone.View.extend({
         });
   },
 
-  showInfoWindow:function (itemText, anchor, destinationCoords) {
-    var displayDirections = destinationCoords ? true : false;
-    this.destination = displayDirections ? destinationCoords : null;
-    this.mapInfoWindowView.render(itemText, anchor, displayDirections);
+  showInfoWindow:function (model, anchor) {
+    this.destination = model.get('directionAware') ? model.getGLocation() : null;
+
+    this.mapInfoWindowView.render(model, anchor);
   },
 
   showSearchView:function (campus) {
@@ -145,7 +146,7 @@ var MapView = Backbone.View.extend({
     });
 
     google.maps.event.addListener(this.campusPoint.marker, 'click', function () {
-      self.showInfoWindow(self.campusPoint.model.get("text"), this, self.campusPoint.model.getGLocation());
+      self.showInfoWindow(self.campusPoint.model, this);
     });
   },
 
@@ -176,7 +177,7 @@ var MapView = Backbone.View.extend({
       self.pointViews[point.cid] = point;
 
       google.maps.event.addListener(point.marker, 'click', function () {
-        self.showInfoWindow(point.model.get("text"), this, point.model.getGLocation());
+        self.showInfoWindow(point.model, this);
       });
     });
   },
