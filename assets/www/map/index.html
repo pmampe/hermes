@@ -45,7 +45,10 @@
 
   <script type="text/template" id="infoWindow_template">
     <div class='iw'>
-      <h3><%= itemText %></h3>
+      <h3><%= itemName %></h3>
+      <% if(itemText != null) { %>
+      <%= itemText %>
+      <% } %>
 
       <div id="directions" style="<%= displayMode %>">
         <div>Directions:</div>
@@ -76,9 +79,10 @@
 
 <script src="js/models/campusmodel.js"></script>
 <script src="js/models/locationmodel.js"></script>
-<script src="js/models/parkingAreaModel.js"></script>
 <script src="js/models/map-model.js"></script>
-<script src="js/views/point-view.js"></script>
+<script src="js/views/generic-location-view.js"></script>
+<script src="js/views/point-location-view.js"></script>
+<script src="js/views/line-location-view.js"></script>
 <script src="js/views/search-view.js"></script>
 <script src="js/views/map-infoWindow-view.js"></script>
 <script src="js/views/map-view.js"></script>
