@@ -36,7 +36,7 @@ var Locations = Backbone.Collection.extend({
   model:Location,
 
   url:function () {
-    return 'http://localhost:8080/hermes-broker/geo/poi';
+    return 'http://pgbroker-dev.it.su.se/geo/poi';
   },
 
   byCampus:function (campus) {
@@ -63,6 +63,6 @@ var LocationSearchResult = Backbone.Collection.extend({
   model:Location,
 
   url:function () {
-    return 'http://localhost:8080/hermes-broker/geo/search';
+    return 'http://pgbroker-dev.it.su.se/geo/search';
   }
 });
