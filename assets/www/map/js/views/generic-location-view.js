@@ -1,6 +1,7 @@
 var GenericLocationView = Backbone.View.extend({
 
   initialize:function (options) {
+    _.bindAll(this, "updatePosition");
     this.model = options.model;
     this.gmap = options.gmap;
     this.marker = options.marker;
