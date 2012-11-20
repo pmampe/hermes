@@ -2,7 +2,6 @@ var MapView = Backbone.View.extend({
 
   model:new MapModel(),
   map:null,
-  infoWindow:null,
   mapInfoWindowView:null,
 
   initialize:function () {
