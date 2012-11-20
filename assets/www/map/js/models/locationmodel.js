@@ -3,8 +3,10 @@ var Location = Backbone.Model.extend({
     "id":0,
     "campus":'unknown',
     "type":'unknown',
+    "subType":null,
+    "shape":"point",
     "text":"",
-    "locations":[],
+    "coords":[],
     directionAware:true,
     pin:new google.maps.MarkerImage(
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
@@ -14,8 +16,15 @@ var Location = Backbone.Model.extend({
             'AAAABJRU5ErkJggg==')
   },
 
-  getGLocation:function () {
-    return new google.maps.LatLng(this.get('locations')[0], this.get('locations')[1]);
+  getGPoints:function () {
+    var points = [];
+
+    $.each(this.get("coords"), function (index, point) {
+      var coord = new google.maps.LatLng(point[0], point[1]);
+      points.push(coord);
+    });
+
+    return points;
   },
 
   getPoiType:function () {
@@ -27,7 +36,7 @@ var Locations = Backbone.Collection.extend({
   model:Location,
 
   url:function () {
-    return 'http://pgbroker-dev.it.su.se/geo/poi';
+    return 'http://localhost:8080/hermes-broker/geo/poi';
   },
 
   byCampus:function (campus) {
@@ -54,6 +63,6 @@ var LocationSearchResult = Backbone.Collection.extend({
   model:Location,
 
   url:function () {
-    return 'http://pgbroker-dev.it.su.se/geo/search';
+    return 'http://localhost:8080/hermes-broker/geo/search';
   }
 });

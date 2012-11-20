@@ -21,8 +21,12 @@ var InfoWindow = Backbone.View.extend({
         $(this).removeClass("selected");
       });
       $(this).addClass("selected");
-      options.mapView.getDirections(this.id);
+      options.mapView.getDirections(this.id, self.destination);
     });
+  },
+
+  setDestination:function (destination) {
+    this.destination = destination;
   },
 
   /** For some reason, can't use self as callback, resulting in the function bellow having
@@ -32,15 +36,15 @@ var InfoWindow = Backbone.View.extend({
     this.remove(); // remove previous infowindow
 
     var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
-    var variables = { itemText:model.get("text"), displayMode:displayMode };
+    var variables = { itemName:model.get("name"), itemText:model.get("text"), displayMode:displayMode };
     var template = _.template($("#infoWindow_template").html(), variables);
 
     this.infoWindow.setContent(template);
     if (latlng) {
-    	this.infoWindow.setPosition(latlng);
-    	this.infoWindow.open(anchor.getMap());
+      this.infoWindow.setPosition(latlng);
+      this.infoWindow.open(anchor.getMap());
     } else {
-    	this.infoWindow.open(anchor.getMap(), anchor);
+      this.infoWindow.open(anchor.getMap(), anchor);
     }
   },
 

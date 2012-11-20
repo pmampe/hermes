@@ -13,9 +13,6 @@ var AppView = Backbone.View.extend({
         alert("ERROR! Failed to fetch campuses.")
       }
     });
-    
-    this.parkingAreas = new ParkingAreas();
-    this.parkingAreas.on("reset", this.showParkingAreas, this);
 
     this.mapView = new MapView({ el:$('#map_canvas') });
 
@@ -30,9 +27,9 @@ var AppView = Backbone.View.extend({
 
   render:function () {
     var filters = [
-      "Parkeringar",
-      "Restauranger",
-      "Hörsalar"
+      "Parkering",
+      "Restaurang",
+      "Hörsal"
     ];
 
     var template = _.template($("#location_template").html(), {
@@ -46,10 +43,6 @@ var AppView = Backbone.View.extend({
 
     filterSelect.selectmenu();
     filterSelect.selectmenu("refresh", true);
-  },
-
-  showParkingAreas: function() {
-  	this.mapView.showParkingAreas(this.parkingAreas);
   },
 
   openSearchPopup:function (event) {
@@ -101,19 +94,10 @@ var AppView = Backbone.View.extend({
           alert("ERROR! Failed to fetch locations.")
         }
       });
-      
-      if (types.indexOf("Parkeringar") != -1) {
-          this.parkingAreas.fetch({
-            data: {campusName: campus},
-            error:function () {
-              alert("ERROR! Failed to fetch parkingAreas.")
-            }
-          });
-        }
-      }
-    },
-      
-    // disable poiType if no campus is chosen, else enable
+    }
+  },
+
+  // disable poiType if no campus is chosen, else enable
   togglePoiType:function () {
     if ($("#campus").val() == "") {
       $('#poiType').selectmenu("disable");

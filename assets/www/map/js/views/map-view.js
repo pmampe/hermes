@@ -2,12 +2,11 @@ var MapView = Backbone.View.extend({
 
   model:new MapModel(),
   map:null,
-  destination:null, // used when showing directions
   infoWindow:null,
   mapInfoWindowView:null,
 
   initialize:function () {
-    _.bindAll(this, "render", "showInfoWindow", "resetSearchResults", "resetLocations");
+    _.bindAll(this, "render", "resetSearchResults", "resetLocations");
 
     // Google Maps Options
     var myOptions = {
@@ -27,8 +26,10 @@ var MapView = Backbone.View.extend({
       id:-100,
       campus:null,
       type:'CurrentPosition',
-      text:'You are here!',
-      locations:[this.model.get('location').lat(), this.model.get('location').lng()],
+      name:'You are here!',
+      coords:[
+        [this.model.get('location').lat(), this.model.get('location').lng()]
+      ],
       directionAware:false,
       pin:new google.maps.MarkerImage(
           'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
@@ -50,13 +51,16 @@ var MapView = Backbone.View.extend({
     // Force the height of the map to fit the window
     $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
 
-    this.currentPositionPoint = new PointView({ model:this.model.get('currentPosition'), gmap:this.map});
+    this.mapInfoWindowView = new InfoWindow({mapView:this});
+
+    this.currentPositionPoint = new PointLocationView({
+      model:this.model.get('currentPosition'),
+      gmap:this.map,
+      infoWindow:this.mapInfoWindowView
+    });
     this.currentPositionPoint.render();
 
     var self = this;
-    google.maps.event.addListener(this.currentPositionPoint.marker, 'click', function () {
-      self.showInfoWindow(self.currentPositionPoint.model, this);
-    });
 
     this.updateGPSPosition();
 
@@ -74,7 +78,6 @@ var MapView = Backbone.View.extend({
     });
     /* ------------------------------------------------------------- */
 
-    this.mapInfoWindowView = new InfoWindow({mapView:this});
   },
 
   fadingMsg:function (locMsg) {
@@ -87,12 +90,6 @@ var MapView = Backbone.View.extend({
         });
   },
 
-  showInfoWindow:function (model, anchor, latlng) {
-    this.destination = model.get('directionAware') ? model.getGLocation() : null;
-
-    this.mapInfoWindowView.render(model, anchor, latlng);
-  },
-
   showSearchView:function (campus) {
     var searchView = new SearchView({ el:$('#search-popup'), campus:campus, searchResults:this.searchResults });
     searchView.render();
@@ -100,7 +97,9 @@ var MapView = Backbone.View.extend({
 
   updateCurrentPosition:function () {
     this.model.get('currentPosition').set({
-      locations:[this.model.get('location').lat(), this.model.get('location').lng()]
+      coords:[
+        [this.model.get('location').lat(), this.model.get('location').lng()]
+      ]
     });
   },
 
@@ -133,20 +132,17 @@ var MapView = Backbone.View.extend({
     var self = this;
 
     // TODO: choose pinImage for campusLocations or remove pinImage var
-    this.campusPoint = new PointView({
+    this.campusPoint = new PointLocationView({
       model:new Location({
         id:-200,
         campus:name,
         type:'Campus',
-        text:name,
-        locations:coords,
+        name:name,
+        coords:[coords],
         pin:null
       }),
-      gmap:self.map
-    });
-
-    google.maps.event.addListener(this.campusPoint.marker, 'click', function () {
-      self.showInfoWindow(self.campusPoint.model, this);
+      gmap:self.map,
+      infoWindow:this.mapInfoWindowView
     });
   },
 
@@ -172,23 +168,28 @@ var MapView = Backbone.View.extend({
     }
 
     newPoints.each(function (item) {
-      var point = new PointView({ model:item, gmap:self.map});
+      var point = null;
+
+      if (item.get('shape') == "line") {
+        point = new LineLocationView({ model:item, gmap:self.map, infoWindow:self.mapInfoWindowView });
+      }
+      else if (item.get('shape') == "polygon") {
+        point = new PolygonLocationView({ model:item, gmap:self.map, infoWindow:self.mapInfoWindowView });
+      }
+      else {
+        point = new PointLocationView({ model:item, gmap:self.map, infoWindow:self.mapInfoWindowView });
+      }
 
       self.pointViews[point.cid] = point;
-
-      google.maps.event.addListener(point.marker, 'click', function () {
-        self.showInfoWindow(point.model, this);
-      });
     });
   },
 
   /** @param travelMode: walking, drving or public transportation
-   *     @param origin: optional parameter, defaults to map location (model variable)
    *     @param destination: optional parameter, defaults to destination (global variable)
    */
-  getDirections:function (travelMode, origin, destination) {
-    var orig = origin ? origin : this.model.get('location');
-    var dest = destination ? destination : this.destination;
+  getDirections:function (travelMode, destination) {
+    var orig = origin = this.model.get('location');
+    var dest = destination;
     var travMode = null;
 
     if (travelMode == "walking") {
@@ -216,70 +217,5 @@ var MapView = Backbone.View.extend({
           }
         }
     );
-  },
-  
-	showParkingAreas: function(parkingAreas) {
-		var self = this;
-		
-		var pin = new google.maps.MarkerImage(
-			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
-			'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
-			'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
-			'W6Czwv2F8uCynh5ysMwVoBgLWiXS4joSctHE55DlI6AKR02f2OhaNykP09n+NGEHieUvxer2KZJP/p7TbhvY0jY7bv7eazfQE67zjGgilfew' +
-			'AAAABJRU5ErkJggg==');
-
-		
-		// iterate over different parking areas
-		parkingAreas.each(function(parkingArea) {
-			
-			// iterate over individual coordinates
-			var points = [];
-			$.each(parkingArea.get("coords"), function(index, point) {
-				var coord = new google.maps.LatLng(point[0], point[1])
-				/*
-				self.$el.gmap('addMarker', {
-					'position': coord,
-					'poiType': "geo",
-					'visible': true,
-					'icon': pin
-				}).click(function() {
-					self.showInfoWindow(parkingArea.get("id") + ":" + index, self, this);
-				});
-				*/
-				
-				points.push(coord);
-			});
-
-			var shape = new google.maps.Polyline({
-				'strokeColor': "#000000",
-				'strokeOpacity': 0.8,
-				'strokeWeight': 3,
-				'fillColor': "#00ff00",
-				'fillOpacity': 0.35,
-				'visible': true,
-				'map': self.map,
-				'path': points
-			});
-			google.maps.event.addListener(shape, 'click', function (evt) {
-				self.showInfoWindow(parkingArea, this, evt.latLng);
-			});
-
-			
-//			var drawType = parkingArea.get("drawType");
-//			var options = {
-//					'strokeColor': "#000000",
-//					'strokeOpacity': 0.8,
-//					'strokeWeight': 3,
-//					'fillColor': "#00ff00",
-//					'fillOpacity': 0.35,
-//					'visible': true
-//			};
-//			var pathKey = drawType == "Polyline"? "path": "paths";
-//			options[pathKey] = points;
-//			self.$el.gmap('addShape', drawType, options).click(function() {
-//				var text = parkingArea.get("streetName") + ": " + parkingArea.get("info");
-//				self.showInfoWindow(parkingArea, this);
-//			});
-		});
-	}
+  }
 }); //-- End of Map view

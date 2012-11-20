@@ -14,7 +14,7 @@ var PointView = Backbone.View.extend({
 
     var self = this;
 
-    this.model.on('change:locations', function () {
+    this.model.on('change:coords', function () {
       self.marker.setPosition(self.model.getGLocation());
     });
 
