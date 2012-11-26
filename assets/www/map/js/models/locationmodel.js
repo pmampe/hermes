@@ -28,7 +28,7 @@ var Location = Backbone.Model.extend({
   },
 
   getPoiType:function () {
-    return this.get('campus') + "." + this.get('type')
+    return this.get('campus') + "." + this.get('type');
   }
 });
 

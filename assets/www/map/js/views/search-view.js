@@ -40,7 +40,7 @@ var SearchView = Backbone.View.extend({
 
     // Add filter buttons for the selected filter types.
     this.types = _.reject($('#poiType').val(), function (val) {
-      return val == "";
+      return val === "";
     });
 
     var typeIds = [];
@@ -82,7 +82,9 @@ var SearchView = Backbone.View.extend({
   },
 
   doSearchOnEnter:function (event) {
-    if (event.keyCode != 13) return;
+    if (event.keyCode != 13) {
+      return;
+    }
     this.doSearch(event);
   },
 

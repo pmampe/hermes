@@ -10,7 +10,7 @@ var AppView = Backbone.View.extend({
 
     this.campuses.fetch({
       error:function () {
-        alert("ERROR! Failed to fetch campuses.")
+        alert("ERROR! Failed to fetch campuses.");
       }
     });
 
@@ -75,13 +75,14 @@ var AppView = Backbone.View.extend({
 
   showPOIs:function () {
     var campus = this.campuses.get($("#campus").val());
-    if (campus != null)
+    if (campus !== null) {
       campus = campus.get("name");
+    }
 
     var types = $('#poiType').val();
 
     // Reset the collection if empty, otherwise fetch new.
-    if (types == null) {
+    if (types === null) {
       this.mapView.locations.reset();
     }
     else {
