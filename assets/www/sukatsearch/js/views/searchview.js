@@ -22,7 +22,7 @@ var SearchView = Backbone.View.extend({
     this.collection.fetch({
       data:{user:$("#search_input").val().trim()},
       error:function () {
-        alert("ERROR! Failed to fetch search results.")
+        alert("ERROR! Failed to fetch search results.");
       }
     });
   },
