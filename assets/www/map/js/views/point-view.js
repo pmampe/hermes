@@ -28,6 +28,5 @@ var PointView = Backbone.View.extend({
 
   remove:function () {
     this.marker.setMap(null);
-    //this.marker = null;
   }
 });
