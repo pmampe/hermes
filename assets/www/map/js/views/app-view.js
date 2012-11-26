@@ -47,8 +47,9 @@ var AppView = Backbone.View.extend({
 
   openSearchPopup:function (event) {
     var campus = this.campuses.get($("#campus").val());
-    if (campus)
+    if (campus) {
       campus = campus.get('name');
+    }
 
     this.mapView.showSearchView(campus);
   },
@@ -92,7 +93,7 @@ var AppView = Backbone.View.extend({
           types:types
         },
         error:function () {
-          alert("ERROR! Failed to fetch locations.")
+          alert("ERROR! Failed to fetch locations.");
         }
       });
     }
@@ -100,7 +101,7 @@ var AppView = Backbone.View.extend({
 
   // disable poiType if no campus is chosen, else enable
   togglePoiType:function () {
-    if ($("#campus").val() == "") {
+    if ($("#campus").val() === "") {
       $('#poiType').selectmenu("disable");
     } else {
       $('#poiType').selectmenu("enable");
