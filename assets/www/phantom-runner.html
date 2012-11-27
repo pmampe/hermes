@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  <link rel="stylesheet" type="text/css" href="spec/lib/jasmine-1.2.0/jasmine.css">
+  <script type="text/javascript" src="spec/lib/jasmine-1.2.0/jasmine.js"></script>
+  <script type="text/javascript" src="spec/lib/jasmine-1.2.0/jasmine-html.js"></script>
+
+  <script type="text/javascript" src="spec/lib/phantom-jasmine/console-runner.js"></script>
+
+  <!-- SOURCE FILES -->
+  <script type="text/javascript" src="js/index.js"></script>
+
+  <!-- TEST FILES -->
+  <script type="text/javascript" src="spec/helper.js"></script>
+  <script type="text/javascript" src="spec/index.js"></script>
+
+  <script type="text/javascript">
+    (function () {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var console_reporter = new jasmine.ConsoleReporter();
+      window.console_reporter = console_reporter;
+      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+      jasmine.getEnv().addReporter(console_reporter);
+
+      var currentWindowOnload = window.onload;
+
+      window.onload = function () {
+        execJasmine();
+      };
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+    })();
+  </script>
+</head>
+<body>
+<div id="stage" style="display:none;"></div>
+</body>
+</html>
+
