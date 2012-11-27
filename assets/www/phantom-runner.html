@@ -8,9 +8,11 @@
   <script type="text/javascript" src="spec/lib/jasmine-1.2.0/jasmine-html.js"></script>
 
   <script type="text/javascript" src="spec/lib/phantom-jasmine/console-runner.js"></script>
+  <script type="text/javascript" src="spec/lib/jasmine-coberturareporter/jasmine.cobertura-reporter.js"></script>
 
   <!-- SOURCE FILES -->
   <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js-instrumented/index.js"></script>
 
   <!-- TEST FILES -->
   <script type="text/javascript" src="spec/helper.js"></script>
@@ -24,6 +26,7 @@
       var console_reporter = new jasmine.ConsoleReporter();
       window.console_reporter = console_reporter;
       jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+      jasmine.getEnv().addReporter(new jasmine.CoberturaReporter('./reports/', 'js/'));
       jasmine.getEnv().addReporter(console_reporter);
 
       var currentWindowOnload = window.onload;
