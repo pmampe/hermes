@@ -9,31 +9,16 @@
 
   <script type="text/javascript" src="spec/lib/jasmine-coberturareporter/jasmine.cobertura-reporter.js"></script>
 
-  <!-- SOURCE FILES -->
-  <script type="text/javascript" src="js-instrumented/index.js"></script>
+  <!-- include source files here... -->
+  <script type="text/javascript" src="map/js-instrumented/views/app-view.js"></script>
 
-  <script type="text/javascript">
-    (function () {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
-
-      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-      jasmine.getEnv().addReporter(new jasmine.CoberturaReporter('./reports/', 'js/'));
-
-      var currentWindowOnload = window.onload;
-
-      window.onload = function () {
-        execJasmine();
-      };
-
-      function execJasmine() {
-        jasmineEnv.execute();
-      }
-    })();
-  </script>
 </head>
 <body>
-<div id="stage" style="display:none;"></div>
+<script type="text/javascript">
+  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().addReporter(new jasmine.CoberturaReporter('./reports/', './assets/www/map/js/'));
+  jasmine.getEnv().execute();
+</script>
 </body>
 </html>
 

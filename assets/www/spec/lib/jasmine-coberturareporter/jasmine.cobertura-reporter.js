@@ -118,8 +118,10 @@
       xml.push('<lines>');
 
       for (lineNum in file.lines) {
-        line = file.lines[lineNum];
-        xml.push('<line branch="false" hits="' + line + '" number="' + lineNum + '" />');
+        if (!isNaN(lineNum)) {
+          line = file.lines[lineNum];
+          xml.push('<line branch="false" hits="' + line + '" number="' + lineNum + '" />');
+        }
       }
 
       xml.push('</lines>');
