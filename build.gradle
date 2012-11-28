@@ -13,8 +13,8 @@ import org.apache.http.protocol.HttpContext
 import org.apache.http.util.EntityUtils
 
 buildscript {
-  repositories{
-    maven{
+  repositories {
+    maven {
       url = 'http://kellyrob99.github.com/Jenkins-api-tour/repository'
     }
     mavenCentral()
@@ -27,7 +27,7 @@ buildscript {
   }
 }
 
-repositories{
+repositories {
   mavenCentral() //needed by the plugin to retrieve the jslint jar
 }
 
@@ -39,7 +39,7 @@ apply plugin: 'jslint'
 jslint {
   inputDirs = ['assets/www/']
   haltOnFailure = false
-  excludes = '**/cordova*.js,**/*.min.js,**/*-min.js'
+  excludes = '**/cordova*.js,**/*.min.js,**/*-min.js,**/spec/lib/**/*.js'
   options = 'rhino'
   formatterType = 'xml'
 }
@@ -51,12 +51,12 @@ def pass = System.getenv('PG_PASS')
 
 task replaceCordova << {
 
-  new File( 'assets/www/' ).eachFileMatch(~/cordova.*\.js/) { f -> f.delete() }
+  new File('assets/www/').eachFileMatch(~/cordova.*\.js/) { f -> f.delete() }
 
   new File("assets/").eachDirRecurse() { dir ->
     dir.eachFileMatch(~/.*\.html/) { file ->
       def text = file.text
-      file.write(text.replaceAll(/cordova-.*\.js/,'phonegap.js'))
+      file.write(text.replaceAll(/cordova-.*\.js/, 'phonegap.js'))
     }
   }
 }
@@ -70,7 +70,7 @@ task removeTar << {
 task buildTar(type: Tar, dependsOn: [replaceCordova, removeTar]) {
   archiveName archiveFile
   compression Compression.GZIP
-  includes ["www"]
+  includes["www"]
   from new File("assets/")
 }
 
@@ -98,13 +98,13 @@ task toPhonegap(dependsOn: buildTar) {
 
     def status = response.statusLine.statusCode
 
-    if(status != 200)
-      throw new Exception( "Failed to publish to phonegap: ${status}: ${response.statusLine.reasonPhrase}" )
+    if (status != 200)
+      throw new Exception("Failed to publish to phonegap: ${status}: ${response.statusLine.reasonPhrase}")
     else {
 
-      def json = new JsonSlurper().parseText( EntityUtils.toString(response.entity) )
+      def json = new JsonSlurper().parseText(EntityUtils.toString(response.entity))
 
-      if(json?.error?.size() > 0)
+      if (json?.error?.size() > 0)
         throw new Exception("Error during publish to phonegap: ${json.error}")
       else
         println "Successfully published app '${json.title}' v${json.version} build nr ${json.build_count} to phonegap."
@@ -113,7 +113,7 @@ task toPhonegap(dependsOn: buildTar) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.2'
+  gradleVersion = '1.2'
 }
 
 String getToken(String user, String pass) {
@@ -125,9 +125,9 @@ String getToken(String user, String pass) {
   connection.setRequestProperty("Accept", "application/json")
   connection.requestMethod = "POST"
 
-  if(connection?.responseCode != 200)
-    throw new Exception( "Failed to get token: ${connection?.responseCode}: ${connection?.responseMessage}" )
+  if (connection?.responseCode != 200)
+    throw new Exception("Failed to get token: ${connection?.responseCode}: ${connection?.responseMessage}")
 
-  def json = new JsonSlurper().parseText( connection?.content?.text )
+  def json = new JsonSlurper().parseText(connection?.content?.text)
   json?.token
 }
