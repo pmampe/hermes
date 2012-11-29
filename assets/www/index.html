@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stockholm University Demo</title>
 
-  <link rel="stylesheet"  href="css/jquery.mobile-1.1.1.min.css" />
+  <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css"/>
 
   <script src="cordova-2.0.0.js"></script>
-  <script src="js/jquery-1.8.2.min.js"></script>
-  <script src="js/jquery.mobile-1.1.1.min.js"></script>
+  <script src="js/lib/jquery-1.8.2.min.js"></script>
+  <script src="js/lib/jquery.mobile-1.1.1.min.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
   <script src="js/su-app-global.js"></script>
@@ -49,7 +49,8 @@
     <div data-role="content" style="/*padding: 15px*/">
       <div class="ui-grid-c">
         <div class="ui-block-a">
-          <a id="sukat_search_button" href="sukatsearch/index.html" data-ajax="false"><img src="img/icons/Address_Book.png"></a>
+          <a id="sukat_search_button" href="sukatsearch/index.html" data-ajax="false"><img
+                  src="img/icons/Address_Book.png"></a>
         </div>
 
         <div class="ui-block-b">
@@ -57,7 +58,8 @@
         </div>
 
         <div class="ui-block-c">
-          <a onclick="ontap=openChildBrowser('https://mondo.su.se/portal/pda',null)"><img src="img/icons/mondo_button.png"></a>
+          <a onclick="ontap=openChildBrowser('https://mondo.su.se/portal/pda',null)"><img
+                  src="img/icons/mondo_button.png"></a>
         </div>
 
         <div class="ui-block-d">
@@ -80,27 +82,31 @@
         <li><a href="mailto:mobile-feedback@it.su.se" class="refresh">Feedback</a></li>
         <li><a href="#page-settings">Settings</a></li>
       </ul>
-    </div><!-- /navbar -->
-  </div><!-- /footer -->
+    </div>
+    <!-- /navbar -->
+  </div>
+  <!-- /footer -->
 </div>
 
-<div data-role="page"  data-fullscreen="true" id="page-camera">
+<div data-role="page" data-fullscreen="true" id="page-camera">
   <div data-theme="a" data-role="header">
     <h3>Capture SU</h3>
-    <a data-role="button" rel="external" data-ajax="false" data-transition="slide" href="#page-home" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+    <a data-role="button" rel="external" data-ajax="false" data-transition="slide" href="#page-home" data-icon="arrow-l"
+       data-iconpos="left" class="ui-btn-left">
       Back
     </a>
   </div>
   <div id="search_view" data-role="content">
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
+    <button onclick="capturePhoto();">Capture Photo</button>
+    <br>
 
     <!--
    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
     -->
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src=""/>
+    <img style="display:none;" id="largeImage" src=""/>
   </div>
 </div>
 
@@ -121,7 +127,8 @@
         <li><a href="" class="refresh">Save</a></li>
         <li><a href="#page-home">Cancel</a></li>
       </ul>
-    </div><!-- /navbar -->
+    </div>
+    <!-- /navbar -->
   </div>
 </div>
 </body>
