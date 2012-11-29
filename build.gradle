@@ -39,7 +39,7 @@ apply plugin: 'saga'
 
 saga {
   baseDir = new File('assets/www')
-  outputDir = new File('build/coverage')
+  outputDir = new File('build/reports/coverage')
   includes = '**/spec.html'
 }
 
