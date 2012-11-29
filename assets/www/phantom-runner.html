@@ -9,6 +9,7 @@
 
   <script type="text/javascript" src="spec/lib/phantom-jasmine/console-runner.js"></script>
 
+  <script type="text/javascript" src="spec/lib/jasmine-reporters/jasmine.junit_reporter.js"></script>
   <!-- SOURCE FILES -->
   <script type="text/javascript" src="js/index.js"></script>
 
@@ -23,9 +24,8 @@
 
       var console_reporter = new jasmine.ConsoleReporter();
       window.console_reporter = console_reporter;
-      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
       jasmine.getEnv().addReporter(console_reporter);
-
+      jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
       var currentWindowOnload = window.onload;
 
       window.onload = function () {
