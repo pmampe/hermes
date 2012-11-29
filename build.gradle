@@ -48,7 +48,7 @@ apply plugin: 'jslint'
 jslint {
   inputDirs = ['assets/www/']
   haltOnFailure = false
-  excludes = '**/cordova*.js,**/*.min.js,**/*-min.js,**/lib/**/*.js'
+  excludes = '**/cordova*.js,**/lib/**/*.js'
   options = 'rhino'
   formatterType = 'xml'
 }
