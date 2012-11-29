@@ -8,11 +8,12 @@
   <name>hermes</name>
   <build>
     <sourceDirectory>assets/www</sourceDirectory>
+    <testSourceDirectory>assets/www/spec</testSourceDirectory>
   </build>
   <properties>
     <sonar.language>javascript</sonar.language>
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    <sonar.cobertura.reportPath>build/coverage/total-coverage.dat</sonar.cobertura.reportPath>
+    <sonar.javascript.jstestdriver.reportsfolder>build/coverage/</sonar.javascript.jstestdriver.reportsfolder>
     <sonar.exclusions>**/cordova*.js,**/*.min.js,**/*-min.js,**/spec/lib/**/*.js</sonar.exclusions>
   </properties>
 </project>
