@@ -12,7 +12,7 @@
   <properties>
     <sonar.language>javascript</sonar.language>
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    <sonar.cobertura.reportPath>reports/coverage.xml</sonar.cobertura.reportPath>
+    <sonar.cobertura.reportPath>build/coverage/total-coverage.dat</sonar.cobertura.reportPath>
     <sonar.exclusions>**/cordova*.js,**/*.min.js,**/*-min.js,**/spec/lib/**/*.js</sonar.exclusions>
   </properties>
 </project>
