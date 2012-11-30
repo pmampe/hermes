@@ -12,6 +12,10 @@ import org.apache.http.HttpResponse
 import org.apache.http.protocol.HttpContext
 import org.apache.http.util.EntityUtils
 
+version = "0.0.1"
+group = "se.su.it.handheld.app"
+archivesBaseName = "hermes"
+
 buildscript {
   repositories {
     maven {
@@ -23,8 +27,7 @@ buildscript {
     classpath 'org.kar:gradle-jslint-plugin:0.2'
     classpath 'org.apache.httpcomponents:httpclient:4.2.1'
     classpath 'org.apache.httpcomponents:httpmime:4.2.1'
-    classpath group: 'com.github.timurstrekalov', name: 'gradle-saga-plugin', version: '1.3.0'
-
+    classpath 'com.github.timurstrekalov:gradle-saga-plugin:1.3.0'
   }
 }
 
@@ -38,9 +41,11 @@ dependencies {
 apply plugin: 'saga'
 
 saga {
-  baseDir = new File('assets/www')
+  baseDir = new File('assets/www/')
   outputDir = new File('build/reports/coverage')
-  includes = '**/spec.html'
+  includes = '**/*spec.html'
+  noInstrumentPatterns = [".*/cordova.*\\.js", ".+\\/lib\\/.+\\.js", ".+\\/spec\\/.+\\.js"]
+  sourcesToPreload = "**/*.js"
 }
 
 apply plugin: 'jslint'
