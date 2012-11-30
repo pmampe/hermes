@@ -2,7 +2,9 @@
 .idea
 /bin
 /.classpath
-*.iml
 /build
 /out
+/reports
+*.iml
 su.tar.gz
+*-plugin.xml
