@@ -3,20 +3,11 @@ var AppView = Backbone.View.extend({
   initialize:function () {
     _.bindAll(this, "render", "changeCampus", "showPOIs");
 
-    this.togglePoiType();
-
     this.campuses = new Campuses();
+
     this.campuses.on("reset", this.renderCampuses, this);
 
-    this.campuses.fetch({
-      error:function () {
-        alert("ERROR! Failed to fetch campuses.");
-      }
-    });
-
     this.mapView = new MapView({ el:$('#map_canvas') });
-
-    this.render();
   },
 
   events:{
@@ -26,6 +17,16 @@ var AppView = Backbone.View.extend({
   },
 
   render:function () {
+    this.togglePoiType();
+
+    this.campuses.fetch({
+      error:function () {
+        alert("ERROR! Failed to fetch campuses.");
+      }
+    });
+
+    this.mapView.render();
+
     var filters = [
       "Parkering",
       "Restaurang",

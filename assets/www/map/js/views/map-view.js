@@ -7,6 +7,11 @@ var MapView = Backbone.View.extend({
   initialize:function () {
     _.bindAll(this, "render", "resetSearchResults", "resetLocations");
 
+    this.locations = new Locations();
+    this.searchResults = new LocationSearchResult();
+    this.pointViews = {};
+    this.campusPoint = null;
+
     // Google Maps Options
     var myOptions = {
       zoom:15,
@@ -37,19 +42,9 @@ var MapView = Backbone.View.extend({
           new google.maps.Point(11, 11))
     })});
 
-    this.locations = new Locations();
-    this.searchResults = new LocationSearchResult();
-
     this.locations.on("reset", this.resetLocations, this);
     this.searchResults.on("reset", this.resetSearchResults, this);
     this.model.on('change:location', this.updateCurrentPosition, this);
-
-    this.pointViews = {};
-    this.campusPoint = null;
-
-    // Force the height of the map to fit the window
-    $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
-
     this.mapInfoWindowView = new InfoWindow({mapView:this});
 
     this.currentPositionPoint = new PointLocationView({
@@ -57,6 +52,13 @@ var MapView = Backbone.View.extend({
       gmap:this.map,
       infoWindow:this.mapInfoWindowView
     });
+  },
+
+  render:function () {
+
+    // Force the height of the map to fit the window
+    $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
+
     this.currentPositionPoint.render();
 
     var self = this;
@@ -76,7 +78,6 @@ var MapView = Backbone.View.extend({
       $.mobile.changePage($('#page-map'), {});
     });
     /* ------------------------------------------------------------- */
-
   },
 
   fadingMsg:function (locMsg) {
