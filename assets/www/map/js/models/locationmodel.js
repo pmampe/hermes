@@ -1,12 +1,12 @@
 var Location = Backbone.Model.extend({
   defaults:{
-    "id":0,
-    "campus":'unknown',
-    "type":'unknown',
-    "subType":null,
-    "shape":"point",
-    "text":"",
-    "coords":[],
+    id:0,
+    campus:'unknown',
+    type:'unknown',
+    subType:null,
+    shape:"point",
+    text:"",
+    coords:[],
     directionAware:true,
     pin:new google.maps.MarkerImage(
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +

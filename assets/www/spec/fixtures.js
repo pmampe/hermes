@@ -11,7 +11,9 @@ beforeEach(function () {
           subType:'mc',
           shape:"line",
           text:"Foobar",
-          coords:[59.00, 18.00],
+          coords:[
+            [59.00, 18.00]
+          ],
           directionAware:false
         },
         {
@@ -21,7 +23,9 @@ beforeEach(function () {
           subType:'mc',
           shape:"line",
           text:"Foobar",
-          coords:[59.00, 18.00],
+          coords:[
+            [59.00, 18.00]
+          ],
           directionAware:false
         },
         {
@@ -31,7 +35,9 @@ beforeEach(function () {
           subType:'mc',
           shape:"line",
           text:"Foobar",
-          coords:[59.00, 18.00],
+          coords:[
+            [59.00, 18.00]
+          ],
           directionAware:false
         },
         {
@@ -41,7 +47,9 @@ beforeEach(function () {
           subType:'mc',
           shape:"line",
           text:"Foobar",
-          coords:[59.00, 18.00],
+          coords:[
+            [59.00, 18.00]
+          ],
           directionAware:false
         }
       ]

@@ -40,6 +40,27 @@ describe('Location model', function () {
       expect(this.location.get('pin')).toBeDefined();
     });
   });
+
+  describe('when creating a location', function () {
+    beforeEach(function () {
+      this.location = new Location({
+        campus:'campus',
+        type:'type',
+        coords:[
+          [59, 18]
+        ]
+      });
+    });
+
+    it('should generate a poi type from "campus.type"', function () {
+      expect(this.location.getPoiType()).toEqual("campus.type");
+    });
+
+    it('should generate google LatLng when calling getGPoints', function () {
+      expect(this.location.getGPoints()[0].lat()).toEqual(59);
+      expect(this.location.getGPoints()[0].lng()).toEqual(18);
+    });
+  });
 });
 
 describe('Locations collection', function () {
@@ -97,9 +118,9 @@ describe('Locations collection', function () {
       expect(firstLocation.get('subType')).toEqual('mc');
       expect(firstLocation.get('shape')).toEqual('line');
       expect(firstLocation.get('text')).toEqual('Foobar');
-      expect(firstLocation.get('coords').length).toEqual(2);
-      expect(firstLocation.get('coords')).toContain(59.00);
-      expect(firstLocation.get('coords')).toContain(18.00);
+      expect(firstLocation.get('coords')[0].length).toEqual(2);
+      expect(firstLocation.get('coords')[0]).toContain(59.00);
+      expect(firstLocation.get('coords')[0]).toContain(18.00);
       expect(firstLocation.get('directionAware')).toBeFalsy();
     });
   });
