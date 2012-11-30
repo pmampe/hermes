@@ -170,6 +170,25 @@ describe('Locations collection', function () {
   });
 });
 
+describe('Map model', function () {
+  describe('when creating a new map model', function () {
+    beforeEach(function () {
+      this.model = new MapModel();
+    });
+
+    it('should not have a currentPosition', function () {
+      expect(this.model.get('currentPosition')).toBeNull();
+    });
+
+    it('should be able to set locations as google LatLng', function () {
+      this.model.setLocation(40, 50);
+
+      expect(this.model.get('location').lat()).toEqual(40);
+      expect(this.model.get('location').lng()).toEqual(50);
+    });
+  });
+});
+
 describe('App view', function () {
   beforeEach(function () {
     this.view = new AppView({el:$('#page-map')});
