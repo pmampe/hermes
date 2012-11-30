@@ -169,3 +169,16 @@ describe('Locations collection', function () {
     });
   });
 });
+
+describe('App view', function () {
+  beforeEach(function () {
+    this.view = new AppView({el:$('#page-map')});
+  });
+
+  describe('instantiation', function () {
+    it('should create a div of #page-map', function () {
+      expect(this.view.el.nodeName).toEqual("DIV");
+      expect(this.view.el.id).toEqual("page-map");
+    });
+  });
+});
