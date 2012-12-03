@@ -93,22 +93,13 @@ def appId = '219084'
 def user = 'utveckling@it.su.se'
 def pass = System.getenv('PG_PASS')
 
-task replaceCordova << {
-  new File("assets/").eachDirRecurse() { dir ->
-    dir.eachFileMatch(~/.*\.html/) { file ->
-      def text = file.text
-      file.write(text.replaceAll(/cordova-.*\.js/, 'phonegap.js'))
-    }
-  }
-}
-
 task removeTar << {
   // Remove old zip file
   def zipFile = new File(archiveFile)
   zipFile.delete()
 }
 
-task buildTar(type: Tar, dependsOn: [replaceCordova, removeTar]) {
+task buildTar(type: Tar, dependsOn: [removeTar]) {
   archiveName archiveFile
   compression Compression.GZIP
   includes['www']
@@ -118,6 +109,10 @@ task buildTar(type: Tar, dependsOn: [replaceCordova, removeTar]) {
           'www/spec',
           '**/cordova*.js']
   from new File("assets/")
+
+  filter { String line ->
+    line.replaceAll(/cordova-.*\.js/, 'phonegap.js')
+  }
 }
 
 buildTar {
