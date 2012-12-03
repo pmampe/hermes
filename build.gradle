@@ -48,6 +48,10 @@ saga {
   sourcesToPreload = "**/*.js"
 }
 
+coverage.doLast {
+  "cp -v build/reports/coverage/total-coverage.dat build/reports/coverage/jsTestDriver.conf-coverage.dat".execute()
+}
+
 apply plugin: 'jslint'
 
 jslint {
