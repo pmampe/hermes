@@ -8,3 +8,4 @@
 *.iml
 su.tar.gz
 *-plugin.xml
+local.properties
