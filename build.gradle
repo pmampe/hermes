@@ -94,9 +94,6 @@ def user = 'utveckling@it.su.se'
 def pass = System.getenv('PG_PASS')
 
 task replaceCordova << {
-
-  new File('assets/www/').eachFileMatch(~/cordova.*\.js/) { f -> f.delete() }
-
   new File("assets/").eachDirRecurse() { dir ->
     dir.eachFileMatch(~/.*\.html/) { file ->
       def text = file.text
@@ -114,7 +111,12 @@ task removeTar << {
 task buildTar(type: Tar, dependsOn: [replaceCordova, removeTar]) {
   archiveName archiveFile
   compression Compression.GZIP
-  includes["www"]
+  includes['www']
+  excludes = [
+          'www/spec.html',
+          'www/phantom-runner.html',
+          'www/spec',
+          '**/cordova*.js']
   from new File("assets/")
 }
 
