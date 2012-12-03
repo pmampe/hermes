@@ -58,6 +58,19 @@ jslint {
   formatterType = 'xml'
 }
 
+task test(type: Exec) {
+
+  def phantomjs = System.getenv('PHANTOMJS')
+
+  if (!phantomjs)
+    phantomjs = "which phantomjs".execute().text.trim()
+
+  def testExecScript = file('assets/www/spec/lib/phantom-jasmine/run_jasmine_test.coffee')
+  def testRunner = file('assets/www/phantom-runner.html')
+
+  commandLine phantomjs, testExecScript.absolutePath, testRunner.absolutePath
+}
+
 def archiveFile = 'su.tar.gz'
 def appId = '219084'
 def user = 'utveckling@it.su.se'
