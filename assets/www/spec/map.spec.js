@@ -74,7 +74,7 @@ describe('Locations collection', function () {
     });
 
     it('should have a url pointing at broker geo api', function () {
-      expect(this.locations.url).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/)
+      expect(this.locations.url).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
     });
   });
 
