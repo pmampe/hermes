@@ -71,6 +71,19 @@ task test(type: Exec) {
   commandLine phantomjs, testExecScript.absolutePath, testRunner.absolutePath
 }
 
+task testReports(type: Exec, dependsOn: test) {
+
+  def phantomjs = System.getenv('PHANTOMJS')
+
+  if (!phantomjs)
+    phantomjs = "which phantomjs".execute().text.trim()
+
+  def testExecScript = file('assets/www/spec/lib/jasmine-reporters/phantomjs-testrunner.js')
+  def testRunner = file('assets/www/phantom-runner.html')
+
+  commandLine phantomjs, testExecScript.absolutePath, testRunner.absolutePath
+}
+
 def archiveFile = 'su.tar.gz'
 def appId = '219084'
 def user = 'utveckling@it.su.se'
