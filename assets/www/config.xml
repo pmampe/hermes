@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id = "se.su.it.handheld.app"
-        version = "0.0.1"
-        versionCode = "1">
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:gap="http://phonegap.com/ns/1.0"
+        id="se.su.it.handheld.app"
+        version="0.0.2"
+        versionCode="1">
 
   <name>Stockholm University</name>
 
@@ -15,29 +15,29 @@
     Team utveckling at Stockholm university
   </author>
 
-  <feature name="http://api.phonegap.com/1.0/device" />
+  <feature name="http://api.phonegap.com/1.0/device"/>
 
-  <preference name="phonegap-version" value="2.0.0" />
-  <preference name="orientation" value="default" />
-  <preference name="target-device" value="universal" />
-  <preference name="fullscreen" value="false" />
+  <preference name="phonegap-version" value="2.0.0"/>
+  <preference name="orientation" value="default"/>
+  <preference name="target-device" value="universal"/>
+  <preference name="fullscreen" value="false"/>
 
   <!-- Android specific -->
 
-  <preference name="android-minSdkVersion" value="8" />
+  <preference name="android-minSdkVersion" value="8"/>
 
-  <icon src="icon.png" />
+  <icon src="icon.png"/>
 
   <feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/contacts"/>
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
-  <feature name="http://api.phonegap.com/1.0/file" />
+  <feature name="http://api.phonegap.com/1.0/file"/>
 
-  <gap:plugin name="ChildBrowser" />
+  <gap:plugin name="ChildBrowser"/>
 
-  <access origin="http://su.se" subdomains="true" />
-  <access origin="http://*su.se" />
-  <access origin="http://google.com" subdomains="true" />
-  <access origin="http://gstatic.com" subdomains="true" />
-  <access origin="http://googleapis.com" subdomains="true" />
+  <access origin="http://su.se" subdomains="true"/>
+  <access origin="http://*su.se"/>
+  <access origin="http://google.com" subdomains="true"/>
+  <access origin="http://gstatic.com" subdomains="true"/>
+  <access origin="http://googleapis.com" subdomains="true"/>
 </widget>
