@@ -1,0 +1,22 @@
+{
+  "map":{
+    "general":{
+      "campus":"Campus",
+      "filter":"Filter"
+    },
+
+    "menu":{
+      "home":"Home",
+      "search":"Search",
+      "directions":"Directions"
+    },
+
+    "infoWindow":{
+      "directions":"Directions",
+      "walking":"Walking",
+      "bicycling":"Bicycling",
+      "publicTransit":"By public transit",
+      "car":"By car"
+    }
+  }
+}

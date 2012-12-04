@@ -21,6 +21,7 @@
   <script src="js/lib/jquery.ui.map/jquery.ui.map.js"></script>
   <script src="js/lib/jquery.ui.map/jquery.ui.map.overlays.js"></script>
   <script src="js/lib/jquery.ui.map/jquery.ui.map.services.js"></script>
+  <script src="../js/lib/i18next-1.5.8.min.js"></script>
 
   <script type="text/template" id="campus_template">
     <select name="campus" data-native-menu="false" id="campus">
@@ -51,22 +52,43 @@
       <% } %>
 
       <div id="directions" style="<%= displayMode %>">
-        <div>Directions:</div>
+        <div><%= i18n.t('map.infoWindow.directions') %>:</div>
         <div id="travel_modes_div" class="dir-tm kd-buttonbar kd-button">
-          <a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking" title="Walking">
+          <a class="kd-button kd-button-left dir-button" href="javascript:void(0)" id="walking"
+             title="<%= i18n.t('map.infoWindow.walking') %>">
             <img class="dir-tm-w" src="http://maps.gstatic.com/mapfiles/transparent.png">
           </a>
-          <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="bicycling" title="Bicycling">
+          <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="bicycling"
+             title="<%= i18n.t('map.infoWindow.bicycling') %>">
             <img class="dir-tm-b" src="http://maps.gstatic.com/mapfiles/transparent.png">
           </a>
           <a class="kd-button kd-button-mid dir-button" href="javascript:void(0)" id="publicTransp"
-             title="By public transit">
+             title="<%= i18n.t('map.infoWindow.publicTransit') %>">
             <img class="dir-tm-r" src="http://maps.gstatic.com/mapfiles/transparent.png">
           </a>
-          <a class="kd-button kd-button-right dir-button" href="javascript:void(0)" id="driving" title="By car">
+          <a class="kd-button kd-button-right dir-button" href="javascript:void(0)" id="driving"
+             title="<%= i18n.t('map.infoWindow.car') %>">
             <img class="dir-tm-d" src="http://maps.gstatic.com/mapfiles/transparent.png">
           </a>
         </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="page-map-footer_template">
+    <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
+      <div data-role="navbar">
+        <ul id="footer-buttons1">
+          <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
+            i18n.t('map.menu.home') %></a></li>
+          <li><a id="menu-search" href="#"><%= i18n.t('map.menu.search') %></a></li>
+        </ul>
+        <ul id="footer-buttons2" style="display:none;">
+          <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
+            i18n.t('map.menu.home') %></a></li>
+          <li><a id="menu-search" href="#"><%= i18n.t('map.menu.search') %></a></li>
+          <li><a href="#page-dir"><%= i18n.t('map.menu.directions') %></a></li>
+        </ul>
       </div>
     </div>
   </script>
@@ -121,22 +143,6 @@
     <div id="map_canvas"></div>
   </div>
   <!-- /content -->
-
-  <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-    <div data-role="navbar">
-      <ul id="footer-buttons1">
-        <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a id="menu-search" href="#">Search</a></li>
-      </ul>
-      <ul id="footer-buttons2" style="display:none;">
-        <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a id="menu-search" href="#">Search</a></li>
-        <li><a href="#page-dir">Directions</a></li>
-      </ul>
-    </div>
-    <!-- /navbar -->
-  </div>
-  <!-- /footer -->
 </div>
 <!-- /page-map -->
 

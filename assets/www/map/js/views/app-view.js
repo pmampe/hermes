@@ -17,6 +17,9 @@ var AppView = Backbone.View.extend({
   },
 
   render:function () {
+    var footerTpl = _.template($("#page-map-footer_template").html());
+    this.$el.append(footerTpl);
+
     this.togglePoiType();
 
     this.campuses.fetch({
@@ -34,7 +37,7 @@ var AppView = Backbone.View.extend({
     ];
 
     var template = _.template($("#location_template").html(), {
-      defaultOptionName:"Filter",
+      defaultOptionName:i18n.t("map.general.filter"),
       options:filters
     });
 
@@ -57,7 +60,7 @@ var AppView = Backbone.View.extend({
 
   renderCampuses:function () {
     var template = _.template($("#campus_template").html(), {
-      defaultOptionName:"Campus",
+      defaultOptionName:i18n.t("map.general.campus"),
       options:this.campuses.toJSON()
     });
 
