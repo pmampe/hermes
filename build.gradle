@@ -7,12 +7,10 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.content.FileBody
 import org.apache.http.HttpVersion
 import org.apache.http.params.CoreProtocolPNames
-import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy
 import org.apache.http.HttpResponse
-import org.apache.http.protocol.HttpContext
 import org.apache.http.util.EntityUtils
 
-version = "0.0.2"
+version = "0.0.3"
 group = "se.su.it.handheld.app"
 archivesBaseName = "hermes"
 

@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="se.su.it.handheld.app"
-        version="0.0.2"
+        version="0.0.3"
         versionCode="1">
 
   <name>Stockholm University</name>
@@ -12,12 +12,12 @@
   </description>
 
   <author href="http://www.su.se" email="utveckling@it.su.se">
-    Team utveckling at Stockholm university
+    Team utveckling at Stockholm University
   </author>
 
   <feature name="http://api.phonegap.com/1.0/device"/>
 
-  <preference name="phonegap-version" value="2.0.0"/>
+  <preference name="phonegap-version" value="2.2.0"/>
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
