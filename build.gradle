@@ -9,10 +9,12 @@ import org.apache.http.HttpVersion
 import org.apache.http.params.CoreProtocolPNames
 import org.apache.http.HttpResponse
 import org.apache.http.util.EntityUtils
+import org.apache.tools.ant.filters.*
 
 version = "0.0.3"
 group = "se.su.it.handheld.app"
 archivesBaseName = "hermes"
+description = """Prototype of Stockholm University mobile app."""
 
 buildscript {
   repositories {
@@ -109,9 +111,17 @@ task buildTar(type: Tar, dependsOn: [removeTar]) {
   from new File("assets/")
 
   eachFile { FileCopyDetails fileCopyDetails ->
-    if (!fileCopyDetails.isDirectory() && fileCopyDetails.name ==~ /.*\.html/) {
-      fileCopyDetails.filter { String line ->
-        line.replaceAll(/cordova-.*\.js/, 'phonegap.js')
+    if (!fileCopyDetails.isDirectory()) {
+      if (fileCopyDetails.name ==~ /.*\.html/) {
+        fileCopyDetails.filter { String line ->
+          line.replaceAll(/cordova-.*\.js/, 'phonegap.js')
+        }
+      }
+      else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
+        fileCopyDetails.filter(ReplaceTokens, tokens: [
+                id: project.group + '.' + project.name,
+                version: project.version
+        ])
       }
     }
   }
