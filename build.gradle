@@ -52,6 +52,19 @@ coverage.doLast {
   "cp -v build/reports/coverage/total-coverage.dat build/reports/coverage/jsTestDriver.conf-coverage.dat".execute()
 }
 
+task buildSonarPom(type: Copy) {
+  from 'pom.xml.dist'
+  into '.'
+
+  rename(/(.+).dist/, '$1')
+  filter(ReplaceTokens, tokens: [
+          group: project.group,
+          name: project.name,
+          version: project.version,
+          description: project.description
+  ])
+}
+
 apply plugin: 'jslint'
 
 jslint {
