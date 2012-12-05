@@ -106,13 +106,7 @@ def appId = '219084'
 def user = 'utveckling@it.su.se'
 def pass = System.getenv('PG_PASS')
 
-task removeTar << {
-  // Remove old zip file
-  def zipFile = new File(archiveFile)
-  zipFile.delete()
-}
-
-task buildTar(type: Tar, dependsOn: [removeTar]) {
+task buildTar(type: Tar) {
   archiveName archiveFile
   compression Compression.GZIP
   includes['www']
@@ -129,8 +123,7 @@ task buildTar(type: Tar, dependsOn: [removeTar]) {
         fileCopyDetails.filter { String line ->
           line.replaceAll(/cordova-.*\.js/, 'phonegap.js')
         }
-      }
-      else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
+      } else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
                 id: project.group + '.' + project.archivesBaseName,
                 version: project.version,
@@ -143,6 +136,12 @@ task buildTar(type: Tar, dependsOn: [removeTar]) {
 
 buildTar {
   outputs.upToDateWhen { false }
+}
+
+buildTar.doFirst {
+  // Remove old zip file
+  def zipFile = new File(archiveFile)
+  zipFile.delete()
 }
 
 task toPhonegap(dependsOn: buildTar) {
