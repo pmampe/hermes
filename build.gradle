@@ -59,7 +59,7 @@ task buildSonarPom(type: Copy) {
   rename(/(.+).dist/, '$1')
   filter(ReplaceTokens, tokens: [
           group: project.group,
-          name: project.name,
+          name: project.archivesBaseName,
           version: project.version,
           description: project.description
   ])
@@ -132,7 +132,7 @@ task buildTar(type: Tar, dependsOn: [removeTar]) {
       }
       else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
-                id: project.group + '.' + project.name,
+                id: project.group + '.' + project.archivesBaseName,
                 version: project.version
         ])
       }
