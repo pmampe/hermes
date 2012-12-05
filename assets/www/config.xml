@@ -32,7 +32,7 @@
   <feature name="http://api.phonegap.com/1.0/contacts"/>
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/file"/>
-  <!-- TODO: Add globalization to the feture list, as soon as phongap supports it. -->
+  <!-- TODO: Add globalization to the feture list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
   <gap:plugin name="ChildBrowser"/>
 

@@ -133,7 +133,8 @@ task buildTar(type: Tar, dependsOn: [removeTar]) {
       else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
                 id: project.group + '.' + project.archivesBaseName,
-                version: project.version
+                version: project.version,
+                description: project.description
         ])
       }
     }
