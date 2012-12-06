@@ -1,7 +1,7 @@
 /**
  * The search view for the map module.
  *
- * @class A Backbone view to handle the app.
+ * @class A Backbone view to handle the search popup.
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.View}
  */
