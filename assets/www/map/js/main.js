@@ -1,3 +1,9 @@
+/**
+ * Start the map module.
+ * Initializes the Backbone App view, sets locale and adds some triggers.
+ *
+ * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
+ */
 function startModule() {
   // Get locale from phonegap
   var globalization = navigator.globalization;
@@ -26,6 +32,10 @@ function startModule() {
   }, false);
 }
 
+/**
+ * Set locale.
+ * @param locale the locale to use. ex. en_US or sv.
+ */
 function setLocale(locale) {
   var options = {
     useCookie: false,
