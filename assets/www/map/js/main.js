@@ -34,7 +34,9 @@ function startModule() {
 
 /**
  * Set locale.
- * @param locale the locale to use. ex. en_US or sv.
+ *
+ * @param {string} locale the locale to use.
+ * @example setLocale("en_US");
  */
 function setLocale(locale) {
   var options = {

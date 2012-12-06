@@ -75,7 +75,7 @@ var Locations = Backbone.Collection.extend(
       /**
        * Filter Locations by campus.
        *
-       * @param campus the Campus to filter by.
+       * @param {string} campus the Campus to filter by.
        * @return {Array} an array of filtered Locations.
        */
       byCampus: function (campus) {
@@ -87,7 +87,7 @@ var Locations = Backbone.Collection.extend(
       /**
        * Filter Locations by type.
        *
-       * @param type the type to filter by.
+       * @param {string} type the type to filter by.
        * @return {Array} an array of filtered Locations.
        */
       byType: function (type) {
@@ -99,8 +99,8 @@ var Locations = Backbone.Collection.extend(
       /**
        * Filter Locations by campus and types.
        *
-       * @param campus the Campus to filter by.
-       * @param types an array of types to filter by.
+       * @param {string} campus the Campus to filter by.
+       * @param {Array} types an array of types to filter by.
        * @return {Array} an array of filtered Locations.
        */
       byCampusAndType: function (campus, types) {
