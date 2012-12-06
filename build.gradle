@@ -161,6 +161,13 @@ buildTar.doFirst {
 task toPhonegap(dependsOn: buildTar) {
   doLast {
 
+    if (!phonegapPass) {
+      def console = System.console()
+      if (console) {
+        phonegapPass = console.readPassword("\n> Password for ${phonegapUser}: ").toString()
+      }
+    }
+
     def token = getToken(phonegapUser, phonegapPass)
     def apiCall = "https://build.phonegap.com/api/v1/apps/${phonegapAppId}?auth_token=${token}"
 
