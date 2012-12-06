@@ -3,7 +3,7 @@ function startModule() {
   var globalization = navigator.globalization;
 
   if (globalization) {
-    navigator.globalization.getLocaleName(
+    globalization.getLocaleName(
         function (locale) {
           setLocale(locale.value);
         },
@@ -17,7 +17,7 @@ function startModule() {
     setLocale();
   }
 
-  var appView = new AppView({ el:$('#page-map') });
+  var appView = new AppView({ el: $('#page-map') });
   appView.render();
 
   $('#page-map').trigger("pagecreate");
@@ -28,10 +28,10 @@ function startModule() {
 
 function setLocale(locale) {
   var options = {
-    useCookie:false,
-    fallbackLng:'en',
-    resGetPath:'locales/__lng__.json',
-    getAsync:false
+    useCookie: false,
+    fallbackLng: 'en',
+    resGetPath: 'locales/__lng__.json',
+    getAsync: false
   };
 
   if (locale) {
