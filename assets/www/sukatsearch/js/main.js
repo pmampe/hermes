@@ -1,7 +1,8 @@
 function startModule() {
   $.support.cors = true;
   $.mobile.allowCrossDomainPages = true;
-  searchView = new SearchView({el: $('#search_view')});
+  searchView = new SukatSearchView({el: $('#search_view')});
+  searchView.render();
   $('#search_page').trigger("pagecreate");
 
 

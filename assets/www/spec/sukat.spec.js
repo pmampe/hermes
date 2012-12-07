@@ -87,3 +87,23 @@ describe('Person collection', function () {
     });
   });
 });
+
+describe('Search view', function () {
+  beforeEach(function () {
+    this.origBody = $('body').html;
+    $('body').append("<div id='search-page'><div id='search_view'></div></div>");
+
+    this.view = new SukatSearchView({el: $('#search_view')});
+  });
+
+  afterEach(function () {
+    $('body').html = this.origBody;
+  });
+
+  describe('instantiation', function () {
+    it('should create a div of #search_view', function () {
+      expect(this.view.el.nodeName).toEqual("DIV");
+      expect(this.view.el.id).toEqual("search_view");
+    });
+  });
+});

@@ -1,34 +1,32 @@
-var SearchView = Backbone.View.extend({
+var SukatSearchView = Backbone.View.extend({
 
-  initialize:function () {
+  initialize: function () {
     _.bindAll(this, "render", "doSearch", "resetSearchResults");
 
     this.collection = new Persons();
     this.collection.on("reset", this.resetSearchResults, this);
-
-    this.render();
   },
 
-  render:function () {
+  render: function () {
     var template = _.template($("#search_template").html(), {});
     this.el.innerHTML = template;
   },
 
-  events:{
-    "click a[id=search_button]":"doSearch"
+  events: {
+    "click a[id=search_button]": "doSearch"
   },
 
-  doSearch:function (event) {
+  doSearch: function (event) {
     this.collection.fetch({
-      data:{user:$("#search_input").val().trim()},
-      error:function () {
+      data: {user: $("#search_input").val().trim()},
+      error: function () {
         alert("ERROR! Failed to fetch search results.");
       }
     });
   },
 
-  resetSearchResults:function () {
-    var variables = { result_count:this.collection.length };
+  resetSearchResults: function () {
+    var variables = { result_count: this.collection.length };
     var template = _.template($("#result_template").html(), variables);
     this.$el.children('#result_content').html(template);
 
@@ -41,9 +39,9 @@ var SearchView = Backbone.View.extend({
     $('#search_page').listview('refresh');
   },
 
-  renderPerson:function (item) {
+  renderPerson: function (item) {
     var personView = new PersonView({
-      model:item
+      model: item
     });
 
     var $item = personView.render().el;
