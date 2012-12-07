@@ -93,7 +93,7 @@ task test(type: Exec) {
   commandLine phantomjs, testExecScript.absolutePath, testRunner.absolutePath
 }
 
-task testReports(type: Exec, dependsOn: test) {
+task testReports(type: Exec) {
   if (!phantomjs)
     phantomjs = "which phantomjs".execute().text.trim()
 
