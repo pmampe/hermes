@@ -191,9 +191,14 @@ describe('Map model', function () {
 
 describe('App view', function () {
   beforeEach(function () {
+    this.origBody = $('body').html;
     $('body').append("<div id='page-map'><div id='map_canvas'></div></div>");
 
     this.view = new AppView({el: $('#page-map')});
+  });
+
+  afterEach(function () {
+    $('body').html = this.origBody;
   });
 
   describe('instantiation', function () {
