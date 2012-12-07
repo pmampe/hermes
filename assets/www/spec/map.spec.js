@@ -44,9 +44,9 @@ describe('Location model', function () {
   describe('when creating a location', function () {
     beforeEach(function () {
       this.location = new Location({
-        campus:'campus',
-        type:'type',
-        coords:[
+        campus: 'campus',
+        type: 'type',
+        coords: [
           [59, 18]
         ]
       });
@@ -191,7 +191,9 @@ describe('Map model', function () {
 
 describe('App view', function () {
   beforeEach(function () {
-    this.view = new AppView({el:$('#page-map')});
+    $('body').append("<div id='page-map'><div id='map_canvas'></div></div>");
+
+    this.view = new AppView({el: $('#page-map')});
   });
 
   describe('instantiation', function () {
