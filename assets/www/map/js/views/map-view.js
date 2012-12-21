@@ -23,7 +23,7 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "resetSearchResults", "resetLocations");
+        _.bindAll(this, "render", "resetSearchResults", "resetLocations", "showCampusesList");
 
         this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
@@ -78,8 +78,8 @@ var MapView = Backbone.View.extend(
       render: function () {
 
         // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("#page-map-header").height() - $(".ui-footer").height());
-
+        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight());
+        
         this.currentPositionPoint.render();
 
         var self = this;
@@ -189,12 +189,58 @@ var MapView = Backbone.View.extend(
           infoWindow: this.mapInfoWindowView
         });
       },
+      
+      /**
+       * Zoom the map to a new bound.
+       * 
+       * @param {Map} bounds containing coordinates for minLat, maxLat, minLng, maxLat.
+       */
+      zoomToBounds: function(bounds) {
+    	  if (bounds.minLat != 0 && bounds.maxLat != 0 && bounds.minLng != 0 && bounds.maxLng != 0) {
+    		  var sw = new google.maps.LatLng(bounds.minLat, bounds.minLng);
+    		  var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
+    		  var latLngBounds = new google.maps.LatLngBounds(sw, ne);
+    		  this.map.fitBounds(latLngBounds);
+    	  }
+      },
+      
+      /**
+       * Show a popup list of the different campuses sent in.
+       * 
+       * @param {List} campuses list, ex ['Frescati', 'Kista', etc...]
+       */
+      showCampusesList: function (campuses) {
+    	  var campusesMap = {};
+    	  $("#campus").children().not(":first").each(function(k, item) {
+    		  campusesMap[$(item).text()] = $(item).val();
+    	  });
+    	  
+	      var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
+	      campusPopupView.render();
+	    },
+      
 
       /**
        * Resets the search results from the search results collection.
+       * 
+       * If the search result contains more than 1 campuses, show the list of campuses 
+       * for the user to choose. 
+       * Also if no specific campus has been selected in the campus drop-down, then
+       * zoom out the map so that all the results are visible. 
        */
       resetSearchResults: function () {
         this.replacePoints(this.searchResults);
+
+        // if the search results exists in multiple campuses, show campus list
+        if (this.searchResults.campuses && this.searchResults.campuses.length > 1) {
+            // zoom out to include all points when no campuses have been selected
+            if ($("#campus").val() == "") {
+            	this.zoomToBounds(this.searchResults.bounds);
+            }
+        	
+        	this.fadingMsg("Sökningen returnerade träffar i flera campus.");
+            this.showCampusesList(this.searchResults.campuses);        	
+        }
         $.mobile.loading('hide');
       },
 

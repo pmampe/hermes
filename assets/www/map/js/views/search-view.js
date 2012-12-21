@@ -39,7 +39,7 @@ var SearchView = Backbone.View.extend(
         "keypress input[id=search_input]": 'doSearchOnEnter',
         "click a[id=search_button_close]": "closeSearch"
       },
-
+      
       /**
        * Render the search view.
        */
@@ -70,9 +70,10 @@ var SearchView = Backbone.View.extend(
           var template = _.template($("#search-popup_filter_button_template").html(), { id: typeId, name: type });
           filtersContainer.append(template);
         });
-
+        
+        
         // Open the search popup.
-        this.$el.popup("open", { transition: 'slidedown'});
+    	this.$el.popup("open", { transition: 'slidedown'});
 
         // Attach functionality to clicks on the filter buttons.
 
