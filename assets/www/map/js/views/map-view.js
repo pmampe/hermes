@@ -201,6 +201,11 @@ var MapView = Backbone.View.extend(
     		  var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
     		  var latLngBounds = new google.maps.LatLngBounds(sw, ne);
     		  this.map.fitBounds(latLngBounds);
+          
+          // force max zoom to be less than 17 (google map max is 21)
+          if (this.map.getZoom() > 17) {
+            this.map.setZoom(17);
+          }
     	  }
       },
       
@@ -231,16 +236,17 @@ var MapView = Backbone.View.extend(
       resetSearchResults: function () {
         this.replacePoints(this.searchResults);
 
+        // zoom out to include all points when no campuses have been selected
+        if ($("#campus").val() == "") {
+          this.zoomToBounds(this.searchResults.bounds);
+        }
+
         // if the search results exists in multiple campuses, show campus list
         if (this.searchResults.campuses && this.searchResults.campuses.length > 1) {
-            // zoom out to include all points when no campuses have been selected
-            if ($("#campus").val() == "") {
-            	this.zoomToBounds(this.searchResults.bounds);
-            }
-        	
-        	this.fadingMsg("Sökningen returnerade träffar i flera campus.");
-            this.showCampusesList(this.searchResults.campuses);        	
+          this.fadingMsg("Sökningen returnerade träffar i flera campus.");
+          this.showCampusesList(this.searchResults.campuses);
         }
+
         $.mobile.loading('hide');
       },
 
