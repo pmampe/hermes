@@ -55,7 +55,7 @@ var CampusPopupView = Backbone.View.extend(
           // --- HACK: for correct x and y position of popup ---
           var x = 150;
           // device is only defined when running on a physical device (not a web browser)
-          if (device) x = 50; 
+          if (typeof device != 'undefined') x = 50; 
           
           var cellHeight = $("#campusesPopup li:nth-child(2)").height();
           var noOfCells = $("#campusesPopup li:not(:first-child)").length;
