@@ -15,18 +15,6 @@
   
   function openChildBrowser(url) {
     window.plugins.childBrowser.showWebPage(url, { showLocationBar: true });
-    /*
-     try {
-     var childBrowser;
-     childBrowser = new ChildBrowser();
-     childBrowser.showWebPage(url);
-
-     }
-     catch (err)
-     {
-     alert(err);
-     }
-     */
   }
 
   window.plugins.childBrowser.onClose = function () {
