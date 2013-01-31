@@ -70,9 +70,9 @@ var Locations = Backbone.Collection.extend(
        * In this method the bounds and campuses variable are set.
        */
       parse: function(response) {
-    	  this.bounds = response.bounds;
-    	  this.campuses = response.campuses;
-    	  return response.locations;
+        this.bounds = response.bounds;
+        this.campuses = response.campuses;
+        return response.locations;
       },
   	  
 
@@ -143,9 +143,9 @@ var LocationSearchResult = Backbone.Collection.extend(
        * In this method the bounds and campuses variable are set.
        */
       parse: function(response) {
-    	  this.bounds = response.bounds;
-    	  this.campuses = response.campuses;
-    	  return response.locations;
+        this.bounds = response.bounds;
+        this.campuses = response.campuses;
+        return response.locations;
       },
 
       /**

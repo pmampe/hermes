@@ -196,17 +196,17 @@ var MapView = Backbone.View.extend(
        * @param {Map} bounds containing coordinates for minLat, maxLat, minLng, maxLat.
        */
       zoomToBounds: function(bounds) {
-    	  if (bounds.minLat != 0 && bounds.maxLat != 0 && bounds.minLng != 0 && bounds.maxLng != 0) {
-    		  var sw = new google.maps.LatLng(bounds.minLat, bounds.minLng);
-    		  var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
-    		  var latLngBounds = new google.maps.LatLngBounds(sw, ne);
-    		  this.map.fitBounds(latLngBounds);
-          
+        if (bounds.minLat != 0 && bounds.maxLat != 0 && bounds.minLng != 0 && bounds.maxLng != 0) {
+          var sw = new google.maps.LatLng(bounds.minLat, bounds.minLng);
+          var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
+          var latLngBounds = new google.maps.LatLngBounds(sw, ne);
+          this.map.fitBounds(latLngBounds);
+
           // force max zoom to be less than 17 (google map max is 21)
           if (this.map.getZoom() > 17) {
             this.map.setZoom(17);
           }
-    	  }
+        }
       },
       
       /**
@@ -215,14 +215,14 @@ var MapView = Backbone.View.extend(
        * @param {List} campuses list, ex ['Frescati', 'Kista', etc...]
        */
       showCampusesList: function (campuses) {
-    	  var campusesMap = {};
-    	  $("#campus").children().not(":first").each(function(k, item) {
-    		  campusesMap[$(item).text()] = $(item).val();
-    	  });
-    	  
-	      var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
-	      campusPopupView.render();
-	    },
+        var campusesMap = {};
+        $("#campus").children().not(":first").each(function(k, item) {
+          campusesMap[$(item).text()] = $(item).val();
+        });
+
+        var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
+        campusPopupView.render();
+      },
       
 
       /**
@@ -237,7 +237,7 @@ var MapView = Backbone.View.extend(
         this.replacePoints(this.searchResults);
 
         // zoom out to include all points when no campuses have been selected
-        if ($("#campus").val() == "") {
+        if ($("#campus").val() === "") {
           this.zoomToBounds(this.searchResults.bounds);
         }
 
