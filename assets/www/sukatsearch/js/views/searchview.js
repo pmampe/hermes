@@ -17,10 +17,16 @@ var SukatSearchView = Backbone.View.extend({
   },
 
   doSearch: function (event) {
+    $.mobile.loading('show', { textVisible: false });
+    
     this.collection.fetch({
       data: {user: $("#search_input").val().trim()},
       error: function () {
+        $.mobile.loading('hide');
         alert("ERROR! Failed to fetch search results.");
+      },
+      success: function() {
+        $.mobile.loading('hide');
       }
     });
   },
@@ -36,7 +42,6 @@ var SukatSearchView = Backbone.View.extend({
     });
 
     $('#search_page').trigger("pagecreate");
-    $('#search_page').listview('refresh');
   },
 
   renderPerson: function (item) {
