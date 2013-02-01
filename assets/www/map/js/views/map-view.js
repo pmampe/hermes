@@ -19,6 +19,8 @@ var MapView = Backbone.View.extend(
       /** The info window */
       mapInfoWindowView: null,
 
+      searchView: null,
+
       /**
        * @constructs
        */
@@ -41,8 +43,7 @@ var MapView = Backbone.View.extend(
         };
 
         // Add the Google Map to the page
-        this.$el.gmap(myOptions);
-        this.map = this.$el.gmap("get", "map");
+        this.map = new google.maps.Map(this.el, myOptions);
 
         this.model.set({currentPosition: new Location({
           id: -100,
@@ -122,8 +123,13 @@ var MapView = Backbone.View.extend(
        * @param {string} campus the campus to show in the search window.
        */
       showSearchView: function (campus) {
-        var searchView = new SearchView({ el: $('#search-popup'), campus: campus, searchResults: this.searchResults });
-        searchView.render();
+        if (this.searchView == null) {
+          this.searchView = new SearchView({ el: $('#search-popup'), campus: campus, searchResults: this.searchResults });
+        } else {
+          this.searchView.campus = campus;
+          this.searchView.searchResults = this.searchResults;
+        }
+        this.searchView.render();
       },
 
       /**
@@ -152,7 +158,7 @@ var MapView = Backbone.View.extend(
               },
               function (error) {
                 self.fadingMsg('Unable to get location\n');
-                console.log(error);
+                console.error(error);
               });
         }
       },
