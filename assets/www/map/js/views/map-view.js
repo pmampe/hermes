@@ -45,7 +45,10 @@ var MapView = Backbone.View.extend(
         };
 
         // Add the Google Map to the page
-        this.map = new google.maps.Map(this.el, myOptions);
+        //this.map = new google.maps.Map(this.el, myOptions);
+				this.$el.gmap(myOptions);
+				this.map = this.$el.gmap("get", "map");
+        
 
         this.model.set({currentPosition: new Location({
           id: -100,
