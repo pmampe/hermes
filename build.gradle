@@ -41,7 +41,7 @@ apply plugin: 'jslint'
  */
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.3'
+  gradleVersion = '1.4'
 }
 
 /**
@@ -180,57 +180,56 @@ task toPhonegap(dependsOn: buildTar) {
       }
     }
 
-  def host = "build.phonegap.com"
+    def host = "build.phonegap.com"
     def apiCall = "https://build.phonegap.com/api/v1/apps/${phonegapAppId}"
 
     DefaultHttpClient httpclient = new DefaultHttpClient();
 
-  // -- AUTHENTICATION --
-  AuthScope authScope = new AuthScope(host, 443);
-  UsernamePasswordCredentials upc = new UsernamePasswordCredentials(
-      phonegapUser, phonegapPassword);
-  ((AbstractHttpClient) httpclient).getCredentialsProvider()
-      .setCredentials(authScope, upc);
-  BasicHttpContext localContext = new BasicHttpContext();
-  BasicScheme basicAuth = new BasicScheme();
-  localContext.setAttribute("preemptive-auth", basicAuth);
-  HttpHost targetHost = new HttpHost(host, 443, "https");
-  // -- AUTHENTICATION END
+    // -- AUTHENTICATION --
+    AuthScope authScope = new AuthScope(host, 443);
+    UsernamePasswordCredentials upc = new UsernamePasswordCredentials(
+            phonegapUser, phonegapPassword);
+    ((AbstractHttpClient) httpclient).getCredentialsProvider()
+            .setCredentials(authScope, upc);
+    BasicHttpContext localContext = new BasicHttpContext();
+    BasicScheme basicAuth = new BasicScheme();
+    localContext.setAttribute("preemptive-auth", basicAuth);
+    HttpHost targetHost = new HttpHost(host, 443, "https");
+    // -- AUTHENTICATION END
 
-  // Header info
-  httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+    // Header info
+    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
     HttpPut httpPut = new HttpPut(apiCall)
     httpPut.getParams().setBooleanParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE, true)
     httpPut.setHeader("Accept", "*/*")
 
-  // Multipart request - one part containing info to unlock keys, one part containing app file
+    // Multipart request - one part containing info to unlock keys, one part containing app file
     MultipartEntity mp = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-  StringBody stringBody = new StringBody("""{"keys":
+    StringBody stringBody = new StringBody("""{"keys":
       {"android":{"id":10672, "key_pw": "2u4ppH3rm32", "keystore_pw": "2u4ppH3rm32"},
       "ios":{"id":46818, "password": "2u4ppH3rm32"}
       }
-    }""", 
-    "application/json", Charset.forName("utf-8"))
+    }""",
+            "application/json", Charset.forName("utf-8"))
     mp.addPart('data', stringBody);
     FileBody fileBody = new FileBody(new File(archiveFile), "binary/octet-stream");
     mp.addPart('file', fileBody);
     httpPut.setEntity(mp); // add the two parts to the request
-  // execute request
+    // execute request
     HttpResponse response = httpclient.execute(targetHost, httpPut, localContext)
 
     def status = response.statusLine.statusCode
     def json = new JsonSlurper().parseText(EntityUtils.toString(response.entity))
 
     if (json?.error?.size() > 0) {
-    throw new Exception("Error during publish to phonegap: ${json.error}")
+      throw new Exception("Error during publish to phonegap: ${json.error}")
     } else if (status != 200) {
       throw new Exception("Failed to publish to phonegap: (${json.error}) ${status}: ${response.statusLine.reasonPhrase}")
     } else {
-        println "Successfully published app '${json.title}' v${json.version} build nr ${json.build_count} to phonegap."
+      println "Successfully published app '${json.title}' v${json.version} build nr ${json.build_count} to phonegap."
     }
   }
 }
-
 
 /**
  * Config
