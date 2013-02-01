@@ -28,8 +28,8 @@ var InfoWindow = Backbone.View.extend(
         $(".dir-button").live("click", function () {
           self.remove();
 
-          $("#footer-buttons1").hide();
-          $("#footer-buttons2").show();
+          // show the directions toolbar
+          options.mapView.showNumberOfButtons(4);
 
           $(".dir-button").each(function () {
             $(this).removeClass("selected");

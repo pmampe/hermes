@@ -78,12 +78,21 @@
     <script type="text/template" id="page-map-footer_template">
         <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
             <div data-role="navbar">
-                <ul id="footer-buttons1">
+                <ul id="footer-buttons1" class="footer-button" style="display:none;">
+                    <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
+                        i18n.t('map.menu.home') %></a></li>
+                </ul>
+                <ul id="footer-buttons2" class="footer-button">
                     <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
                         i18n.t('map.menu.home') %></a></li>
                     <li><a id="menu-search" href="#"><%= i18n.t('map.menu.search') %></a></li>
                 </ul>
-                <ul id="footer-buttons2" style="display:none;">
+                <ul id="footer-buttons3" class="footer-button" style="display:none;">
+                    <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
+                        i18n.t('map.menu.home') %></a></li>
+                    <li><a href="#page-dir"><%= i18n.t('map.menu.directions') %></a></li>
+                </ul>
+                <ul id="footer-buttons4" class="footer-button" style="display:none;">
                     <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
                         i18n.t('map.menu.home') %></a></li>
                     <li><a id="menu-search" href="#"><%= i18n.t('map.menu.search') %></a></li>

@@ -17,7 +17,7 @@ var SearchView = Backbone.View.extend(
        * @param options Options for this class. Expects campus name and a searchResult collection to add results to
        */
       initialize: function (options) {
-        _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "closeSearch");
+        _.bindAll(this, "render", "doSearch", "doSearchOnEnter");
 
         this.campus = options.campus;
         this.searchResults = options.searchResults;
@@ -29,6 +29,9 @@ var SearchView = Backbone.View.extend(
 
             var pos = $("#page-map-header").outerHeight();
             $("#search-popup").css("top", pos);
+          },
+          popupafterclose: function() {
+            options.mapView.toggleSearchFromToolbar();
           }
         });
       },
@@ -36,8 +39,7 @@ var SearchView = Backbone.View.extend(
       /** Registers events */
       events: {
         "click a[id=search_button]": "doSearch",
-        "keypress input[id=search_input]": 'doSearchOnEnter',
-        "click a[id=search_button_close]": "closeSearch"
+        "keypress input[id=search_input]": 'doSearchOnEnter'
       },
       
       /**
@@ -133,14 +135,5 @@ var SearchView = Backbone.View.extend(
             $.mobile.loading('hide');
           }
         });
-      },
-
-      /**
-       * Close the search popup.
-       *
-       * @param event the triggering event.
-       */
-      closeSearch: function (event) {
-        this.$el.hide();
       }
     }); //-- End of Search view

@@ -20,6 +20,8 @@ var MapView = Backbone.View.extend(
       mapInfoWindowView: null,
 
       searchView: null,
+      
+      searchHiddenFromToolbar: false,
 
       /**
        * @constructs
@@ -124,12 +126,50 @@ var MapView = Backbone.View.extend(
        */
       showSearchView: function (campus) {
         if (this.searchView == null) {
-          this.searchView = new SearchView({ el: $('#search-popup'), campus: campus, searchResults: this.searchResults });
+          this.searchView = new SearchView({ el: $('#search-popup'), 
+            campus: campus, 
+            searchResults: this.searchResults,
+            mapView: this
+          });
         } else {
           this.searchView.campus = campus;
           this.searchView.searchResults = this.searchResults;
         }
         this.searchView.render();
+        
+        this.toggleSearchFromToolbar();
+      },
+      
+      /**
+       * Toogle search button from toolbar. When clicking on search,
+       * we hide the search button in order to not confuse the user.
+       * The search button in the toolbar is there to bring up the
+       * search popup, but not to do the actual search.
+       */
+      toggleSearchFromToolbar: function() {
+        var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14));
+        $(".footer-button").hide();
+        
+        var toolbarToShow = this.searchHiddenFromToolbar? ++toolbarNumber: --toolbarNumber;
+        $("#footer-buttons" + toolbarToShow).show();
+        
+        this.searchHiddenFromToolbar = !this.searchHiddenFromToolbar;
+      },
+      
+      /**
+       * There are a maximum of 3 buttons - home, search and directions
+       * (in that order). Given the number of buttons to display the 
+       * footer will display them.
+       */
+      showNumberOfButtons: function(nOButtons) {
+        var directionsVisible = $("#footer-buttons3").is(":visible");
+        $(".footer-button").hide();
+
+        if (directionsVisible) {
+          $("#footer-buttons2b").show();
+        } else {
+          $("#footer-buttons" + nOButtons).show();
+        }
       },
 
       /**
