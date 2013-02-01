@@ -123,21 +123,19 @@ var AppView = Backbone.View.extend(
         var types = $('#poiType').val();
 
         // Reset the collection if no popups are open or is empty, otherwise fetch new.
-        if ($(document).find("[data-role='popup']").get(0) == null) {
-          if (types === null) {
-            this.mapView.locations.reset();
-          }
-          else {
-            this.mapView.locations.fetch({
-              data: {
-                campus: campus,
-                types: types
-              },
-              error: function () {
-                alert("ERROR! Failed to fetch locations.");
-              }
-            });
-          }
+        if (types === null) {
+          this.mapView.locations.reset();
+        }
+        else {
+          this.mapView.locations.fetch({
+            data: {
+              campus: campus,
+              types: types
+            },
+            error: function () {
+              alert("ERROR! Failed to fetch locations.");
+            }
+          });
         }
       },
 
