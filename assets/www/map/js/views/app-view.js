@@ -124,6 +124,8 @@ var AppView = Backbone.View.extend(
         var searchInput = $("#search_input").val();
 
         // Reset the collection if no popups are open or is empty, otherwise fetch new.
+        // If we have inputed a search input and no poiType, then don't fetch any new pois
+        // (retain the current ones).
         if (types === null && searchInput === null) {
           this.mapView.locations.reset();
         }
