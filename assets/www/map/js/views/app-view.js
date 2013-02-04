@@ -121,12 +121,13 @@ var AppView = Backbone.View.extend(
         }
 
         var types = $('#poiType').val();
+        var searchInput = $("#search_input").val();
 
         // Reset the collection if no popups are open or is empty, otherwise fetch new.
-        if (types === null) {
+        if (types === null && searchInput === null) {
           this.mapView.locations.reset();
         }
-        else {
+        else if (types != null) {
           this.mapView.locations.fetch({
             data: {
               campus: campus,
