@@ -15,7 +15,7 @@ var MapView = Backbone.View.extend(
 
       /** The map */
       map: null,
-
+      
       /** The info window */
       mapInfoWindowView: null,
 
@@ -106,7 +106,7 @@ var MapView = Backbone.View.extend(
         });
         /* ------------------------------------------------------------- */
       },
-
+      
       /**
        * Displays a fading message box on top of the map.
        *

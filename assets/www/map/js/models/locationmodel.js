@@ -17,6 +17,7 @@ var Location = Backbone.Model.extend(
         text: "",
         coords: [],
         directionAware: true,
+        customisedIcon: false,
         pin: new google.maps.MarkerImage(
             'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
                 'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +

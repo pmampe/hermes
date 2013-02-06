@@ -16,8 +16,17 @@ var AppView = Backbone.View.extend(
       initialize: function () {
         _.bindAll(this, "render", "changeCampus", "showPOIs");
 
+        this.isWebKit = navigator.userAgent.indexOf("WebKit") != -1;
+        // locale storage only supported on webkit browsers
+        if (this.isWebKit) { 
+          this.db = this.initializeDB();
+          this.createCampusesTable(this.db);
+        }
+
         this.campuses = new Campuses();
 
+        // request event not firing for some reason, putting logic in render method..
+        this.campuses.on("request", this.getCampuses, this);
         this.campuses.on("reset", this.renderCampuses, this);
 
         this.mapView = new MapView({ el: $('#map_canvas') });
@@ -41,6 +50,9 @@ var AppView = Backbone.View.extend(
 
         this.togglePoiType();
 
+        // get campuses from locale storage before fetching
+        // (could be moved to 'request' event, but not working for now..)
+        this.getCampuses();
         this.campuses.fetch({
           error: function () {
             alert("ERROR! Failed to fetch campuses.");
@@ -67,6 +79,98 @@ var AppView = Backbone.View.extend(
         filterSelect.selectmenu();
         filterSelect.selectmenu("refresh", true);
       },
+      
+      
+      // --- BEGIN DATABASE FUNCTIONS ---
+      // --------------------------------
+      
+      //open the database
+      initializeDB: function () {
+        var localDatabase = openDatabase(
+            "campuses", //    short name
+            "1.0",      //    version
+            "Campuses", //    long name
+            5000000     //    max size (5 MB - max confirmed on all devices)
+        );
+
+        return localDatabase;
+      },
+
+
+      createCampusesTable: function(db) {
+        var query = "CREATE TABLE IF NOT EXISTS campuses " +
+        "(id INT PRIMARY KEY, name NVARCHAR(100), coords NVARCHAR(50), zoom INT);"
+
+        db.transaction(function (trxn) {
+          trxn.executeSql(
+              query,  // the query to execute
+              [],     // parameters for the query
+              function (transaction, resultSet) { // success callback
+                console.log('successfully created table campsues');
+              },
+              function (transaction, error) { //error callback
+                console.log(error);
+              });
+        }); 
+      },
+      
+      insertCampuses: function(campuses) {
+        if (this.isWebKit) { // locale storage only supported on webkit browsers
+          var self = this;
+          $(campuses).each(function(i, campus) {
+            var query = "INSERT OR REPLACE INTO campuses (id, name, coords, zoom) " +
+            "VALUES (?,?,?,?);"
+          
+            self.db.transaction(function (trxn) {
+              trxn.executeSql(
+                  query,
+                  [campus.id, campus.name, campus.coords, campus.zoom],
+                  function (transaction, resultSet) {
+                    console.log('successfully inserted into campuses');
+                  },
+                  function (transaction, error) {
+                    console.log(error);
+                  }
+              ); 
+            });
+          })
+        }
+      },          
+      
+      getCampuses: function(/* db, callback */) {
+        if (this.isWebKit) { // locale storage only supported on webkit browsers
+          var self = this;
+          var query = "SELECT * FROM campuses;";
+          this.db.transaction(function (trxn) {
+            trxn.executeSql(
+                query,  // the query to execute
+                [],     // parameters for the query
+                function (transaction, resultSet) {
+                  var i = 0,
+                  currentRow,
+                  campuses = [];
+                  for (i; i < resultSet.rows.length; i++) {
+                    currentRow = resultSet.rows.item(i);
+                    currentRow.coords = currentRow.coords.split(",");
+                    campuses.push(currentRow);
+                  }
+
+                  campuses.toJSON = function (key) {
+                    // return everything except last element (the toJSON object)
+                    return this.slice(0, this.length - 1);
+                  }
+
+                  self.renderCampuses(campuses);
+                },
+                function (transaction, error) { //error callback
+                  console.log(error);
+                } );
+          }); 
+        }
+      },
+      // --- END DATABASE FUNCTIONS ---
+      // --------------------------------
+      
 
       /**
        * Opens the search popup (or slide down)
@@ -85,13 +189,17 @@ var AppView = Backbone.View.extend(
       /**
        * Render campus select.
        */
-      renderCampuses: function () {
+      renderCampuses: function (campuses) {
+        this.insertCampuses(campuses.toJSON());
+        
         var template = _.template($("#campus_template").html(), {
           defaultOptionName: i18n.t("map.general.campus"),
-          options: this.campuses.toJSON()
+          options: campuses.toJSON()
         });
 
-        this.$el.find('#campus').replaceWith(template);
+        this.$el.find('#campus').html(template);
+        // HACK: seems that after the html() call above, the data-native-menu disapears
+        this.$el.find('#campus').attr('data-native-menu', false);
         this.$el.find('#campus').selectmenu();
         this.$el.find('#campus').selectmenu("refresh", true);
         this.$el.trigger("refresh");

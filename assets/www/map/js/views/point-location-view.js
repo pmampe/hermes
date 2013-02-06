@@ -14,12 +14,22 @@ var PointLocationView = GenericLocationView.extend(
        * @param options options for this view.
        */
       initialize: function (options) {
+        
+        var pin = options.model.get('pin');
+        
+        // if the model contains customised icon, show it instead of the default one.
+        if (options.model.get('customisedIcon')) {
+          var locationId = options.model.get('id');
+          pin = new google.maps.MarkerImage(
+              'http://localhost:8080/hermes-broker/image/view/' + locationId, 
+              new google.maps.Size(22, 22));
+        } 
 
         options.marker = new google.maps.Marker({
           position: _.flatten(options.model.getGPoints())[0],
           poiType: options.model.getPoiType(),
           visible: true,
-          icon: options.model.get('pin'),
+          icon: pin,
           map: null
         });
 
