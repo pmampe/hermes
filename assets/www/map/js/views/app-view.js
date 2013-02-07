@@ -244,7 +244,7 @@ var AppView = Backbone.View.extend(
         if (types === null && searchInput === null) {
           this.mapView.locations.reset();
         }
-        else if (types != null) {
+        else if (types !== null) {
           this.mapView.locations.fetch({
             data: {
               campus: campus,
