@@ -8,16 +8,16 @@
 var Location = Backbone.Model.extend(
     /** @lends Location */
     {
-      defaults: {
-        id: 0,
-        campus: 'unknown',
-        type: 'unknown',
-        subType: null,
-        shape: "point",
-        text: "",
-        coords: [],
-        directionAware: true,
-        pin: new google.maps.MarkerImage(
+      defaults:{
+        id:0,
+        campus:'unknown',
+        type:'unknown',
+        subType:null,
+        shape:"point",
+        text:"",
+        coords:[],
+        directionAware:true,
+        pin:new google.maps.MarkerImage(
             'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
                 'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
                 'QkDqB0AYnCCfRuQGYzhUypUWzEyEp072n4TvABUNS6Hxmzqfl+Ehmz9pX6BhAlrQejZnM/7XZNKwzJ8pxVmj525/NQlwqF+SyOTadScVgrqv' +
@@ -30,7 +30,7 @@ var Location = Backbone.Model.extend(
        *
        * @return {Array} an array of google.maps.LatLng representing the points for this location.
        */
-      getGPoints: function () {
+      getGPoints:function () {
         var points = [];
 
         $.each(this.get("coords"), function (index, point) {
@@ -45,7 +45,7 @@ var Location = Backbone.Model.extend(
        * Get a generated poi-type.
        * @return {string} the poi-type
        */
-      getPoiType: function () {
+      getPoiType:function () {
         return this.get('campus') + "." + this.get('type');
       }
     });
@@ -61,27 +61,27 @@ var Locations = Backbone.Collection.extend(
     /** @lends Locations */
     {
       /** The model used for this Location. */
-      model: Location,
-      bounds: null,
-      campuses: null,
-      
-      /** 
-       * Intercept method performed after fetch(). 
+      model:Location,
+      bounds:null,
+      campuses:null,
+
+      /**
+       * Intercept method performed after fetch().
        * In this method the bounds and campuses variable are set.
        */
-      parse: function(response) {
+      parse:function (response) {
         this.bounds = response.bounds;
         this.campuses = response.campuses;
         return response.locations;
       },
-  	  
+
 
       /**
        * Constructs the URL used for getting locations.
        *
        * @return {string} the URL.
        */
-      url: function () {
+      url:function () {
         return 'http://pgbroker-dev.it.su.se/geo/poi';
       },
 
@@ -91,7 +91,7 @@ var Locations = Backbone.Collection.extend(
        * @param {string} campus the Campus to filter by.
        * @return {Array} an array of filtered Locations.
        */
-      byCampus: function (campus) {
+      byCampus:function (campus) {
         return _(this.filter(function (data) {
           return data.get("campus") == campus;
         }));
@@ -103,7 +103,7 @@ var Locations = Backbone.Collection.extend(
        * @param {string} type the type to filter by.
        * @return {Array} an array of filtered Locations.
        */
-      byType: function (type) {
+      byType:function (type) {
         return _(this.filter(function (data) {
           return data.get("type") == type;
         }));
@@ -116,7 +116,7 @@ var Locations = Backbone.Collection.extend(
        * @param {Array} types an array of types to filter by.
        * @return {Array} an array of filtered Locations.
        */
-      byCampusAndType: function (campus, types) {
+      byCampusAndType:function (campus, types) {
         var ret = this.byCampus(campus);
         return _(ret.filter(function (data) {
           return _.contains(types, data.get("type"));
@@ -134,15 +134,15 @@ var LocationSearchResult = Backbone.Collection.extend(
     /** @lends LocationSearchResult */
     {
       /** The model used for this collection. */
-      model: Location,
-      bounds: null,
-      campuses: null,
-      
-      /** 
-       * Intercept method performed after fetch(). 
+      model:Location,
+      bounds:null,
+      campuses:null,
+
+      /**
+       * Intercept method performed after fetch().
        * In this method the bounds and campuses variable are set.
        */
-      parse: function(response) {
+      parse:function (response) {
         this.bounds = response.bounds;
         this.campuses = response.campuses;
         return response.locations;
@@ -153,7 +153,7 @@ var LocationSearchResult = Backbone.Collection.extend(
        *
        * @return {string} the URL.
        */
-      url: function () {
+      url:function () {
         return 'http://pgbroker-dev.it.su.se/geo/search';
       }
     });
