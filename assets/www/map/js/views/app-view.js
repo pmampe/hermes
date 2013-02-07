@@ -13,12 +13,12 @@ var AppView = Backbone.View.extend(
       /**
        * @constructs
        */
-      initialize: function () {
+      initialize:function () {
         _.bindAll(this, "render", "changeCampus", "showPOIs");
 
         this.isWebKit = navigator.userAgent.indexOf("WebKit") != -1;
         // locale storage only supported on webkit browsers
-        if (this.isWebKit) { 
+        if (this.isWebKit) {
           this.db = this.initializeDB();
           this.createCampusesTable(this.db);
         }
@@ -29,22 +29,22 @@ var AppView = Backbone.View.extend(
         this.campuses.on("request", this.getCampuses, this);
         this.campuses.on("reset", this.renderCampuses, this);
 
-        this.mapView = new MapView({ el: $('#map_canvas') });
+        this.mapView = new MapView({ el:$('#map_canvas') });
       },
 
       /**
        * Registers events.
        */
-      events: {
-        "change #campus": "changeCampus",
-        "change #poiType": "showPOIs",
-        "click a[id=menu-search]": "openSearchPopup"
+      events:{
+        "change #campus":"changeCampus",
+        "change #poiType":"showPOIs",
+        "click a[id=menu-search]":"openSearchPopup"
       },
 
       /**
        * Render the app module.
        */
-      render: function () {
+      render:function () {
         var footerTpl = _.template($("#page-map-footer_template").html());
         this.$el.append(footerTpl);
 
@@ -54,7 +54,7 @@ var AppView = Backbone.View.extend(
         // (could be moved to 'request' event, but not working for now..)
         this.getCampuses();
         this.campuses.fetch({
-          error: function () {
+          error:function () {
             alert("ERROR! Failed to fetch campuses.");
           }
         });
@@ -68,8 +68,8 @@ var AppView = Backbone.View.extend(
         ];
 
         var template = _.template($("#location_template").html(), {
-          defaultOptionName: i18n.t("map.general.filter"),
-          options: filters
+          defaultOptionName:i18n.t("map.general.filter"),
+          options:filters
         });
 
         var filterSelect = this.$el.find('#poiType');
@@ -79,16 +79,16 @@ var AppView = Backbone.View.extend(
         filterSelect.selectmenu();
         filterSelect.selectmenu("refresh", true);
       },
-      
-      
+
+
       // --- BEGIN DATABASE FUNCTIONS ---
       // --------------------------------
-      
+
       //open the database
-      initializeDB: function () {
+      initializeDB:function () {
         var localDatabase = openDatabase(
             "campuses", //    short name
-            "1.0",      //    version
+            "1.0", //    version
             "Campuses", //    long name
             5000000     //    max size (5 MB - max confirmed on all devices)
         );
@@ -97,30 +97,30 @@ var AppView = Backbone.View.extend(
       },
 
 
-      createCampusesTable: function(db) {
+      createCampusesTable:function (db) {
         var query = "CREATE TABLE IF NOT EXISTS campuses " +
-        "(id INT PRIMARY KEY, name NVARCHAR(100), coords NVARCHAR(50), zoom INT);"
+            "(id INT PRIMARY KEY, name NVARCHAR(100), coords NVARCHAR(50), zoom INT);";
 
         db.transaction(function (trxn) {
           trxn.executeSql(
-              query,  // the query to execute
-              [],     // parameters for the query
+              query, // the query to execute
+              [], // parameters for the query
               function (transaction, resultSet) { // success callback
                 console.log('successfully created table campsues');
               },
               function (transaction, error) { //error callback
                 console.log(error);
               });
-        }); 
+        });
       },
-      
-      insertCampuses: function(campuses) {
+
+      insertCampuses:function (campuses) {
         if (this.isWebKit) { // locale storage only supported on webkit browsers
           var self = this;
-          $(campuses).each(function(i, campus) {
+          $(campuses).each(function (i, campus) {
             var query = "INSERT OR REPLACE INTO campuses (id, name, coords, zoom) " +
-            "VALUES (?,?,?,?);"
-          
+                "VALUES (?,?,?,?);";
+
             self.db.transaction(function (trxn) {
               trxn.executeSql(
                   query,
@@ -131,24 +131,24 @@ var AppView = Backbone.View.extend(
                   function (transaction, error) {
                     console.log(error);
                   }
-              ); 
+              );
             });
-          })
+          });
         }
-      },          
-      
-      getCampuses: function(/* db, callback */) {
+      },
+
+      getCampuses:function (/* db, callback */) {
         if (this.isWebKit) { // locale storage only supported on webkit browsers
           var self = this;
           var query = "SELECT * FROM campuses;";
           this.db.transaction(function (trxn) {
             trxn.executeSql(
-                query,  // the query to execute
-                [],     // parameters for the query
+                query, // the query to execute
+                [], // parameters for the query
                 function (transaction, resultSet) {
                   var i = 0,
-                  currentRow,
-                  campuses = [];
+                      currentRow,
+                      campuses = [];
                   for (i; i < resultSet.rows.length; i++) {
                     currentRow = resultSet.rows.item(i);
                     currentRow.coords = currentRow.coords.split(",");
@@ -158,26 +158,26 @@ var AppView = Backbone.View.extend(
                   campuses.toJSON = function (key) {
                     // return everything except last element (the toJSON object)
                     return this.slice(0, this.length - 1);
-                  }
+                  };
 
                   self.renderCampuses(campuses);
                 },
                 function (transaction, error) { //error callback
                   console.log(error);
-                } );
-          }); 
+                });
+          });
         }
       },
       // --- END DATABASE FUNCTIONS ---
       // --------------------------------
-      
+
 
       /**
        * Opens the search popup (or slide down)
        *
        * @param event the triggering event.
        */
-      openSearchPopup: function (event) {
+      openSearchPopup:function (event) {
         var campus = this.campuses.get($("#campus").val());
         if (campus) {
           campus = campus.get('name');
@@ -189,12 +189,12 @@ var AppView = Backbone.View.extend(
       /**
        * Render campus select.
        */
-      renderCampuses: function (campuses) {
+      renderCampuses:function (campuses) {
         this.insertCampuses(campuses.toJSON());
-        
+
         var template = _.template($("#campus_template").html(), {
-          defaultOptionName: i18n.t("map.general.campus"),
-          options: campuses.toJSON()
+          defaultOptionName:i18n.t("map.general.campus"),
+          options:campuses.toJSON()
         });
 
         this.$el.find('#campus').html(template);
@@ -211,7 +211,7 @@ var AppView = Backbone.View.extend(
        * @param e event.
        * @param v value.
        */
-      changeCampus: function (e, v) {
+      changeCampus:function (e, v) {
         this.togglePoiType();
 
         var campus = this.campuses.get($("#campus").val());
@@ -222,7 +222,7 @@ var AppView = Backbone.View.extend(
       /**
        * Show Points Of Interest
        */
-      showPOIs: function () {
+      showPOIs:function () {
         var campus = this.campuses.get($("#campus").val());
         if (campus !== null) {
           campus = campus.get("name");
@@ -237,13 +237,13 @@ var AppView = Backbone.View.extend(
         if (types === null && searchInput === null) {
           this.mapView.locations.reset();
         }
-        else if (types != null) {
+        else if (types !== null) {
           this.mapView.locations.fetch({
-            data: {
-              campus: campus,
-              types: types
+            data:{
+              campus:campus,
+              types:types
             },
-            error: function () {
+            error:function () {
               alert("ERROR! Failed to fetch locations.");
             }
           });
@@ -253,7 +253,7 @@ var AppView = Backbone.View.extend(
       /**
        * Disable filter select if no campus is chosen, else enable
        */
-      togglePoiType: function () {
+      togglePoiType:function () {
         if ($("#campus").val() === "") {
           $('#poiType').selectmenu("disable");
         } else {
