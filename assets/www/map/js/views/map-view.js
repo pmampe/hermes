@@ -11,22 +11,22 @@ var MapView = Backbone.View.extend(
     {
 
       /** The model for this view */
-      model: new MapModel(),
+      model:new MapModel(),
 
       /** The map */
-      map: null,
-      
-      /** The info window */
-      mapInfoWindowView: null,
+      map:null,
 
-      searchView: null,
-      
-      searchHiddenFromToolbar: false,
+      /** The info window */
+      mapInfoWindowView:null,
+
+      searchView:null,
+
+      searchHiddenFromToolbar:false,
 
       /**
        * @constructs
        */
-      initialize: function () {
+      initialize:function () {
         _.bindAll(this, "render", "resetSearchResults", "resetLocations", "showCampusesList");
 
         this.locations = new Locations();
@@ -36,30 +36,30 @@ var MapView = Backbone.View.extend(
 
         // Google Maps Options
         var myOptions = {
-          zoom: 15,
-          center: this.model.get('location'),
-          mapTypeControl: false,
-          navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          streetViewControl: false
+          zoom:15,
+          center:this.model.get('location'),
+          mapTypeControl:false,
+          navigationControlOptions:{ position:google.maps.ControlPosition.LEFT_TOP },
+          mapTypeId:google.maps.MapTypeId.ROADMAP,
+          streetViewControl:false
         };
 
         // Add the Google Map to the page
         //this.map = new google.maps.Map(this.el, myOptions);
-				this.$el.gmap(myOptions);
-				this.map = this.$el.gmap("get", "map");
-        
+        this.$el.gmap(myOptions);
+        this.map = this.$el.gmap("get", "map");
 
-        this.model.set({currentPosition: new Location({
-          id: -100,
-          campus: null,
-          type: 'CurrentPosition',
-          name: 'You are here!',
-          coords: [
+
+        this.model.set({currentPosition:new Location({
+          id:-100,
+          campus:null,
+          type:'CurrentPosition',
+          name:'You are here!',
+          coords:[
             [this.model.get('location').lat(), this.model.get('location').lng()]
           ],
-          directionAware: false,
-          pin: new google.maps.MarkerImage(
+          directionAware:false,
+          pin:new google.maps.MarkerImage(
               'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
               new google.maps.Size(22, 22),
               new google.maps.Point(0, 18),
@@ -69,23 +69,23 @@ var MapView = Backbone.View.extend(
         this.locations.on("reset", this.resetLocations, this);
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
-        this.mapInfoWindowView = new InfoWindow({mapView: this});
+        this.mapInfoWindowView = new InfoWindow({mapView:this});
 
         this.currentPositionPoint = new PointLocationView({
-          model: this.model.get('currentPosition'),
-          gmap: this.map,
-          infoWindow: this.mapInfoWindowView
+          model:this.model.get('currentPosition'),
+          gmap:this.map,
+          infoWindow:this.mapInfoWindowView
         });
       },
 
       /**
        * Render the map view.
        */
-      render: function () {
+      render:function () {
 
         // Force the height of the map to fit the window
         $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight());
-        
+
         this.currentPositionPoint.render();
 
         var self = this;
@@ -106,15 +106,15 @@ var MapView = Backbone.View.extend(
         });
         /* ------------------------------------------------------------- */
       },
-      
+
       /**
        * Displays a fading message box on top of the map.
        *
        * @param locMsg The message to put in the box.
        */
-      fadingMsg: function (locMsg) {
+      fadingMsg:function (locMsg) {
         $("<div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div>")
-            .css({ "display": "block", "opacity": 0.9, "top": $(window).scrollTop() + 100 })
+            .css({ "display":"block", "opacity":0.9, "top":$(window).scrollTop() + 100 })
             .appendTo($.mobile.pageContainer)
             .delay(2200)
             .fadeOut(1000, function () {
@@ -127,44 +127,44 @@ var MapView = Backbone.View.extend(
        *
        * @param {string} campus the campus to show in the search window.
        */
-      showSearchView: function (campus) {
-        if (this.searchView == null) {
-          this.searchView = new SearchView({ el: $('#search-popup'), 
-            campus: campus, 
-            searchResults: this.searchResults,
-            mapView: this
+      showSearchView:function (campus) {
+        if (this.searchView === null) {
+          this.searchView = new SearchView({ el:$('#search-popup'),
+            campus:campus,
+            searchResults:this.searchResults,
+            mapView:this
           });
         } else {
           this.searchView.campus = campus;
           this.searchView.searchResults = this.searchResults;
         }
         this.searchView.render();
-        
+
         this.toggleSearchFromToolbar();
       },
-      
+
       /**
        * Toogle search button from toolbar. When clicking on search,
        * we hide the search button in order to not confuse the user.
        * The search button in the toolbar is there to bring up the
        * search popup, but not to do the actual search.
        */
-      toggleSearchFromToolbar: function() {
+      toggleSearchFromToolbar:function () {
         var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14));
         $(".footer-button").hide();
-        
-        var toolbarToShow = this.searchHiddenFromToolbar? ++toolbarNumber: --toolbarNumber;
+
+        var toolbarToShow = this.searchHiddenFromToolbar ? ++toolbarNumber : --toolbarNumber;
         $("#footer-buttons" + toolbarToShow).show();
-        
+
         this.searchHiddenFromToolbar = !this.searchHiddenFromToolbar;
       },
-      
+
       /**
        * There are a maximum of 3 buttons - home, search and directions
-       * (in that order). Given the number of buttons to display the 
+       * (in that order). Given the number of buttons to display the
        * footer will display them.
        */
-      showNumberOfButtons: function(nOButtons) {
+      showNumberOfButtons:function (nOButtons) {
         var directionsVisible = $("#footer-buttons3").is(":visible");
         $(".footer-button").hide();
 
@@ -178,9 +178,9 @@ var MapView = Backbone.View.extend(
       /**
        * Updates the current position.
        */
-      updateCurrentPosition: function () {
+      updateCurrentPosition:function () {
         this.model.get('currentPosition').set({
-          coords: [
+          coords:[
             [this.model.get('location').lat(), this.model.get('location').lng()]
           ]
         });
@@ -189,7 +189,7 @@ var MapView = Backbone.View.extend(
       /**
        * Update the position from GPS.
        */
-      updateGPSPosition: function () {
+      updateGPSPosition:function () {
         if (navigator.geolocation) {
           var self = this; // once inside block bellow, this will be the function
           navigator.geolocation.getCurrentPosition(
@@ -213,7 +213,7 @@ var MapView = Backbone.View.extend(
        * @param {int} zoom zoom level over the campus.
        * @param {string} name the campus name
        */
-      updateCampusPoint: function (coords, zoom, name) {
+      updateCampusPoint:function (coords, zoom, name) {
         if (this.campusPoint) {
           this.campusPoint.remove();
         }
@@ -226,26 +226,26 @@ var MapView = Backbone.View.extend(
 
         // TODO: choose pinImage for campusLocations or remove pinImage var
         this.campusPoint = new PointLocationView({
-          model: new Location({
-            id: -200,
-            campus: name,
-            type: 'Campus',
-            name: name,
-            coords: [coords],
-            pin: null
+          model:new Location({
+            id:-200,
+            campus:name,
+            type:'Campus',
+            name:name,
+            coords:[coords],
+            pin:null
           }),
-          gmap: self.map,
-          infoWindow: this.mapInfoWindowView
+          gmap:self.map,
+          infoWindow:this.mapInfoWindowView
         });
       },
-      
+
       /**
        * Zoom the map to a new bound.
-       * 
+       *
        * @param {Map} bounds containing coordinates for minLat, maxLat, minLng, maxLat.
        */
-      zoomToBounds: function(bounds) {
-        if (bounds.minLat != 0 && bounds.maxLat != 0 && bounds.minLng != 0 && bounds.maxLng != 0) {
+      zoomToBounds:function (bounds) {
+        if (bounds.minLat !== 0 && bounds.maxLat !== 0 && bounds.minLng !== 0 && bounds.maxLng !== 0) {
           var sw = new google.maps.LatLng(bounds.minLat, bounds.minLng);
           var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
           var latLngBounds = new google.maps.LatLngBounds(sw, ne);
@@ -257,32 +257,32 @@ var MapView = Backbone.View.extend(
           }
         }
       },
-      
+
       /**
        * Show a popup list of the different campuses sent in.
-       * 
+       *
        * @param {List} campuses list, ex ['Frescati', 'Kista', etc...]
        */
-      showCampusesList: function (campuses) {
+      showCampusesList:function (campuses) {
         var campusesMap = {};
-        $("#campus").children().not(":first").each(function(k, item) {
+        $("#campus").children().not(":first").each(function (k, item) {
           campusesMap[$(item).text()] = $(item).val();
         });
 
-        var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
+        var campusPopupView = new CampusPopupView({ el:$('#campusesPopup'), campuses:campuses, campusesMap:campusesMap });
         campusPopupView.render();
       },
-      
+
 
       /**
        * Resets the search results from the search results collection.
-       * 
-       * If the search result contains more than 1 campuses, show the list of campuses 
-       * for the user to choose. 
+       *
+       * If the search result contains more than 1 campuses, show the list of campuses
+       * for the user to choose.
        * Also if no specific campus has been selected in the campus drop-down, then
-       * zoom out the map so that all the results are visible. 
+       * zoom out the map so that all the results are visible.
        */
-      resetSearchResults: function () {
+      resetSearchResults:function () {
         this.replacePoints(this.searchResults);
 
         // zoom out to include all points when no campuses have been selected
@@ -302,7 +302,7 @@ var MapView = Backbone.View.extend(
       /**
        * Resets the locations from the locations collection
        */
-      resetLocations: function () {
+      resetLocations:function () {
         this.replacePoints(this.locations);
       },
 
@@ -311,7 +311,7 @@ var MapView = Backbone.View.extend(
        *
        * @param {Location} newPoints the new points to paint on the map.
        */
-      replacePoints: function (newPoints) {
+      replacePoints:function (newPoints) {
         var self = this;
 
         _.each(_.values(self.pointViews), function (pointView) {
@@ -326,13 +326,13 @@ var MapView = Backbone.View.extend(
           var point = null;
 
           if (item.get('shape') == "line") {
-            point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            point = new LineLocationView({ model:item, gmap:self.map, infoWindow:self.mapInfoWindowView });
           }
           else if (item.get('shape') == "polygon") {
-            point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            point = new PolygonLocationView({ model:item, gmap:self.map, infoWindow:self.mapInfoWindowView });
           }
           else {
-            point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            point = new PointLocationView({ model:item, gmap:self.map, infoWindow:self.mapInfoWindowView });
           }
 
           self.pointViews[point.cid] = point;
@@ -345,7 +345,7 @@ var MapView = Backbone.View.extend(
        * @param travelMode walking, bicycling, driving, or public transportation
        * @param destination optional parameter, defaults to destination (global variable)
        */
-      getDirections: function (travelMode, destination) {
+      getDirections:function (travelMode, destination) {
         var orig = this.model.get('location');
         var dest = destination;
         var travMode = null;
@@ -361,10 +361,10 @@ var MapView = Backbone.View.extend(
         }
 
         this.$el.gmap('displayDirections', {
-              'origin': orig,
-              'destination': dest,
-              'travelMode': travMode },
-            { 'panel': document.getElementById('dir_panel') },
+              'origin':orig,
+              'destination':dest,
+              'travelMode':travMode },
+            { 'panel':document.getElementById('dir_panel') },
             function (result, status) {
               if (status === 'OK') {
                 var center = result.routes[0].bounds.getCenter();
