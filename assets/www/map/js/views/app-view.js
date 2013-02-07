@@ -197,9 +197,16 @@ var AppView = Backbone.View.extend(
           options: campuses.toJSON()
         });
 
-        this.$el.find('#campus').html(template);
-        // HACK: seems that after the html() call above, the data-native-menu disapears
-        this.$el.find('#campus').attr('data-native-menu', false);
+        /* If we already have a selectmenu for campus then replace the following structure:
+         * <div.ui-block-a> <div.ui-select> <a#campus-button></a> <select#campus></select> </...>
+         * Else if we create the campus selectmenu for the first time, then replace:
+         * <div.ui-block-a> <div#campus></div> </div>
+         */
+        if (this.$el.find("#campus-button").size() > 0) {
+          this.$el.find('#campus-button').parent().parent().html(template);
+        } else {
+          this.$el.find('#campus').replaceWith(template);
+        }
         this.$el.find('#campus').selectmenu();
         this.$el.find('#campus').selectmenu("refresh", true);
         this.$el.trigger("refresh");
