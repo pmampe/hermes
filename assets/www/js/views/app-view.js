@@ -1,16 +1,13 @@
 var AppView = Backbone.View.extend({
   events:{
-    "click a[id=mondo-link]":"openChildBrowser",
-    "click a[id=su-link]":"openChildBrowser",
-    "click a[id=sub-link]":"openChildBrowser"
+    "click a[id=mondo-link]":"openInAppBrowser",
+    "click a[id=su-link]":"openInAppBrowser",
+    "click a[id=sub-link]":"openInAppBrowser"
   },
 
-  openChildBrowser:function (event) {
+  openInAppBrowser:function (event) {
     event.preventDefault();
     var url = event.currentTarget.href;
-    window.plugins.childBrowser.showWebPage(url, { showLocationBar:true });
+    window.open(url, '_blank', 'location=yes');
   }
 });
-
-var appView = new AppView({ el:$('#page-home') });
-appView.render();
