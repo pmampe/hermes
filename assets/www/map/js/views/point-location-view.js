@@ -16,6 +16,7 @@ var PointLocationView = GenericLocationView.extend(
       initialize: function (options) {
         
         var pin = options.model.get('pin');
+        var position = this.getPosition(options);
         
         // if the model contains customised icon, show it instead of the default one.
         if (options.model.get('customisedIcon')) {
@@ -26,7 +27,7 @@ var PointLocationView = GenericLocationView.extend(
         } 
 
         options.marker = new google.maps.Marker({
-          position: _.flatten(options.model.getGPoints())[0],
+          position: position,
           poiType: options.model.getPoiType(),
           visible: true,
           icon: pin,
@@ -36,12 +37,28 @@ var PointLocationView = GenericLocationView.extend(
         var self = this;
         google.maps.event.addListener(options.marker, 'click', function (event) {
           if (options.model.get('directionAware')) {
-            options.infoWindow.setDestination(_.flatten(options.model.getGPoints())[0]);
+            options.infoWindow.setDestination(event.latLng);
           }
-          self.openInfoWindow(options.model, this);
+          self.openInfoWindow(options.model, this, event.latLng);
         });
 
         this.constructor.__super__.initialize.apply(this, [options]);
+      },
+      
+      /**
+       * getPosition checks if the default position stored in the model is overridden 
+       * by the customizedPosition parameter. If it is it the customizedPosition, else
+       * use the location stored in the model.
+       */
+      getPosition : function(options) {
+        var position;
+        if (options.customizedPosition) {
+          position = options.customizedPosition;
+        } else {
+          position = _.flatten(options.model.getGPoints())[0]
+        }
+        
+        return position;
       },
 
       /**

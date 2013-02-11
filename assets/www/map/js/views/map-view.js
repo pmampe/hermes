@@ -330,6 +330,16 @@ var MapView = Backbone.View.extend(
           }
           else if (item.get('shape') == "polygon") {
             point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            
+            // if the polygon has a customisedIcon, draw it
+            if (item.get('customisedIcon')) {
+              var iconPoint = new PointLocationView({ 
+                model: item, 
+                gmap: self.map, 
+                infoWindow: self.mapInfoWindowView,
+                customizedPosition: point.getCenterOfPolygon()});
+              self.pointViews[iconPoint.id] = iconPoint;
+            }
           }
           else {
             point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
