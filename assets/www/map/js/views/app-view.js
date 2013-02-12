@@ -140,7 +140,7 @@ var AppView = Backbone.View.extend(
       getCampuses: function(/* db, callback */) {
         if (this.isWebKit) { // locale storage only supported on webkit browsers
           var self = this;
-          var query = "SELECT * FROM campuses;";
+          var query = "SELECT * FROM campuses order by name;";
           this.db.transaction(function (trxn) {
             trxn.executeSql(
                 query,  // the query to execute
