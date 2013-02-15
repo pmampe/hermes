@@ -22,7 +22,7 @@ var PointLocationView = GenericLocationView.extend(
         if (options.model.get('customisedIcon')) {
           var locationId = options.model.get('id');
           pin = new google.maps.MarkerImage(
-              'http://localhost:8080/hermes-broker/image/view/' + locationId, 
+              'http://pgbroker-dev.it.su.se/image/view/' + locationId, 
               new google.maps.Size(22, 22));
         } 
 
