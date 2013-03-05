@@ -19,7 +19,7 @@ var PointLocationView = GenericLocationView.extend(
         var position = this.getPosition(options);
         
         // if the model contains customised icon, show it instead of the default one.
-        if (options.model.get('customisedIcon')) {
+        if (options.model.get('hasIcon')) {
           var locationId = options.model.get('id');
           pin = new google.maps.MarkerImage(
               'http://pgbroker-dev.it.su.se/image/view/' + locationId, 
