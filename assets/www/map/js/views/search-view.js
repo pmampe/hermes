@@ -17,7 +17,7 @@ var SearchView = Backbone.View.extend(
        * @param options Options for this class. Expects campus name and a searchResult collection to add results to
        */
       initialize: function (options) {
-        _.bindAll(this, "render", "doSearch", "doSearchOnEnter");
+        _.bindAll(this, "render", "doSearch", "doSearchOnEnter", "autocomplete");
 
         this.campus = options.campus;
         this.searchResults = options.searchResults;
@@ -30,7 +30,7 @@ var SearchView = Backbone.View.extend(
             var pos = $("#page-map-header").outerHeight();
             $("#search-popup").css("top", pos);
           },
-          popupafterclose: function() {
+          popupafterclose: function () {
             options.mapView.toggleSearchFromToolbar();
           }
         });
@@ -38,10 +38,10 @@ var SearchView = Backbone.View.extend(
 
       /** Registers events */
       events: {
-        "click a[id=search_button]": "doSearch",
-        "keypress input[id=search_input]": 'doSearchOnEnter'
+        "keypress input": 'doSearchOnEnter',
+        "listviewbeforefilter #search-autocomplete": "autocomplete"
       },
-      
+
       /**
        * Render the search view.
        */
@@ -72,8 +72,7 @@ var SearchView = Backbone.View.extend(
           var template = _.template($("#search-popup_filter_button_template").html(), { id: typeId, name: type });
           filtersContainer.append(template);
         });
-        
-        
+
         // Open the search popup.
         this.$el.popup("open", { transition: 'slidedown'});
 
@@ -111,22 +110,22 @@ var SearchView = Backbone.View.extend(
         if (event.keyCode != 13) {
           return;
         }
-        this.doSearch(event);
+        this.doSearch(event.target.value);
       },
 
       /**
        * Do the search.
        *
-       * @param event the triggering event.
+       * @param q query string.
        */
-      doSearch: function (event) {
+      doSearch: function (q) {
         $.mobile.loading('show', { text: 'Loading search results...', textVisible: true });
 
         var self = this;
 
         this.searchResults.fetch({
           data: {
-            q: $("#search_input").val().trim(),
+            q: q.trim(),
             campus: self.campus,
             types: self.types
           },
@@ -135,5 +134,32 @@ var SearchView = Backbone.View.extend(
             $.mobile.loading('hide');
           }
         });
+      },
+
+      autocomplete: function (e, data) {
+        var $ul = $(e.target),
+            $input = $(data.input),
+            value = $input.val(),
+            html = "";
+        $ul.html("");
+        if (value && value.length > 2) {
+          $ul.html("<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>");
+          $ul.listview("refresh");
+          $.ajax({
+            url: "http://pgbroker-dev.it.su.se/geo/search",
+            dataType: "json",
+            crossDomain: true,
+            data: {
+              q: $input.val()
+            }
+          }).then(function (response) {
+                $.each(response.locations, function (i, val) {
+                  html += "<li>" + val.name + "</li>";
+                });
+                $ul.html(html);
+                $ul.listview("refresh");
+                $ul.trigger("updatelayout");
+              });
+        }
       }
     }); //-- End of Search view

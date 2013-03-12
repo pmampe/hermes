@@ -143,11 +143,17 @@
   <div data-role="content" id="map-content">
     <div data-role="popup" data-corners="false" data-theme="a" data-shadow="false" data-tolerance="0,0"
          id="search-popup">
-      <div data-role="fieldcontain">
-        <input name="search_input" id="search_input" data-theme="a" placeholder="Enter search string" value=""
-               type="search" data-mini="true">
-      </div>
-      <!--<a id="search_button" href="#" data-mini="true" data-role="button">Search</a>-->
+      <ul id="search-autocomplete"
+          data-role='listview'
+          data-theme='a'
+          data-filter-theme='a'
+          data-mini='true'
+          data-filter-id='apa'
+          data-filter-mini='true'
+          data-filter='true'
+          data-filter-reveal='true'
+          data-filter-placeholder='Enter search string'>
+      </ul>
       <div id="search-popup-filters"></div>
     </div>
 
