@@ -21,6 +21,9 @@ var SearchView = Backbone.View.extend(
 
         this.campus = options.campus;
         this.searchResults = options.searchResults;
+        this.autocompletes = new Autocompletes();
+
+        this.autocompletes.on("reset", this.updateAutocomplete, this);
 
         this.$el.on({
           popupbeforeposition: function () {
@@ -39,7 +42,8 @@ var SearchView = Backbone.View.extend(
       /** Registers events */
       events: {
         "keypress input": 'doSearchOnEnter',
-        "listviewbeforefilter #search-autocomplete": "autocomplete"
+        "listviewbeforefilter #search-autocomplete": "autocomplete",
+        "click .autocomplete-link": "doSearchOnAutocomplete"
       },
 
       /**
@@ -114,11 +118,21 @@ var SearchView = Backbone.View.extend(
       },
 
       /**
+       * Listen for click on autocomplete suggestion {doSearch}
+       *
+       * @param event key event.
+       */
+      doSearchOnAutocomplete: function (event) {
+        this.doSearch(event.target.text);
+      },
+
+      /**
        * Do the search.
        *
        * @param q query string.
        */
       doSearch: function (q) {
+        $("#search-popup").popup("close");
         $.mobile.loading('show', { text: 'Loading search results...', textVisible: true });
 
         var self = this;
@@ -139,27 +153,33 @@ var SearchView = Backbone.View.extend(
       autocomplete: function (e, data) {
         var $ul = $(e.target),
             $input = $(data.input),
-            value = $input.val(),
-            html = "";
+            value = $input.val();
         $ul.html("");
         if (value && value.length > 2) {
           $ul.html("<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>");
           $ul.listview("refresh");
-          $.ajax({
-            url: "http://pgbroker-dev.it.su.se/geo/search",
-            dataType: "json",
-            crossDomain: true,
+
+          var self = this;
+          this.autocompletes.fetch({
             data: {
-              q: $input.val()
+              q: value,
+              campus: self.campus,
+              types: self.types
             }
-          }).then(function (response) {
-                $.each(response.locations, function (i, val) {
-                  html += "<li>" + val.name + "</li>";
-                });
-                $ul.html(html);
-                $ul.listview("refresh");
-                $ul.trigger("updatelayout");
-              });
+          });
         }
+      },
+
+      updateAutocomplete: function () {
+        var html = "";
+
+        $.each(this.autocompletes.first(5), function (i, val) {
+          html += "<li><a class='autocomplete-link'>" + val.get('name') + "</a></li>";
+        });
+
+        var $ul = $('#search-autocomplete');
+        $ul.html(html);
+        $ul.listview("refresh");
+        $ul.trigger("updatelayout");
       }
     }); //-- End of Search view

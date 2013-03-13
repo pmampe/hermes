@@ -15,12 +15,12 @@ var MapView = Backbone.View.extend(
 
       /** The map */
       map: null,
-      
+
       /** The info window */
       mapInfoWindowView: null,
 
       searchView: null,
-      
+
       searchHiddenFromToolbar: false,
 
       /**
@@ -46,9 +46,9 @@ var MapView = Backbone.View.extend(
 
         // Add the Google Map to the page
         //this.map = new google.maps.Map(this.el, myOptions);
-				this.$el.gmap(myOptions);
-				this.map = this.$el.gmap("get", "map");
-				
+        this.$el.gmap(myOptions);
+        this.map = this.$el.gmap("get", "map");
+
 
         this.model.set({currentPosition: new Location({
           id: -100,
@@ -85,7 +85,7 @@ var MapView = Backbone.View.extend(
 
         // Force the height of the map to fit the window
         $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight());
-        
+
         this.currentPositionPoint.render();
 
         var self = this;
@@ -106,7 +106,7 @@ var MapView = Backbone.View.extend(
         });
         /* ------------------------------------------------------------- */
       },
-      
+
       /**
        * Displays a fading message box on top of the map.
        *
@@ -129,8 +129,8 @@ var MapView = Backbone.View.extend(
        */
       showSearchView: function (campus) {
         if (this.searchView === null) {
-          this.searchView = new SearchView({ el: $('#search-popup'), 
-            campus: campus, 
+          this.searchView = new SearchView({ el: $('#search-popup'),
+            campus: campus,
             searchResults: this.searchResults,
             mapView: this
           });
@@ -139,32 +139,36 @@ var MapView = Backbone.View.extend(
           this.searchView.searchResults = this.searchResults;
         }
         this.searchView.render();
-        
+
         this.toggleSearchFromToolbar();
       },
-      
+
       /**
        * Toogle search button from toolbar. When clicking on search,
        * we hide the search button in order to not confuse the user.
        * The search button in the toolbar is there to bring up the
        * search popup, but not to do the actual search.
        */
-      toggleSearchFromToolbar: function() {
+      toggleSearchFromToolbar: function () {
         var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14));
         $(".footer-button").hide();
-        
-        var toolbarToShow = this.searchHiddenFromToolbar? ++toolbarNumber: --toolbarNumber;
+
+        var toolbarToShow = this.searchHiddenFromToolbar ? ++toolbarNumber : --toolbarNumber;
         $("#footer-buttons" + toolbarToShow).show();
-        
+
         this.searchHiddenFromToolbar = !this.searchHiddenFromToolbar;
+
+        if (!this.searchHiddenFromToolbar) {
+          $("#menu-search").removeClass("ui-btn-active");
+        }
       },
-      
+
       /**
        * There are a maximum of 3 buttons - home, search and directions
-       * (in that order). Given the number of buttons to display the 
+       * (in that order). Given the number of buttons to display the
        * footer will display them.
        */
-      showNumberOfButtons: function(nOButtons) {
+      showNumberOfButtons: function (nOButtons) {
         var directionsVisible = $("#footer-buttons3").is(":visible");
         $(".footer-button").hide();
 
@@ -238,13 +242,13 @@ var MapView = Backbone.View.extend(
           infoWindow: this.mapInfoWindowView
         });
       },
-      
+
       /**
        * Zoom the map to a new bound.
-       * 
+       *
        * @param {Map} bounds containing coordinates for minLat, maxLat, minLng, maxLat.
        */
-      zoomToBounds: function(bounds) {
+      zoomToBounds: function (bounds) {
         if (bounds.minLat !== 0 && bounds.maxLat !== 0 && bounds.minLng !== 0 && bounds.maxLng !== 0) {
           var sw = new google.maps.LatLng(bounds.minLat, bounds.minLng);
           var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
@@ -257,30 +261,30 @@ var MapView = Backbone.View.extend(
           }
         }
       },
-      
+
       /**
        * Show a popup list of the different campuses sent in.
-       * 
+       *
        * @param {List} campuses list, ex ['Frescati', 'Kista', etc...]
        */
       showCampusesList: function (campuses) {
         var campusesMap = {};
-        $("#campus").children().not(":first").each(function(k, item) {
+        $("#campus").children().not(":first").each(function (k, item) {
           campusesMap[$(item).text()] = $(item).val();
         });
 
         var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
         campusPopupView.render();
       },
-      
+
 
       /**
        * Resets the search results from the search results collection.
-       * 
-       * If the search result contains more than 1 campuses, show the list of campuses 
-       * for the user to choose. 
+       *
+       * If the search result contains more than 1 campuses, show the list of campuses
+       * for the user to choose.
        * Also if no specific campus has been selected in the campus drop-down, then
-       * zoom out the map so that all the results are visible. 
+       * zoom out the map so that all the results are visible.
        */
       resetSearchResults: function () {
         this.replacePoints(this.searchResults);
@@ -330,12 +334,12 @@ var MapView = Backbone.View.extend(
           }
           else if (item.get('shape') == "polygon") {
             point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
-            
+
             // if the polygon has an icon, draw it
             if (item.get('hasIcon')) {
-              var iconPoint = new PointLocationView({ 
-                model: item, 
-                gmap: self.map, 
+              var iconPoint = new PointLocationView({
+                model: item,
+                gmap: self.map,
                 infoWindow: self.mapInfoWindowView,
                 customizedPosition: point.getCenterOfPolygon()});
               self.pointViews[iconPoint.id] = iconPoint;
