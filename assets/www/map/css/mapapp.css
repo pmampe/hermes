@@ -75,6 +75,17 @@
   z-index: 9000002;
 }
 
+#search-popup form {
+  margin: 0px;
+  background: transparent none;
+}
+
+#search-popup ul {
+  margin-top: -5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 #search-popup .ui-grid-a .ui-block-a {
   width: auto
 }
