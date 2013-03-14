@@ -18,7 +18,7 @@ var AppView = Backbone.View.extend(
 
         this.isWebKit = navigator.userAgent.indexOf("WebKit") != -1;
         // locale storage only supported on webkit browsers
-        if (this.isWebKit) { 
+        if (this.isWebKit) {
           this.db = this.initializeDB();
           this.createCampusesTable(this.db);
         }
@@ -79,11 +79,11 @@ var AppView = Backbone.View.extend(
         filterSelect.selectmenu();
         filterSelect.selectmenu("refresh", true);
       },
-      
-      
+
+
       // --- BEGIN DATABASE FUNCTIONS ---
       // --------------------------------
-      
+
       //open the database
       initializeDB: function () {
         var localDatabase = openDatabase(
@@ -97,9 +97,9 @@ var AppView = Backbone.View.extend(
       },
 
 
-      createCampusesTable: function(db) {
+      createCampusesTable: function (db) {
         var query = "CREATE TABLE IF NOT EXISTS campuses " +
-        "(id INT PRIMARY KEY, name NVARCHAR(100), coords NVARCHAR(50), zoom INT);"
+            "(id INT PRIMARY KEY, name NVARCHAR(100), coords NVARCHAR(50), zoom INT);";
 
         db.transaction(function (trxn) {
           trxn.executeSql(
@@ -111,16 +111,16 @@ var AppView = Backbone.View.extend(
               function (transaction, error) { //error callback
                 console.log(error);
               });
-        }); 
+        });
       },
-      
-      insertCampuses: function(campuses) {
+
+      insertCampuses: function (campuses) {
         if (this.isWebKit) { // locale storage only supported on webkit browsers
           var self = this;
-          $(campuses).each(function(i, campus) {
+          $(campuses).each(function (i, campus) {
             var query = "INSERT OR REPLACE INTO campuses (id, name, coords, zoom) " +
-            "VALUES (?,?,?,?);"
-          
+                "VALUES (?,?,?,?);";
+
             self.db.transaction(function (trxn) {
               trxn.executeSql(
                   query,
@@ -131,13 +131,13 @@ var AppView = Backbone.View.extend(
                   function (transaction, error) {
                     console.log(error);
                   }
-              ); 
+              );
             });
-          })
+          });
         }
-      },          
-      
-      getCampuses: function(/* db, callback */) {
+      },
+
+      getCampuses: function (/* db, callback */) {
         if (this.isWebKit) { // locale storage only supported on webkit browsers
           var self = this;
           var query = "SELECT * FROM campuses order by name;";
@@ -147,8 +147,8 @@ var AppView = Backbone.View.extend(
                 [],     // parameters for the query
                 function (transaction, resultSet) {
                   var i = 0,
-                  currentRow,
-                  campuses = [];
+                      currentRow,
+                      campuses = [];
                   for (i; i < resultSet.rows.length; i++) {
                     currentRow = resultSet.rows.item(i);
                     currentRow.coords = currentRow.coords.split(",");
@@ -158,19 +158,18 @@ var AppView = Backbone.View.extend(
                   campuses.toJSON = function (key) {
                     // return everything except last element (the toJSON object)
                     return this.slice(0, this.length - 1);
-                  }
+                  };
 
                   self.renderCampuses(campuses);
                 },
                 function (transaction, error) { //error callback
                   console.log(error);
-                } );
-          }); 
+                });
+          });
         }
       },
       // --- END DATABASE FUNCTIONS ---
       // --------------------------------
-      
 
       /**
        * Opens the search popup (or slide down)
@@ -191,7 +190,7 @@ var AppView = Backbone.View.extend(
        */
       renderCampuses: function (campuses) {
         this.insertCampuses(campuses.toJSON());
-        
+
         var template = _.template($("#campus_template").html(), {
           defaultOptionName: i18n.t("map.general.campus"),
           options: campuses.toJSON()
