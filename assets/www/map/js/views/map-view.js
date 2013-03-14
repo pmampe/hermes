@@ -150,7 +150,7 @@ var MapView = Backbone.View.extend(
        * search popup, but not to do the actual search.
        */
       toggleSearchFromToolbar: function () {
-        var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14));
+        var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14, 10));
         $(".footer-button").hide();
 
         var toolbarToShow = this.searchHiddenFromToolbar ? ++toolbarNumber : --toolbarNumber;
