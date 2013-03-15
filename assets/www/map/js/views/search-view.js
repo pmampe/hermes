@@ -155,7 +155,7 @@ var SearchView = Backbone.View.extend(
             $input = $(data.input),
             value = $input.val();
         $ul.html("");
-        if (value && value.length > 2) {
+        if (value && value.length > 1) {
           $ul.html("<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>");
           $ul.listview("refresh");
 
