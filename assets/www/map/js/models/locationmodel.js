@@ -82,7 +82,7 @@ var Locations = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return 'http://pgbroker-dev.it.su.se/geo/poi';
+        return config.map.location.url;
       },
 
       /**
@@ -154,6 +154,6 @@ var LocationSearchResult = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return 'http://pgbroker-dev.it.su.se/geo/search';
+        return config.map.search.url;
       }
     });

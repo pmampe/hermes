@@ -42,7 +42,7 @@ var Autocompletes = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return 'http://pgbroker-dev.it.su.se/geo/search';
+        return config.map.autocomplete.url;
       }
     }
 );

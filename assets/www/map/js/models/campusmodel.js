@@ -40,6 +40,6 @@ var Campuses = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return 'http://pgbroker-dev.it.su.se/geo/campuses';
+        return config.map.campuses.url;
       }
     });

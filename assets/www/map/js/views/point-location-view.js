@@ -22,7 +22,7 @@ var PointLocationView = GenericLocationView.extend(
         if (options.model.get('hasIcon')) {
           var locationId = options.model.get('id');
           pin = new google.maps.MarkerImage(
-              'http://pgbroker-dev.it.su.se/image/view/' + locationId,
+              config.map.icon.urlPrefix + "/" + locationId,
               new google.maps.Size(22, 22));
         }
 
