@@ -1,7 +1,7 @@
 /**
- * Location
+ * Autocomplete
  *
- * @class Backbone model representing a location on the map.
+ * @class Backbone model representing autocomplete strings in location search.
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.Model}
  */
@@ -16,21 +16,20 @@ var Autocomplete = Backbone.Model.extend(
 );
 
 /**
- * Collection of locations.
+ * Collection of autocomplete locations.
  *
- * @class Backbone collection of Locations
+ * @class Backbone collection of Autocomplete locations
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.Collection}
  */
 var Autocompletes = Backbone.Collection.extend(
     /** @lends Autocompletes */
     {
-      /** The model used for this Location. */
+      /** The model used. */
       model: Autocomplete,
 
       /**
        * Intercept method performed after fetch().
-       * In this method the bounds and campuses variable are set.
        */
       parse: function (response) {
         return response.locations;
@@ -38,7 +37,7 @@ var Autocompletes = Backbone.Collection.extend(
 
 
       /**
-       * Constructs the URL used for getting locations.
+       * Constructs the URL used for getting autocomplete locations.
        *
        * @return {string} the URL.
        */
