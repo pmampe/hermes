@@ -44,13 +44,13 @@ describe('Location model', function () {
   describe('when creating a location', function () {
     beforeEach(function () {
       this.location = new Location({
-          campus: 'campus',
-          type: 'type',
-          coords: [
-                   [59, 18]
-                   ]
-        });
+        campus: 'campus',
+        type: 'type',
+        coords: [
+          [59, 18]
+        ]
       });
+    });
 
     it('should generate a poi type from "campus.type"', function () {
       expect(this.location.getPoiType()).toEqual("campus.type");
@@ -74,7 +74,7 @@ describe('Locations collection', function () {
     });
 
     it('should have a url pointing at broker geo api', function () {
-      expect(this.locations.url).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
+      expect(this.locations.url()).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
     });
   });
 
@@ -83,13 +83,13 @@ describe('Locations collection', function () {
       this.locations = new Locations();
       this.fixture = this.fixtures.Locations.valid;
 
-        this.server = sinon.fakeServer.create();
-        this.server.respondWith(
-            "GET",
-            this.locations.url(),
-            this.validResponse(this.fixture)
-        );
-      });
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          this.locations.url(),
+          this.validResponse(this.fixture)
+      );
+    });
 
     afterEach(function () {
       this.server.restore();
@@ -130,13 +130,13 @@ describe('Locations collection', function () {
       this.locations = new Locations();
       this.fixture = this.fixtures.Locations.valid;
 
-        this.server = sinon.fakeServer.create();
-        this.server.respondWith(
-            "GET",
-            this.locations.url(),
-            this.validResponse(this.fixture)
-        );
-      });
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          this.locations.url(),
+          this.validResponse(this.fixture)
+      );
+    });
 
     afterEach(function () {
       this.server.restore();
@@ -173,30 +173,30 @@ describe('Locations collection', function () {
 describe('LocationSearchResult collection', function () {
   describe('creating an empty collection', function () {
     beforeEach(function () {
-	      this.locationSearchResults = new LocationSearchResult();
+      this.locationSearchResults = new LocationSearchResult();
     });
 
     it('should have Location for model', function () {
-	      expect(this.locationSearchResults.model).toBe(Location);
+      expect(this.locationSearchResults.model).toBe(Location);
     });
 
     it('should have a url pointing at broker geo api', function () {
-      expect(this.locationSearchResults.url).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
+      expect(this.locationSearchResults.url()).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
     });
   });
 
   describe('fetching a collection of locationSearchResults', function () {
     beforeEach(function () {
-	      this.locationSearchResults = new LocationSearchResult();
-	      this.fixture = this.fixtures.Locations.valid;
+      this.locationSearchResults = new LocationSearchResult();
+      this.fixture = this.fixtures.Locations.valid;
 
-        this.server = sinon.fakeServer.create();
-        this.server.respondWith(
-            "GET",
-            this.locationSearchResults.url(),
-            this.validResponse(this.fixture)
-        );
-      });
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          this.locationSearchResults.url(),
+          this.validResponse(this.fixture)
+      );
+    });
 
     afterEach(function () {
       this.server.restore();
@@ -280,7 +280,7 @@ describe('Map view', function () {
       var self = this;
 
       // TODO: fix this test, for some reason not working here, works when running in normal map..
-      google.maps.event.addListener(this.view.map, 'bounds_changed', function() {
+      google.maps.event.addListener(this.view.map, 'bounds_changed', function () {
         expect(this.getBounds().getSouthWest().lat()).toBeGreaterThan(self.fixtures.Locations.valid.bounds.minLat);
         expect(this.getBounds().getSouthWest().lng()).toBeGreaterThan(self.fixtures.Locations.valid.bounds.minLng);
         expect(this.getBounds().getNorthEast().lat()).toBeLessThan(self.fixtures.Locations.valid.bounds.maxLat);
@@ -294,14 +294,14 @@ describe('Map view', function () {
   describe('show campuses list', function () {
     beforeEach(function () {
       var campusPopup = '<div data-role="popup" id="campusesPopup" data-transition="turn">' +
-      '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
-      '<li data-role="list-divider" role="heading">' +
-      'Välj Campus' +
-      '</li>' +
-      '</ul>' +
-      '</div>';
+          '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
+          '<li data-role="list-divider" role="heading">' +
+          'Välj Campus' +
+          '</li>' +
+          '</ul>' +
+          '</div>';
       $('#page-map').append(campusPopup);
-      $.mobile.loadPage( "#page-map" );
+      $.mobile.loadPage("#page-map");
     });
 
     it('should populate campus popup list with the correct number of campuses', function () {
@@ -314,25 +314,25 @@ describe('Map view', function () {
 
   describe('showing results from a search', function () {
     beforeEach(function () {
-	      this.locationSearchResult = new LocationSearchResult();
-	      this.fixture = this.fixtures.Locations.valid;
+      this.locationSearchResult = new LocationSearchResult();
+      this.fixture = this.fixtures.Locations.valid;
 
-        this.server = sinon.fakeServer.create();
-        this.server.respondWith(
-            "GET",
-            this.locationSearchResult.url(),
-	          this.validResponse(this.fixture)
-        );
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          this.locationSearchResult.url(),
+          this.validResponse(this.fixture)
+      );
 
       var campusPopup = '<div data-role="popup" id="campusesPopup" data-transition="turn">' +
-      '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
-      '<li data-role="list-divider" role="heading">' +
-      'Välj Campus' +
-      '</li>' +
-      '</ul>' +
-      '</div>';
+          '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
+          '<li data-role="list-divider" role="heading">' +
+          'Välj Campus' +
+          '</li>' +
+          '</ul>' +
+          '</div>';
       $('#page-map').append(campusPopup);
-      $.mobile.loadPage( "#page-map" );
+      $.mobile.loadPage("#page-map");
     });
 
     afterEach(function () {
@@ -358,7 +358,7 @@ describe('Map view', function () {
       });
 
       it('should not change map bounds', function () {
-		      // TODO: fix row bellow
+        // TODO: fix row bellow
 //		      expect(this.view.map.getBounds()).toBeDefined();
         expect(this.view.map.getBounds()).toEqual(this.oldBounds);
       });
@@ -367,14 +367,14 @@ describe('Map view', function () {
         expect($("#campusesPopup li").length).toEqual(1);
       });
     });
-	    
-	    
+
+
     // TODO: Complete this function when knowledge on how to handle events in jasmine
     describe('search contains a couple of campuses', function () {
       beforeEach(function () {
         var campusSelect = '<select name="campus" id="campus">' +
-        '<option value="">Default value</option>' +
-        '</select>';
+            '<option value="">Default value</option>' +
+            '</select>';
         $('#page-map').append(campusSelect);
 
         this.view.initialize();
@@ -384,11 +384,11 @@ describe('Map view', function () {
       it('should change map bounds', function () {
         var self = this;
 
-	      // TODO: fix row bellow
+        // TODO: fix row bellow
         //expect(this.view.map.getBounds()).toBeDefined();
         this.oldBounds = this.view.map.getBounds();
 
-        google.maps.event.addListener(this.view.map, 'zoom_changed', function() {
+        google.maps.event.addListener(this.view.map, 'zoom_changed', function () {
           console.log("search results:");
           expect(self.view.searchResults.length).toEqual(4);
 
@@ -421,7 +421,7 @@ describe('Map view', function () {
       });
     });
 
-  });  
+  });
 });
 
 
