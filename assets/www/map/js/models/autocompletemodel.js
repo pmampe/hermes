@@ -72,6 +72,19 @@ var Autocompletes = Backbone.Collection.extend(
        */
       url: function () {
         return config.map.autocomplete.url;
+      },
+
+      /**
+       * Abort a running sync.
+       *
+       * @param method the CRUD method ("create", "read", "update", or "delete").
+       */
+      abortSync: function (method) {
+        var sync = this._prevSync[method];
+
+        if (sync && sync.readyState != 4) {
+          sync.abort();
+        }
       }
     }
 );

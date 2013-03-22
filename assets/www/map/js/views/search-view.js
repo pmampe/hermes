@@ -168,6 +168,9 @@ var SearchView = Backbone.View.extend(
             }
           });
         }
+        else {
+          this.autocompletes.abortSync("read");
+        }
       },
 
       updateAutocomplete: function () {
