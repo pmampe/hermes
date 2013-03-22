@@ -29,12 +29,41 @@ var Autocompletes = Backbone.Collection.extend(
       model: Autocomplete,
 
       /**
+       * @constructs
+       * @param models models for this collection.
+       * @param options options for this collection.
+       */
+      initialize: function (models, options) {
+        this._prevSync = {};
+      },
+
+      /**
        * Intercept method performed after fetch().
        */
       parse: function (response) {
         return response.locations;
       },
 
+      /**
+       * Override collections sync method to abort unfinished autocomplete calls.
+       * Avoids race between ajax requests.
+       *
+       * @param method the CRUD method ("create", "read", "update", or "delete").
+       * @param collection the collection to be read.
+       * @param options success and error callbacks, and all other jQuery request options.
+       * @return {*} jqXHR (jQuery XMLHttpRequest)
+       */
+      sync: function (method, collection, options) {
+        if (options && options.safe !== false) { // Normal behavior for safe === false
+          var prevSync = collection._prevSync[method];
+
+          if (prevSync && prevSync.readyState != 4) { // Abort previous sync if not complete
+            prevSync.abort();
+          }
+        }
+
+        return collection._prevSync[method] = Backbone.sync.apply(this, arguments);
+      },
 
       /**
        * Constructs the URL used for getting autocomplete locations.
