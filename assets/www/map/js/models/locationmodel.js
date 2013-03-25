@@ -10,6 +10,7 @@ var Location = Backbone.Model.extend(
     {
       defaults: {
         id: 0,
+        name: 'unknown',
         campus: 'unknown',
         type: 'unknown',
         subType: null,
