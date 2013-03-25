@@ -8,6 +8,10 @@ describe('Location model', function () {
       expect(this.location.get('id')).toEqual(0);
     });
 
+    it('should have name "unknown"', function () {
+      expect(this.location.get('name')).toEqual('unknown');
+    });
+
     it('should have campus "unknown"', function () {
       expect(this.location.get('campus')).toEqual('unknown');
     });
@@ -113,6 +117,7 @@ describe('Locations collection', function () {
       this.server.respond();
       var firstLocation = this.locations.get(1);
       expect(firstLocation.get('id')).toEqual(1);
+      expect(firstLocation.get('name')).toEqual('first');
       expect(firstLocation.get('campus')).toEqual('Frescati');
       expect(firstLocation.get('type')).toEqual('parkering');
       expect(firstLocation.get('subType')).toEqual('mc');
@@ -424,7 +429,6 @@ describe('Map view', function () {
   });
 });
 
-
 describe('App view', function () {
   beforeEach(function () {
     this.origBody = $('body').html;
@@ -441,6 +445,105 @@ describe('App view', function () {
     it('should create a div of #page-map', function () {
       expect(this.view.el.nodeName).toEqual("DIV");
       expect(this.view.el.id).toEqual("page-map");
+    });
+  });
+});
+
+describe('Autocomplete model', function () {
+  describe('when creating an empty autocomplete', function () {
+    beforeEach(function () {
+      this.auto = new Autocomplete();
+    });
+
+    it('should have id 0', function () {
+      expect(this.auto.get('id')).toEqual(0);
+    });
+
+    it('should have name "unknown"', function () {
+      expect(this.auto.get('name')).toEqual('unknown');
+    });
+  });
+
+  describe('when creating a autocomplete model', function () {
+    beforeEach(function () {
+      this.auto = new Autocomplete({
+        id: 1,
+        name: "foo"
+      });
+    });
+
+    it('i should get the values i set', function () {
+      expect(this.auto.get('id')).toEqual(1);
+      expect(this.auto.get('name')).toEqual('foo');
+    });
+  });
+});
+
+describe('Autocomplete collection', function () {
+  describe('creating an empty collection', function () {
+    beforeEach(function () {
+      this.autos = new Autocompletes();
+    });
+
+    it('should have Autocomplete for model', function () {
+      expect(this.autos.model).toBe(Autocomplete);
+    });
+
+    it('should have a url pointing at broker geo api', function () {
+      expect(this.autos.url()).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
+    });
+
+    it('should have a empty _prevSync map', function () {
+      expect(this.autos._prevSync).toMatch({});
+    });
+  });
+
+  describe('fetching a collection of results', function () {
+    beforeEach(function () {
+      this.autos = new Autocompletes();
+      this.fixture = this.fixtures.Autocompletes.valid;
+
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          this.autos.url(),
+          this.validResponse(this.fixture)
+      );
+    });
+
+    afterEach(function () {
+      this.server.restore();
+    });
+
+    it('should make a correct request', function () {
+      this.autos.fetch();
+      expect(this.server.requests.length).toEqual(1);
+      expect(this.server.requests[0].method).toEqual("GET");
+      expect(this.server.requests[0].url).toMatch(/.*\/search/);
+    });
+
+    it('should return all results', function () {
+      var self = this;
+      runs(function () {
+        self.autos.fetch();
+        self.server.respond();
+      });
+
+      waitsFor(function () {
+        return self.autos.length > 0;
+      }, "Waiting for returning call", 100);
+
+      runs(function () {
+        expect(this.autos.length).toEqual(11);
+      });
+    });
+
+    it('should override defaults', function () {
+      this.autos.fetch();
+      this.server.respond();
+      var firstAuto = this.autos.get(1);
+      expect(firstAuto.get('id')).toEqual(1);
+      expect(firstAuto.get('name')).toEqual('Juridiska institutionen');
     });
   });
 });

@@ -4,62 +4,67 @@ beforeEach(function () {
 
     Locations: {
       valid: {
-        campuses: ["Sveaplan","Kista","Konradsberg","Frescati","Kräftriket"],
+        campuses: ["Sveaplan", "Kista", "Konradsberg", "Frescati", "Kräftriket"],
         bounds: {
-          minLat: 59.32586664408746, 
-          maxLat: 59.40853646825391, 
-          minLng: 17.938205392915247, 
+          minLat: 59.32586664408746,
+          maxLat: 59.40853646825391,
+          minLng: 17.938205392915247,
           maxLng: 18.060504
         },
-        locations: [{
-          id: 1,
-          campus: 'Frescati',
-          type: 'parkering',
-          subType: 'mc',
-          shape: "line",
-          text: "Foobar",
-          coords: [
-            [59.00, 18.00]
-          ],
-          directionAware: false
-        },
-        {
-          id: 2,
-          campus: 'Frescati',
-          type: 'parkering',
-          subType: 'mc',
-          shape: "line",
-          text: "Foobar",
-          coords: [
-            [59.00, 18.00]
-          ],
-          directionAware: false
-        },
-        {
-          id: 3,
-          campus: 'Frescati',
-          type: 'hörsal',
-          subType: 'mc',
-          shape: "line",
-          text: "Foobar",
-          coords: [
-            [59.00, 18.00]
-          ],
-          directionAware: false
-        },
-        {
-          id: 4,
-          campus: 'Kista',
-          type: 'parkering',
-          subType: 'mc',
-          shape: "line",
-          text: "Foobar",
-          coords: [
-            [59.00, 18.00]
-          ],
-          directionAware: false
-        }
-	    ]}
+        locations: [
+          {
+            id: 1,
+            name: 'first',
+            campus: 'Frescati',
+            type: 'parkering',
+            subType: 'mc',
+            shape: "line",
+            text: "Foobar",
+            coords: [
+              [59.00, 18.00]
+            ],
+            directionAware: false
+          },
+          {
+            id: 2,
+            name: '2nd',
+            campus: 'Frescati',
+            type: 'parkering',
+            subType: 'mc',
+            shape: "line",
+            text: "Foobar",
+            coords: [
+              [59.00, 18.00]
+            ],
+            directionAware: false
+          },
+          {
+            id: 3,
+            name: 'third',
+            campus: 'Frescati',
+            type: 'hörsal',
+            subType: 'mc',
+            shape: "line",
+            text: "Foobar",
+            coords: [
+              [59.00, 18.00]
+            ],
+            directionAware: false
+          },
+          {
+            id: 4,
+            name: '4th',
+            campus: 'Kista',
+            type: 'parkering',
+            subType: 'mc',
+            shape: "line",
+            text: "Foobar",
+            coords: [
+              [59.00, 18.00]
+            ],
+            directionAware: false
+          }
+        ]}
     },
 
     Persons: {
@@ -87,6 +92,57 @@ beforeEach(function () {
           "eduPersonPrincipalName": "test4@su.se"
         }
       ]
+    },
+
+    Autocompletes: {
+      valid: {
+        locations: [
+          {
+            id: 1,
+            name: 'Juridiska institutionen'
+          },
+          {
+            id: 2,
+            name: 'Kastrupgatan'
+          },
+          {
+            id: 3,
+            name: 'SU södra parkering'
+          },
+          {
+            id: 4,
+            name: 'Rålambsvägen'
+          },
+          {
+            id: 5,
+            name: 'Kriminologiska institutionen'
+          },
+          {
+            id: 6,
+            name: 'Restaurang Lantis'
+          },
+          {
+            id: 7,
+            name: 'Institutionen för etnologi religionshistoria och genusvetenskap (ERG)'
+          },
+          {
+            id: 8,
+            name: 'D4154b'
+          },
+          {
+            id: 9,
+            name: 'Restaurang Lewinsky\'s'
+          },
+          {
+            id: 10,
+            name: 'Engelska institutionen'
+          },
+          {
+            id: 11,
+            name: 'E 411a'
+          }
+        ]
+      }
     }
   };
 });
