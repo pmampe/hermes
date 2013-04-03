@@ -22,6 +22,9 @@
 <!-- Global config file -->
 <script src="../js/config.js"></script>
 
+<!-- Default header -->
+<script src="../js/default-header.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     $("#studentservice_view a").click(function (event) {
@@ -33,13 +36,7 @@
 </script>
 
 <div id="studentservice_page" data-role="page">
-  <div data-theme="a" data-role="header">
-    <h3>Studentservice</h3>
-    <a data-role="button" rel="external" data-ajax="false" data-transition="slide" href="../index.html"
-       data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-      Back
-    </a>
-  </div>
+  <div data-role="header" class="defaultHeader"></div>
   <div id="studentservice_view" data-role="content">
 
     <ul data-role="listview" data-inset="true">
