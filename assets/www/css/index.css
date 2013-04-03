@@ -109,5 +109,16 @@ h1 {
 }
 
 #buttongrid div {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+#buttongrid img {
+  width: 64px;
+  height: 64px;
+}
+
+#buttongrid a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: normal;
 }
