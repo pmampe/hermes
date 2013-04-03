@@ -9,3 +9,5 @@
 su.tar.gz
 *-plugin.xml
 local.properties
+Manifest.java
+R.java
