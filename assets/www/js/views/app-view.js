@@ -1,6 +1,5 @@
 var AppView = Backbone.View.extend({
   events: {
-    "click a[id=servicelink]": "openInAppBrowser",
     "click a[id=sisulink]": "openInAppBrowser"
   },
 
