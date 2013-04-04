@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Stockholm University Demo</title>
+  <title>Stockholms Universitet</title>
 
   <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css"/>
   <link rel="stylesheet" href="css/index.css"/>
@@ -20,6 +20,9 @@
 
   <!-- Global config file -->
   <script src="js/config.js"></script>
+
+  <script src="js/jst/common.js"></script>
+  <script src="js/default-header.js"></script>
 
   <script src="js/views/app-view.js"></script>
 
@@ -50,10 +53,7 @@
 <body>
 
 <div data-role="page" class="type-home" id="page-home" style="background-image: url(img/su-app-background.png);">
-  <div data-role="header" data-position="fixed" class="nobuttons">
-    <h1>Stockholms universitet</h1>
-  </div>
-
+  <div data-role="header" class="defaultHeader"></div>
   <div data-role="content">
     <p class="jqm-version"></p>
 

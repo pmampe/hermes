@@ -23,10 +23,11 @@
 <script src="../js/config.js"></script>
 
 <!-- Default header -->
+<script src="../js/jst/common.js"></script>
 <script src="../js/default-header.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
     $("#studentservice_view a").click(function (event) {
       event.preventDefault();
       var url = event.currentTarget.href;
@@ -36,18 +37,24 @@
 </script>
 
 <div id="studentservice_page" data-role="page">
-  <div data-role="header" class="defaultHeader"></div>
+  <div data-role="header" class="defaultHeader backbutton"></div>
   <div id="studentservice_view" data-role="content">
 
     <ul data-role="listview" data-inset="true">
       <li><a href="http://www.su.se/utbildning/anmalan-antagning">Anm&auml;lan &amp; antagning</a></li>
-      <li><a href="http://www.su.se/utbildning/examen-hogtid/examensbevis-ansokningsblanketter-1.6326">Examen &amp; studieintyg</a></li>
+      <li><a href="http://www.su.se/utbildning/examen-hogtid/examensbevis-ansokningsblanketter-1.6326">Examen &amp;
+        studieintyg</a></li>
       <li><a href="http://www.su.se/utbildning/studentservice">Infocenter</a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling">J&auml;mlikhet &amp; likabehandling</a></li>
+      <li><a href="http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling">J&auml;mlikhet &amp;
+        likabehandling</a></li>
       <li><a href="http://www.su.se/utbildning/studentservice/studenthalsovard">Studenth&auml;lsan</a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning/studera-med-funktionsnedsattning-1.20886">Studentst&ouml;d</a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/studera-utomlands/studera-utomlands-1.6088">Studera utomlands</a></li>
-      <li><a href="http://www.su.se/utbildning/studievagledning/allman-studie-och-karriarvagledning">Studiev&auml;gledning</a></li>
+      <li>
+        <a href="http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning/studera-med-funktionsnedsattning-1.20886">Studentst&ouml;d</a>
+      </li>
+      <li><a href="http://www.su.se/utbildning/studentservice/studera-utomlands/studera-utomlands-1.6088">Studera
+        utomlands</a></li>
+      <li><a href="http://www.su.se/utbildning/studievagledning/allman-studie-och-karriarvagledning">Studiev&auml;gledning</a>
+      </li>
     </ul>
 
   </div>
