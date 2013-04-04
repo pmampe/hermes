@@ -19,8 +19,10 @@ $(document).on('pagecreate', '[data-role="page"]', function () {
     return headerHtml;
 
   }).attr({
-        "data-theme": "a",
-        "data-position": "fixed"
-      });
+    "data-theme": "a",
+    "data-position": "fixed"
+  }).find("a").click(function() {
+    window.history.back();
+  });
 
 });
