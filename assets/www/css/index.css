@@ -104,6 +104,11 @@ h1 {
   }
 }
 
+.ui-header.nobuttons .ui-title {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 #buttongrid {
   text-align: center;
 }
