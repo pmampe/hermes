@@ -6,6 +6,7 @@
   <title>Stockholm University Demo</title>
 
   <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css"/>
+  <link rel="stylesheet" href="css/index.css"/>
 
   <script src="cordova-2.4.0.js"></script>
   <script src="js/lib/jquery-1.8.2.min.js"></script>
@@ -53,42 +54,74 @@
     <p class="jqm-version"></p>
 
     <!-- Home -->
-    <div data-role="content" style="/*padding: 15px*/">
-      <div class="ui-grid-c">
+    <div data-role="content">
+      <div id="buttongrid" class="ui-grid-b">
         <div class="ui-block-a">
-          <a id="sukat_search_button" href="sukatsearch/index.html" data-ajax="false"><img
-                  src="img/icons/Address_Book.png"></a>
+          <a href="map/index.html" data-ajax="false">
+            <img src="img/icons/salar.png"><br/>
+            Hör- & skrivsalar
+          </a>
         </div>
-
         <div class="ui-block-b">
-          <a id="map_button" href="map/index.html" data-ajax="false"><img id="map-button" src="img/icons/maps.png"></a>
+          <a href="map/index.html" data-ajax="false">
+            <img src="img/icons/buildings.png"><br/>
+            Hus
+          </a>
         </div>
-
         <div class="ui-block-c">
-          <a id="mondo-link" href="https://mondo.su.se/portal/pda"><img src="img/icons/mondo_button.png"></a>
-        </div>
-
-        <div class="ui-block-d">
-          <a id="su-link" href="http://www.su.se"><img src="img/icons/Web.png"></a>
+          <a href="map/index.html" data-ajax="false">
+            <img src="img/icons/departments.png"><br/>
+            Institutioner
+          </a>
         </div>
 
         <div class="ui-block-a">
-          <a id="sub-link" href="http://www.sub.su.se/mobil"><img src="img/icons/Library.png"></a>
+          <a href="map/index.html" data-ajax="false">
+            <img src="img/icons/parking.png"><br/>
+            Parkering
+          </a>
+        </div>
+        <div class="ui-block-b">
+          <a href="map/index.html" data-ajax="false">
+            <img src="img/icons/eat.png"><br/>
+            Äta
+          </a>
+        </div>
+        <div class="ui-block-c">
+          <a href="map/index.html" data-ajax="false">
+            <img src="img/icons/computer_labs.png"><br/>
+            Datorsalar
+          </a>
         </div>
 
+        <div class="ui-block-a">
+          <a href="sukatsearch/index.html" data-ajax="false">
+            <img src="img/icons/staff.png"><br/>
+            Personal
+          </a>
+        </div>
+        <div class="ui-block-b">
+          <a id="servicelink" href="studentservice/index.html" data-ajax="false">
+            <img src="img/icons/studentservice.png"><br/>
+            Studentservice
+          </a>
+        </div>
+        <div class="ui-block-c">
+          <a id="sisulink" href="https://sisu.it.su.se" data-ajax="false">
+            <img src="img/icons/sisu.png"><br/>
+            Utbildningskatalogen
+          </a>
+        </div>
+
+        <div class="ui-block-a">
+          <a id="info-link" href="info/index.html" data-ajax="false">
+            <img src="img/icons/accessibility.png"><br/>
+            Tillgänglighet
+          </a>
+        </div>
       </div>
     </div>
   </div>
-  <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-    <div data-role="navbar">
-      <ul>
-        <li><a href="mailto:mobile-feedback@it.su.se" class="refresh">Feedback</a></li>
-        <li><a href="#page-settings">Settings</a></li>
-      </ul>
-    </div>
-    <!-- /navbar -->
-  </div>
-  <!-- /footer -->
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -98,29 +131,5 @@
   </script>
 
 </div>
-
-
-<div data-role="page" data-theme="a" id="page-settings">
-  <div data-theme="a" data-role="header">
-    <h3>
-      Settings
-    </h3>
-  </div>
-  <div data-role="content">
-    <h2>
-      No settings yet.
-    </h2>
-  </div>
-  <div data-theme="a" data-role="footer" data-position="fixed">
-    <div data-role="navbar">
-      <ul>
-        <li><a href="" class="refresh">Save</a></li>
-        <li><a href="#page-home">Cancel</a></li>
-      </ul>
-    </div>
-    <!-- /navbar -->
-  </div>
-</div>
-
 </body>
 </html>
