@@ -2,7 +2,6 @@ if (!("JST" in window) || "JST" == undefined)
   window.JST = new Object();
 
 JST['common/header'] = _.template(" \
-  <div id='header' data-role='header' data-position='fixed' class='<%= classes %>'> \
     <h1><%= title %></h1> \
 \
     <% if (backbutton) { %>\
@@ -11,6 +10,4 @@ JST['common/header'] = _.template(" \
         Tillbaka \
       </a> \
     <% } %> \
-\
-  </div> \
 ");
