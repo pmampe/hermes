@@ -24,11 +24,7 @@
   <script src="js/views/app-view.js"></script>
 </head>
 <body>
-
-<div data-role="page" class="type-home" id="page-home">
-  <div data-role="content">
-    <p class="jqm-version"></p>
-
+  <div data-role="page" class="type-home" id="page-home">
     <!-- Home -->
     <div data-role="content">
       <div id="buttongrid" class="ui-grid-b">
@@ -97,15 +93,13 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var appView = new AppView({ el: $('#page-home') });
+        appView.render();
+      })
+    </script>
   </div>
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-      var appView = new AppView({ el: $('#page-home') });
-      appView.render();
-    })
-  </script>
-
-</div>
 </body>
 </html>
