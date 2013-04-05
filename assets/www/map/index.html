@@ -21,22 +21,6 @@
   <script src="js/lib/jquery.ui.map/jquery.ui.map.services.js"></script>
   <script src="../js/lib/i18next-1.5.8.min.js"></script>
 
-  <script type="text/template" id="campus_template">
-    <select name="campus" data-native-menu="false" id="campus">
-      <option value=""><%= defaultOptionName %></option>
-      <% _(options).each(function(item) { %>
-      <option value="<%= item.id %>"><%= item.name %></option>
-      <% }); %>
-    </select>
-  </script>
-
-  <script type="text/template" id="location_template">
-    <option value="" data-placeholder="true"><%= defaultOptionName %></option>
-    <% _(options).each(function(item) { %>
-    <option value="<%= item %>"><%= item %></option>
-    <% }); %>
-  </script>
-
   <script type="text/template" id="search-popup_filter_button_template">
     <a id="<%= id %>" data-role="button" data-inline="true" data-mini="true" href="#" data-icon="delete"
        data-iconpos="right"><%= name %></a>
@@ -109,6 +93,10 @@
 <!-- Global config file -->
 <script src="../js/config.js"></script>
 
+<!-- Default header -->
+<script src="../js/jst/common.js"></script>
+<script src="../js/default-header.js"></script>
+
 <script src="js/models/campusmodel.js"></script>
 <script src="js/models/locationmodel.js"></script>
 <script src="js/models/autocompletemodel.js"></script>
@@ -132,16 +120,7 @@
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map">
 
-  <div id="page-map-header" data-theme="a" data-role="header" class="header">
-    <div class="ui-grid-a">
-      <div class="ui-block-a">
-        <div id="campus"></div>
-      </div>
-      <div class="ui-block-b">
-        <select name="poiType" id="poiType" data-native-menu="false" multiple></select>
-      </div>
-    </div>
-  </div>
+  <div data-role="header" class="defaultHeader backbutton notfixed"></div>
 
   <div data-role="content" id="map-content">
     <div data-role="popup" data-corners="false" data-theme="a" data-shadow="false" data-tolerance="0,0"

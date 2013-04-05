@@ -1,9 +1,5 @@
 {
   "map":{
-    "general":{
-      "campus":"Campus",
-      "filter":"Filter"
-    },
 
     "menu":{
       "home":"Home",
