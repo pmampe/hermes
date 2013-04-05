@@ -43,7 +43,7 @@
 
   <feature name="http://api.phonegap.com/1.0/device"/>
 
-  <preference name="phonegap-version" value="2.4.0"/>
+  <preference name="phonegap-version" value="2.3.0"/>
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
@@ -61,7 +61,7 @@
 
   <gap:plugin name="ChildBrowser"/>
   <gap:plugin name="InAppBrowser" />
-  
+
   <access origin="http://su.se" subdomains="true"/>
   <access origin="http://pgbroker-dev.it.su.se" subdomains="true" />
   <access origin="http://*su.se"/>
