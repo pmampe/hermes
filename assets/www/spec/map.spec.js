@@ -262,15 +262,14 @@ describe('Map model', function () {
 
 describe('Map view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html;
+    this.origBody = $('body').html();
     $('body').append("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
     this.view = new MapView({el: $('#map_canvas')});
   });
 
   afterEach(function () {
-    $('body').html = this.origBody;
-    $('body div#page-map').remove();
+    $('body').html(this.origBody);
   });
 
   describe('instantiation', function () {
@@ -431,14 +430,14 @@ describe('Map view', function () {
 
 describe('App view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html;
+    this.origBody = $('body').html();
     $('body').append("<div id='page-map'><div id='map_canvas'></div></div>");
 
     this.view = new AppView({el: $('#page-map')});
   });
 
   afterEach(function () {
-    $('body').html = this.origBody;
+    $('body').html(this.origBody);
   });
 
   describe('instantiation', function () {
