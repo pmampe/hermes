@@ -6,7 +6,7 @@ describe('Default-header', function() {
     this.origBody = $('body').html();
     this.origTitle = $(document).attr('title');
     $(document).attr('title', testTitle);
-    $('body').html('<div data-role="page" id="page"><div data-role="header" class="defaultHeader"></div></div>');
+    $('body').html('<div data-role="page" id="page" data-header="common/header"></div>');
     this.oldHistory = window.history;
     window.history.back = function() {
       this.backWasCalled = true;
@@ -19,8 +19,24 @@ describe('Default-header', function() {
     window.history = this.oldHistory;
   });
 
-  describe('common/header with no options', function() {
-    it('Should render a header with only title and add class nobuttons', function() {
+  describe('when header is created', function() {
+
+    it('should be inserted first in the page', function() {
+      $('[data-role="page"]').append($('<div data-role="content"></div>'));
+      $.mobile.loadPage('#page');
+      expect($('[data-role=page] :first-child').data('role')).toBe('header');
+    });
+
+    it('should be only one header in page', function() {
+      $.mobile.loadPage('#page');
+      $('[data-role="page"]').trigger('pagecreate');
+      expect($('[data-role=header]').length).toBe(1);
+    });
+
+  });
+
+  describe('using common/header with no options', function() {
+    it('should render a header with only title and add class nobuttons', function() {
       $.mobile.loadPage('#page');
 
       var $header = $('[data-role=header]');
@@ -31,9 +47,9 @@ describe('Default-header', function() {
     });
   });
 
-  describe('common/header with option backbutton', function() {
-    it('Should render a header with title and add a back button', function() {
-      $('[data-role="header"]').addClass("backbutton");
+  describe('using common/header with option backbutton', function() {
+    it('should render a header with title and add a back button', function() {
+      $('[data-role="page"]').data("header-options", "backbutton");
       $.mobile.loadPage('#page');
 
       var $header = $('[data-role=header]');
@@ -48,9 +64,9 @@ describe('Default-header', function() {
     });
   });
 
-  describe('common/header with option notfixed', function() {
-    it('Should render a header without fixed position', function() {
-      $('[data-role="header"]').addClass("notfixed");
+  describe('using common/header with option notfixed', function() {
+    it('should render a header without fixed position', function() {
+      $('[data-role="page"]').data("header-options", "notfixed");
       $.mobile.loadPage('#page');
 
       var $header = $('[data-role=header]');
