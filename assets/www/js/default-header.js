@@ -28,7 +28,7 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 
   $('<div></div>').attr(attrs).prependTo(this).html(function() {
     return JST[headerTemplate](templateData);
-  }).addClass(addClass).find("a").click(function() {
+  }).addClass(addClass).find("a.back").click(function() {
     window.history.back();
   });
 

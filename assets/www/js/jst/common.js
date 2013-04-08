@@ -6,8 +6,15 @@ JST['common/header'] = _.template(" \
 \
     <% if (backbutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='slide' href='#' \
-         data-icon='arrow-l' data-iconpos='left' class='ui-btn-left'> \
+         data-icon='arrow-l' data-iconpos='left' class='ui-btn-left back'> \
         Tillbaka \
+      </a> \
+    <% } %> \
+\
+    <% if (homebutton) { %>\
+      <a data-role='button' rel='external' data-ajax='false' data-transition='slide' href='../index.html' \
+         data-icon='home' data-iconpos='left' class='ui-btn-right home'> \
+        Hem \
       </a> \
     <% } %> \
 ");

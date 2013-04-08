@@ -59,8 +59,28 @@ describe('Default-header', function() {
       var $button = $header.find("a");
       expect($button.text().trim()).toBe("Tillbaka");
       expect($button.data("role")).toBe("button");
+      expect($button.data("icon")).toBe("arrow-l");
+      expect($button.hasClass("ui-btn-left")).toBeTruthy();
       $button.trigger("click");
       expect(window.history.backWasCalled).toBeTruthy();
+    });
+  });
+
+  describe('using common/header with option homebutton', function() {
+    it('should render a header with title and add a home button', function() {
+      $('[data-role="page"]').data("header-options", "homebutton");
+      $.mobile.loadPage('#page');
+
+      var $header = $('[data-role=header]');
+      expect($header.data("theme")).toBe("a");
+      expect($header.data("position")).toBe("fixed");
+      expect($header.find("h1").text()).toBe(testTitle);
+      var $button = $header.find("a");
+      expect($button.text().trim()).toBe("Hem");
+      expect($button.data("role")).toBe("button");
+      expect($button.data("icon")).toBe("home");
+      expect($button.hasClass("ui-btn-right")).toBeTruthy();
+      expect($button.attr("href")).toBe("../index.html");
     });
   });
 
