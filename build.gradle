@@ -52,7 +52,7 @@ saga {
   baseDir = file('assets/www/')
   outputDir = file('build/reports/coverage')
   includes = '**/*spec.html'
-  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/childbrowser\\.js", ".+\\/lib\\/.+\\.js", ".+\\/spec\\/.+\\.js"]
+  noInstrumentPatterns = [".*/cordova.*\\.js", ".+\\/lib\\/.+\\.js", ".+\\/spec\\/.+\\.js"]
   sourcesToPreload = "**/*.js"
 }
 
@@ -84,7 +84,7 @@ task buildSonarPom(type: Copy) {
 jslint {
   inputDirs = ['assets/www/']
   haltOnFailure = false
-  excludes = '**/cordova*.js,**/childbrowser.js,**/lib/**/*.js'
+  excludes = '**/cordova*.js,**/lib/**/*.js'
   options = 'rhino'
   formatterType = 'xml'
 }
@@ -121,7 +121,7 @@ task jsdocjs(type: com.eriwen.gradle.js.tasks.JsDocTask) {
   source = fileTree(
           dir: "${projectDir}/assets/www/",
           include: "**/*.js",
-          excludes: ['**/cordova*.js', '**/childbrowser.js', '**/lib/**/*.js']
+          excludes: ['**/cordova*.js', '**/lib/**/*.js']
   ).getFiles().collect { File f -> f.path; }
   destinationDir = file("${buildDir}/jsdoc")
 }
