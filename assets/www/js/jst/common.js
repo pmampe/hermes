@@ -13,7 +13,7 @@ JST['common/header'] = _.template(" \
 \
     <% if (homebutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='slide' href='../index.html' \
-         data-icon='home' data-iconpos='left' class='ui-btn-right home'> \
+         data-icon='home' data-iconpos='notext' class='ui-btn-right home'> \
         Hem \
       </a> \
     <% } %> \
