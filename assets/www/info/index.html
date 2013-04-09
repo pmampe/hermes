@@ -5,6 +5,7 @@
   <title>Accessibility</title>
 
   <link rel="stylesheet" href="../css/jquery.mobile-1.3.0.min.css"/>
+  <link rel="stylesheet" href="../css/mobile.css"/>
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.4.0.js"></script>
 
@@ -16,24 +17,28 @@
 </head>
 <body>
 
+<script src="../js/lib/underscore-1.3.3-min.js"></script>
 
 <!-- Global config file -->
 <script src="../js/config.js"></script>
 
-<div id="search_page" data-role="page">
-  <div data-theme="a" data-role="header">
-    <h3>Accessibility</h3>
-    <a data-role="button" rel="external" data-ajax="false" data-transition="slide" href="../index.html"
-       data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-      Back
-    </a>
-  </div>
+<!-- Default header -->
+<script src="../js/jst/common.js"></script>
+<script src="../js/default-header.js"></script>
+
+<div id="search_page" data-role="page" data-header="common/header" data-header-options="backbutton">
   <div id="info_view" data-role="content">
-    <p>Information om tillgänglighet (hörslinga, handikappanpassad toalett, hiss, entré och parkering) på SU hittar du söker fram en sal, ett hus eller parkeringar i appen.</p>
+    <p>Information om tillgänglighet (hörslinga, handikappanpassad toalett, hiss, entré och parkering) på SU hittar du
+      söker fram en sal, ett hus eller parkeringar i appen.</p>
+
     <p><img src="../img/icons/Handikappentre.png">Handikappentré</p>
+
     <p><img src="../img/icons/Handikapphiss.png">Handikapphiss</p>
+
     <p><img src="../img/icons/HandikappWC.png">Handikapptoalett</p>
+
     <p><img src="../img/icons/Parkering-handikapp.png">Handikapp-parkering</p>
+
     <p><img src="../img/icons/h-slinga.png">Hörslinga</p>
   </div>
 </div>
