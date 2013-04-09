@@ -68,33 +68,6 @@
       </div>
     </div>
   </script>
-
-  <script type="text/template" id="page-map-footer_template">
-    <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-      <div data-role="navbar">
-        <ul id="footer-buttons1" class="footer-button" style="display:none;">
-          <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
-            i18n.t('map.menu.home') %></a></li>
-        </ul>
-        <ul id="footer-buttons2" class="footer-button">
-          <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
-            i18n.t('map.menu.home') %></a></li>
-          <li><a id="menu-search" href="#"><%= i18n.t('map.menu.search') %></a></li>
-        </ul>
-        <ul id="footer-buttons3" class="footer-button" style="display:none;">
-          <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
-            i18n.t('map.menu.home') %></a></li>
-          <li><a href="#page-dir"><%= i18n.t('map.menu.directions') %></a></li>
-        </ul>
-        <ul id="footer-buttons4" class="footer-button" style="display:none;">
-          <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html"><%=
-            i18n.t('map.menu.home') %></a></li>
-          <li><a id="menu-search" href="#"><%= i18n.t('map.menu.search') %></a></li>
-          <li><a href="#page-dir"><%= i18n.t('map.menu.directions') %></a></li>
-        </ul>
-      </div>
-    </div>
-  </script>
 </head>
 <body>
 
@@ -131,7 +104,8 @@
   });
 </script>
 
-<div data-role="page" data-theme="a" data-fullscreen="true" id="page-map" data-header="common/header" data-header-options="backbutton notfixed">
+<div data-role="page" data-theme="a" data-fullscreen="true" id="page-map" data-header="common/header"
+     data-header-options="backbutton notfixed">
 
   <div data-role="content" id="map-content">
     <div data-role="popup" data-corners="false" data-theme="a" data-shadow="false" data-tolerance="0,0"
@@ -170,24 +144,12 @@
 </div>
 <!-- /page-map -->
 
-<div data-role="page" data-theme="a" id="page-dir" data-header="common/header" data-header-options="backbutton homebutton">
+<div data-role="page" data-theme="a" id="page-dir" data-header="common/header"
+     data-header-options="backbutton homebutton">
 
   <div data-role="content">
     <div id="dir_panel"></div>
   </div>
-  <!-- /content -->
-
-  <div data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false">
-    <div data-role="navbar">
-      <ul>
-        <li><a rel="external" data-ajax="false" data-transition="slide" href="../index.html">Home</a></li>
-        <li><a href="#page-map">Map</a></li>
-      </ul>
-    </div>
-    <!-- /navbar -->
-  </div>
-  <!-- /footer -->
 </div>
-<!-- /page-dir -->
 </body>
 </html>

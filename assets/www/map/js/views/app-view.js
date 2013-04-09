@@ -31,9 +31,6 @@ var AppView = Backbone.View.extend(
        * Render the app module.
        */
       render: function () {
-        var footerTpl = _.template($("#page-map-footer_template").html());
-        this.$el.append(footerTpl);
-
         this.mapView.render();
       },
 
