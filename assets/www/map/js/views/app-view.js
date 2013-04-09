@@ -96,6 +96,16 @@ var AppView = Backbone.View.extend(
         return localDatabase;
       },
 
+      showType: function (type) {
+        this.mapView.locations.fetch({
+          data: {
+            types: new Array(type)
+          },
+          error: function () {
+            alert("ERROR! Failed to fetch locations.");
+          }
+        });
+      },
 
       createCampusesTable: function (db) {
         var query = "CREATE TABLE IF NOT EXISTS campuses " +
