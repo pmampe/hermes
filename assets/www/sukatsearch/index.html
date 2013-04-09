@@ -5,6 +5,7 @@
   <title>Search persons</title>
 
   <link rel="stylesheet" href="../css/jquery.mobile-1.3.0.min.css"/>
+  <link rel="stylesheet" href="../css/mobile.css"/>
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.4.0.js"></script>
 
@@ -77,6 +78,10 @@
 <!-- Global config file -->
 <script src="../js/config.js"></script>
 
+<!-- Default header -->
+<script src="../js/jst/common.js"></script>
+<script src="../js/default-header.js"></script>
+
 <script src="js/models/personmodel.js"></script>
 <script src="js/views/personview.js"></script>
 <script src="js/views/searchview.js"></script>
@@ -88,21 +93,11 @@
   })
 </script>
 
-<div id="search_page" data-role="page">
-  <div data-theme="a" data-role="header">
-    <h3>Contacts</h3>
-    <a data-role="button" rel="external" data-ajax="false" data-transition="slide" href="../index.html"
-       data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-      Back
-    </a>
-  </div>
+<div id="search_page" data-role="page" data-header="common/header" data-header-options="backbutton">
   <div id="search_view" data-role="content"></div>
 </div>
 
-<div id="details_page" data-role="page" data-add-back-btn="true">
-  <div data-theme="a" data-role="header">
-    <h3>Contact details</h3>
-  </div>
+<div id="details_page" data-role="page" data-header="common/header" data-header-options="backbutton">
   <div id="details_view" data-role="content"></div>
 </div>
 </body>

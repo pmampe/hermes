@@ -30,7 +30,7 @@ var SearchView = Backbone.View.extend(
             var w = $(window).width();
             $("#search-popup").css("width", w);
 
-            var pos = $("#page-map-header").outerHeight();
+            var pos = $('[data-role="header"]').outerHeight();
             $("#search-popup").css("top", pos);
           },
           popupafterclose: function () {

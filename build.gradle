@@ -30,7 +30,25 @@ def archiveFile = 'su.tar.gz'
 def phonegapAppId = '219084'
 def phonegapUser = 'utveckling@it.su.se'
 def phonegapPassword = System.getenv('PG_PASS')
-def phantomjs = System.getenv('PHANTOMJS')
+
+def phantomjs = {
+  String phantomjsBin = System.getenv('PHANTOMJS')
+  if (!phantomjsBin) {
+    phantomjsBin = System.getenv('PHANTOMJS_HOME')
+    if (phantomjsBin) phantomjsBin += "/bin/phantomjs"
+  }
+
+  if (!phantomjsBin)
+    phantomjsBin = "which phantomjs".execute().text.trim()
+
+  if (!phantomjsBin)
+    throw new IllegalArgumentException("No phantomjs found! Specify phantomjs path using \$PHANTOMJS or \$PHANTOMJS_HOME")
+
+  if ("${phantomjsBin} -v".execute().text.trim() < "1.7.0")
+    throw new IllegalArgumentException("Too old version of phantomjs found! Please use version 1.7.0 or later.")
+
+  phantomjsBin
+}
 
 apply plugin: 'saga'
 apply plugin: 'js'
@@ -52,7 +70,7 @@ saga {
   baseDir = file('assets/www/')
   outputDir = file('build/reports/coverage')
   includes = '**/*spec.html'
-  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/childbrowser\\.js", ".+\\/lib\\/.+\\.js", ".+\\/spec\\/.+\\.js"]
+  noInstrumentPatterns = [".*/cordova.*\\.js", ".+\\/lib\\/.+\\.js", ".+\\/spec\\/.+\\.js"]
   sourcesToPreload = "**/*.js"
 }
 
@@ -84,7 +102,7 @@ task buildSonarPom(type: Copy) {
 jslint {
   inputDirs = ['assets/www/']
   haltOnFailure = false
-  excludes = '**/cordova*.js,**/childbrowser.js,**/lib/**/*.js'
+  excludes = '**/cordova*.js,**/lib/**/*.js'
   options = 'rhino'
   formatterType = 'xml'
 }
@@ -94,23 +112,17 @@ jslint {
  */
 
 task test(type: Exec) {
-  if (!phantomjs)
-    phantomjs = "which phantomjs".execute().text.trim()
-
   def testExecScript = file('assets/www/spec/lib/phantom-jasmine/run_jasmine_test.coffee')
   def testRunner = file('assets/www/spec.html')
 
-  commandLine phantomjs, testExecScript.absolutePath, testRunner.absolutePath
+  commandLine phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
 }
 
 task testReports(type: Exec) {
-  if (!phantomjs)
-    phantomjs = "which phantomjs".execute().text.trim()
-
   def testExecScript = file('assets/www/spec/lib/jasmine-reporters/phantomjs-testrunner.js')
   def testRunner = file('assets/www/spec.html')
 
-  commandLine phantomjs, testExecScript.absolutePath, testRunner.absolutePath
+  commandLine phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
 }
 
 /**
@@ -121,7 +133,7 @@ task jsdocjs(type: com.eriwen.gradle.js.tasks.JsDocTask) {
   source = fileTree(
           dir: "${projectDir}/assets/www/",
           include: "**/*.js",
-          excludes: ['**/cordova*.js', '**/childbrowser.js', '**/lib/**/*.js']
+          excludes: ['**/cordova*.js', '**/lib/**/*.js']
   ).getFiles().collect { File f -> f.path; }
   destinationDir = file("${buildDir}/jsdoc")
 }

@@ -4,6 +4,7 @@
  * @class A Backbone view to handle the app.
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
+ * @author <a href="mailto:bjorn.westlin@su.se">Björn Westlin</a>
  * @type {Backbone.View}
  */
 var AppView = Backbone.View.extend(
@@ -14,20 +15,7 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "changeCampus", "showPOIs");
-
-        this.isWebKit = navigator.userAgent.indexOf("WebKit") != -1;
-        // locale storage only supported on webkit browsers
-        if (this.isWebKit) {
-          this.db = this.initializeDB();
-          this.createCampusesTable(this.db);
-        }
-
-        this.campuses = new Campuses();
-
-        // request event not firing for some reason, putting logic in render method..
-        this.campuses.on("request", this.getCampuses, this);
-        this.campuses.on("reset", this.renderCampuses, this);
+        _.bindAll(this, "render");
 
         this.mapView = new MapView({ el: $('#map_canvas') });
       },
@@ -36,8 +24,6 @@ var AppView = Backbone.View.extend(
        * Registers events.
        */
       events: {
-        "change #campus": "changeCampus",
-        "change #poiType": "showPOIs",
         "click a[id=menu-search]": "openSearchPopup"
       },
 
@@ -48,38 +34,10 @@ var AppView = Backbone.View.extend(
         var footerTpl = _.template($("#page-map-footer_template").html());
         this.$el.append(footerTpl);
 
-        this.togglePoiType();
-
-        // get campuses from locale storage before fetching
-        // (could be moved to 'request' event, but not working for now..)
-        this.getCampuses();
-        this.campuses.fetch({
-          error: function () {
-            alert("ERROR! Failed to fetch campuses.");
-          }
-        });
-
         this.mapView.render();
-
-        var filters = [
-          "Parkering",
-          "Restaurang",
-          "Hörsal"
-        ];
-
-        var template = _.template($("#location_template").html(), {
-          defaultOptionName: i18n.t("map.general.filter"),
-          options: filters
-        });
-
-        var filterSelect = this.$el.find('#poiType');
-
-        filterSelect.append(template);
-
-        filterSelect.selectmenu();
-        filterSelect.selectmenu("refresh", true);
       },
 
+<<<<<<< HEAD
 
       // --- BEGIN DATABASE FUNCTIONS ---
       // --------------------------------
@@ -181,99 +139,14 @@ var AppView = Backbone.View.extend(
       // --- END DATABASE FUNCTIONS ---
       // --------------------------------
 
+=======
+>>>>>>> 92ca6a6d70c4353e2c9312fc644eccdb4b95a569
       /**
        * Opens the search popup (or slide down)
        *
        * @param event the triggering event.
        */
       openSearchPopup: function (event) {
-        var campus = this.campuses.get($("#campus").val());
-        if (campus) {
-          campus = campus.get('name');
-        }
-
-        this.mapView.showSearchView(campus);
-      },
-
-      /**
-       * Render campus select.
-       */
-      renderCampuses: function (campuses) {
-        this.insertCampuses(campuses.toJSON());
-
-        var template = _.template($("#campus_template").html(), {
-          defaultOptionName: i18n.t("map.general.campus"),
-          options: campuses.toJSON()
-        });
-
-        /* If we already have a selectmenu for campus then replace the following structure:
-         * <div.ui-block-a> <div.ui-select> <a#campus-button></a> <select#campus></select> </...>
-         * Else if we create the campus selectmenu for the first time, then replace:
-         * <div.ui-block-a> <div#campus></div> </div>
-         */
-        if (this.$el.find("#campus-button").size() > 0) {
-          this.$el.find('#campus-button').parent().parent().html(template);
-        } else {
-          this.$el.find('#campus').replaceWith(template);
-        }
-        this.$el.find('#campus').selectmenu();
-        this.$el.find('#campus').selectmenu("refresh", true);
-        this.$el.trigger("refresh");
-      },
-
-      /**
-       * Change campus callback function.
-       *
-       * @param e event.
-       * @param v value.
-       */
-      changeCampus: function (e, v) {
-        this.togglePoiType();
-
-        var campus = this.campuses.get($("#campus").val());
-        this.mapView.updateCampusPoint(campus.get("coords"), campus.get("zoom"), campus.get("name"));
-        this.showPOIs();
-      },
-
-      /**
-       * Show Points Of Interest
-       */
-      showPOIs: function () {
-        var campus = this.campuses.get($("#campus").val());
-        if (campus !== null) {
-          campus = campus.get("name");
-        }
-
-        var types = $('#poiType').val();
-        var searchInput = $("#search_input").val();
-
-        // Reset the collection if no popups are open or is empty, otherwise fetch new.
-        // If we have inputed a search input and no poiType, then don't fetch any new pois
-        // (retain the current ones).
-        if (types === null && searchInput === null) {
-          this.mapView.locations.reset();
-        }
-        else if (types !== null) {
-          this.mapView.locations.fetch({
-            data: {
-              campus: campus,
-              types: types
-            },
-            error: function () {
-              alert("ERROR! Failed to fetch locations.");
-            }
-          });
-        }
-      },
-
-      /**
-       * Disable filter select if no campus is chosen, else enable
-       */
-      togglePoiType: function () {
-        if ($("#campus").val() === "") {
-          $('#poiType').selectmenu("disable");
-        } else {
-          $('#poiType').selectmenu("enable");
-        }
+        this.mapView.showSearchView();
       }
     });
