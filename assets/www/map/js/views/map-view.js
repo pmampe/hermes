@@ -27,7 +27,7 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "resetSearchResults", "resetLocations", "showCampusesList");
+        _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
 
         this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
