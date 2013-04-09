@@ -16,7 +16,7 @@ var MapRouter = Backbone.Router.extend({
   },
 
   auditoriums: function () {
-    var appView = new AppView({ el: $('#page-map') });
+    var appView = new AppView({ el: $('#page-map'), title: "Hör- & skrivsalar" });
     appView.render();
     appView.showType("auditorium");
   },

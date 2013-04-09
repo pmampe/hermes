@@ -14,8 +14,10 @@ var AppView = Backbone.View.extend(
       /**
        * @constructs
        */
-      initialize: function () {
+      initialize: function (options) {
         _.bindAll(this, "render");
+
+        this.title = options.title;
 
         this.mapView = new MapView({ el: $('#map_canvas') });
       },
@@ -32,6 +34,7 @@ var AppView = Backbone.View.extend(
        */
       render: function () {
         this.mapView.render();
+        $('div[data-role="header"] > h1').text(this.title);
       },
 
       showType: function (type) {
