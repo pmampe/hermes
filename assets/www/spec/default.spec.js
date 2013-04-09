@@ -10,7 +10,7 @@ describe('Default-header', function() {
     this.oldHistory = window.history;
     window.history.back = function() {
       this.backWasCalled = true;
-    }
+    };
   });
 
   afterEach(function () {

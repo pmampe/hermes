@@ -4,7 +4,7 @@
 $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
   var $this = $(this),
       headerTemplate = $this.data("header"),
-      headerOptions = $this.data("header-options") || ""
+      headerOptions = $this.data("header-options") || "",
       optionsArr = headerOptions.split(" ");
 
   var attrs = {
