@@ -94,4 +94,15 @@ describe('Default-header', function() {
       expect($header.hasClass("ui-header-fixed")).toBeFalsy();
     });
   });
+
+  describe('using common/header with explicit header-title', function() {
+    it('should render a header without fixed position', function() {
+      var explicitTitle = "Explicit title";
+      $('[data-role="page"]').data("header-title", explicitTitle);
+      $.mobile.loadPage('#page');
+
+      var $header = $('[data-role=header]');
+      expect($header.find("h1").text()).toBe(explicitTitle);
+    });
+  });
 });
