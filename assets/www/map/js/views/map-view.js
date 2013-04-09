@@ -66,7 +66,11 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(11, 11))
         })});
 
-        this.locations.on("reset", this.resetLocations, this);
+        var self = this;
+
+        this.locations.on("reset", function () {
+          self.replacePoints(self.locations);
+        });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
@@ -301,13 +305,6 @@ var MapView = Backbone.View.extend(
         }
 
         $.mobile.loading('hide');
-      },
-
-      /**
-       * Resets the locations from the locations collection
-       */
-      resetLocations: function () {
-        this.replacePoints(this.locations);
       },
 
       /**
