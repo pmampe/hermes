@@ -1,5 +1,5 @@
 /*
- * Creation of generic header to be reused
+ * Default handling of generic header triggered by data-header attribute
  */
 $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
   var $this = $(this),
@@ -30,4 +30,23 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
     return JST[headerTemplate](templateData);
   }).addClass(addClass);
 
+});
+
+/*
+ * Default handling of external link by target=_blank attribute
+ */
+$(document).on("click", "a[target=_blank][data-rel!=external]", function(event) {
+  event.preventDefault();
+
+  var $externalLinkDialog = $('#external-link-dialog');
+  $externalLinkDialog.remove();
+
+  $externalLinkDialog = $('<div id="external-link-dialog"></div>').html(JST["common/external-link-dialog"]({
+    href: $(this).attr("href")
+  })).appendTo("body");
+
+  $externalLinkDialog.find("a[target=_blank]").click(function() {
+    $externalLinkDialog.dialog('close');
+  });
+  $.mobile.changePage('#external-link-dialog', { role: "dialog" } );
 });
