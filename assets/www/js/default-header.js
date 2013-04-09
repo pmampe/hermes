@@ -17,7 +17,7 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
     memo[option] = true;
     return memo;
   }, {
-    title: $(document).attr('title') || 'Titel saknas',
+    title: $this.data('header-title') || ($(document).attr('title') || 'Titel saknas'),
     backbutton: false,
     homebutton: false
   });
