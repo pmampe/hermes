@@ -22,7 +22,7 @@ var MapRouter = Backbone.Router.extend({
   },
 
   buildings: function () {
-    var appView = new AppView({ el: $('#page-map') });
+    var appView = new AppView({ el: $('#page-map'), title: "Hus" });
     appView.render();
     appView.showType("building");
   }
