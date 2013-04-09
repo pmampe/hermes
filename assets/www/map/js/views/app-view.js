@@ -37,6 +37,17 @@ var AppView = Backbone.View.extend(
         this.mapView.render();
       },
 
+      showType: function (type) {
+        this.mapView.locations.fetch({
+          data: {
+            types: new Array(type)
+          },
+          error: function () {
+            alert("ERROR! Failed to fetch locations.");
+          }
+        });
+      },
+
       /**
        * Opens the search popup (or slide down)
        *
