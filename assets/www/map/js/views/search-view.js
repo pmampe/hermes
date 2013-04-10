@@ -22,6 +22,7 @@ var SearchView = Backbone.View.extend(
       /** Registers events */
       events: {
 //        "keypress input": 'doSearchOnEnter'
+          "keypress input": 'filterFix'
       },
 
       /**
@@ -33,18 +34,44 @@ var SearchView = Backbone.View.extend(
         this.ul = $("#search-autocomplete");
 
         this.populateFilter();
+        $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterFix); //this must be called after the DOM is completed
       },
 
       populateFilter: function () {
         var html = "";
 
         $.each(this.items.toJSON(), function (i, val) {
-          html += "<li id='" + val.id + "'><a class='autocomplete-link'>" + val.name + "</a></li>";
+
+            html += "<li id='" + val.id + "' data-icon='false' class='ui-screen-hidden'><a class='autocomplete-link'>" + val.name + "</a></li>";
+
         });
 
         var $ul = $('#search-autocomplete');
         $ul.html(html);
         $ul.listview("refresh");
         $ul.trigger("updatelayout");
+
+    },
+
+      filterFix: function( text, searchValue) {
+        //search value- what we are looking for, text- the filter item being evaluated
+        var eval=new Boolean();
+        eval = true;
+
+        var splitText = text.split(" "); //unstable? depends on data
+        splitText.push(text);
+
+        $.each(splitText, function(i , val){
+          if (val.toLowerCase().indexOf( searchValue ) === 0 )
+          //===0, it occurs at the beginning of the string
+            {
+              eval = false;
+            }
+        });
+
+        return eval;
+        //returns true of false, truth filters out said instance
+
       }
+
     }); //-- End of Search view
