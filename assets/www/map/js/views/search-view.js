@@ -21,7 +21,8 @@ var SearchView = Backbone.View.extend(
 
       /** Registers events */
       events: {
-//        "keypress input": 'doSearchOnEnter'
+        "focus input": 'showFilteredList',
+        "blur input": 'hideFilteredList'
       },
 
       /**
@@ -33,6 +34,14 @@ var SearchView = Backbone.View.extend(
         this.ul = $("#search-autocomplete");
 
         this.populateFilter();
+      },
+      
+      showFilteredList: function() {
+        $("#search-autocomplete li").removeClass("ui-screen-hidden");
+      },
+
+      hideFilteredList: function() {
+        $("#search-autocomplete li").addClass("ui-screen-hidden");
       },
 
       populateFilter: function () {
@@ -46,5 +55,8 @@ var SearchView = Backbone.View.extend(
         $ul.html(html);
         $ul.listview("refresh");
         $ul.trigger("updatelayout");
+        
+        // After populating the list, hide it (only show it when search-box has focus)
+        this.hideFilteredList();
       }
     }); //-- End of Search view
