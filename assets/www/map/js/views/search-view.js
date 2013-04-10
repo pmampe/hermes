@@ -21,8 +21,9 @@ var SearchView = Backbone.View.extend(
 
       /** Registers events */
       events: {
-        "focus input": 'showFilteredList',
-        "blur input": 'hideFilteredList'
+        'focus input': 'showFilteredList',
+        'blur input': 'hideFilteredList',
+        'click .autocomplete-link': 'showClickedLoction' 
       },
 
       /**
@@ -40,8 +41,25 @@ var SearchView = Backbone.View.extend(
         $("#search-autocomplete li").removeClass("ui-screen-hidden");
       },
 
-      hideFilteredList: function() {
-        $("#search-autocomplete li").addClass("ui-screen-hidden");
+      /**
+       * If evt is an object, i.e. a blur event, then delay the execussion 
+       * of hiding the list. This is done in order to capture the click event 
+       * (when clicking on elements in the list).
+       */
+      hideFilteredList: function(evt) {
+        if (typeof evt == 'object') {
+          setTimeout(function() {
+            $("#search-autocomplete li").addClass("ui-screen-hidden");
+          }, 100);
+        } else {
+          $("#search-autocomplete li").addClass("ui-screen-hidden");
+        }
+      },
+      
+      showClickedLoction: function() {
+        // fetch the correct location from the this.items collection
+        // show only that location in the map, by calling mapView.replacePoints
+        console.log("showClickedLoction");
       },
 
       populateFilter: function () {
