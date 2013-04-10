@@ -10,7 +10,7 @@ describe('Default-header', function() {
     this.oldHistory = window.history;
     window.history.back = function() {
       this.backWasCalled = true;
-    }
+    };
   });
 
   afterEach(function () {
@@ -103,6 +103,43 @@ describe('Default-header', function() {
 
       var $header = $('[data-role=header]');
       expect($header.find("h1").text()).toBe(explicitTitle);
+    });
+  });
+});
+
+describe('External-link-dialog', function() {
+
+  var changePageArguments;
+
+  beforeEach(function () {
+    this.origBody = $('body').html();
+    $('body').html('<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>');
+
+    this.oldChangePage = $.mobile.changePage;
+    $.mobile.changePage = function() {
+      changePageArguments = arguments;
+    }
+  });
+
+  afterEach(function () {
+    $('body').html(this.origBody);
+    $.mobile.changePage = this.oldChangePage;
+  });
+
+  describe('when document contains links with target _blank', function() {
+    it('should present a dialog with info and possibility to continue or cancel', function() {
+      $.mobile.loadPage('#page');
+
+      $("#page").find("a").trigger("click");
+
+      expect(changePageArguments[0]).toBe("#external-link-dialog");
+      expect(changePageArguments[1].role).toBe("dialog");
+
+      var $externalLinkDialog = $("#external-link-dialog");
+
+      expect($externalLinkDialog.find("a[data-role=button][data-rel=back]").text()).toBe("Nej");
+      expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
+      expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_blank");
     });
   });
 });
