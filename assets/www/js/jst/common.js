@@ -1,5 +1,6 @@
-if (!("JST" in window) || "JST" == undefined)
+if (!("JST" in window) || "JST" === undefined) {
   window.JST = new Object();
+}
 
 JST['common/header'] = _.template(" \
     <h1><%= title %></h1> \

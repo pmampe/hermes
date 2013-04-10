@@ -1,4 +1,4 @@
-describe('Default-header', function() {
+describe('Default-header', function () {
 
   var testTitle = 'test-title';
 
@@ -8,7 +8,7 @@ describe('Default-header', function() {
     $(document).attr('title', testTitle);
     $('body').html('<div data-role="page" id="page" data-header="common/header"></div>');
     this.oldHistory = window.history;
-    window.history.back = function() {
+    window.history.back = function () {
       this.backWasCalled = true;
     };
   });
@@ -19,15 +19,15 @@ describe('Default-header', function() {
     window.history = this.oldHistory;
   });
 
-  describe('when header is created', function() {
+  describe('when header is created', function () {
 
-    it('should be inserted first in the page', function() {
+    it('should be inserted first in the page', function () {
       $('[data-role="page"]').append($('<div data-role="content"></div>'));
       $.mobile.loadPage('#page');
       expect($('[data-role=page] :first-child').data('role')).toBe('header');
     });
 
-    it('should be only one header in page', function() {
+    it('should be only one header in page', function () {
       $.mobile.loadPage('#page');
       $('[data-role="page"]').trigger('pagecreate');
       expect($('[data-role=header]').length).toBe(1);
@@ -35,8 +35,8 @@ describe('Default-header', function() {
 
   });
 
-  describe('using common/header with no options', function() {
-    it('should render a header with only title and add class nobuttons', function() {
+  describe('using common/header with no options', function () {
+    it('should render a header with only title and add class nobuttons', function () {
       $.mobile.loadPage('#page');
 
       var $header = $('[data-role=header]');
@@ -47,8 +47,8 @@ describe('Default-header', function() {
     });
   });
 
-  describe('using common/header with option backbutton', function() {
-    it('should render a header with title and add a back button', function() {
+  describe('using common/header with option backbutton', function () {
+    it('should render a header with title and add a back button', function () {
       $('[data-role="page"]').data("header-options", "backbutton");
       $.mobile.loadPage('#page');
 
@@ -67,8 +67,8 @@ describe('Default-header', function() {
     });
   });
 
-  describe('using common/header with option homebutton', function() {
-    it('should render a header with title and add a home button', function() {
+  describe('using common/header with option homebutton', function () {
+    it('should render a header with title and add a home button', function () {
       $('[data-role="page"]').data("header-options", "homebutton");
       $.mobile.loadPage('#page');
 
@@ -85,8 +85,8 @@ describe('Default-header', function() {
     });
   });
 
-  describe('using common/header with option notfixed', function() {
-    it('should render a header without fixed position', function() {
+  describe('using common/header with option notfixed', function () {
+    it('should render a header without fixed position', function () {
       $('[data-role="page"]').data("header-options", "notfixed");
       $.mobile.loadPage('#page');
 
@@ -95,8 +95,8 @@ describe('Default-header', function() {
     });
   });
 
-  describe('using common/header with explicit header-title', function() {
-    it('should render a header without fixed position', function() {
+  describe('using common/header with explicit header-title', function () {
+    it('should render a header without fixed position', function () {
       var explicitTitle = "Explicit title";
       $('[data-role="page"]').data("header-title", explicitTitle);
       $.mobile.loadPage('#page');
@@ -107,7 +107,7 @@ describe('Default-header', function() {
   });
 });
 
-describe('External-link-dialog', function() {
+describe('External-link-dialog', function () {
 
   var changePageArguments;
 
@@ -116,9 +116,9 @@ describe('External-link-dialog', function() {
     $('body').html('<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>');
 
     this.oldChangePage = $.mobile.changePage;
-    $.mobile.changePage = function() {
+    $.mobile.changePage = function () {
       changePageArguments = arguments;
-    }
+    };
   });
 
   afterEach(function () {
@@ -126,8 +126,8 @@ describe('External-link-dialog', function() {
     $.mobile.changePage = this.oldChangePage;
   });
 
-  describe('when document contains links with target _blank', function() {
-    it('should present a dialog with info and possibility to continue or cancel', function() {
+  describe('when document contains links with target _blank', function () {
+    it('should present a dialog with info and possibility to continue or cancel', function () {
       $.mobile.loadPage('#page');
 
       $("#page").find("a").trigger("click");
