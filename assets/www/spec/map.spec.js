@@ -567,7 +567,7 @@ describe('MapRouter', function () {
     });
 
     it('should have the correct amount of routes', function () {
-      expect(_.size(this.router.routes)).toEqual(3);
+      expect(_.size(this.router.routes)).toEqual(4);
     });
 
     it('*actions route exists & points to default route', function () {
@@ -609,6 +609,15 @@ describe('MapRouter', function () {
       Backbone.history.loadUrl("buildings");
 
       expect(MapRouter.prototype.buildings).toHaveBeenCalled();
+    });
+
+    it("should call buildings for /parkingspaces", function () {
+      spyOn(MapRouter.prototype, "parkingspaces");
+      new MapRouter();
+
+      Backbone.history.loadUrl("parkingspaces");
+
+      expect(MapRouter.prototype.parkingspaces).toHaveBeenCalled();
     });
   });
 });
