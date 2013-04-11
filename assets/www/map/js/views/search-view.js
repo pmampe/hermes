@@ -17,6 +17,7 @@ var SearchView = Backbone.View.extend(
         _.bindAll(this, "render", "populateFilter");
 
         this.items = options.filterList;
+        this.mapView = options.mapView;
       },
 
       /** Registers events */
@@ -56,10 +57,38 @@ var SearchView = Backbone.View.extend(
         }
       },
 
-      showClickedLoction: function() {
-        // fetch the correct location from the this.items collection
-        // show only that location in the map, by calling mapView.replacePoints
-        console.log("showClickedLoction");
+      /**
+       * getClickedLocation takes the clicked html snippet from the search-filter list,
+       * i.e: <a class="autocomplete-link ui-link-inherit">E 421</a>.
+       * From this html snippet getClickedLocation extracts the element name, in this
+       * case "E 421" and finds it in the this.items collection (containing) all items
+       * for the given type (i.e. auditorium).
+       *
+       *  @returns A new Locations collection with just the inputed item.
+       *           If for some reason the item is not found in this.items collection,
+       *           an empty Locations collection is returned.
+       */
+      getClickedLocation: function(target) {
+        console.log(target);
+        var itemName = $(target).html();
+        var item;
+        $.each(this.items.toJSON(), function(i, v) {
+          if (v.name == itemName) {
+            item = v;
+            return false;
+          }
+        });
+
+        var location = new Locations([]);;
+        if (item) {
+          location = new Locations([this.items.get(item)]);
+        }
+        return location;
+      },
+
+      showClickedLoction: function(event, ui) {
+        var location = this.getClickedLocation(event.target);
+        this.mapView.replacePoints(location);
       },
 
       populateFilter: function () {

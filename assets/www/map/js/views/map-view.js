@@ -119,7 +119,8 @@ var MapView = Backbone.View.extend(
        */
       initializeSearchView: function (event) {
         this.searchView = new SearchView({ el: $('#search-box'),
-          filterList:  this.locations
+          filterList:  this.locations,
+          mapView: this
         });
         this.searchView.render();
       },
