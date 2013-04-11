@@ -102,7 +102,9 @@ var SearchView = Backbone.View.extend(
         $ul.trigger("updatelayout");
         
         // After populating the list, hide it (only show it when search-box has focus)
-        this.hideFilteredList();
+        if (!$("#search-autocomplete").parent().find("form input").is(":focus")) {
+          this.hideFilteredList();
+        }
     },
 
       filterSearch: function( text, searchValue) {
