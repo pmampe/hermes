@@ -21,8 +21,9 @@ var SearchView = Backbone.View.extend(
 
       /** Registers events */
       events: {
-//        "keypress input": 'doSearchOnEnter'
-          "keypress input": 'filterFix'
+        'focus input': 'showFilteredList',
+        'blur input': 'hideFilteredList',
+        'click .autocomplete-link': 'showClickedLoction'
       },
 
       /**
@@ -34,16 +35,38 @@ var SearchView = Backbone.View.extend(
         this.ul = $("#search-autocomplete");
 
         this.populateFilter();
-        $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterFix); //this must be called after the DOM is completed
+      },
+
+      showFilteredList: function() {
+        $("#search-autocomplete li").removeClass("ui-screen-hidden");
+      },
+
+      /**
+       * If evt is an object, i.e. a blur event, then delay the execussion
+       * of hiding the list. This is done in order to capture the click event
+       * (when clicking on elements in the list).
+       */
+      hideFilteredList: function(evt) {
+        if (typeof evt == 'object') {
+          setTimeout(function() {
+            $("#search-autocomplete li").addClass("ui-screen-hidden");
+          }, 100);
+        } else {
+          $("#search-autocomplete li").addClass("ui-screen-hidden");
+        }
+      },
+
+      showClickedLoction: function() {
+        // fetch the correct location from the this.items collection
+        // show only that location in the map, by calling mapView.replacePoints
+        console.log("showClickedLoction");
       },
 
       populateFilter: function () {
         var html = "";
 
         $.each(this.items.toJSON(), function (i, val) {
-
-            html += "<li id='" + val.id + "' data-icon='false' class='ui-screen-hidden'><a class='autocomplete-link'>" + val.name + "</a></li>";
-
+          html += "<li id='" + val.id + "'><a class='autocomplete-link'>" + val.name + "</a></li>";
         });
 
         var $ul = $('#search-autocomplete');
@@ -51,27 +74,7 @@ var SearchView = Backbone.View.extend(
         $ul.listview("refresh");
         $ul.trigger("updatelayout");
 
-    },
-
-      filterFix: function( text, searchValue) {
-        //search value- what we are looking for, text- the filter item being evaluated
-        var eval=new Boolean();
-        eval = true;
-
-        var splitText = text.split(" "); //unstable? depends on data
-        splitText.push(text);
-
-        $.each(splitText, function(i , val){
-          if (val.toLowerCase().indexOf( searchValue ) === 0 )
-          //===0, it occurs at the beginning of the string
-            {
-              eval = false;
-            }
-        });
-
-        return eval;
-        //returns true of false, truth filters out said instance
-
+        // After populating the list, hide it (only show it when search-box has focus)
+        this.hideFilteredList();
       }
-
     }); //-- End of Search view
