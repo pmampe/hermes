@@ -278,6 +278,25 @@ describe('Map view', function () {
     });
   });
 
+  describe('resize', function () {
+    beforeEach(function() {
+      // We need to create a new view since we need to attach the spy first
+      spyOn(MapView.prototype, 'resize');
+      this.view = new MapView({el: $('#map_canvas')});
+    });
+
+    it('should react to window resize events', function () {
+      $(document).trigger('resize');
+      expect(MapView.prototype.resize.calls.length).toBe(1);
+    });
+
+    it('should remove the event handler from document.resize when the view is removed', function () {
+      this.view.remove();
+      $(document).trigger('resize');
+      expect(MapView.prototype.resize.calls.length).toBe(0);
+    });
+  });
+
   describe('zoom to a new bound in the map', function () {
     it('should set map bounds correctly', function () {
       var self = this;
