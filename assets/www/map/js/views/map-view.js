@@ -89,7 +89,7 @@ var MapView = Backbone.View.extend(
       render: function () {
 
         // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight());
+        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight() - $("div#search-box").outerHeight() - 1);
 
         this.currentPositionPoint.render();
 
