@@ -29,10 +29,6 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function () {
-        var self = this;
-
-        this.ul = $("#search-autocomplete");
-
         this.populateFilter();
         $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterFix); //this must be called after the DOM is completed
       },
@@ -55,11 +51,11 @@ var SearchView = Backbone.View.extend(
 
       filterFix: function( text, searchValue) {
         //search value- what we are looking for, text- the filter item being evaluated
-        var eval=new Boolean();
-        eval = true;
+        var eval = true;
 
         var splitText = text.split(" "); //unstable? depends on data
         splitText.push(text);
+        splitText.push(text.replace(" ", ""));
 
         $.each(splitText, function(i , val){
           if (val.toLowerCase().indexOf( searchValue ) === 0 )
