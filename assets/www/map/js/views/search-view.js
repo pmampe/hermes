@@ -15,9 +15,9 @@ var SearchView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
+        this.setInputPlaceholderText();
         $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterSearch);
-
-        this.items = options.filterList;
+        
         this.mapView = options.mapView;
       },
 
@@ -27,15 +27,26 @@ var SearchView = Backbone.View.extend(
         'blur input': 'hideFilteredList',
         'click .autocomplete-link': 'showClickedLoction' 
       },
-
+      
       /**
        * Render the search view.
        */
-      render: function () {
-        var list= this.items.toJSON();
-        this.populateFilter(list);
+      render: function (items) {
+        this.items = items.toJSON();
+        this.populateFilter(this.items);
       },
+
       
+      setInputPlaceholderText: function() {
+        // get route from url, i.e auditorium from file:///devel/src/suApp/www/map/index.html#/auditoriums
+        var route = window.location.hash.split("/").length > 1? window.location.hash.split("/")[1]: "n/a";
+        var text = "Skriv in text för att söka";
+        if (route == "auditoriums") {
+          text = "Sök hör- & skrivsalar";
+        }
+        $("#search-autocomplete").parent().find("form input").attr("placeholder", text);
+      },
+
       showFilteredList: function() {
         $("#search-autocomplete li").removeClass("ui-screen-hidden");
       },
@@ -102,6 +113,7 @@ var SearchView = Backbone.View.extend(
         $ul.trigger("updatelayout");
         
         // After populating the list, hide it (only show it when search-box has focus)
+        // hide the list only if the input doesn't have focus.
         if (!$("#search-autocomplete").parent().find("form input").is(":focus")) {
           this.hideFilteredList();
         }

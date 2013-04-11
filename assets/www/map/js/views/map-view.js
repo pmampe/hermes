@@ -27,7 +27,7 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "initializeSearchView", "resetSearchResults", "showCampusesList");
+        _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
 
         this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
@@ -65,12 +65,17 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(0, 18),
               new google.maps.Point(11, 11))
         })});
+        
+        this.searchView = new SearchView({ el: $('#search-box'),
+          mapView: this
+        });
 
+        
         var self = this;
 
         this.locations.on("reset", function () {
           self.replacePoints(self.locations);
-          self.initializeSearchView();
+          self.searchView.render(self.locations);
         });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
@@ -110,19 +115,6 @@ var MapView = Backbone.View.extend(
           $.mobile.changePage($('#page-map'), {});
         });
         /* ------------------------------------------------------------- */
-      },
-
-      /**
-       * Opens the search popup (or slide down)
-       *
-       * @param event the triggering event.
-       */
-      initializeSearchView: function (event) {
-        this.searchView = new SearchView({ el: $('#search-box'),
-          filterList:  this.locations,
-          mapView: this
-        });
-        this.searchView.render();
       },
 
       /**
