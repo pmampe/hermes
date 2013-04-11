@@ -3,10 +3,9 @@ describe('Default-header', function () {
   var testTitle = 'test-title';
 
   beforeEach(function () {
-    this.origBody = $('body').html();
     this.origTitle = $(document).attr('title');
     $(document).attr('title', testTitle);
-    $('body').html('<div data-role="page" id="page" data-header="common/header"></div>');
+    $('#stage').replaceWith('<div data-role="page" id="page" data-header="common/header"></div>');
     this.oldHistory = window.history;
     window.history.back = function () {
       this.backWasCalled = true;
@@ -15,7 +14,7 @@ describe('Default-header', function () {
 
   afterEach(function () {
     $(document).attr('title', this.origTitle);
-    $('body').html(this.origBody);
+    $('#page').replaceWith("<div id='stage'></div>");
     window.history = this.oldHistory;
   });
 
@@ -112,8 +111,8 @@ describe('External-link-dialog', function () {
   var changePageArguments;
 
   beforeEach(function () {
-    this.origBody = $('body').html();
-    $('body').html('<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>');
+    this.origBody = $('#stage').html();
+    $('#stage').html('<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>');
 
     this.oldChangePage = $.mobile.changePage;
     $.mobile.changePage = function () {
@@ -122,7 +121,7 @@ describe('External-link-dialog', function () {
   });
 
   afterEach(function () {
-    $('body').html(this.origBody);
+    $('#stage').html(this.origBody);
     $.mobile.changePage = this.oldChangePage;
   });
 

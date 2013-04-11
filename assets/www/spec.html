@@ -73,8 +73,8 @@
       window.console_reporter = console_reporter;
 
       jasmineEnv.addReporter(htmlReporter);
-      jasmine.getEnv().addReporter(console_reporter);
-      jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
+      jasmineEnv.addReporter(console_reporter);
+      jasmineEnv.addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
 
       jasmineEnv.specFilter = function (spec) {
         return htmlReporter.specFilter(spec);
@@ -96,6 +96,6 @@
   </script>
 </head>
 <body>
-<div data-role="page" id="stage" style="display:none;"></div>
+<div id='stage' data-role="page"></div>
 </body>
 </html>
