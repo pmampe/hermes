@@ -208,4 +208,15 @@ a {
   color: #1155CC;
 }
 
+/**
+**SearchView styling
+**/
+
+div#search-box{
+
+    margin: 16px 8px;
+
+}
+
+
 /* --- End Direction styles --- */
