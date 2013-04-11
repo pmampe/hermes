@@ -27,7 +27,7 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
+        _.bindAll(this, "render", "initializeSearchView", "resetSearchResults", "showCampusesList");
 
         this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
@@ -70,6 +70,7 @@ var MapView = Backbone.View.extend(
 
         this.locations.on("reset", function () {
           self.replacePoints(self.locations);
+          self.initializeSearchView();
         });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
@@ -112,6 +113,18 @@ var MapView = Backbone.View.extend(
       },
 
       /**
+       * Opens the search popup (or slide down)
+       *
+       * @param event the triggering event.
+       */
+      initializeSearchView: function (event) {
+        this.searchView = new SearchView({ el: $('#search-box'),
+          filterList:  this.locations
+        });
+        this.searchView.render();
+      },
+
+      /**
        * Displays a fading message box on top of the map.
        *
        * @param locMsg The message to put in the box.
@@ -124,47 +137,6 @@ var MapView = Backbone.View.extend(
             .fadeOut(1000, function () {
               $(this).remove();
             });
-      },
-
-      /**
-       * Creates & displays a search view.
-       *
-       * @param {string} campus the campus to show in the search window.
-       */
-      showSearchView: function (campus) {
-        if (this.searchView === null) {
-          this.searchView = new SearchView({ el: $('#search-popup'),
-            campus: campus,
-            searchResults: this.searchResults,
-            mapView: this
-          });
-        } else {
-          this.searchView.campus = campus;
-          this.searchView.searchResults = this.searchResults;
-        }
-        this.searchView.render();
-
-        this.toggleSearchFromToolbar();
-      },
-
-      /**
-       * Toogle search button from toolbar. When clicking on search,
-       * we hide the search button in order to not confuse the user.
-       * The search button in the toolbar is there to bring up the
-       * search popup, but not to do the actual search.
-       */
-      toggleSearchFromToolbar: function () {
-        var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14), 10);
-        $(".footer-button").hide();
-
-        var toolbarToShow = this.searchHiddenFromToolbar ? ++toolbarNumber : --toolbarNumber;
-        $("#footer-buttons" + toolbarToShow).show();
-
-        this.searchHiddenFromToolbar = !this.searchHiddenFromToolbar;
-
-        if (!this.searchHiddenFromToolbar) {
-          $("#menu-search").removeClass("ui-btn-active");
-        }
       },
 
       /**
