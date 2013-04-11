@@ -65,12 +65,12 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(0, 18),
               new google.maps.Point(11, 11))
         })});
-        
+
         this.searchView = new SearchView({ el: $('#search-box'),
           mapView: this
         });
 
-        
+
         var self = this;
 
         this.locations.on("reset", function () {
@@ -94,7 +94,7 @@ var MapView = Backbone.View.extend(
       render: function () {
 
         // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight() - $("div#search-box").outerHeight() - 1);
+        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
 
         this.currentPositionPoint.render();
 
@@ -123,13 +123,18 @@ var MapView = Backbone.View.extend(
        * @param locMsg The message to put in the box.
        */
       fadingMsg: function (locMsg) {
-        $("<div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div>")
-            .css({ "display": "block", "opacity": 0.9, "top": $(window).scrollTop() + 100 })
-            .appendTo($.mobile.pageContainer)
-            .delay(2200)
-            .fadeOut(1000, function () {
-              $(this).remove();
-            });
+        $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
+        .css({
+          "position": "fixed",
+          "opacity": 0.9,
+          "top": $(window).scrollTop() + 100,
+          "width": "100%"
+        })
+        .appendTo($.mobile.pageContainer)
+        .delay(2200)
+        .fadeOut(1000, function () {
+          $(this).remove();
+        });
       },
 
       /**
