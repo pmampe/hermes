@@ -1,25 +1,27 @@
-var config = {
-  "sukat": {
-    "search": {
-      "url": "http://pgbroker-dev.it.su.se/sukat/search"
-    }
-  },
+var config = (function(pgBrokerBaseURL) {
+  return {
+    "sukat": {
+      "search": {
+        "url": pgBrokerBaseURL + "/sukat/search"
+      }
+    },
 
-  "map": {
-    "autocomplete": {
-      "url": "http://pgbroker-dev.it.su.se/geo/search"
-    },
-    "campuses": {
-      "url": "http://pgbroker-dev.it.su.se/geo/campuses"
-    },
-    "location": {
-      "url": "http://pgbroker-dev.it.su.se/geo/poi"
-    },
-    "search": {
-      "url": "http://pgbroker-dev.it.su.se/geo/search"
-    },
-    "icon": {
-      "urlPrefix": "http://pgbroker-dev.it.su.se/image/view"
+    "map": {
+      "autocomplete": {
+        "url": pgBrokerBaseURL + "/geo/search"
+      },
+      "campuses": {
+        "url": pgBrokerBaseURL + "/geo/campuses"
+      },
+      "location": {
+        "url": pgBrokerBaseURL + "/geo/poi"
+      },
+      "search": {
+        "url": pgBrokerBaseURL + "/geo/search"
+      },
+      "icon": {
+        "urlPrefix": pgBrokerBaseURL + "/image/view"
+      }
     }
-  }
-};
+  };
+})("http://pgbroker-dev.it.su.se");

@@ -61,39 +61,6 @@
 
 /* Customize the search popup to stick to the top */
 
-#search-popup-popup {
-  top: 0 !important;
-  bottom: auto !important;
-  z-index: 9000001;
-}
-
-#search-popup {
-  width: 100%;
-  border-bottom: 1px solid #000;
-  background: rgba(0, 0, 0, .5);
-  margin: 0;
-  z-index: 9000002;
-}
-
-#search-popup form {
-  margin: 0px;
-  background: transparent none;
-}
-
-#search-popup ul {
-  margin-top: -5px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-#search-popup .ui-grid-a .ui-block-a {
-  width: auto
-}
-
-#search-popup .ui-grid-a .ui-block-b {
-  width: 10px;
-}
-
 /* --- Direction styles --- */
 .kd-buttonbar {
   overflow: hidden;

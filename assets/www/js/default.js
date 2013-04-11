@@ -11,9 +11,11 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
     "data-theme": "a",
     "data-role": "header"
   };
-  if (optionsArr.indexOf("notfixed") < 0) attrs["data-position"] = "fixed";
+  if (optionsArr.indexOf("notfixed") < 0) {
+    attrs["data-position"] = "fixed";
+  }
 
-  var templateData = _.inject(optionsArr, function(memo, option) {
+  var templateData = _.inject(optionsArr, function (memo, option) {
     memo[option] = true;
     return memo;
   }, {
@@ -26,7 +28,7 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 
   $this.find('[data-role="header"]').remove();
 
-  $('<div></div>').attr(attrs).prependTo(this).html(function() {
+  $('<div></div>').attr(attrs).prependTo(this).html(function () {
     return JST[headerTemplate](templateData);
   }).addClass(addClass);
 
@@ -35,7 +37,7 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 /*
  * Default handling of external link by target=_blank attribute
  */
-$(document).on("click", "a[target=_blank][data-rel!=external]", function(event) {
+$(document).on("click", "a[target=_blank][data-rel!=external]", function (event) {
   event.preventDefault();
 
   var $externalLinkDialog = $('#external-link-dialog');
@@ -45,8 +47,8 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function(event) 
     href: $(this).attr("href")
   })).appendTo("body");
 
-  $externalLinkDialog.find("a[target=_blank]").click(function() {
+  $externalLinkDialog.find("a[target=_blank]").click(function () {
     $externalLinkDialog.dialog('close');
   });
-  $.mobile.changePage('#external-link-dialog', { role: "dialog" } );
+  $.mobile.changePage('#external-link-dialog', { role: "dialog" });
 });
