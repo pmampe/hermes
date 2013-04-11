@@ -262,14 +262,13 @@ describe('Map model', function () {
 
 describe('Map view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html();
-    $('body').append("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
+    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
     this.view = new MapView({el: $('#map_canvas')});
   });
 
   afterEach(function () {
-    $('body').html(this.origBody);
+    $('#page-map').replaceWith("<div id='stage'></div>");
   });
 
   describe('instantiation', function () {
@@ -314,7 +313,6 @@ describe('Map view', function () {
       expect($("#campusesPopup li").length).toEqual(4);
     });
   });
-
 
   describe('showing results from a search', function () {
     beforeEach(function () {
@@ -430,20 +428,35 @@ describe('Map view', function () {
 
 describe('App view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html();
-    $('body').append("<div id='page-map'><div id='map_canvas'></div></div>");
+    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
-    this.view = new AppView({el: $('#page-map')});
+    this.view = new AppView({el: $('#page-map'), title: "foobar"});
   });
 
   afterEach(function () {
-    $('body').html(this.origBody);
+    $('#page-map').replaceWith("<div id='stage'></div>");
   });
 
   describe('instantiation', function () {
     it('should create a div of #page-map', function () {
       expect(this.view.el.nodeName).toEqual("DIV");
       expect(this.view.el.id).toEqual("page-map");
+    });
+
+    it('should set this.header from options.header', function () {
+      expect(this.view.title).toEqual("foobar");
+    });
+  });
+
+  describe('render', function () {
+    beforeEach(function () {
+      $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
+    });
+
+    it('should replace heaser with this.header', function () {
+      //spyOn(this.view.mapView, 'render');
+      this.view.render();
+      expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
     });
   });
 });
@@ -543,6 +556,59 @@ describe('Autocomplete collection', function () {
       var firstAuto = this.autos.get(1);
       expect(firstAuto.get('id')).toEqual(1);
       expect(firstAuto.get('name')).toEqual('Juridiska institutionen');
+    });
+  });
+});
+
+describe('MapRouter', function () {
+  describe('after initialization', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+    });
+
+    it('should have the correct amount of routes', function () {
+      expect(_.size(this.router.routes)).toEqual(3);
+    });
+
+    it('*actions route exists & points to default route', function () {
+      expect(this.router.routes['*actions']).toEqual('defaultRoute');
+    });
+
+    it('static routes exists & points to the correct right function', function () {
+      expect(this.router.routes['auditoriums']).toEqual('auditoriums');
+    });
+  });
+
+  describe('when navigating', function () {
+    beforeEach(function () {
+      Backbone.history.options = {};
+    });
+
+    it("should call dafaultRoute for empty url", function () {
+      spyOn(MapRouter.prototype, "defaultRoute");
+      new MapRouter();
+
+      Backbone.history.loadUrl("/");
+
+      expect(MapRouter.prototype.defaultRoute).toHaveBeenCalled();
+    });
+
+    it("should call auditoriums for /auditoriums", function () {
+      spyOn(MapRouter.prototype, "auditoriums");
+      new MapRouter();
+
+      Backbone.history.loadUrl("auditoriums");
+
+      expect(MapRouter.prototype.auditoriums).toHaveBeenCalled();
+    });
+
+    it("should call buildings for /buildings", function () {
+      spyOn(MapRouter.prototype, "buildings");
+      new MapRouter();
+
+      Backbone.history.loadUrl("buildings");
+
+      expect(MapRouter.prototype.buildings).toHaveBeenCalled();
     });
   });
 });

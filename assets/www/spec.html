@@ -48,6 +48,7 @@
   <script src="map/js/views/map-infoWindow-view.js"></script>
   <script type="text/javascript" src="map/js/views/map-view.js"></script>
   <script type="text/javascript" src="map/js/views/app-view.js"></script>
+  <script type="text/javascript" src="map/js/routers/map-router.js"></script>
 
   <!-- Sukat -->
   <script type="text/javascript" src="sukatsearch/js/models/personmodel.js"></script>
@@ -73,8 +74,8 @@
       window.console_reporter = console_reporter;
 
       jasmineEnv.addReporter(htmlReporter);
-      jasmine.getEnv().addReporter(console_reporter);
-      jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
+      jasmineEnv.addReporter(console_reporter);
+      jasmineEnv.addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
 
       jasmineEnv.specFilter = function (spec) {
         return htmlReporter.specFilter(spec);
@@ -96,6 +97,6 @@
   </script>
 </head>
 <body>
-<div data-role="page" id="stage" style="display:none;"></div>
+<div id='stage' data-role="page"></div>
 </body>
 </html>
