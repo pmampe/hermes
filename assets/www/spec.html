@@ -28,9 +28,9 @@
   <!-- Global config file -->
   <script type="text/javascript" src="js/config.js"></script>
 
-  <!-- Default header -->
+  <!-- Default javascripts -->
   <script src="js/jst/common.js"></script>
-  <script src="js/default-header.js"></script>
+  <script src="js/default.js"></script>
 
   <!-- include source files here... -->
   <script type="text/javascript" src="js/index.js"></script>
@@ -58,7 +58,7 @@
   <script type="text/javascript" src="spec/fixtures.js"></script>
 
   <script type="text/javascript" src="spec/index.js"></script>
-  <script type="text/javascript" src="spec/default-header.spec.js"></script>
+  <script type="text/javascript" src="spec/default.spec.js"></script>
   <script type="text/javascript" src="spec/map.spec.js"></script>
   <script type="text/javascript" src="spec/sukat.spec.js"></script>
 
@@ -73,8 +73,8 @@
       window.console_reporter = console_reporter;
 
       jasmineEnv.addReporter(htmlReporter);
-      jasmine.getEnv().addReporter(console_reporter);
-      jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
+      jasmineEnv.addReporter(console_reporter);
+      jasmineEnv.addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
 
       jasmineEnv.specFilter = function (spec) {
         return htmlReporter.specFilter(spec);
@@ -96,6 +96,6 @@
   </script>
 </head>
 <body>
-<div data-role="page" id="stage" style="display:none;"></div>
+<div id='stage' data-role="page"></div>
 </body>
 </html>

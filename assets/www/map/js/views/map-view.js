@@ -320,6 +320,13 @@ var MapView = Backbone.View.extend(
 
           self.pointViews[point.cid] = point;
         });
+
+        // If there is only one marker on the map, display the info window.
+        if (_.size(this.pointViews) == 1) {
+          _.each(this.pointViews, function (value, key, list) {
+            value.openInfoWindow(value.model, value.marker, value.getPosition({model: value.model}));
+          });
+        }
       },
 
       /**

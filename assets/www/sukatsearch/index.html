@@ -34,7 +34,7 @@
 
   <script type="text/template" id="personTemplate">
     <li data-theme="c">
-      <a data-transition="slide" href="#details_page" identifier="person_<%= uid %>">
+      <a data-transition="fade" href="#details_page" identifier="person_<%= uid %>">
         <%= displayName %> (<%= uid %>)
       </a>
     </li>
@@ -78,9 +78,9 @@
 <!-- Global config file -->
 <script src="../js/config.js"></script>
 
-<!-- Default header -->
+<!-- Default javascripts -->
 <script src="../js/jst/common.js"></script>
-<script src="../js/default-header.js"></script>
+<script src="../js/default.js"></script>
 
 <script src="js/models/personmodel.js"></script>
 <script src="js/views/personview.js"></script>
