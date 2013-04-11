@@ -314,7 +314,6 @@ describe('Map view', function () {
     });
   });
 
-
   describe('showing results from a search', function () {
     beforeEach(function () {
       this.locationSearchResult = new LocationSearchResult();
