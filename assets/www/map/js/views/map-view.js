@@ -86,6 +86,16 @@ var MapView = Backbone.View.extend(
           gmap: this.map,
           infoWindow: this.mapInfoWindowView
         });
+
+        $(window).on("resize.mapview", _.bind(this.resize, this));
+      },
+
+      /**
+       * Remove handler for the view.
+       */
+      remove: function () {
+        $(window).off(".mapview");
+        Backbone.View.prototype.remove.call(this);
       },
 
       /**
@@ -93,8 +103,7 @@ var MapView = Backbone.View.extend(
        */
       render: function () {
 
-        // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
+        this.resize();
 
         this.currentPositionPoint.render();
 
@@ -115,6 +124,14 @@ var MapView = Backbone.View.extend(
           $.mobile.changePage($('#page-map'), {});
         });
         /* ------------------------------------------------------------- */
+      },
+
+      /**
+       * Handler for window resizing.
+       */
+      resize: function () {
+        // Force the height of the map to fit the window
+        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
       },
 
       /**
