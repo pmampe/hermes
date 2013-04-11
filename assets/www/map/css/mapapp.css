@@ -218,5 +218,16 @@ div#search-box{
 
 }
 
+ul#search-autocomplete{
+
+    margin-top: 16px;
+}
+
+ul#search-autocomplete li.ui-li-divider{
+    font-size: 12px;
+    padding: 0.2em 15px;
+
+}
+
 
 /* --- End Direction styles --- */

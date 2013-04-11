@@ -25,7 +25,8 @@ var SearchView = Backbone.View.extend(
       events: {
         'focus input': 'showFilteredList',
         'blur input': 'hideFilteredList',
-        'click .autocomplete-link': 'showClickedLoction' 
+        'click .autocomplete-link': 'showClickedLoction',
+        'click input': 'showFilteredList'
       },
       
       /**
@@ -48,7 +49,12 @@ var SearchView = Backbone.View.extend(
       },
 
       showFilteredList: function() {
-        $("#search-autocomplete li").removeClass("ui-screen-hidden");
+        //if input field not empty trigger new filtering with existing value, else show whole filter
+        if( $('div#search-box input').val()!== ""){
+          $('input[data-type="search"]').trigger("change");
+        } else {
+          $("#search-autocomplete li").removeClass("ui-screen-hidden");
+        }
       },
 
       /**
@@ -104,7 +110,7 @@ var SearchView = Backbone.View.extend(
         var html = "";
 
         $.each(list, function (i, val) {
-          html += "<li id='" + val.id + "'><a class='autocomplete-link'>" + val.name + "</a></li>";
+          html += "<li id='" + val.id + "' data-icon='false' ><a class='autocomplete-link'>" + val.name + "</a></li>";
         });
 
         var $ul = $('#search-autocomplete');
@@ -117,7 +123,7 @@ var SearchView = Backbone.View.extend(
         if (!$("#search-autocomplete").parent().find("form input").is(":focus")) {
           this.hideFilteredList();
         }
-    },
+      },
 
       filterSearch: function( text, searchValue) {
         //search value- what we are looking for, text- the filter item being evaluated
