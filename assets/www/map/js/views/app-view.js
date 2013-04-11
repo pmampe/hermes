@@ -26,7 +26,7 @@ var AppView = Backbone.View.extend(
        * Registers events.
        */
       events: {
-        "click a[id=menu-search]": "openSearchPopup"
+
       },
 
       /**
@@ -46,14 +46,5 @@ var AppView = Backbone.View.extend(
             alert("ERROR! Failed to fetch locations.");
           }
         });
-      },
-
-      /**
-       * Opens the search popup (or slide down)
-       *
-       * @param event the triggering event.
-       */
-      openSearchPopup: function (event) {
-        this.mapView.showSearchView();
       }
     });

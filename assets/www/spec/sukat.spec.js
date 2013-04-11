@@ -90,14 +90,13 @@ describe('Person collection', function () {
 
 describe('Search view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html();
-    $('body').append("<div id='search-page'><div id='search_view'></div></div>");
+    $('#stage').replaceWith("<div id='search-page'><div id='search_view'></div></div>");
 
     this.view = new SukatSearchView({el: $('#search_view')});
   });
 
   afterEach(function () {
-    $('body').html(this.origBody);
+    $('#search-page').replaceWith("<div id='stage'></div>")
   });
 
   describe('instantiation', function () {
