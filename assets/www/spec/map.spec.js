@@ -262,14 +262,13 @@ describe('Map model', function () {
 
 describe('Map view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html();
-    $('body').append("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
+    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
     this.view = new MapView({el: $('#map_canvas')});
   });
 
   afterEach(function () {
-    $('body').html(this.origBody);
+    $('#page-map').replaceWith("<div id='stage'></div>");
   });
 
   describe('instantiation', function () {
@@ -314,7 +313,6 @@ describe('Map view', function () {
       expect($("#campusesPopup li").length).toEqual(4);
     });
   });
-
 
   describe('showing results from a search', function () {
     beforeEach(function () {
@@ -430,14 +428,13 @@ describe('Map view', function () {
 
 describe('App view', function () {
   beforeEach(function () {
-    this.origBody = $('body').html();
-    $('body').append("<div id='page-map'><div id='map_canvas'></div></div>");
+    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
     this.view = new AppView({el: $('#page-map')});
   });
 
   afterEach(function () {
-    $('body').html(this.origBody);
+    $('#page-map').replaceWith("<div id='stage'></div>");
   });
 
   describe('instantiation', function () {

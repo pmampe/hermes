@@ -15,6 +15,7 @@ var SearchView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
+        $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterSearch);
 
         this.items = options.filterList;
         this.mapView = options.mapView;
@@ -31,11 +32,8 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function () {
-        var self = this;
-
-        this.ul = $("#search-autocomplete");
-
-        this.populateFilter();
+        var list= this.items.toJSON();
+        this.populateFilter(list);
       },
       
       showFilteredList: function() {
@@ -91,10 +89,10 @@ var SearchView = Backbone.View.extend(
         this.mapView.replacePoints(location);
       },
 
-      populateFilter: function () {
+      populateFilter: function (list) {
         var html = "";
 
-        $.each(this.items.toJSON(), function (i, val) {
+        $.each(list, function (i, val) {
           html += "<li id='" + val.id + "'><a class='autocomplete-link'>" + val.name + "</a></li>";
         });
 
@@ -105,5 +103,24 @@ var SearchView = Backbone.View.extend(
         
         // After populating the list, hide it (only show it when search-box has focus)
         this.hideFilteredList();
+    },
+
+      filterSearch: function( text, searchValue) {
+        //search value- what we are looking for, text- the filter item being evaluated
+        var eval = true;
+
+        var splitText = text.split(" "); //unstable? depends on data
+        splitText.push(text);
+        splitText.push(text.replace(" ", ""));
+
+        $.each(splitText, function(i , val){
+          //===0, it occurs at the beginning of the string
+          if (val.toLowerCase().indexOf( searchValue ) === 0 ) {
+            eval = false;
+          }
+        });
+
+        return eval;
+        //returns true of false, truth filters out said instance
       }
     }); //-- End of Search view
