@@ -32,8 +32,8 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function (items) {
-        this.items = items.toJSON();
-        this.populateFilter(this.items);
+        this.items = items;
+        this.populateFilter(this.items.toJSON());
       },
 
       
@@ -78,7 +78,6 @@ var SearchView = Backbone.View.extend(
        *           an empty Locations collection is returned.
        */
       getClickedLocation: function(target) {
-        console.log(target);
         var itemName = $(target).html();
         var item;
         $.each(this.items.toJSON(), function(i, v) {
