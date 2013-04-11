@@ -15,9 +15,10 @@ var SearchView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
-        this.setInputPlaceholderText();
+        this.inputField = $("#search-autocomplete").parent().find("form input");
         $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterSearch);
         
+        this.setInputPlaceholderText();
         this.mapView = options.mapView;
       },
 
@@ -45,7 +46,7 @@ var SearchView = Backbone.View.extend(
         if (route == "auditoriums") {
           text = "Sök hör- & skrivsalar";
         }
-        $("#search-autocomplete").parent().find("form input").attr("placeholder", text);
+        this.inputField.attr("placeholder", text);
       },
 
       showFilteredList: function() {
@@ -101,7 +102,7 @@ var SearchView = Backbone.View.extend(
       },
 
       showClickedLoction: function(event, ui) {
-        $("#search-autocomplete").parent().find("form input").val($(event.target).html());
+        this.inputField.val($(event.target).html());
         var location = this.getClickedLocation(event.target);
         this.mapView.replacePoints(location);
       },
@@ -120,7 +121,7 @@ var SearchView = Backbone.View.extend(
         
         // After populating the list, hide it (only show it when search-box has focus)
         // hide the list only if the input doesn't have focus.
-        if (!$("#search-autocomplete").parent().find("form input").is(":focus")) {
+        if (!this.inputField.is(":focus")) {
           this.hideFilteredList();
         }
       },
