@@ -2,8 +2,13 @@ describe('Map view', function () {
   beforeEach(function () {
     $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
-    this.view = new MapView({el: $('#map_canvas')});
+    this.mapView = new MapView({el: $('#map_canvas')});
   });
+  
+  afterEach(function () {
+    $('#page-map').replaceWith("<div id='stage'></div>");
+  });
+  
 
   //maryam tries some stuff
   describe('populate filter list', function () {

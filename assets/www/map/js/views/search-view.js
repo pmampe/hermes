@@ -71,16 +71,16 @@ var SearchView = Backbone.View.extend(
           $("#search-autocomplete li").addClass("ui-screen-hidden");
         }
       },
-      
+
       /**
        * getClickedLocation takes the clicked html snippet from the search-filter list,
-       * i.e: <a class="autocomplete-link ui-link-inherit">E 421</a>. 
+       * i.e: <a class="autocomplete-link ui-link-inherit">E 421</a>.
        * From this html snippet getClickedLocation extracts the element name, in this
-       * case "E 421" and finds it in the this.items collection (containing) all items 
-       * for the given type (i.e. auditorium). 
-       * 
+       * case "E 421" and finds it in the this.items collection (containing) all items
+       * for the given type (i.e. auditorium).
+       *
        *  @returns A new Locations collection with just the inputed item.
-       *           If for some reason the item is not found in this.items collection, 
+       *           If for some reason the item is not found in this.items collection,
        *           an empty Locations collection is returned.
        */
       getClickedLocation: function(target) {
@@ -92,14 +92,14 @@ var SearchView = Backbone.View.extend(
             return false;
           }
         });
-        
+
         var location = new Locations([]);;
         if (item) {
           location = new Locations([this.items.get(item)]);
         }
         return location;
       },
-      
+
       showClickedLoction: function(event, ui) {
         $("#search-autocomplete").parent().find("form input").val($(event.target).html());
         var location = this.getClickedLocation(event.target);
