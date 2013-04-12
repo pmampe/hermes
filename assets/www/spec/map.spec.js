@@ -333,21 +333,21 @@ describe('Map view', function () {
 
   describe('show campuses list', function () {
     beforeEach(function () {
-      var campusPopup = '<div data-role="popup" id="campusesPopup" data-transition="turn">' +
-          '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
+      var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
+          '<ul id="menupopupList" data-role="listview" data-inset="true">' +
           '<li data-role="list-divider" role="heading">' +
           'Välj Campus' +
           '</li>' +
           '</ul>' +
           '</div>';
-      $('#page-map').append(campusPopup);
+      $('#page-map').append(menuPopup);
       $.mobile.loadPage("#page-map");
     });
 
     it('should populate campus popup list with the correct number of campuses', function () {
-      expect($("#campusesPopup li").length).toEqual(1);
+      expect($("#menupopup li").length).toEqual(1);
       this.view.showCampusesList(["Frescati", "Kista", "Frescati hage"]);
-      expect($("#campusesPopup li").length).toEqual(4);
+      expect($("#menupopup li").length).toEqual(4);
     });
   });
 
@@ -363,14 +363,14 @@ describe('Map view', function () {
           this.validResponse(this.fixture)
       );
 
-      var campusPopup = '<div data-role="popup" id="campusesPopup" data-transition="turn">' +
-          '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
+      var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
+          '<ul id="menupopupList" data-role="listview" data-inset="true">' +
           '<li data-role="list-divider" role="heading">' +
           'Välj Campus' +
           '</li>' +
           '</ul>' +
           '</div>';
-      $('#page-map').append(campusPopup);
+      $('#page-map').append(menuPopup);
       $.mobile.loadPage("#page-map");
     });
 
@@ -403,7 +403,7 @@ describe('Map view', function () {
       });
 
       it('should not show campuses list', function () {
-        expect($("#campusesPopup li").length).toEqual(1);
+        expect($("#menupopup li").length).toEqual(1);
       });
     });
 
@@ -449,13 +449,13 @@ describe('Map view', function () {
       });
 
       it('should show campuses list', function () {
-        expect($("#campusesPopup li").length).toEqual(1);
+        expect($("#menupopup li").length).toEqual(1);
 
         this.view.initialize();
         this.view.searchResults.fetch();
         this.server.respond();
 
-        expect($("#campusesPopup li").length).toEqual(6);
+        expect($("#menupopup li").length).toEqual(6);
         // TODO: test if popup is visible
       });
     });

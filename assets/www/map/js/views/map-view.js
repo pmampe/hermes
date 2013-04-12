@@ -264,10 +264,9 @@ var MapView = Backbone.View.extend(
           campusesMap[$(item).text()] = $(item).val();
         });
 
-        var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
-        campusPopupView.render();
+        var menuPopupView = new MenuPopupView({ el: $('#menupopup'), campuses: campuses, campusesMap: campusesMap });
+        menuPopupView.render();
       },
-
 
       /**
        * Resets the search results from the search results collection.

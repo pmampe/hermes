@@ -5,8 +5,8 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.View}
  */
-var CampusPopupView = Backbone.View.extend(
-    /** @lends CampusPopupView */
+var MenuPopupView = Backbone.View.extend(
+    /** @lends MenuPopupView */
     {
 
       /**
@@ -20,10 +20,9 @@ var CampusPopupView = Backbone.View.extend(
         this.campusesMap = options.campusesMap;
       },
 
-
       /** Registers events */
       events: {
-        "click #campusesPopupList": "selectCampus"
+        "click #menupopupList": "selectCampus"
       },
 
       selectCampus: function (evt) {
@@ -40,16 +39,18 @@ var CampusPopupView = Backbone.View.extend(
       render: function () {
         var self = this;
         // remove everything from the list except the first element (the header)
-        $("#campusesPopupList").find("li:not(:first-child)").remove();
-        $(this.campuses).each(function (i, campusName) { // append all campuses
-          $("#campusesPopupList").append("<li id='campus-" + self.campusesMap[campusName] + "'><a href='javascript://nop'>" + campusName + "</a></li>");
-        });
-        $("#campusesPopupList").listview();
-        $("#campusesPopupList").listview("refresh"); // jQuery mobile-ify the added elements
+        $("#menupopupList").find("li").remove();
 
+        // append all campuses
+        $(this.campuses).each(function (i, campusName) {
+          $("#menupopupList").append("<li id='campus-" + self.campusesMap[campusName] + "'><a href='javascript://nop'>" + campusName + "</a></li>");
+        });
+
+        $("#menupopupList").listview();
+        $("#menupopupList").listview("refresh"); // jQuery mobile-ify the added elements
 
         // close any other open popup (only one popup can be open at the same time.)
-        $(document).find("[data-role='popup']:not([id='campusesPopup'])").popup("close").bind({
+        $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close").bind({
           // show the campuses popup after the other popups has closed
           popupafterclose: function (event, uit) {
             // --- HACK: for correct x and y position of popup ---
@@ -59,18 +60,23 @@ var CampusPopupView = Backbone.View.extend(
               x = 50;
             }
 
-            var cellHeight = $("#campusesPopup li:nth-child(2)").height();
-            var noOfCells = $("#campusesPopup li:not(:first-child)").length;
+            var cellHeight = $("#menupopup li:nth-child(2)").height();
+            var noOfCells = $("#menupopup li:not(:first-child)").length;
             var y = noOfCells * (cellHeight / 3) + 150;
             // --- END  HACK: for correct x and y position of popup ---
 
-            $("#campusesPopup").popup("open", { x: x, y: y });
+            $("#menupopup").popup("open", { x: 0, y: 0 });
 
             // unbind popupafterclose event after campuses popup open, to ensure it's
             // not accidentally opened after any other search.
-            $(document).find("[data-role='popup']:not([id='campusesPopup'])").unbind("popupafterclose");
+            $(document).find("[data-role='popup']:not([id='menupopup'])").unbind("popupafterclose");
           }
         });
-      }
 
+
+        var popup = $("#menupopup");
+        popup.popup("open", { x: 0, y: 0 });
+        popup.parent().css('left', 'auto');
+        popup.parent().css('right', '0px');
+      }
     });

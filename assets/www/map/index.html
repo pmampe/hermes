@@ -98,8 +98,8 @@
   });
 </script>
 
-<div id="custom-format-page" data-role="page" data-theme="a" data-fullscreen="true" id="page-map" 
-     data-header="common/header" data-header-options="backbutton notfixed">
+<div id="custom-format-page" data-role="page" data-theme="a" data-fullscreen="true" id="page-map"
+     data-header="common/header" data-header-options="backbutton menubutton notfixed">
 
   <div id="search-box" class="ui-mini">
     <ul id="search-autocomplete"
@@ -118,13 +118,8 @@
   <div data-role="content" id="map-content">
 
     <!-- Campus popup, used when search is returning hits in more than one campus -->
-    <div data-role="popup" id="campusesPopup" data-transition="turn">
-      <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext"
-         class="ui-btn-left">Close</a>
-      <ul id="campusesPopupList" data-role="listview" data-inset="true">
-        <li data-role="list-divider" role="heading">
-          Välj Campus
-        </li>
+    <div data-role="popup" id="menupopup" data-transition="turn" data-corners="false">
+      <ul id="menupopupList" data-role="listview" data-inset="true" data-corners="false">
       </ul>
     </div>
 

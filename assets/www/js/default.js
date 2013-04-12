@@ -21,10 +21,11 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
   }, {
     title: $this.data('header-title') || ($(document).attr('title') || 'Titel saknas'),
     backbutton: false,
+    menubutton: false,
     homebutton: false
   });
 
-  var addClass = templateData.homebutton || templateData.backbutton ? "" : "nobuttons";
+  var addClass = templateData.menubutton || templateData.homebutton || templateData.backbutton ? "" : "nobuttons";
 
   $this.find('[data-role="header"]').remove();
 

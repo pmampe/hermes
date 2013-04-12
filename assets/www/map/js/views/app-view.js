@@ -19,14 +19,23 @@ var AppView = Backbone.View.extend(
 
         this.title = options.title;
 
+        this.campuses = new Campuses();
+
         this.mapView = new MapView({ el: $('#map_canvas') });
+
+        this.menuPopupView = new MenuPopupView({ el: $('#menupopup'), campuses: {}, campusesMap: {} });
+
+        var self = this;
+
+        $(document).on('click', '#menubutton', function (event) {
+          self.showMenu();
+        });
       },
 
       /**
        * Registers events.
        */
       events: {
-
       },
 
       /**
@@ -35,6 +44,13 @@ var AppView = Backbone.View.extend(
       render: function () {
         this.mapView.render();
         $('div[data-role="header"] > h1').text(this.title);
+      },
+
+      /**
+       * Show the menu.
+       */
+      showMenu: function() {
+        this.menuPopupView.render();
       },
 
       /**
