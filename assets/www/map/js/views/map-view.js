@@ -79,6 +79,7 @@ var MapView = Backbone.View.extend(
         });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
+        this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         this.currentPositionPoint = new PointLocationView({
@@ -141,17 +142,17 @@ var MapView = Backbone.View.extend(
        */
       fadingMsg: function (locMsg) {
         $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
-        .css({
-          "position": "fixed",
-          "opacity": 0.9,
-          "top": $(window).scrollTop() + 100,
-          "width": "100%"
-        })
-        .appendTo($.mobile.pageContainer)
-        .delay(2200)
-        .fadeOut(1000, function () {
-          $(this).remove();
-        });
+            .css({
+              "position": "fixed",
+              "opacity": 0.9,
+              "top": $(window).scrollTop() + 100,
+              "width": "100%"
+            })
+            .appendTo($.mobile.pageContainer)
+            .delay(2200)
+            .fadeOut(1000, function () {
+              $(this).remove();
+            });
       },
 
       /**
@@ -199,6 +200,10 @@ var MapView = Backbone.View.extend(
                 console.error(error);
               });
         }
+      },
+
+      updateMapPosition: function () {
+        this.map.panTo(this.model.get('mapPosition'));
       },
 
       /**

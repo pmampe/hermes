@@ -212,22 +212,26 @@ a {
 **SearchView styling
 **/
 
-div#search-box{
+div#search-box {
 
-    margin: 16px 8px;
-
-}
-
-ul#search-autocomplete{
-
-    margin-top: 16px;
-}
-
-ul#search-autocomplete li.ui-li-divider{
-    font-size: 12px;
-    padding: 0.2em 15px;
+  margin: 16px 8px;
 
 }
 
+ul#search-autocomplete {
+
+  margin-top: 16px;
+}
+
+ul#search-autocomplete li.ui-li-divider {
+  font-size: 12px;
+  padding: 0.2em 15px;
+
+}
 
 /* --- End Direction styles --- */
+
+#menupopup-popup {
+  right: 0;
+  left: auto;
+}

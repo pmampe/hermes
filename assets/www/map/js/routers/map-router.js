@@ -16,13 +16,19 @@ var MapRouter = Backbone.Router.extend({
   },
 
   auditoriums: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Hör- & skrivsalar" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      title: "Hör- & skrivsalar"
+    });
     appView.render();
     appView.showType("auditorium");
   },
 
   buildings: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Hus" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      title: "Hus"
+    });
     appView.render();
     appView.showType("building");
   }

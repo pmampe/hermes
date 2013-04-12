@@ -11,6 +11,8 @@ var AppView = Backbone.View.extend(
     /** @lends AppView */
     {
 
+      model: new AppModel(),
+
       /**
        * @constructs
        */
@@ -19,13 +21,28 @@ var AppView = Backbone.View.extend(
 
         this.title = options.title;
 
+        if (options.campus) {
+          this.model.set('campus', options.campus);
+        }
+
+        this.model.on('change:campus', this.changeCampus, this);
+
         this.campuses = new Campuses();
+        this.campuses.fetch();
 
         this.mapView = new MapView({ el: $('#map_canvas') });
+        this.menuPopupView = new MenuPopupView({
+          el: $('#menupopup'),
+          campuses: this.campuses,
+          appModel: this.model
+        });
 
-        this.menuPopupView = new MenuPopupView({ el: $('#menupopup'), campuses: {}, campusesMap: {} });
+        this.changeCampus();
 
         var self = this;
+        this.campuses.on("reset", function () {
+          self.menuPopupView.updateCampuses();
+        });
 
         $(document).on('click', '#menubutton', function (event) {
           self.showMenu();
@@ -49,7 +66,7 @@ var AppView = Backbone.View.extend(
       /**
        * Show the menu.
        */
-      showMenu: function() {
+      showMenu: function () {
         this.menuPopupView.render();
       },
 
@@ -67,5 +84,11 @@ var AppView = Backbone.View.extend(
             alert("ERROR! Failed to fetch locations.");
           }
         });
+      },
+
+      changeCampus: function () {
+        var lat = this.model.get('campus').getLat();
+        var lng = this.model.get('campus').getLng();
+        this.mapView.model.setMapPosition(lat, lng);
       }
     });
