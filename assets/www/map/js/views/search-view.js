@@ -17,6 +17,8 @@ var SearchView = Backbone.View.extend(
         _.bindAll(this, "render", "populateFilter");
 
         this.inputField = $("#search-autocomplete").parent().find("form input");
+
+        // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
 
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
