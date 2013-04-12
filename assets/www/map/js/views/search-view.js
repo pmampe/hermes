@@ -15,9 +15,10 @@ var SearchView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
-        $( "#search-autocomplete" ).listview( "option", "filterCallback", this.filterSearch);
+        this.inputField = $("#search-autocomplete").parent().find("form input");
+        $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
-        this.items = options.filterList;
+        this.setInputPlaceholderText();
         this.mapView = options.mapView;
       },
 
@@ -25,19 +26,37 @@ var SearchView = Backbone.View.extend(
       events: {
         'focus input': 'showFilteredList',
         'blur input': 'hideFilteredList',
-        'click .autocomplete-link': 'showClickedLoction'
+        'click .autocomplete-link': 'showClickedLoction',
+        'click input': 'showFilteredList'
       },
 
       /**
        * Render the search view.
        */
-      render: function () {
-        var list= this.items.toJSON();
-        this.populateFilter(list);
+      render: function (items) {
+        this.items = items;
+        this.populateFilter(this.items.toJSON());
+        this.delegateEvents();
       },
 
-      showFilteredList: function() {
-      $("#search-autocomplete li").removeClass("ui-screen-hidden");
+
+      setInputPlaceholderText: function () {
+        // get route from url, i.e auditorium from file:///devel/src/suApp/www/map/index.html#/auditoriums
+        var route = window.location.hash.split("/").length > 1 ? window.location.hash.split("/")[1] : "n/a";
+        var text = "Skriv in text för att söka";
+        if (route == "auditoriums") {
+          text = "Sök hör- & skrivsalar";
+        }
+        this.inputField.attr("placeholder", text);
+      },
+
+      showFilteredList: function () {
+        //if input field not empty trigger new filtering with existing value, else show whole filter
+        if ($('div#search-box input').val() !== "") {
+          $('input[data-type="search"]').trigger("change");
+        } else {
+          $("#search-autocomplete li").removeClass("ui-screen-hidden");
+        }
       },
 
       /**
@@ -45,9 +64,9 @@ var SearchView = Backbone.View.extend(
        * of hiding the list. This is done in order to capture the click event
        * (when clicking on elements in the list).
        */
-      hideFilteredList: function(evt) {
+      hideFilteredList: function (evt) {
         if (typeof evt == 'object') {
-          setTimeout(function() {
+          setTimeout(function () {
             $("#search-autocomplete li").addClass("ui-screen-hidden");
           }, 100);
         } else {
@@ -66,25 +85,26 @@ var SearchView = Backbone.View.extend(
        *           If for some reason the item is not found in this.items collection,
        *           an empty Locations collection is returned.
        */
-      getClickedLocation: function(target) {
-        console.log(target);
+      getClickedLocation: function (target) {
         var itemName = $(target).html();
         var item;
-        $.each(this.items.toJSON(), function(i, v) {
+        $.each(this.items.toJSON(), function (i, v) {
           if (v.name == itemName) {
             item = v;
             return false;
           }
         });
 
-        var location = new Locations([]);;
+        var location = new Locations([]);
+        ;
         if (item) {
           location = new Locations([this.items.get(item)]);
         }
         return location;
       },
 
-      showClickedLoction: function(event, ui) {
+      showClickedLoction: function (event, ui) {
+        this.inputField.val($(event.target).html());
         var location = this.getClickedLocation(event.target);
         this.mapView.replacePoints(location);
       },
@@ -93,7 +113,7 @@ var SearchView = Backbone.View.extend(
         var html = "";
 
         $.each(list, function (i, val) {
-          html += "<li id='" + val.id + "'><a class='autocomplete-link'>" + val.name + "</a></li>";
+          html += "<li id='" + val.id + "' data-icon='false' ><a class='autocomplete-link'>" + val.name + "</a></li>";
         });
 
         var $ul = $('#search-autocomplete');
@@ -102,10 +122,13 @@ var SearchView = Backbone.View.extend(
         $ul.trigger("updatelayout");
 
         // After populating the list, hide it (only show it when search-box has focus)
-        this.hideFilteredList();
-    },
+        // hide the list only if the input doesn't have focus.
+        if (!this.inputField.is(":focus")) {
+          this.hideFilteredList();
+        }
+      },
 
-      filterSearch: function( text, searchValue) {
+      filterSearch: function (text, searchValue) {
         //search value- what we are looking for, text- the filter item being evaluated
         var eval = true;
 
@@ -113,16 +136,14 @@ var SearchView = Backbone.View.extend(
         splitText.push(text);
         splitText.push(text.replace(" ", ""));
 
-        $.each(splitText, function(i , val){
-          if (val.toLowerCase().indexOf( searchValue ) === 0 )
+        $.each(splitText, function (i, val) {
           //===0, it occurs at the beginning of the string
-            {
-              eval = false;
-            }
+          if (val.toLowerCase().indexOf(searchValue) === 0) {
+            eval = false;
+          }
         });
 
         return eval;
         //returns true of false, truth filters out said instance
-
       }
     }); //-- End of Search view
