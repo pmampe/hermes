@@ -57,4 +57,20 @@ describe('Map views search filter', function () {
       });
     });
   });
+
+  describe('mobile keyboard handling', function () {
+    beforeEach(function () {
+      spyOn(SearchView.prototype, "hideFilteredList");
+      new MapView({ el: $('#map_canvas') });
+    });
+
+    it('should set type to search on the search input field', function () {
+      expect($('#search-box input').attr('type')).toBe('search');
+    });
+
+    it('should prevent form submit to trigger blur event in search input field', function () {
+      $('#search-box form').submit();
+      expect(SearchView.prototype.hideFilteredList.calls.length).toBe(0);
+    });
+  });
 });
