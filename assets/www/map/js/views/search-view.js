@@ -15,7 +15,10 @@ var SearchView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
+
         this.inputField = $("#search-autocomplete").parent().find("form input");
+        this.inputField.get(0).type = "search";
+
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
         this.setInputPlaceholderText();
