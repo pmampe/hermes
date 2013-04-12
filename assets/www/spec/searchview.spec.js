@@ -57,4 +57,66 @@ describe('Map views search filter', function () {
       });
     });
   });
+
+  //Maryams pill
+  describe('filter functions', function () {
+    it('should populate filter with the correct number of campuses', function () {
+      this.server.respondWith(
+        "GET",
+        Locations.prototype.url(),
+        this.validResponse(this.fixtures.Locations.valid)
+      );
+
+      var mapView = new MapView({ el: $('#map_canvas') });
+      spyOn(mapView.searchView, "render");
+      runs(function () {
+        mapView.locations.fetch();
+        this.server.respond();
+      });
+
+      waitsFor(function () {
+        return mapView.locations.length > 0;
+      }, "Waiting for returning call", 1000);
+
+      runs(function () {
+        expect($("#search-autocomplete li").length).toEqual(0);
+        mapView.searchView.populateFilter(["D144", "b a", "Aula Magna", "hejhej", "lars"]);
+        expect($("#search-autocomplete li.ui-btn").length).toEqual(5);
+      });
+    });
+
+ /*   it('should overwrite jquery mobiles filtering', function () {
+
+      var list=["Axel", "Bar Axel", "Baxa"];
+      this.server.respondWith(
+        "GET",
+        Locations.prototype.url(),
+        this.validResponse(list)
+      );
+
+      var mapView = new MapView({ el: $('#map_canvas') });
+      spyOn(mapView.searchView, "render");
+      runs(function () {
+        mapView.locations.fetch();
+        this.server.respond();
+      });
+
+      waitsFor(function () {
+        return mapView.locations.length > 0;
+      }, "Waiting for returning call", 1000);
+
+
+      runs(function () {
+        expect(mapView.searchView.render).toHaveBeenCalled();
+      });
+
+      console.log("VADSOMHELST");
+
+      expect($("#search-autocomplete li").length).toEqual(0);
+
+      console.log($("#search-autocomplete li").html());
+      $("#search-box input").val("A").change();
+      expect($("#search-autocomplete li").length).toEqual(2);
+    });*/
+  });
 });

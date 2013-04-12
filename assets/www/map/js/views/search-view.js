@@ -26,8 +26,7 @@ var SearchView = Backbone.View.extend(
       events: {
         'focus input': 'showFilteredList',
         'blur input': 'hideFilteredList',
-        'click .autocomplete-link': 'showClickedLoction',
-        'click input': 'showFilteredList'
+        'click .autocomplete-link': 'showClickedLoction'
       },
 
       /**
@@ -50,10 +49,18 @@ var SearchView = Backbone.View.extend(
         this.inputField.attr("placeholder", text);
       },
 
-      showFilteredList: function () {
+      showFilteredList: function() {
         //if input field not empty trigger new filtering with existing value, else show whole filter
-        if ($('div#search-box input').val() !== "") {
-          $('input[data-type="search"]').trigger("change");
+        if( $('div#search-box input').val()!== ""){
+          console.log("innan:" + $('div#search-box li.ui-screen-hidden').length);
+          $('#search-box input[data-type="search"]').trigger("keyup change");
+          setTimeout(function () {
+            console.log('timeout change');
+            $('#search-box input[data-type="search"]').trigger("change");
+          }, 1500);
+
+          console.log('efter:'+$('div#search-box li.ui-screen-hidden').length);
+
         } else {
           $("#search-autocomplete li").removeClass("ui-screen-hidden");
         }
@@ -65,9 +72,11 @@ var SearchView = Backbone.View.extend(
        * (when clicking on elements in the list).
        */
       hideFilteredList: function (evt) {
+        console.log("hideFilteredList");
         if (typeof evt == 'object') {
           setTimeout(function () {
             $("#search-autocomplete li").addClass("ui-screen-hidden");
+            console.log("timeout");
           }, 100);
         } else {
           $("#search-autocomplete li").addClass("ui-screen-hidden");
