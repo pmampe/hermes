@@ -11,8 +11,6 @@ var AppView = Backbone.View.extend(
     /** @lends AppView */
     {
 
-      model: new AppModel(),
-
       /**
        * @constructs
        */
@@ -20,15 +18,7 @@ var AppView = Backbone.View.extend(
         _.bindAll(this, "render");
 
         this.title = options.title;
-
-        if (options.campus) {
-          this.model.set('campus', options.campus);
-        }
-
-        this.model.on('change:campus', this.changeCampus, this);
-
         this.campuses = new Campuses();
-        this.campuses.fetch();
 
         this.mapView = new MapView({ el: $('#map_canvas') });
         this.menuPopupView = new MenuPopupView({
@@ -37,30 +27,26 @@ var AppView = Backbone.View.extend(
           appModel: this.model
         });
 
+        this.model.on('change:campus', this.changeCampus, this);
+        this.campuses.on("reset", this.menuPopupView.updateCampuses, this);
+
         this.changeCampus();
-
-        var self = this;
-        this.campuses.on("reset", function () {
-          self.menuPopupView.updateCampuses();
-        });
-
-        $(document).on('click', '#menubutton', function (event) {
-          self.showMenu();
-        });
+        this.campuses.fetch();
       },
 
       /**
        * Registers events.
        */
       events: {
+        "click #menubutton": "showMenu"
       },
 
       /**
        * Render the app module.
        */
       render: function () {
-        this.mapView.render();
         $('div[data-role="header"] > h1').text(this.title);
+        this.mapView.render();
       },
 
       /**
@@ -72,13 +58,12 @@ var AppView = Backbone.View.extend(
 
       /**
        * Show all locations of a specific type.
-       *
-       * @param type the type of location to show.
        */
-      showType: function (type) {
+      updateLocations: function () {
         this.mapView.locations.fetch({
           data: {
-            types: new Array(type)
+            types: this.model.get('types'),
+            campusName: this.model.get('campus').get('name')
           },
           error: function () {
             alert("ERROR! Failed to fetch locations.");
@@ -90,5 +75,6 @@ var AppView = Backbone.View.extend(
         var lat = this.model.get('campus').getLat();
         var lng = this.model.get('campus').getLng();
         this.mapView.model.setMapPosition(lat, lng);
+        this.updateLocations();
       }
     });
