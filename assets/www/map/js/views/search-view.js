@@ -104,7 +104,6 @@ var SearchView = Backbone.View.extend(
       },
 
       showClickedLoction: function (event, ui) {
-        this.inputField.val($(event.target).html());
         var location = this.getClickedLocation(event.target);
         this.mapView.replacePoints(location);
       },
