@@ -21,17 +21,21 @@ var AppView = Backbone.View.extend(
         this.campuses = new Campuses();
 
         this.mapView = new MapView({ el: $('#map_canvas') });
-        this.menuPopupView = new MenuPopupView({
-          el: $('#menupopup'),
-          campuses: this.campuses,
-          appModel: this.model
-        });
 
-        this.model.on('change:campus', this.changeCampus, this);
-        this.campuses.on("reset", this.menuPopupView.updateCampuses, this);
+        // Display a menu button
+        if (this.model.get('menu') == true) {
+          this.menuPopupView = new MenuPopupView({
+            el: $('#menupopup'),
+            campuses: this.campuses,
+            appModel: this.model
+          });
 
-        this.changeCampus();
-        this.campuses.fetch();
+          this.model.on('change:campus', this.changeCampus, this);
+          this.campuses.on("reset", this.menuPopupView.updateCampuses, this);
+
+          this.changeCampus();
+          this.campuses.fetch();
+        }
       },
 
       /**
@@ -46,7 +50,14 @@ var AppView = Backbone.View.extend(
        */
       render: function () {
         $('div[data-role="header"] > h1').text(this.title);
-        this.mapView.render();
+
+        if (this.model.get('menu') == true) {
+          $('div[data-role="header"]').append(JST['map/menu/button']);
+          $('#menubutton').button();
+
+          this.delegateEvents();
+          this.mapView.render();
+        }
       },
 
       /**

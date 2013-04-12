@@ -10,6 +10,7 @@ var AppModel = Backbone.Model.extend(
        * Model attribute defaults.
        */
       defaults: {
+        menu: false,
         campus: new Campus({ name: "Frescati" }),
         types: []
       }
