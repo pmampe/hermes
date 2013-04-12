@@ -20,6 +20,12 @@ var SearchView = Backbone.View.extend(
 
         // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
+        // This is done to prevent hiding of the search list when the form is submitted which is done when
+        // the user uses the search button in a mobile keyboard
+        this.inputField.on("blur", function(e) {
+          e.preventDefault();
+          return false;
+        });
 
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
