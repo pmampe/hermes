@@ -3,6 +3,7 @@
  *
  * @class A Backbone view to handle the campuses popup.
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
+ * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.View}
  */
 var MenuPopupView = Backbone.View.extend(
@@ -14,7 +15,7 @@ var MenuPopupView = Backbone.View.extend(
        * @param campuses A list of campuses to display.
        */
       initialize: function (options) {
-        _.bindAll(this, "render", "selectCampus");
+        _.bindAll(this, "render", "selectCampus", "updateCampuses");
 
         this.campuses = options.campuses;
         this.appModel = options.appModel;
@@ -25,6 +26,11 @@ var MenuPopupView = Backbone.View.extend(
         "click #menupopupList": "selectCampus"
       },
 
+      /**
+       * Triggered by a campus selection. Sets the campus in the map app & closes the popup.
+       *
+       * @param evt the event
+       */
       selectCampus: function (evt) {
         // get the campus id from the parent <li> (format "campus-X", where X is a number)
         var campusId = $(evt.target).parents("li").get(0).id.split("campus-")[1];
@@ -33,6 +39,9 @@ var MenuPopupView = Backbone.View.extend(
         this.$el.popup('close');
       },
 
+      /**
+       * Refreshes the campus list in the popup.
+       */
       updateCampuses: function () {
         // remove everything from the list
         $("#menupopupList").find("li").remove();
