@@ -22,7 +22,8 @@ var SearchView = Backbone.View.extend(
         this.inputField.get(0).type = "search";
         // This is done to prevent hiding of the search list when the form is submitted which is done when
         // the user uses the search button in a mobile keyboard
-        this.inputField.on("blur", function(e) {
+        this.inputField.on("blur", function(e, params) {
+          if (params && params.skipHide) return;
           e.preventDefault();
           return false;
         });
@@ -37,6 +38,7 @@ var SearchView = Backbone.View.extend(
       events: {
         'focus input': 'showFilteredList',
         'blur input': 'hideFilteredList',
+        'keyup input': 'inputKeyup',
         'click .autocomplete-link': 'showClickedLoction',
         'click input': 'showFilteredList'
       },
@@ -61,6 +63,12 @@ var SearchView = Backbone.View.extend(
         this.inputField.attr("placeholder", text);
       },
 
+      inputKeyup: function (e) {
+        if (e.which == 13) {
+          $(e.target).trigger("blur", { skipHide: true });
+        }
+      },
+
       showFilteredList: function () {
         //if input field not empty trigger new filtering with existing value, else show whole filter
         if ($('div#search-box input').val() !== "") {
@@ -75,7 +83,9 @@ var SearchView = Backbone.View.extend(
        * of hiding the list. This is done in order to capture the click event
        * (when clicking on elements in the list).
        */
-      hideFilteredList: function (evt) {
+      hideFilteredList: function (evt, params) {
+        if (params && params.skipHide) return;
+
         if (typeof evt == 'object') {
           setTimeout(function () {
             $("#search-autocomplete li").addClass("ui-screen-hidden");
