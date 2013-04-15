@@ -22,6 +22,8 @@ var AppView = Backbone.View.extend(
 
         this.mapView = new MapView({ el: $('#map_canvas') });
 
+        this.updateLocations();
+
         // Display a menu button
         if (this.model.get('menu') == true) {
           this.menuPopupView = new MenuPopupView({
@@ -73,8 +75,7 @@ var AppView = Backbone.View.extend(
       updateLocations: function () {
         this.mapView.locations.fetch({
           data: {
-            types: this.model.get('types'),
-            campusName: this.model.get('campus').get('name')
+            types: this.model.get('types')
           },
           error: function () {
             alert("ERROR! Failed to fetch locations.");
@@ -83,9 +84,12 @@ var AppView = Backbone.View.extend(
       },
 
       changeCampus: function () {
-        var lat = this.model.get('campus').getLat();
-        var lng = this.model.get('campus').getLng();
+        var campus = this.model.get('campus');
+        var lat = campus.getLat();
+        var lng = campus.getLng();
         this.mapView.model.setMapPosition(lat, lng);
-        this.updateLocations();
+
+        var locations = this.mapView.locations.byCampus(campus.get('name'));
+        this.mapView.replacePoints(locations);
       }
     });
