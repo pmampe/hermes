@@ -57,4 +57,39 @@ describe('Map views search filter', function () {
       });
     });
   });
+
+  describe('mobile keyboard handling', function () {
+    beforeEach(function () {
+      spyOn(SearchView.prototype, "hideFilteredList");
+      new MapView({ el: $('#map_canvas') });
+    });
+
+    it('should set type to search on the search input field', function () {
+      expect($('#search-box input').attr('type')).toBe('search');
+    });
+
+    it('should prevent form submit to trigger blur event in search input field', function () {
+      $('#search-box form').submit();
+      expect(SearchView.prototype.hideFilteredList.calls.length).toBe(0);
+    });
+
+    it('should blur input field on enter key but not hide the filter list', function () {
+      runs(function () {
+        var event = $.Event('keyup');
+        event.which = 13;
+        $('#search-box input').trigger(event);
+        expect(SearchView.prototype.hideFilteredList.calls.length).toBe(1);
+        expect(SearchView.prototype.hideFilteredList.mostRecentCall.args[1].skipHide).toBeTruthy();
+        expect($('#search-box input').is(":focus")).toBeFalsy();
+      });
+
+      waitsFor(function() {
+        return true;
+      }, "timeout", 200);
+
+      runs(function() {
+        expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(0);
+      });
+    });
+  });
 });
