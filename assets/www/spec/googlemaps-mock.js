@@ -1,3 +1,9 @@
+/**
+ * Mock objects for Google Maps to be used in tests.
+ *
+ * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
+ */
+
 window.google = {};
 google.maps = {};
 
