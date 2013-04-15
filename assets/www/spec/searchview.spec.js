@@ -58,18 +58,17 @@ describe('Map views search filter', function () {
     });
   });
 
-  //Maryams pill
   describe('filter functions', function () {
     it('should populate filter with the correct number of campuses', function () {
       this.server.respondWith(
         "GET",
         Locations.prototype.url(),
-        this.validResponse(this.fixtures.Locations.valid)
+        this.validResponse(this.fixtures.FilterItems.valid)
       );
 
       var mapView = new MapView({ el: $('#map_canvas') });
-      spyOn(mapView.searchView, "render");
-      runs(function () {
+        spyOn(mapView.searchView, "render");
+        runs(function () {
         mapView.locations.fetch();
         this.server.respond();
       });
@@ -80,23 +79,23 @@ describe('Map views search filter', function () {
 
       runs(function () {
         expect($("#search-autocomplete li").length).toEqual(0);
-        mapView.searchView.populateFilter(["D144", "b a", "Aula Magna", "hejhej", "lars"]);
-        expect($("#search-autocomplete li.ui-btn").length).toEqual(5);
+        var list= this.fixtures.FilterItems.valid.locations;
+        mapView.searchView.populateFilter(list);
+        expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
       });
     });
 
- /*   it('should overwrite jquery mobiles filtering', function () {
-
-      var list=["Axel", "Bar Axel", "Baxa"];
+    it('should trigger custom filtering for each filter item', function () {
       this.server.respondWith(
         "GET",
         Locations.prototype.url(),
-        this.validResponse(list)
+        this.validResponse(this.fixtures.FilterItems.valid)
       );
 
-      var mapView = new MapView({ el: $('#map_canvas') });
-      spyOn(mapView.searchView, "render");
-      runs(function () {
+        spyOn(SearchView.prototype, "filterSearch");
+        var mapView = new MapView({ el: $('#map_canvas') });
+        spyOn(mapView.searchView, "render");
+        runs(function () {
         mapView.locations.fetch();
         this.server.respond();
       });
@@ -105,18 +104,45 @@ describe('Map views search filter', function () {
         return mapView.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
+      runs(function () {
+        expect(mapView.searchView.render).toHaveBeenCalled();
+        expect($("#search-autocomplete li").length).toEqual(0);
+        var list= this.fixtures.FilterItems.valid.locations;
+        mapView.searchView.populateFilter(list);
+        expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
+        $(".ui-input-search input").focus().val("A").change();
+        expect(SearchView.prototype.filterSearch.calls.length).toEqual(4);
+      });
+    });
+
+    it('should overwrite jquery mobiles filtering', function () {
+      this.server.respondWith(
+        "GET",
+        Locations.prototype.url(),
+        this.validResponse(this.fixtures.FilterItems.valid)
+      );
+
+      var mapView = new MapView({ el: $('#map_canvas') });
+        spyOn(mapView.searchView, "render");
+        runs(function () {
+        mapView.locations.fetch();
+        this.server.respond();
+      });
+
+      waitsFor(function () {
+        return mapView.locations.length > 0;
+      }, "Waiting for returning call", 1000);
 
       runs(function () {
         expect(mapView.searchView.render).toHaveBeenCalled();
+        expect($("#search-autocomplete li").length).toEqual(0);
+        var list= this.fixtures.FilterItems.valid.locations;
+        mapView.searchView.populateFilter(list);
+        expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(4);
+        $(".ui-input-search input").focus().val("A").change();
+        expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(2);
+
       });
-
-      console.log("VADSOMHELST");
-
-      expect($("#search-autocomplete li").length).toEqual(0);
-
-      console.log($("#search-autocomplete li").html());
-      $("#search-box input").val("A").change();
-      expect($("#search-autocomplete li").length).toEqual(2);
-    });*/
+    });
   });
 });
