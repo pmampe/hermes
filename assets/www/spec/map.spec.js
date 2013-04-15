@@ -331,26 +331,6 @@ describe('Map view', function () {
     });
   });
 
-  describe('show campuses list', function () {
-    beforeEach(function () {
-      var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
-          '<ul id="menupopupList" data-role="listview" data-inset="true">' +
-          '<li data-role="list-divider" role="heading">' +
-          'Välj Campus' +
-          '</li>' +
-          '</ul>' +
-          '</div>';
-      $('#page-map').append(menuPopup);
-      $.mobile.loadPage("#page-map");
-    });
-
-    it('should populate campus popup list with the correct number of campuses', function () {
-      expect($("#menupopup li").length).toEqual(1);
-      this.view.showCampusesList(["Frescati", "Kista", "Frescati hage"]);
-      expect($("#menupopup li").length).toEqual(4);
-    });
-  });
-
   describe('showing results from a search', function () {
     beforeEach(function () {
       this.locationSearchResult = new LocationSearchResult();
@@ -362,16 +342,6 @@ describe('Map view', function () {
           this.locationSearchResult.url(),
           this.validResponse(this.fixture)
       );
-
-      var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
-          '<ul id="menupopupList" data-role="listview" data-inset="true">' +
-          '<li data-role="list-divider" role="heading">' +
-          'Välj Campus' +
-          '</li>' +
-          '</ul>' +
-          '</div>';
-      $('#page-map').append(menuPopup);
-      $.mobile.loadPage("#page-map");
     });
 
     afterEach(function () {
@@ -401,10 +371,6 @@ describe('Map view', function () {
 //		      expect(this.view.map.getBounds()).toBeDefined();
         expect(this.view.map.getBounds()).toEqual(this.oldBounds);
       });
-
-      it('should not show campuses list', function () {
-        expect($("#menupopup li").length).toEqual(1);
-      });
     });
 
 
@@ -428,14 +394,10 @@ describe('Map view', function () {
         this.oldBounds = this.view.map.getBounds();
 
         google.maps.event.addListener(this.view.map, 'zoom_changed', function () {
-          console.log("search results:");
           expect(self.view.searchResults.length).toEqual(4);
-
 
           expect(this.getBounds()).toBeDefined();
           expect(this.getBounds()).toNotEqual(self.oldBounds);
-          console.log(this.getBounds());
-          console.log(self.oldBounds);
 
           // TODO: find reason for the bellow lines to not work.
 //          expect(this.getBounds().getSouthWest().lat()).toBeGreaterThan(self.fixtures.bounds.minLat);
@@ -447,17 +409,6 @@ describe('Map view', function () {
         this.view.searchResults.fetch();
         this.server.respond();
       });
-
-      it('should show campuses list', function () {
-        expect($("#menupopup li").length).toEqual(1);
-
-        this.view.initialize();
-        this.view.searchResults.fetch();
-        this.server.respond();
-
-        expect($("#menupopup li").length).toEqual(6);
-        // TODO: test if popup is visible
-      });
     });
 
   });
@@ -467,7 +418,14 @@ describe('App view', function () {
   beforeEach(function () {
     $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
 
-    this.view = new AppView({el: $('#page-map'), title: "foobar"});
+    var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
+        '<ul id="menupopupList" data-role="listview" data-inset="true">' +
+        '</ul>' +
+        '</div>';
+    $('#page-map').append(menuPopup);
+    $.mobile.loadPage("#page-map");
+
+    this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
   });
 
   afterEach(function () {
@@ -475,6 +433,23 @@ describe('App view', function () {
   });
 
   describe('instantiation', function () {
+    beforeEach(function () {
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          Campuses.prototype.url(),
+          this.validResponse(this.fixtures.Campuses.valid)
+      );
+      this.server.autoRespond = true;
+
+      this.view.updateLocations = function () {
+      };
+    });
+
+    afterEach(function () {
+      this.server.restore();
+    });
+
     it('should create a div of #page-map', function () {
       expect(this.view.el.nodeName).toEqual("DIV");
       expect(this.view.el.id).toEqual("page-map");
@@ -482,6 +457,36 @@ describe('App view', function () {
 
     it('should set this.header from options.header', function () {
       expect(this.view.title).toEqual("foobar");
+    });
+
+    it('should create a menu if "menu" is true in model', function () {
+      this.view.model.set('menu', true);
+      this.view.initialize({title: 'foo'});
+      expect(this.view.menuPopupView).toBeDefined();
+    });
+
+    it('should not create a menu if "menu" is false in model', function () {
+      this.view.model.set('menu', false);
+      this.view.initialize({title: 'foo'});
+      expect(this.view.menuPopupView).toBeUndefined();
+    });
+
+    it('should fetch campuses', function () {
+      var self = this;
+      runs(function () {
+        self.view.model.set('menu', true);
+        self.view.initialize({title: 'foo'});
+        self.server.respond();
+      });
+
+      waitsFor(function () {
+        return self.view.campuses.length > 0;
+      });
+
+      runs(function () {
+        expect(this.view.campuses).toBeDefined();
+        expect(this.view.campuses.length).toEqual(2);
+      });
     });
   });
 
@@ -494,6 +499,33 @@ describe('App view', function () {
       //spyOn(this.view.mapView, 'render');
       this.view.render();
       expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
+    });
+  });
+
+  describe('call to change campus', function () {
+    beforeEach(function () {
+      this.view.updateLocations = function () {
+      };
+    });
+
+    it('sets map position to selected campus', function () {
+      spyOn(this.view.mapView.model, "setMapPosition");
+      var campus = new Campus(this.fixtures.Campuses.valid[0]);
+      this.view.model.set('campus', campus);
+
+      this.view.changeCampus();
+
+      expect(this.view.mapView.model.setMapPosition).toHaveBeenCalledWith(campus.getLat(), campus.getLng());
+    });
+
+    it('updates locations', function () {
+      spyOn(this.view, "updateLocations");
+      var campus = new Campus(this.fixtures.Campuses.valid[0]);
+      this.view.model.set('campus', campus);
+
+      this.view.changeCampus();
+
+      expect(this.view.updateLocations).toHaveBeenCalled();
     });
   });
 });
