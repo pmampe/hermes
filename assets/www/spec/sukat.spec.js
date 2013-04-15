@@ -96,7 +96,7 @@ describe('Search view', function () {
   });
 
   afterEach(function () {
-    $('#search-page').replaceWith("<div id='stage'></div>")
+    $('#search-page').replaceWith("<div id='stage'></div>");
   });
 
   describe('instantiation', function () {
