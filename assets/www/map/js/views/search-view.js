@@ -19,7 +19,7 @@ var SearchView = Backbone.View.extend(
 
         // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
-        
+
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
         this.setInputPlaceholderText();
@@ -31,7 +31,7 @@ var SearchView = Backbone.View.extend(
         'focus input': 'showFilteredList',
         'keyup input': 'inputKeyup',
         'click #cancelFilter': 'hideFilteredList',
-        'click .autocomplete-link': 'showClickedLoction',
+        'click .autocomplete-link': 'showClickedLoction'
       },
 
       /**
@@ -107,7 +107,7 @@ var SearchView = Backbone.View.extend(
         });
 
         var location = new Locations([]);
-        
+
         if (item) {
           location = new Locations([this.items.get(item)]);
         }
@@ -141,7 +141,7 @@ var SearchView = Backbone.View.extend(
 
       filterSearch: function (text, searchValue) {
         //search value- what we are looking for, text- the filter item being evaluated
-        var eval = true;
+        var evalRet = true;
 
         var splitText = text.split(" "); //unstable? depends on data
         splitText.push(text);
@@ -150,11 +150,11 @@ var SearchView = Backbone.View.extend(
         $.each(splitText, function (i, val) {
           //===0, it occurs at the beginning of the string
           if (val.toLowerCase().indexOf(searchValue) === 0) {
-            eval = false;
+            evalRet = false;
           }
         });
 
-        return eval;
+        return evalRet;
         //returns true of false, truth filters out said instance
       }
     }); //-- End of Search view
