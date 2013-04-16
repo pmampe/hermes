@@ -265,7 +265,9 @@ describe('Map views search filter', function () {
 //          var name = 'Axel';
 //          var markupHTML = '<a class="autocomplete-link ui-link-inherit">' + name + '</a>';
 //          
-//          expect(mapView.searchView.getClickedLocation(markupHTML)).toBe()
+//          var location = new Locations([{ id: 1, name: 'Axel' }]);
+//          
+//          expect(mapView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
 //        });
 //      });
     });

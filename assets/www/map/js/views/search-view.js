@@ -107,7 +107,7 @@ var SearchView = Backbone.View.extend(
         });
 
         var location = new Locations([]);
-        ;
+        
         if (item) {
           location = new Locations([this.items.get(item)]);
         }
