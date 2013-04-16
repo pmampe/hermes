@@ -216,6 +216,17 @@ div#search-box{
     margin: 16px 8px;
 }
 
+div#search-box #cancelFilter{
+    position: absolute;
+    right: 5px;
+    top: 45px;
+    display:none;
+}
+
+div#search-box form{
+   margin-right: 80px;
+}
+
 ul#search-autocomplete{
     margin-top: 16px;
 }
