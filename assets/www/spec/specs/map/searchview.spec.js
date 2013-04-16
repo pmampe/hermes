@@ -38,12 +38,12 @@ describe('Map views search filter', function () {
   describe('instantiation', function () {
     it('should initialize search view on app view initialization', function () {
       spyOn(SearchView.prototype, "initialize");
-      new AppView({ el: $('#page-map') });
+      new AppView({ el: $('#page-map'), model: new AppModel() });
       expect(SearchView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should render search view on location refresh', function () {
-      var appView = new AppView({ el: $('#page-map') });
+      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       spyOn(appView.searchView, "render");
       runs(function () {
         appView.locations.fetch();
@@ -151,7 +151,7 @@ describe('Map views search filter', function () {
   describe('mobile keyboard handling', function () {
     beforeEach(function () {
       spyOn(SearchView.prototype, "hideFilteredList");
-      new MapView({ el: $('#map_canvas') });
+      new AppView({ el: $('#page-map'), model: new AppModel()});
     });
 
     it('should set type to search on the search input field', function () {
@@ -184,19 +184,19 @@ describe('Map views search filter', function () {
   describe('Filtered list', function () {
     it('should call showFileredList on focus on input field', function () {
       spyOn(SearchView.prototype, "showFilteredList");
-      new MapView({ el: $('#map_canvas') });
+      new AppView({ el: $('#page-map'), model: new AppModel() });
       $('#search-box input').trigger('focus');
       expect(SearchView.prototype.showFilteredList).toHaveBeenCalled();
     });
 
     describe('hide/show filtered list', function () {
-      var mapView;
+      var appView;
 
       beforeEach(function () {
-        mapView = new MapView({ el: $('#map_canvas') });
+        appView = new AppView({ el: $('#page-map'), model: new AppModel()});
         var list = this.fixtures.FilterItems.valid.locations;
-        mapView.searchView.populateFilter(list);
-        mapView.searchView.items = new Locations(this.fixtures.FilterItems.valid.locations);
+        appView.searchView.populateFilter(list);
+        appView.searchView.items = new Locations(this.fixtures.FilterItems.valid.locations);
       });
 
       it('should show cancel button on focus on input field', function () {
