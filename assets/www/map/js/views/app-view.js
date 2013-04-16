@@ -19,8 +19,24 @@ var AppView = Backbone.View.extend(
 
         this.title = options.title;
         this.campuses = new Campuses();
+        this.locations = new Locations();
 
-        this.mapView = new MapView({ el: $('#map_canvas') });
+        this.mapView = new MapView({
+          el: $('#map_canvas')
+        });
+
+        this.searchView = new SearchView({
+          el: $('#search-box'),
+          mapView: this.mapView,
+          placeholder: options.title
+        });
+
+
+        var self = this;
+        this.locations.on("reset", function () {
+          self.mapView.replacePoints(self.locations);
+          self.searchView.render(self.locations);
+        });
 
         this.updateLocations();
 
@@ -73,7 +89,7 @@ var AppView = Backbone.View.extend(
        * Show all locations of a specific type.
        */
       updateLocations: function () {
-        this.mapView.locations.fetch({
+        this.locations.fetch({
           data: {
             types: this.model.get('types')
           },
@@ -89,7 +105,7 @@ var AppView = Backbone.View.extend(
         var lng = campus.getLng();
         this.mapView.model.setMapPosition(lat, lng);
 
-        var locations = this.mapView.locations.byCampus(campus.get('name'));
+        var locations = this.locations.byCampus(campus.get('name'));
         this.mapView.replacePoints(locations);
       }
     });

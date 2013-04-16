@@ -13,7 +13,7 @@ describe('Map views search filter', function () {
         "data-autodividers='true' " +
         "data-inset= 'true'>" +
         "</ul>" +
-        "<a id='cancelFilter' href='#' class='cancel-filter-button' " + 
+        "<a id='cancelFilter' href='#' class='cancel-filter-button' " +
         "data-role='button' data-inline='true' data-mini='true' >Cancel</a> " +
         "</div>" +
         "<div id='map_canvas'></div>" +
@@ -36,13 +36,65 @@ describe('Map views search filter', function () {
   });
 
   describe('instantiation', function () {
-    it('should initialize search view on map view initialization', function () {
+    it('should initialize search view on app view initialization', function () {
       spyOn(SearchView.prototype, "initialize");
-      new MapView({ el: $('#map_canvas') });
+      new AppView({ el: $('#page-map') });
       expect(SearchView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should render search view on location refresh', function () {
+      var appView = new AppView({ el: $('#page-map') });
+      spyOn(appView.searchView, "render");
+      runs(function () {
+        appView.locations.fetch();
+        this.server.respond();
+      });
+
+      waitsFor(function () {
+        return appView.locations.length > 0;
+      }, "Waiting for returning call", 1000);
+
+      runs(function () {
+        expect(appView.searchView.render).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('filter functions', function () {
+    it('should populate filter with the correct number of campuses', function () {
+      this.server.respondWith(
+          "GET",
+          Locations.prototype.url(),
+          this.validResponse(this.fixtures.FilterItems.valid)
+      );
+
+      var mapView = new MapView({ el: $('#map_canvas') });
+      spyOn(mapView.searchView, "render");
+      runs(function () {
+        mapView.locations.fetch();
+        this.server.respond();
+      });
+
+      waitsFor(function () {
+        return mapView.locations.length > 0;
+      }, "Waiting for returning call", 1000);
+
+      runs(function () {
+        expect($("#search-autocomplete li").length).toEqual(0);
+        var list = this.fixtures.FilterItems.valid.locations;
+        mapView.searchView.populateFilter(list);
+        expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
+      });
+    });
+
+    it('should trigger custom filtering for each filter item', function () {
+      this.server.respondWith(
+          "GET",
+          Locations.prototype.url(),
+          this.validResponse(this.fixtures.FilterItems.valid)
+      );
+
+      spyOn(SearchView.prototype, "filterSearch");
       var mapView = new MapView({ el: $('#map_canvas') });
       spyOn(mapView.searchView, "render");
       runs(function () {
@@ -56,60 +108,8 @@ describe('Map views search filter', function () {
 
       runs(function () {
         expect(mapView.searchView.render).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('filter functions', function () {
-    it('should populate filter with the correct number of campuses', function () {
-      this.server.respondWith(
-        "GET",
-        Locations.prototype.url(),
-        this.validResponse(this.fixtures.FilterItems.valid)
-      );
-
-      var mapView = new MapView({ el: $('#map_canvas') });
-        spyOn(mapView.searchView, "render");
-        runs(function () {
-        mapView.locations.fetch();
-        this.server.respond();
-      });
-
-      waitsFor(function () {
-        return mapView.locations.length > 0;
-      }, "Waiting for returning call", 1000);
-
-      runs(function () {
         expect($("#search-autocomplete li").length).toEqual(0);
-        var list= this.fixtures.FilterItems.valid.locations;
-        mapView.searchView.populateFilter(list);
-        expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
-      });
-    });
-
-    it('should trigger custom filtering for each filter item', function () {
-      this.server.respondWith(
-        "GET",
-        Locations.prototype.url(),
-        this.validResponse(this.fixtures.FilterItems.valid)
-      );
-
-        spyOn(SearchView.prototype, "filterSearch");
-        var mapView = new MapView({ el: $('#map_canvas') });
-        spyOn(mapView.searchView, "render");
-        runs(function () {
-        mapView.locations.fetch();
-        this.server.respond();
-      });
-
-      waitsFor(function () {
-        return mapView.locations.length > 0;
-      }, "Waiting for returning call", 1000);
-
-      runs(function () {
-        expect(mapView.searchView.render).toHaveBeenCalled();
-        expect($("#search-autocomplete li").length).toEqual(0);
-        var list= this.fixtures.FilterItems.valid.locations;
+        var list = this.fixtures.FilterItems.valid.locations;
         mapView.searchView.populateFilter(list);
         expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
@@ -119,14 +119,14 @@ describe('Map views search filter', function () {
 
     it('should overwrite jquery mobiles filtering', function () {
       this.server.respondWith(
-        "GET",
-        Locations.prototype.url(),
-        this.validResponse(this.fixtures.FilterItems.valid)
+          "GET",
+          Locations.prototype.url(),
+          this.validResponse(this.fixtures.FilterItems.valid)
       );
 
       var mapView = new MapView({ el: $('#map_canvas') });
-        spyOn(mapView.searchView, "render");
-        runs(function () {
+      spyOn(mapView.searchView, "render");
+      runs(function () {
         mapView.locations.fetch();
         this.server.respond();
       });
@@ -138,7 +138,7 @@ describe('Map views search filter', function () {
       runs(function () {
         expect(mapView.searchView.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
-        var list= this.fixtures.FilterItems.valid.locations;
+        var list = this.fixtures.FilterItems.valid.locations;
         mapView.searchView.populateFilter(list);
         expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
@@ -180,7 +180,7 @@ describe('Map views search filter', function () {
       });
     });
   });
-  
+
   describe('Filtered list', function () {
     it('should call showFileredList on focus on input field', function () {
       spyOn(SearchView.prototype, "showFilteredList");
@@ -191,51 +191,51 @@ describe('Map views search filter', function () {
 
     describe('hide/show filtered list', function () {
       var mapView;
-      
+
       beforeEach(function () {
         mapView = new MapView({ el: $('#map_canvas') });
         var list = this.fixtures.FilterItems.valid.locations;
         mapView.searchView.populateFilter(list);
         mapView.searchView.items = new Locations(this.fixtures.FilterItems.valid.locations);
       });
-      
+
       it('should show cancel button on focus on input field', function () {
         expect($("#cancelFilter").is(":visible")).toBeFalsy();
         $('#search-box input').trigger('focus');
         expect($("#cancelFilter").is(":visible")).toBeTruthy();
       });
-      
+
       it('should show filtered list on focus on input field', function () {
         var listSize = $("#search-autocomplete li").size();
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
-        
+
         $('#search-box input').trigger('focus');
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(0);
       });
-      
+
       it('should hide filtered list and cancelButton on click cancel button', function () {
         $('#search-box input').trigger('focus');
-        
+
         // all items visible
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(0);
-        
+
         $("#cancelFilter").trigger("click");
-        
+
         var listSize = $("#search-autocomplete li").size(); // all items hidden
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
-        
+
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
       });
 
       it('should hide filtered list and cancelButton on click list item', function () {
         spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
-        
+
         $('#search-box input').trigger('focus');
         $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
-        
+
         var listSize = $("#search-autocomplete li").size(); // all items hidden
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
-        
+
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
         expect(MapView.prototype.replacePoints).toHaveBeenCalled();
       });
@@ -244,18 +244,18 @@ describe('Map views search filter', function () {
         $('#search-box input').trigger('focus');
         $('#search-box input').val("Axel");
         $('#search-box input').trigger('change');
-        
+
         // list shows 2 elements
         expect($("#search-autocomplete li:not(.ui-screen-hidden).ui-btn").size()).toBe(2);
       });
-      
+
       it('should retain entered text on blur and reshow filter on focus', function () {
         $('#search-box input').trigger('focus');
         $('#search-box input').val("Axel");
         $('#search-box input').trigger('change');
         $('#search-box input').trigger('blur');
         $('#search-box input').trigger('focus');
-        
+
         // list shows 2 elements
         expect($("#search-autocomplete li:not(.ui-screen-hidden).ui-btn").size()).toBe(2);
       });
@@ -264,14 +264,14 @@ describe('Map views search filter', function () {
 //        it('should return a new Location object with the inputed html markup', function () {
 //          var name = 'Axel';
 //          var markupHTML = '<a class="autocomplete-link ui-link-inherit">' + name + '</a>';
-//          
+//
 //          var location = new Locations([{ id: 1, name: 'Axel' }]);
-//          
+//
 //          expect(mapView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
 //        });
 //      });
     });
-    
+
   });
-  
+
 });
