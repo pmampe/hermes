@@ -537,13 +537,13 @@ describe('App view', function () {
     });
 
     it('updates locations', function () {
-      spyOn(this.view, "updateLocations");
+      spyOn(this.view.mapView, "replacePoints");
       var campus = new Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();
 
-      expect(this.view.updateLocations).toHaveBeenCalled();
+      expect(this.view.mapView.replacePoints).toHaveBeenCalled();
     });
   });
 });
