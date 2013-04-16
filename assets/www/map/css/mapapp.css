@@ -216,7 +216,7 @@ div#search-box{
     margin: 16px 8px;
 }
 
-div#search-box #cancelFilter{
+div#search-box .cancel-filter-button {
     position: absolute;
     right: 5px;
     top: 45px;
