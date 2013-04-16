@@ -213,21 +213,21 @@ a {
 **/
 
 div#search-box{
-
     margin: 16px 8px;
-
 }
 
 ul#search-autocomplete{
-
     margin-top: 16px;
 }
 
 ul#search-autocomplete li.ui-li-divider{
     font-size: 12px;
     padding: 0.2em 15px;
-
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+   /* Remove default */
+    -webkit-appearance: none;
+}
 
 /* --- End Direction styles --- */

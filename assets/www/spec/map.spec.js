@@ -465,7 +465,25 @@ describe('Map view', function () {
 
 describe('App view', function () {
   beforeEach(function () {
-    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
+    var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
+        "<div id='search-box' class='ui-mini'>" +
+        "<ul id='search-autocomplete' " +
+        "data-role='listview' " +
+        "data-theme='a' " +
+        "data-filter-theme='a' " +
+        "data-mini='true' " +
+        "data-filter-mini='true' " +
+        "data-filter='true' " +
+        "data-filter-placeholder='Enter search string' " +
+        "data-autodividers='true' " +
+        "data-inset= 'true'>" +
+        "</ul>" +
+        "</div>" +
+        "<div id='map_canvas'></div>" +
+        "</div>";
+
+    $('#stage').replaceWith(html);
+    $.mobile.loadPage("#page-map");
 
     this.view = new AppView({el: $('#page-map'), title: "foobar"});
   });
