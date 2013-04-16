@@ -83,11 +83,11 @@ describe('Map views search filter', function () {
         expect($('#search-box input').is(":focus")).toBeFalsy();
       });
 
-      waitsFor(function() {
+      waitsFor(function () {
         return true;
       }, "timeout", 200);
 
-      runs(function() {
+      runs(function () {
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(0);
       });
     });
