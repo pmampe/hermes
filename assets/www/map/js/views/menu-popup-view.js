@@ -27,6 +27,18 @@ var MenuPopupView = Backbone.View.extend(
       },
 
       /**
+       * Render the campus popup view.
+       */
+      render: function () {
+        // close any other open popup (only one popup can be open at the same time.)
+        $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close");
+
+        var popup = this.$el;
+        popup.popup("open", { y: 0 });
+        popup.parent().css('left', 'auto');
+      },
+
+      /**
        * Triggered by a campus selection. Sets the campus in the map app & closes the popup.
        *
        * @param evt the event
@@ -53,17 +65,5 @@ var MenuPopupView = Backbone.View.extend(
 
         $("#menupopupList").listview();
         $("#menupopupList").listview("refresh"); // jQuery mobile-ify the added elements
-      },
-
-      /**
-       * Render the campus popup view.
-       */
-      render: function () {
-        // close any other open popup (only one popup can be open at the same time.)
-        $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close");
-
-        var popup = this.$el;
-        popup.popup("open", { y: 0 });
-        popup.parent().css('left', 'auto');
       }
     });
