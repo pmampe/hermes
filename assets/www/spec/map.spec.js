@@ -262,7 +262,25 @@ describe('Map model', function () {
 
 describe('Map view', function () {
   beforeEach(function () {
-    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
+    var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
+        "<div id='search-box' class='ui-mini'>" +
+        "<ul id='search-autocomplete' " +
+        "data-role='listview' " +
+        "data-theme='a' " +
+        "data-filter-theme='a' " +
+        "data-mini='true' " +
+        "data-filter-mini='true' " +
+        "data-filter='true' " +
+        "data-filter-placeholder='Enter search string' " +
+        "data-autodividers='true' " +
+        "data-inset= 'true'>" +
+        "</ul>" +
+        "</div>" +
+        "<div id='map_canvas'></div>" +
+        "</div>";
+
+    $('#stage').replaceWith(html);
+    $.mobile.loadPage("#page-map");
 
     this.view = new MapView({el: $('#map_canvas')});
   });
@@ -275,6 +293,25 @@ describe('Map view', function () {
     it('should create a div of #map_canvas', function () {
       expect(this.view.el.nodeName).toEqual("DIV");
       expect(this.view.el.id).toEqual("map_canvas");
+    });
+  });
+
+  describe('resize', function () {
+    beforeEach(function () {
+      // We need to create a new view since we need to attach the spy first
+      spyOn(MapView.prototype, 'resize');
+      this.view = new MapView({el: $('#map_canvas')});
+    });
+
+    it('should react to window resize events', function () {
+      $(document).trigger('resize');
+      expect(MapView.prototype.resize.calls.length).toBe(1);
+    });
+
+    it('should remove the event handler from document.resize when the view is removed', function () {
+      this.view.remove();
+      $(document).trigger('resize');
+      expect(MapView.prototype.resize.calls.length).toBe(0);
     });
   });
 
@@ -313,7 +350,6 @@ describe('Map view', function () {
       expect($("#campusesPopup li").length).toEqual(4);
     });
   });
-
 
   describe('showing results from a search', function () {
     beforeEach(function () {
@@ -418,9 +454,27 @@ describe('Map view', function () {
 
 describe('App view', function () {
   beforeEach(function () {
-    $('#stage').replaceWith("<div data-role='page' id='page-map' style='width:200px; height:200px'><div id='map_canvas'></div></div>");
+    var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
+        "<div id='search-box' class='ui-mini'>" +
+        "<ul id='search-autocomplete' " +
+        "data-role='listview' " +
+        "data-theme='a' " +
+        "data-filter-theme='a' " +
+        "data-mini='true' " +
+        "data-filter-mini='true' " +
+        "data-filter='true' " +
+        "data-filter-placeholder='Enter search string' " +
+        "data-autodividers='true' " +
+        "data-inset= 'true'>" +
+        "</ul>" +
+        "</div>" +
+        "<div id='map_canvas'></div>" +
+        "</div>";
 
-    this.view = new AppView({el: $('#page-map')});
+    $('#stage').replaceWith(html);
+    $.mobile.loadPage("#page-map");
+
+    this.view = new AppView({el: $('#page-map'), title: "foobar"});
   });
 
   afterEach(function () {
@@ -431,6 +485,22 @@ describe('App view', function () {
     it('should create a div of #page-map', function () {
       expect(this.view.el.nodeName).toEqual("DIV");
       expect(this.view.el.id).toEqual("page-map");
+    });
+
+    it('should set this.header from options.header', function () {
+      expect(this.view.title).toEqual("foobar");
+    });
+  });
+
+  describe('render', function () {
+    beforeEach(function () {
+      $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
+    });
+
+    it('should replace heaser with this.header', function () {
+      //spyOn(this.view.mapView, 'render');
+      this.view.render();
+      expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
     });
   });
 });
@@ -530,6 +600,50 @@ describe('Autocomplete collection', function () {
       var firstAuto = this.autos.get(1);
       expect(firstAuto.get('id')).toEqual(1);
       expect(firstAuto.get('name')).toEqual('Juridiska institutionen');
+    });
+  });
+});
+
+describe('MapRouter', function () {
+  describe('after initialization', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+    });
+
+    it('should have the correct amount of routes', function () {
+      expect(_.size(this.router.routes)).toEqual(2);
+    });
+
+    it('*actions route exists & points to default route', function () {
+      expect(this.router.routes['*actions']).toEqual('defaultRoute');
+    });
+
+    it('static routes exists & points to the correct right function', function () {
+      expect(this.router.routes['auditoriums']).toEqual('auditoriums');
+    });
+  });
+
+  describe('when navigating', function () {
+    beforeEach(function () {
+      Backbone.history.options = {};
+    });
+
+    it("should call dafaultRoute for empty url", function () {
+      spyOn(MapRouter.prototype, "defaultRoute");
+      new MapRouter();
+
+      Backbone.history.loadUrl("/");
+
+      expect(MapRouter.prototype.defaultRoute).toHaveBeenCalled();
+    });
+
+    it("should call auditoriums for /auditoriums", function () {
+      spyOn(MapRouter.prototype, "auditoriums");
+      new MapRouter();
+
+      Backbone.history.loadUrl("auditoriums");
+
+      expect(MapRouter.prototype.auditoriums).toHaveBeenCalled();
     });
   });
 });

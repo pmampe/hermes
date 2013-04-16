@@ -27,7 +27,7 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "resetSearchResults", "resetLocations", "showCampusesList");
+        _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
 
         this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
@@ -66,7 +66,17 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(11, 11))
         })});
 
-        this.locations.on("reset", this.resetLocations, this);
+        this.searchView = new SearchView({ el: $('#search-box'),
+          mapView: this
+        });
+
+
+        var self = this;
+
+        this.locations.on("reset", function () {
+          self.replacePoints(self.locations);
+          self.searchView.render(self.locations);
+        });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
@@ -76,6 +86,16 @@ var MapView = Backbone.View.extend(
           gmap: this.map,
           infoWindow: this.mapInfoWindowView
         });
+
+        $(window).on("resize.mapview", _.bind(this.resize, this));
+      },
+
+      /**
+       * Remove handler for the view.
+       */
+      remove: function () {
+        $(window).off(".mapview");
+        Backbone.View.prototype.remove.call(this);
       },
 
       /**
@@ -83,8 +103,7 @@ var MapView = Backbone.View.extend(
        */
       render: function () {
 
-        // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight());
+        this.resize();
 
         this.currentPositionPoint.render();
 
@@ -108,59 +127,31 @@ var MapView = Backbone.View.extend(
       },
 
       /**
+       * Handler for window resizing.
+       */
+      resize: function () {
+        // Force the height of the map to fit the window
+        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
+      },
+
+      /**
        * Displays a fading message box on top of the map.
        *
        * @param locMsg The message to put in the box.
        */
       fadingMsg: function (locMsg) {
-        $("<div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div>")
-            .css({ "display": "block", "opacity": 0.9, "top": $(window).scrollTop() + 100 })
-            .appendTo($.mobile.pageContainer)
-            .delay(2200)
-            .fadeOut(1000, function () {
-              $(this).remove();
-            });
-      },
-
-      /**
-       * Creates & displays a search view.
-       *
-       * @param {string} campus the campus to show in the search window.
-       */
-      showSearchView: function (campus) {
-        if (this.searchView === null) {
-          this.searchView = new SearchView({ el: $('#search-popup'),
-            campus: campus,
-            searchResults: this.searchResults,
-            mapView: this
-          });
-        } else {
-          this.searchView.campus = campus;
-          this.searchView.searchResults = this.searchResults;
-        }
-        this.searchView.render();
-
-        this.toggleSearchFromToolbar();
-      },
-
-      /**
-       * Toogle search button from toolbar. When clicking on search,
-       * we hide the search button in order to not confuse the user.
-       * The search button in the toolbar is there to bring up the
-       * search popup, but not to do the actual search.
-       */
-      toggleSearchFromToolbar: function () {
-        var toolbarNumber = parseInt($(".footer-button:visible").attr("id").substring(14), 10);
-        $(".footer-button").hide();
-
-        var toolbarToShow = this.searchHiddenFromToolbar ? ++toolbarNumber : --toolbarNumber;
-        $("#footer-buttons" + toolbarToShow).show();
-
-        this.searchHiddenFromToolbar = !this.searchHiddenFromToolbar;
-
-        if (!this.searchHiddenFromToolbar) {
-          $("#menu-search").removeClass("ui-btn-active");
-        }
+        $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
+        .css({
+          "position": "fixed",
+          "opacity": 0.9,
+          "top": $(window).scrollTop() + 100,
+          "width": "100%"
+        })
+        .appendTo($.mobile.pageContainer)
+        .delay(2200)
+        .fadeOut(1000, function () {
+          $(this).remove();
+        });
       },
 
       /**
@@ -304,13 +295,6 @@ var MapView = Backbone.View.extend(
       },
 
       /**
-       * Resets the locations from the locations collection
-       */
-      resetLocations: function () {
-        this.replacePoints(this.locations);
-      },
-
-      /**
        * Replaces points on the map.
        *
        * @param {Location} newPoints the new points to paint on the map.
@@ -351,6 +335,13 @@ var MapView = Backbone.View.extend(
 
           self.pointViews[point.cid] = point;
         });
+
+        // If there is only one marker on the map, display the info window.
+        if (_.size(this.pointViews) == 1) {
+          _.each(this.pointViews, function (value, key, list) {
+            value.openInfoWindow(value.model, value.marker, value.getPosition({model: value.model}));
+          });
+        }
       },
 
       /**

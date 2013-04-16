@@ -14,8 +14,10 @@ var AppView = Backbone.View.extend(
       /**
        * @constructs
        */
-      initialize: function () {
+      initialize: function (options) {
         _.bindAll(this, "render");
+
+        this.title = options.title;
 
         this.mapView = new MapView({ el: $('#map_canvas') });
       },
@@ -24,25 +26,30 @@ var AppView = Backbone.View.extend(
        * Registers events.
        */
       events: {
-        "click a[id=menu-search]": "openSearchPopup"
+
       },
 
       /**
        * Render the app module.
        */
       render: function () {
-        var footerTpl = _.template($("#page-map-footer_template").html());
-        this.$el.append(footerTpl);
-
         this.mapView.render();
+        $('div[data-role="header"] > h1').text(this.title);
       },
 
       /**
-       * Opens the search popup (or slide down)
+       * Show all locations of a specific type.
        *
-       * @param event the triggering event.
+       * @param type the type of location to show.
        */
-      openSearchPopup: function (event) {
-        this.mapView.showSearchView();
+      showType: function (type) {
+        this.mapView.locations.fetch({
+          data: {
+            types: new Array(type)
+          },
+          error: function () {
+            alert("ERROR! Failed to fetch locations.");
+          }
+        });
       }
     });
