@@ -32,6 +32,9 @@ var SearchView = Backbone.View.extend(
         'keyup input': 'inputKeyup',
         'click #cancelFilter': 'hideFilteredList',
         'click .autocomplete-link': 'showClickedLoction',
+        'scroll #search-box': 'keyboardAway'
+
+
       },
 
       /**
@@ -42,7 +45,6 @@ var SearchView = Backbone.View.extend(
         this.populateFilter(this.items.toJSON());
         this.delegateEvents();
       },
-
 
       setInputPlaceholderText: function () {
         // get route from url, i.e auditorium from file:///devel/src/suApp/www/map/index.html#/auditoriums
@@ -60,7 +62,12 @@ var SearchView = Backbone.View.extend(
         }
       },
 
+      keyboardAway: function () {
+        $("#search-box input").trigger("blur");
+      },
+
       showFilteredList: function () {
+        $("#search-box form").addClass("tight");
         $("#cancelFilter").show();
 
         //if input field not empty trigger new filtering with existing value, else show whole filter
@@ -81,6 +88,7 @@ var SearchView = Backbone.View.extend(
        * (when clicking on elements in the list).
        */
       hideFilteredList: function (evt) {
+        $("#search-box form").removeClass("tight");
         $("#cancelFilter").hide();
         $("#search-autocomplete li").addClass("ui-screen-hidden");
       },
