@@ -160,6 +160,29 @@ beforeEach(function () {
           zoom: 16
         }
       ]
+    },
+
+    FilterItems: {
+      valid: {
+        locations: [
+          {
+            id: 1,
+            name: 'Axel'
+          },
+          {
+            id: 2,
+            name: 'xzy'
+          },
+          {
+            id: 3,
+            name: 'Bar Axel'
+          },
+          {
+            id: 4,
+            name: 'Baxa'
+          }
+        ]
+      }
     }
   };
 });
