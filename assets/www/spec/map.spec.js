@@ -714,6 +714,116 @@ describe('MapRouter', function () {
       expect(MapRouter.prototype.buildings).toHaveBeenCalled();
     });
   });
+
+  describe('when choosing defaultRoute', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.defaultRoute('foo');
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+  });
+
+  describe('when choosing auditoriums', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'auditorium'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["auditorium"]);
+      });
+
+      this.router.auditoriums();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Hör- & skrivsalar");
+      });
+
+      this.router.auditoriums();
+    });
+  });
+
+  describe('when choosing buildings', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'building'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["building"]);
+      });
+
+      this.router.buildings();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Hus");
+      });
+
+      this.router.buildings();
+    });
+
+    it("should initialize an AppView with menu=true", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('menu')).toBeTruthy();
+      });
+
+      this.router.buildings();
+    });
+  });
 });
 
 describe('MenuPopupView', function () {
