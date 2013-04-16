@@ -20,14 +20,7 @@ var SearchView = Backbone.View.extend(
 
         // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
-        // This is done to prevent hiding of the search list when the form is submitted which is done when
-        // the user uses the search button in a mobile keyboard
-        this.inputField.on("blur", function(e, params) {
-          if (params && params.skipHide) return;
-          e.preventDefault();
-          return false;
-        });
-
+        
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
         this.setInputPlaceholderText();
@@ -37,10 +30,9 @@ var SearchView = Backbone.View.extend(
       /** Registers events */
       events: {
         'focus input': 'showFilteredList',
-        'blur input': 'hideFilteredList',
         'keyup input': 'inputKeyup',
+        'click #cancelFilter': 'hideFilteredList',
         'click .autocomplete-link': 'showClickedLoction',
-        'click input': 'showFilteredList'
       },
 
       /**
@@ -65,14 +57,20 @@ var SearchView = Backbone.View.extend(
 
       inputKeyup: function (e) {
         if (e.which == 13) {
-          $(e.target).trigger("blur", { skipHide: true });
+          $(e.target).trigger("blur");
         }
       },
 
       showFilteredList: function () {
+        $("#cancelFilter").show();
+
         //if input field not empty trigger new filtering with existing value, else show whole filter
         if ($('div#search-box input').val() !== "") {
-          $('input[data-type="search"]').trigger("change");
+          // jquerymobile remembers the old value in the input field.
+          // in order to trigger a change event, we must set another value inbetween.
+          var prevValue = this.inputField.val();
+          this.inputField.val('').trigger('change');
+          this.inputField.val(prevValue).trigger('change');
         } else {
           $("#search-autocomplete li").removeClass("ui-screen-hidden");
         }
@@ -83,16 +81,9 @@ var SearchView = Backbone.View.extend(
        * of hiding the list. This is done in order to capture the click event
        * (when clicking on elements in the list).
        */
-      hideFilteredList: function (evt, params) {
-        if (params && params.skipHide) return;
-
-        if (typeof evt == 'object') {
-          setTimeout(function () {
-            $("#search-autocomplete li").addClass("ui-screen-hidden");
-          }, 100);
-        } else {
-          $("#search-autocomplete li").addClass("ui-screen-hidden");
-        }
+      hideFilteredList: function (evt) {
+        $("#cancelFilter").hide();
+        $("#search-autocomplete li").addClass("ui-screen-hidden");
       },
 
       /**
@@ -125,6 +116,7 @@ var SearchView = Backbone.View.extend(
       },
 
       showClickedLoction: function (event, ui) {
+        this.hideFilteredList();
         var location = this.getClickedLocation(event.target);
         this.mapView.replacePoints(location);
       },
