@@ -68,21 +68,21 @@ describe('Map views search filter', function () {
           this.validResponse(this.fixtures.FilterItems.valid)
       );
 
-      var mapView = new MapView({ el: $('#map_canvas') });
-      spyOn(mapView.searchView, "render");
+      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+      spyOn(appView.searchView, "render");
       runs(function () {
-        mapView.locations.fetch();
+        appView.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return mapView.locations.length > 0;
+        return appView.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
         expect($("#search-autocomplete li").length).toEqual(0);
         var list = this.fixtures.FilterItems.valid.locations;
-        mapView.searchView.populateFilter(list);
+        appView.searchView.populateFilter(list);
         expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
       });
     });
@@ -95,22 +95,22 @@ describe('Map views search filter', function () {
       );
 
       spyOn(SearchView.prototype, "filterSearch");
-      var mapView = new MapView({ el: $('#map_canvas') });
-      spyOn(mapView.searchView, "render");
+      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+      spyOn(appView.searchView, "render");
       runs(function () {
-        mapView.locations.fetch();
+        appView.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return mapView.locations.length > 0;
+        return appView.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(mapView.searchView.render).toHaveBeenCalled();
+        expect(appView.searchView.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
         var list = this.fixtures.FilterItems.valid.locations;
-        mapView.searchView.populateFilter(list);
+        appView.searchView.populateFilter(list);
         expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
         expect(SearchView.prototype.filterSearch.calls.length).toEqual(4);
@@ -124,22 +124,22 @@ describe('Map views search filter', function () {
           this.validResponse(this.fixtures.FilterItems.valid)
       );
 
-      var mapView = new MapView({ el: $('#map_canvas') });
-      spyOn(mapView.searchView, "render");
+      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+      spyOn(appView.searchView, "render");
       runs(function () {
-        mapView.locations.fetch();
+        appView.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return mapView.locations.length > 0;
+        return appView.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(mapView.searchView.render).toHaveBeenCalled();
+        expect(appView.searchView.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
         var list = this.fixtures.FilterItems.valid.locations;
-        mapView.searchView.populateFilter(list);
+        appView.searchView.populateFilter(list);
         expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
         expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(2);
