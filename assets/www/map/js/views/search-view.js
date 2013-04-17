@@ -26,6 +26,8 @@ var SearchView = Backbone.View.extend(
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
         this.mapView = options.mapView;
+
+        this.collection.on("reset", this.render);
       },
 
       /** Registers events */
@@ -39,9 +41,8 @@ var SearchView = Backbone.View.extend(
       /**
        * Render the search view.
        */
-      render: function (items) {
-        this.items = items;
-        this.populateFilter(this.items.toJSON());
+      render: function () {
+        this.populateFilter(this.collection.toJSON());
         this.delegateEvents();
       },
 
@@ -90,7 +91,7 @@ var SearchView = Backbone.View.extend(
       getClickedLocation: function (target) {
         var itemName = $(target).html();
         var item;
-        $.each(this.items.toJSON(), function (i, v) {
+        $.each(this.collection.toJSON(), function (i, v) {
           if (v.name == itemName) {
             item = v;
             return false;
@@ -100,7 +101,7 @@ var SearchView = Backbone.View.extend(
         var location = new Locations([]);
 
         if (item) {
-          location = new Locations([this.items.get(item)]);
+          location.add(this.collection.get(item));
         }
         return location;
       },

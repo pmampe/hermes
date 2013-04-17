@@ -27,16 +27,12 @@ var AppView = Backbone.View.extend(
 
         this.searchView = new SearchView({
           el: $('#search-box'),
+          collection: this.locations,
           mapView: this.mapView,
           placeholder: options.title
         });
 
-
-        var self = this;
-        this.locations.on("reset", function () {
-          self.mapView.replacePoints(self.locations);
-          self.searchView.render(self.locations);
-        });
+        this.locations.on("reset", this.mapView.replacePoints(this.locations));
 
         this.updateLocations();
 
