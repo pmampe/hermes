@@ -74,8 +74,8 @@ var AppView = Backbone.View.extend(
           $('#menubutton').button();
 
           this.delegateEvents();
-          this.mapView.render();
         }
+        this.mapView.render();
       },
 
       /**
