@@ -28,7 +28,7 @@ var AppView = Backbone.View.extend(
         this.searchView = new SearchView({
           el: $('#search-box'),
           mapView: this.mapView,
-          placeholder: options.title
+          placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
         });
 
 
