@@ -392,12 +392,14 @@ describe('MapRouter', function () {
       this.router = new MapRouter();
 
       spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
     });
 
     it("should initialize an AppView", function () {
       this.router.defaultRoute('foo');
 
       expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(AppView.prototype.render).toHaveBeenCalled();
     });
   });
 
