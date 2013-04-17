@@ -14,7 +14,9 @@ describe('Menu popup view', function () {
     this.view = new MenuPopupView({
       el: $('#menupopup'),
       campuses: 'foo',
-      appModel: 'bar'
+      callback: function () {
+        return 'bar';
+      }
     });
   });
 
@@ -28,7 +30,7 @@ describe('Menu popup view', function () {
     });
 
     it('should set appModel from options', function () {
-      expect(this.view.appModel).toEqual('bar');
+      expect(this.view.callback()).toEqual('bar');
     });
   });
 
@@ -42,19 +44,18 @@ describe('Menu popup view', function () {
   });
 
   describe('selectCampus', function () {
-    it('sets campus in appModel & closes menu popup', function () {
+    it('runs callback & closes menu popup', function () {
+      spyOn(this.view, "callback");
       var campus = new Campus({ id: 0, name: 'foo'});
 
       this.view.campuses = new Campuses();
       this.view.campuses.add([campus]);
 
-      this.view.appModel = new AppModel();
-
       $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
 
       this.view.selectCampus({target: "#link"});
 
-      expect(this.view.appModel.get('campus')).toEqual(campus);
+      expect(this.view.callback).toHaveBeenCalledWith(campus);
       expect($('#menupopup').parent().hasClass('ui-popup-hidden')).toBeTruthy();
     });
   });

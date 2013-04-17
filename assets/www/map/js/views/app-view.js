@@ -15,7 +15,7 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render");
+        _.bindAll(this, "render", 'menuSelectCallback');
 
         this.title = options.title;
         this.campuses = new Campuses();
@@ -45,7 +45,7 @@ var AppView = Backbone.View.extend(
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.campuses,
-            appModel: this.model
+            callback: this.menuSelectCallback
           });
 
           this.model.on('change:campus', this.changeCampus, this);
@@ -79,6 +79,15 @@ var AppView = Backbone.View.extend(
       },
 
       /**
+       * Callback for menu selection
+       *
+       * @param campus the selected campus
+       */
+      menuSelectCallback: function (campus) {
+        this.model.set('campus', campus);
+      },
+
+      /**
        * Show the menu.
        */
       showMenu: function () {
@@ -99,11 +108,15 @@ var AppView = Backbone.View.extend(
         });
       },
 
+      /**
+       * Moves map to selected campus & resets locations.
+       */
       changeCampus: function () {
         var campus = this.model.get('campus');
         var lat = campus.getLat();
         var lng = campus.getLng();
         this.mapView.model.setMapPosition(lat, lng);
+
         this.mapView.replacePoints(this.locations);
       }
     });
