@@ -447,17 +447,6 @@ describe('Map view', function () {
         this.view.searchResults.fetch();
         this.server.respond();
       });
-
-      it('should show campuses list', function () {
-        expect($("#campusesPopup li").length).toEqual(1);
-
-        this.view.initialize();
-        this.view.searchResults.fetch();
-        this.server.respond();
-
-        expect($("#campusesPopup li").length).toEqual(6);
-        // TODO: test if popup is visible
-      });
     });
 
   });
