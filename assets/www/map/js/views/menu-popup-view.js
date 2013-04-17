@@ -28,6 +28,8 @@ var MenuPopupView = Backbone.View.extend(
             .text('.menupopup-margin { margin-top: ' + Math.round(margin) + 'px; }')
             .appendTo('head');
         this.$el.parent().addClass('menupopup-margin');
+
+        this.campuses.on("reset", this.updateCampuses, this);
       },
 
       /** Registers events */

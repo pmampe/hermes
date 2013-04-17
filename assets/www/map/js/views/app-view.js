@@ -49,7 +49,6 @@ var AppView = Backbone.View.extend(
           });
 
           this.model.on('change:campus', this.changeCampus, this);
-          this.campuses.on("reset", this.menuPopupView.updateCampuses, this);
 
           this.changeCampus();
           this.campuses.fetch();

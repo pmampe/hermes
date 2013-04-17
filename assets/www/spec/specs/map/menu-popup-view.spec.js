@@ -12,9 +12,11 @@ describe('Menu popup view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map");
 
+    this.campuses = new Campuses();
+
     this.view = new MenuPopupView({
       el: $('#menupopup'),
-      campuses: 'foo',
+      campuses: this.campuses,
       callback: function () {
         return 'bar';
       }
@@ -27,7 +29,7 @@ describe('Menu popup view', function () {
 
   describe('initializing', function () {
     it('should set campuses from options', function () {
-      expect(this.view.campuses).toEqual('foo');
+      expect(this.view.campuses).toEqual(this.campuses);
     });
 
     it('should set callback function from options', function () {
@@ -57,7 +59,6 @@ describe('Menu popup view', function () {
       spyOn(this.view, "callback");
       var campus = new Campus({ id: 0, name: 'foo'});
 
-      this.view.campuses = new Campuses();
       this.view.campuses.add([campus]);
 
       $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
@@ -74,15 +75,12 @@ describe('Menu popup view', function () {
       $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
       $('#menupopupList').append('<li id="campus-1"><a id="link">Some other campus</a></li>');
 
-      this.view.campuses = new Campuses();
-
       this.view.updateCampuses();
 
       expect($('#menupopupList').children().length).toEqual(0);
     });
 
     it('adds campuses to the list', function () {
-      this.view.campuses = new Campuses();
       this.view.campuses.add([
         { id: 0, name: 'foo'},
         { id: 1, name: 'bar'}
