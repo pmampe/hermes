@@ -94,57 +94,6 @@ beforeEach(function () {
       ]
     },
 
-    Autocompletes: {
-      valid: {
-        locations: [
-          {
-            id: 1,
-            name: 'Juridiska institutionen'
-          },
-          {
-            id: 2,
-            name: 'Kastrupgatan'
-          },
-          {
-            id: 3,
-            name: 'SU södra parkering'
-          },
-          {
-            id: 4,
-            name: 'Rålambsvägen'
-          },
-          {
-            id: 5,
-            name: 'Kriminologiska institutionen'
-          },
-          {
-            id: 6,
-            name: 'Restaurang Lantis'
-          },
-          {
-            id: 7,
-            name: 'Institutionen för etnologi religionshistoria och genusvetenskap (ERG)'
-          },
-          {
-            id: 8,
-            name: 'D4154b'
-          },
-          {
-            id: 9,
-            name: 'Restaurang Lewinsky\'s'
-          },
-          {
-            id: 10,
-            name: 'Engelska institutionen'
-          },
-          {
-            id: 11,
-            name: 'E 411a'
-          }
-        ]
-      }
-    },
-
     FilterItems: {
       valid: {
         locations: [
