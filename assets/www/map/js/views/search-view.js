@@ -59,10 +59,6 @@ var SearchView = Backbone.View.extend(
         }
       },
 
-      keyboardAway: function () {
-        $("#search-box input").trigger("blur");
-      },
-
       showFilteredList: function () {
         $("#search-box form").addClass("tight");
         $("#cancelFilter").show();
