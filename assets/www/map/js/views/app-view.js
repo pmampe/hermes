@@ -37,6 +37,11 @@ var AppView = Backbone.View.extend(
         $('div[data-role="header"] > h1').text(this.title);
       },
 
+      /**
+       * Show all locations of a specific type.
+       *
+       * @param type the type of location to show.
+       */
       showType: function (type) {
         this.mapView.locations.fetch({
           data: {
