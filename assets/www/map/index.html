@@ -76,16 +76,20 @@
 <script src="../js/jst/common.js"></script>
 <script src="../js/default.js"></script>
 
+<!-- Templates -->
+<script src="js/jst/menu.js"></script>
+
 <script src="js/models/campusmodel.js"></script>
 <script src="js/models/locationmodel.js"></script>
 <script src="js/models/autocompletemodel.js"></script>
+<script src="js/models/app-model.js"></script>
 <script src="js/models/map-model.js"></script>
 <script src="js/views/generic-location-view.js"></script>
 <script src="js/views/point-location-view.js"></script>
 <script src="js/views/polygon-location-view.js"></script>
 <script src="js/views/line-location-view.js"></script>
 <script src="js/views/search-view.js"></script>
-<script src="js/views/campus-popup-view.js"></script>
+<script src="js/views/menu-popup-view.js"></script>
 <script src="js/views/map-infoWindow-view.js"></script>
 <script src="js/views/map-view.js"></script>
 <script src="js/views/app-view.js"></script>
@@ -111,7 +115,7 @@
         data-filter='true'
         data-filter-placeholder='Enter search string'
         data-autodividers="true"
-        data-inset= 'true'>
+        data-inset='true'>
     </ul>
     <a id="cancelFilter" href="#" class="cancel-filter-button" 
         data-role="button" data-inline="true" data-mini="true" >Cancel</a>
@@ -120,13 +124,8 @@
   <div data-role="content" id="map-content">
 
     <!-- Campus popup, used when search is returning hits in more than one campus -->
-    <div data-role="popup" id="campusesPopup" data-transition="turn">
-      <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext"
-         class="ui-btn-left">Close</a>
-      <ul id="campusesPopupList" data-role="listview" data-inset="true">
-        <li data-role="list-divider" role="heading">
-          Välj Campus
-        </li>
+    <div data-role="popup" id="menupopup" data-corners="false">
+      <ul id="menupopupList" data-role="listview" data-inset="true" data-corners="false">
       </ul>
     </div>
 

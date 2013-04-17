@@ -12,6 +12,13 @@ JST['common/header'] = _.template(" \
       </a> \
     <% } %> \
 \
+    <% if (menubutton) { %>\
+      <a id='menubutton' data-role='button' \
+         data-icon='grid' data-iconpos='notext' class='ui-btn-right'> \
+        Meny \
+      </a> \
+    <% } %> \
+\
     <% if (homebutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' href='../index.html' \
          data-icon='home' data-iconpos='notext' class='ui-btn-right'> \

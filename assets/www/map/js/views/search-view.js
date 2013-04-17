@@ -19,10 +19,12 @@ var SearchView = Backbone.View.extend(
 
         // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
+        if (options.placeholderSuffix) {
+          this.inputField.attr("placeholder", "Sök " + options.placeholderSuffix);
+        }
 
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
-        this.setInputPlaceholderText();
         this.mapView = options.mapView;
       },
 
@@ -41,16 +43,6 @@ var SearchView = Backbone.View.extend(
         this.items = items;
         this.populateFilter(this.items.toJSON());
         this.delegateEvents();
-      },
-
-      setInputPlaceholderText: function () {
-        // get route from url, i.e auditorium from file:///devel/src/suApp/www/map/index.html#/auditoriums
-        var route = window.location.hash.split("/").length > 1 ? window.location.hash.split("/")[1] : "n/a";
-        var text = "Skriv in text för att söka";
-        if (route == "auditoriums") {
-          text = "Sök hör- & skrivsalar";
-        }
-        this.inputField.attr("placeholder", text);
       },
 
       inputKeyup: function (e) {
@@ -112,7 +104,6 @@ var SearchView = Backbone.View.extend(
         if (item) {
           location = new Locations([this.items.get(item)]);
         }
-
         return location;
       },
 

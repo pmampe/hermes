@@ -1,6 +1,6 @@
 afterEach(function () {
   document.getElementById('stage').innerHTML = '';
-  $('body > [id!="HTMLReporter"]').hide();
+  $('body > :not([id=HTMLReporter])').hide();
 });
 
 var helper = {

@@ -212,33 +212,42 @@ a {
 **SearchView styling
 **/
 
-div.search-box{
-    margin: 16px 8px;
+div.search-box {
+  margin: 16px 8px;
 }
 
 div.search-box .cancel-filter-button {
-    position: absolute;
-    right: 5px;
-    top: 45px;
-    display:none;
+  position: absolute;
+  right: 5px;
+  top: 45px;
+  display: none;
 }
 
 div.search-box form.tight {
-   margin-right: 80px;
+  margin-right: 80px;
 }
 
-div.search-box ul{
-    margin-top: 16px;
+div.search-box ul {
+  margin-top: 16px;
 }
 
-div.search-box ul li.ui-li-divider{
-    font-size: 12px;
-    padding: 0.2em 15px;
+div.search-box ul li.ui-li-divider {
+  font-size: 12px;
+  padding: 0.2em 15px;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
-   /* Remove default */
-    -webkit-appearance: none;
+  /* Remove default */
+  -webkit-appearance: none;
 }
 
 /* --- End Direction styles --- */
+
+#menupopup-popup {
+  right: 0 !important;
+  left: auto !important;
+}
+
+#menupopup-popup.ui-popup-active {
+  top: 0 !important;
+}

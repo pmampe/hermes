@@ -10,16 +10,11 @@ var MapView = Backbone.View.extend(
     /** @lends MapView */
     {
 
-      /** The model for this view */
-      model: new MapModel(),
-
       /** The map */
       map: null,
 
       /** The info window */
       mapInfoWindowView: null,
-
-      searchView: null,
 
       searchHiddenFromToolbar: false,
 
@@ -64,18 +59,9 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(11, 11))
         })});
 
-        this.searchView = new SearchView({ el: $('#search-box'),
-          mapView: this
-        });
-
-
-        var self = this;
-
-        this.locations.on("reset", function () {
-          self.replacePoints(self.locations);
-          self.searchView.render(self.locations);
-        });
         this.model.on('change:location', this.updateCurrentPosition, this);
+        this.model.on('change:mapPosition', this.updateMapPosition, this);
+        this.model.on('change:zoom', this.updateMapZoom, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         this.currentPositionPoint = new PointLocationView({
@@ -196,6 +182,14 @@ var MapView = Backbone.View.extend(
                 console.error(error);
               });
         }
+      },
+
+      updateMapPosition: function () {
+        this.map.panTo(this.model.get('mapPosition'));
+      },
+
+      updateMapZoom: function () {
+        this.map.setZoom(this.model.get('zoom'));
       },
 
       /**

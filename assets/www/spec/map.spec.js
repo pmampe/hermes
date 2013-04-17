@@ -191,6 +191,35 @@ describe('Map model', function () {
       expect(this.model.get('location').lat()).toEqual(40);
       expect(this.model.get('location').lng()).toEqual(50);
     });
+
+    it('should have a default mapPosition', function () {
+      expect(this.model.get('mapPosition')).toBeDefined();
+      expect(this.model.get('mapPosition').lat()).toBeDefined();
+      expect(this.model.get('mapPosition').lng()).toBeDefined();
+    });
+
+    it('should have a default zoom', function () {
+      expect(this.model.get('zoom')).toBeDefined();
+    });
+  });
+
+  describe('setMapPosition', function () {
+    it('should update the mapPosition', function () {
+      this.model = new MapModel({ mapPosition: new google.maps.LatLng(0, 0) });
+      this.model.setMapPosition(10, 20);
+
+      expect(this.model.get('mapPosition').lat()).toEqual(10);
+      expect(this.model.get('mapPosition').lng()).toEqual(20);
+    });
+  });
+
+  describe('setZoom', function () {
+    it('should update the zoom', function () {
+      this.model = new MapModel();
+      this.model.setZoom(20);
+
+      expect(this.model.get('zoom')).toEqual(20);
+    });
   });
 });
 
@@ -216,7 +245,10 @@ describe('Map view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map");
 
-    this.view = new MapView({el: $('#map_canvas')});
+    this.view = new MapView({
+      el: $('#map_canvas'),
+      model: new MapModel()
+    });
   });
 
   afterEach(function () {
@@ -234,7 +266,10 @@ describe('Map view', function () {
     beforeEach(function () {
       // We need to create a new view since we need to attach the spy first
       spyOn(MapView.prototype, 'resize');
-      this.view = new MapView({el: $('#map_canvas')});
+      this.view = new MapView({
+        el: $('#map_canvas'),
+        model: new MapModel()
+      });
     });
 
     it('should react to window resize events', function () {
@@ -288,7 +323,7 @@ describe('App view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map");
 
-    this.view = new AppView({el: $('#page-map'), title: "foobar"});
+    this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
   });
 
   afterEach(function () {
@@ -326,7 +361,7 @@ describe('MapRouter', function () {
     });
 
     it('should have the correct amount of routes', function () {
-      expect(_.size(this.router.routes)).toEqual(2);
+      expect(_.size(this.router.routes)).toEqual(3);
     });
 
     it('*actions route exists & points to default route', function () {
@@ -359,6 +394,183 @@ describe('MapRouter', function () {
       Backbone.history.loadUrl("auditoriums");
 
       expect(MapRouter.prototype.auditoriums).toHaveBeenCalled();
+    });
+
+    it("should call buildings for /buildings", function () {
+      spyOn(MapRouter.prototype, "buildings");
+      new MapRouter();
+
+      Backbone.history.loadUrl("buildings");
+
+      expect(MapRouter.prototype.buildings).toHaveBeenCalled();
+    });
+  });
+
+  describe('when choosing defaultRoute', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.defaultRoute('foo');
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+  });
+
+  describe('when choosing auditoriums', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'auditorium'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["auditorium"]);
+      });
+
+      this.router.auditoriums();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Hör- & skrivsalar");
+      });
+
+      this.router.auditoriums();
+    });
+  });
+
+  describe('when choosing buildings', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'building'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["building"]);
+      });
+
+      this.router.buildings();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Hus");
+      });
+
+      this.router.buildings();
+    });
+
+    it("should initialize an AppView with menu=true", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('menu')).toBeTruthy();
+      });
+
+      this.router.buildings();
+    });
+  });
+});
+
+describe('Campus model', function () {
+  describe('when creating an empty Campus', function () {
+    beforeEach(function () {
+      this.campus = new Campus();
+    });
+
+    it('should have id 0', function () {
+      expect(this.campus.get('id')).toEqual(0);
+    });
+
+    it('should have name "Unknown"', function () {
+      expect(this.campus.get('name')).toEqual('Unknown');
+    });
+
+    it('should have coords', function () {
+      expect(this.campus.get('coords')).toBeDefined();
+    });
+
+    it('should have zoom', function () {
+      expect(this.campus.get('zoom')).toBeDefined();
+    });
+  });
+
+  describe('getLat', function () {
+    it('should return latitude from coords', function () {
+      this.campus = new Campus({ coords: [10, 20] });
+
+      expect(this.campus.getLat()).toEqual(10);
+    });
+  });
+
+  describe('getLng', function () {
+    it('should return longitude from coords', function () {
+      this.campus = new Campus({ coords: [10, 20] });
+
+      expect(this.campus.getLng()).toEqual(20);
+    });
+  });
+});
+
+describe('Campus collection', function () {
+  describe('creating an empty collection', function () {
+    beforeEach(function () {
+      this.campuses = new Campuses();
+    });
+
+    it('should have Campus for model', function () {
+      expect(this.campuses.model).toBe(Campus);
+    });
+
+    it('should have a url from config', function () {
+      expect(this.campuses.url()).toMatch(config.map.campuses.url);
     });
   });
 });
