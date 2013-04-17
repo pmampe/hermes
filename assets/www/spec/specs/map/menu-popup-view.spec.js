@@ -1,6 +1,7 @@
 describe('Menu popup view', function () {
   beforeEach(function () {
     var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
+        "<div data-role='header' style='top:0px'><h1>Foo</h1></div>" +
         "<div id='other-popup' data-role='popup'></div>" +
         "<div id='menupopup' data-role='popup'>" +
         "<ul id='menupopupList' data-role='listview'></ul>" +
@@ -29,8 +30,16 @@ describe('Menu popup view', function () {
       expect(this.view.campuses).toEqual('foo');
     });
 
-    it('should set appModel from options', function () {
+    it('should set callback function from options', function () {
       expect(this.view.callback()).toEqual('bar');
+    });
+
+    it('should add new class for menu margin', function () {
+      var header = $('div[data-role="header"]');
+      var expected = Math.round(header.position().top + header.height());
+
+      expect(this.view.$el.parent().css('margin-top')).toEqual(expected + "px");
+      expect(this.view.$el.parent().hasClass('menupopup-margin')).toBeTruthy();
     });
   });
 
