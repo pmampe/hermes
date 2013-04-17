@@ -101,10 +101,15 @@ describe('App view', function () {
       $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
     });
 
-    it('should replace heaser with this.header', function () {
-      //spyOn(this.view.mapView, 'render');
+    it('should replace header with this.header', function () {
       this.view.render();
       expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
+    });
+
+    it('should call mapview render', function () {
+      spyOn(this.view.mapView, 'render');
+      this.view.render();
+      expect(this.view.mapView.render).toHaveBeenCalled();
     });
   });
 
