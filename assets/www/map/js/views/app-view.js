@@ -15,11 +15,14 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render");
+        _.bindAll(this, "render", 'locationCallback', 'campusCallback');
 
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
+
+        var filterByCampus = this.model.get('filterByCampus');
+        var showMenu = this.model.get('menu');
 
         this.mapView = new MapView({
           el: $('#map_canvas')
@@ -27,27 +30,29 @@ var AppView = Backbone.View.extend(
 
         this.searchView = new SearchView({
           el: $('#search-box'),
-          collection: this.locations,
-          mapView: this.mapView,
-          placeholder: options.title
+          collection: filterByCampus ? this.campuses : this.locations,
+          placeholder: options.title,
+          clickCallback: filterByCampus ? this.campusCallback : this.locationCallback
         });
 
+        this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", this.mapView.replacePoints(this.locations));
 
         this.updateLocations();
 
         // Display a menu button
-        if (this.model.get('menu') == true) {
+        if (showMenu) {
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.campuses,
             appModel: this.model
           });
 
-          this.model.on('change:campus', this.changeCampus, this);
           this.campuses.on("reset", this.menuPopupView.updateCampuses, this);
-
           this.changeCampus();
+        }
+
+        if (showMenu || filterByCampus) {
           this.campuses.fetch();
         }
       },
@@ -72,6 +77,20 @@ var AppView = Backbone.View.extend(
           this.delegateEvents();
           this.mapView.render();
         }
+      },
+
+      locationCallback: function (selectedModel) {
+        var collection = new Locations([]);
+
+        if (selectedModel) {
+          collection.add(selectedModel);
+        }
+
+        this.mapView.replacePoints(collection);
+      },
+
+      campusCallback: function (selectedModel) {
+        this.model.set('campus', selectedModel);
       },
 
       /**

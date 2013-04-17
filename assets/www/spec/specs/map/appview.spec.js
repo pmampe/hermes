@@ -134,4 +134,29 @@ describe('App view', function () {
       expect(this.view.mapView.replacePoints).toHaveBeenCalled();
     });
   });
+
+  describe('click callbacks', function () {
+    it('locationCallback should replace points for supplied location', function () {
+
+      var location = new Location({id: 0});
+
+      this.view.mapView.replacePoints = function (collection) {
+        expect(collection.size()).toEqual(1);
+        expect(collection.get(0)).toEqual(location);
+      };
+
+      this.view.locationCallback(location);
+    });
+
+    it('campusCallback should replace points for supplied campus', function () {
+      var campus = new Location({id: 0, name: 'Frescati'});
+
+      this.view.model.set = function (key, val) {
+        expect(key).toEqual('campus');
+        expect(val).toEqual(campus);
+      };
+
+      this.view.campusCallback(campus);
+    });
+  });
 });
