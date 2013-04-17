@@ -175,71 +175,6 @@ describe('Locations collection', function () {
   });
 });
 
-describe('LocationSearchResult collection', function () {
-  describe('creating an empty collection', function () {
-    beforeEach(function () {
-      this.locationSearchResults = new LocationSearchResult();
-    });
-
-    it('should have Location for model', function () {
-      expect(this.locationSearchResults.model).toBe(Location);
-    });
-
-    it('should have a url pointing at broker geo api', function () {
-      expect(this.locationSearchResults.url()).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
-    });
-  });
-
-  describe('fetching a collection of locationSearchResults', function () {
-    beforeEach(function () {
-      this.locationSearchResults = new LocationSearchResult();
-      this.fixture = this.fixtures.Locations.valid;
-
-      this.server = sinon.fakeServer.create();
-      this.server.respondWith(
-          "GET",
-          this.locationSearchResults.url(),
-          this.validResponse(this.fixture)
-      );
-    });
-
-    afterEach(function () {
-      this.server.restore();
-    });
-
-    it('should make a correct request', function () {
-      this.locationSearchResults.fetch();
-      expect(this.server.requests.length).toEqual(1);
-      expect(this.server.requests[0].method).toEqual("GET");
-      expect(this.server.requests[0].url).toMatch(/.*\/search/);
-    });
-
-    it('should return all locations', function () {
-      this.locationSearchResults.fetch();
-      this.server.respond();
-      expect(this.locationSearchResults.length).toEqual(4);
-    });
-
-    it('should override defaults', function () {
-      this.locationSearchResults.fetch();
-      this.server.respond();
-      var firstLocation = this.locationSearchResults.get(1);
-      expect(firstLocation.get('id')).toEqual(1);
-      expect(firstLocation.get('campus')).toEqual('Frescati');
-      expect(firstLocation.get('type')).toEqual('parkering');
-      expect(firstLocation.get('subType')).toEqual('mc');
-      expect(firstLocation.get('shape')).toEqual('line');
-      expect(firstLocation.get('text')).toEqual('Foobar');
-      expect(firstLocation.get('coords')[0].length).toEqual(2);
-      expect(firstLocation.get('coords')[0]).toContain(59.00);
-      expect(firstLocation.get('coords')[0]).toContain(18.00);
-      expect(firstLocation.get('directionAware')).toBeFalsy();
-    });
-  });
-
-});
-
-
 describe('Map model', function () {
   describe('when creating a new map model', function () {
     beforeEach(function () {
@@ -258,7 +193,6 @@ describe('Map model', function () {
     });
   });
 });
-
 
 describe('Map view', function () {
   beforeEach(function () {
