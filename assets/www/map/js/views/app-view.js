@@ -20,9 +20,11 @@ var AppView = Backbone.View.extend(
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
+        this.mapModel = new MapModel();
 
         this.mapView = new MapView({
-          el: $('#map_canvas')
+          el: $('#map_canvas'),
+          model: this.mapModel
         });
 
         this.searchView = new SearchView({
@@ -45,6 +47,7 @@ var AppView = Backbone.View.extend(
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.campuses,
+            appModel: this.model,
             callback: this.menuSelectCallback
           });
 
@@ -114,8 +117,8 @@ var AppView = Backbone.View.extend(
         var campus = this.model.get('campus');
         var lat = campus.getLat();
         var lng = campus.getLng();
-        this.mapView.model.setMapPosition(lat, lng);
-
+        this.mapModel.setMapPosition(lat, lng);
+        this.mapModel.setZoom(campus.getZoom());
         this.mapView.replacePoints(this.locations);
       }
     });

@@ -10,9 +10,6 @@ var MapView = Backbone.View.extend(
     /** @lends MapView */
     {
 
-      /** The model for this view */
-      model: new MapModel(),
-
       /** The map */
       map: null,
 
@@ -64,6 +61,7 @@ var MapView = Backbone.View.extend(
 
         this.model.on('change:location', this.updateCurrentPosition, this);
         this.model.on('change:mapPosition', this.updateMapPosition, this);
+        this.model.on('change:zoom', this.updateMapZoom, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         this.currentPositionPoint = new PointLocationView({
@@ -188,6 +186,10 @@ var MapView = Backbone.View.extend(
 
       updateMapPosition: function () {
         this.map.panTo(this.model.get('mapPosition'));
+      },
+
+      updateMapZoom: function () {
+        this.map.setZoom(this.model.get('zoom'));
       },
 
       /**
