@@ -57,5 +57,6 @@ var GenericLocationView = Backbone.View.extend(
         this.infoWindow.remove();
         this.marker.setMap(null);
         this.marker = null;
+        Backbone.View.prototype.remove.call(this);
       }
     });
