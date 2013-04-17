@@ -197,6 +197,10 @@ describe('Map model', function () {
       expect(this.model.get('mapPosition').lat()).toBeDefined();
       expect(this.model.get('mapPosition').lng()).toBeDefined();
     });
+
+    it('should have a default zoom', function () {
+      expect(this.model.get('zoom')).toBeDefined();
+    });
   });
 
   describe('setMapPosition', function () {
@@ -206,6 +210,15 @@ describe('Map model', function () {
 
       expect(this.model.get('mapPosition').lat()).toEqual(10);
       expect(this.model.get('mapPosition').lng()).toEqual(20);
+    });
+  });
+
+  describe('setZoom', function () {
+    it('should update the zoom', function () {
+      this.model = new MapModel();
+      this.model.setZoom(20);
+
+      expect(this.model.get('zoom')).toEqual(20);
     });
   });
 });
@@ -232,7 +245,10 @@ describe('Map view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map");
 
-    this.view = new MapView({el: $('#map_canvas')});
+    this.view = new MapView({
+      el: $('#map_canvas'),
+      model: new MapModel()
+    });
   });
 
   afterEach(function () {
@@ -250,7 +266,10 @@ describe('Map view', function () {
     beforeEach(function () {
       // We need to create a new view since we need to attach the spy first
       spyOn(MapView.prototype, 'resize');
-      this.view = new MapView({el: $('#map_canvas')});
+      this.view = new MapView({
+        el: $('#map_canvas'),
+        model: new MapModel()
+      });
     });
 
     it('should react to window resize events', function () {

@@ -121,12 +121,14 @@ describe('App view', function () {
 
     it('sets map position to selected campus', function () {
       spyOn(this.view.mapView.model, "setMapPosition");
+      spyOn(this.view.mapView.model, "setZoom");
       var campus = new Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();
 
       expect(this.view.mapView.model.setMapPosition).toHaveBeenCalledWith(campus.getLat(), campus.getLng());
+      expect(this.view.mapView.model.setZoom).toHaveBeenCalledWith(campus.getZoom());
     });
 
     it('updates locations', function () {
