@@ -20,10 +20,6 @@ describe('Location model', function () {
       expect(this.location.get('type')).toEqual('unknown');
     });
 
-    it('should have subType "null"', function () {
-      expect(this.location.get('subType')).toBeNull();
-    });
-
     it('should have shape "point"', function () {
       expect(this.location.get('shape')).toEqual('point');
     });
@@ -120,7 +116,6 @@ describe('Locations collection', function () {
       expect(firstLocation.get('name')).toEqual('first');
       expect(firstLocation.get('campus')).toEqual('Frescati');
       expect(firstLocation.get('type')).toEqual('parkering');
-      expect(firstLocation.get('subType')).toEqual('mc');
       expect(firstLocation.get('shape')).toEqual('line');
       expect(firstLocation.get('text')).toEqual('Foobar');
       expect(firstLocation.get('coords')[0].length).toEqual(2);

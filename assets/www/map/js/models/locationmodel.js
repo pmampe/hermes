@@ -13,7 +13,6 @@ var Location = Backbone.Model.extend(
         name: 'unknown',
         campus: 'unknown',
         type: 'unknown',
-        subType: null,
         shape: "point",
         text: "",
         coords: [],
