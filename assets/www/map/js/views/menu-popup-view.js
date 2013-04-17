@@ -18,7 +18,18 @@ var MenuPopupView = Backbone.View.extend(
         _.bindAll(this, "render", "selectCampus", "updateCampuses");
 
         this.campuses = options.campuses;
-        this.appModel = options.appModel;
+        this.callback = options.callback;
+
+        // Calculate header size & position menupopup beneath
+        var header = $('div[data-role="header"]');
+        var margin = header.position().top + header.height();
+
+        $('<style>')
+            .text('.menupopup-margin { margin-top: ' + Math.round(margin) + 'px; }')
+            .appendTo('head');
+        this.$el.parent().addClass('menupopup-margin');
+
+        this.campuses.on("reset", this.updateCampuses, this);
       },
 
       /** Registers events */
@@ -34,8 +45,7 @@ var MenuPopupView = Backbone.View.extend(
         $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close");
 
         var popup = this.$el;
-        popup.popup("open", { y: 0 });
-        popup.parent().css('left', 'auto');
+        popup.popup("open");
       },
 
       /**
@@ -45,8 +55,8 @@ var MenuPopupView = Backbone.View.extend(
        */
       selectCampus: function (evt) {
         // get the campus id from the parent <li> (format "campus-X", where X is a number)
-        var campusId = $(evt.target).parents("li").get(0).id.split("campus-")[1];
-        this.appModel.set('campus', this.campuses.get(campusId));
+        var campusId = $(evt.target).closest('li').get(0).id.split("campus-")[1];
+        this.callback(this.campuses.get(campusId));
 
         this.$el.popup('close');
       },

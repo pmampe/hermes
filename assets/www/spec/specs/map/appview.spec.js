@@ -101,10 +101,15 @@ describe('App view', function () {
       $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
     });
 
-    it('should replace heaser with this.header', function () {
-      //spyOn(this.view.mapView, 'render');
+    it('should replace header with this.header', function () {
       this.view.render();
       expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
+    });
+
+    it('should call mapview render', function () {
+      spyOn(this.view.mapView, 'render');
+      this.view.render();
+      expect(this.view.mapView.render).toHaveBeenCalled();
     });
   });
 
@@ -116,12 +121,14 @@ describe('App view', function () {
 
     it('sets map position to selected campus', function () {
       spyOn(this.view.mapView.model, "setMapPosition");
+      spyOn(this.view.mapView.model, "setZoom");
       var campus = new Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();
 
       expect(this.view.mapView.model.setMapPosition).toHaveBeenCalledWith(campus.getLat(), campus.getLng());
+      expect(this.view.mapView.model.setZoom).toHaveBeenCalledWith(campus.getZoom());
     });
 
     it('updates locations', function () {
@@ -132,6 +139,17 @@ describe('App view', function () {
       this.view.changeCampus();
 
       expect(this.view.mapView.replacePoints).toHaveBeenCalled();
+    });
+  });
+
+  describe('menu', function () {
+    it('callback function should set campus', function () {
+      this.view.model.set = function (key, val) {
+        expect(key).toEqual('campus');
+        expect(val).toEqual('foo');
+      };
+
+      this.view.menuSelectCallback('foo');
     });
   });
 

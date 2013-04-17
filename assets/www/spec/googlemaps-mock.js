@@ -72,4 +72,6 @@ google.maps.Point = function (x, y) {
 };
 
 google.maps.InfoWindow = function () {
+  this.close = function () {
+  };
 };

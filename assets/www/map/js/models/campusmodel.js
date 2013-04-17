@@ -25,6 +25,10 @@ var Campus = Backbone.Model.extend(
 
       getLng: function () {
         return this.get('coords')[1];
+      },
+
+      getZoom: function () {
+        return this.get('zoom');
       }
     });
 

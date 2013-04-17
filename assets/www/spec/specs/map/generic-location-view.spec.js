@@ -25,9 +25,21 @@ describe('Generic location view', function () {
       spyOn(GenericLocationView.prototype, "render");
 
       this.view = new GenericLocationView({
-        model: new Backbone.Model()
+        model: new Backbone.Model(),
+        infoWindow: new InfoWindow()
       });
 
+    });
+
+    it('should remove info window', function () {
+      spyOn(this.view.infoWindow, "remove");
+      this.view.marker = {};
+      this.view.marker.setMap = function (foo) {
+      };
+
+      this.view.remove();
+
+      expect(this.view.infoWindow.remove).toHaveBeenCalled();
     });
 
     it('should clear map for marker', function () {

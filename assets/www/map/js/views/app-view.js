@@ -15,23 +15,25 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render", 'locationCallback', 'campusCallback');
+        _.bindAll(this, "render", 'locationCallback', 'campusCallback', 'menuSelectCallback');
 
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
+        this.mapModel = new MapModel();
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
 
         this.mapView = new MapView({
-          el: $('#map_canvas')
+          el: $('#map_canvas'),
+          model: this.mapModel
         });
 
         this.searchView = new SearchView({
           el: $('#search-box'),
           collection: filterByCampus ? this.campuses : this.locations,
-          placeholder: options.title,
+          placeholderSuffix: options.title ? options.title.toLowerCase() : undefined,
           clickCallback: filterByCampus ? this.campusCallback : this.locationCallback
         });
 
@@ -45,10 +47,12 @@ var AppView = Backbone.View.extend(
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.campuses,
-            appModel: this.model
+            appModel: this.model,
+            callback: this.menuSelectCallback
           });
 
-          this.campuses.on("reset", this.menuPopupView.updateCampuses, this);
+          this.model.on('change:campus', this.changeCampus, this);
+
           this.changeCampus();
         }
 
@@ -75,8 +79,8 @@ var AppView = Backbone.View.extend(
           $('#menubutton').button();
 
           this.delegateEvents();
-          this.mapView.render();
         }
+        this.mapView.render();
       },
 
       locationCallback: function (selectedModel) {
@@ -91,6 +95,15 @@ var AppView = Backbone.View.extend(
 
       campusCallback: function (selectedModel) {
         this.model.set('campus', selectedModel);
+      },
+
+      /**
+       * Callback for menu selection
+       *
+       * @param campus the selected campus
+       */
+      menuSelectCallback: function (campus) {
+        this.model.set('campus', campus);
       },
 
       /**
@@ -114,13 +127,15 @@ var AppView = Backbone.View.extend(
         });
       },
 
+      /**
+       * Moves map to selected campus & resets locations.
+       */
       changeCampus: function () {
         var campus = this.model.get('campus');
         var lat = campus.getLat();
         var lng = campus.getLng();
-        this.mapView.model.setMapPosition(lat, lng);
-
-        var locations = this.locations.byCampus(campus.get('name'));
-        this.mapView.replacePoints(locations);
+        this.mapModel.setMapPosition(lat, lng);
+        this.mapModel.setZoom(campus.getZoom());
+        this.mapView.replacePoints(this.locations);
       }
     });

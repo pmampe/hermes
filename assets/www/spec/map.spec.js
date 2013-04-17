@@ -175,71 +175,6 @@ describe('Locations collection', function () {
   });
 });
 
-describe('LocationSearchResult collection', function () {
-  describe('creating an empty collection', function () {
-    beforeEach(function () {
-      this.locationSearchResults = new LocationSearchResult();
-    });
-
-    it('should have Location for model', function () {
-      expect(this.locationSearchResults.model).toBe(Location);
-    });
-
-    it('should have a url pointing at broker geo api', function () {
-      expect(this.locationSearchResults.url()).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
-    });
-  });
-
-  describe('fetching a collection of locationSearchResults', function () {
-    beforeEach(function () {
-      this.locationSearchResults = new LocationSearchResult();
-      this.fixture = this.fixtures.Locations.valid;
-
-      this.server = sinon.fakeServer.create();
-      this.server.respondWith(
-          "GET",
-          this.locationSearchResults.url(),
-          this.validResponse(this.fixture)
-      );
-    });
-
-    afterEach(function () {
-      this.server.restore();
-    });
-
-    it('should make a correct request', function () {
-      this.locationSearchResults.fetch();
-      expect(this.server.requests.length).toEqual(1);
-      expect(this.server.requests[0].method).toEqual("GET");
-      expect(this.server.requests[0].url).toMatch(/.*\/search/);
-    });
-
-    it('should return all locations', function () {
-      this.locationSearchResults.fetch();
-      this.server.respond();
-      expect(this.locationSearchResults.length).toEqual(4);
-    });
-
-    it('should override defaults', function () {
-      this.locationSearchResults.fetch();
-      this.server.respond();
-      var firstLocation = this.locationSearchResults.get(1);
-      expect(firstLocation.get('id')).toEqual(1);
-      expect(firstLocation.get('campus')).toEqual('Frescati');
-      expect(firstLocation.get('type')).toEqual('parkering');
-      expect(firstLocation.get('subType')).toEqual('mc');
-      expect(firstLocation.get('shape')).toEqual('line');
-      expect(firstLocation.get('text')).toEqual('Foobar');
-      expect(firstLocation.get('coords')[0].length).toEqual(2);
-      expect(firstLocation.get('coords')[0]).toContain(59.00);
-      expect(firstLocation.get('coords')[0]).toContain(18.00);
-      expect(firstLocation.get('directionAware')).toBeFalsy();
-    });
-  });
-
-});
-
-
 describe('Map model', function () {
   describe('when creating a new map model', function () {
     beforeEach(function () {
@@ -262,6 +197,10 @@ describe('Map model', function () {
       expect(this.model.get('mapPosition').lat()).toBeDefined();
       expect(this.model.get('mapPosition').lng()).toBeDefined();
     });
+
+    it('should have a default zoom', function () {
+      expect(this.model.get('zoom')).toBeDefined();
+    });
   });
 
   describe('setMapPosition', function () {
@@ -273,8 +212,16 @@ describe('Map model', function () {
       expect(this.model.get('mapPosition').lng()).toEqual(20);
     });
   });
-});
 
+  describe('setZoom', function () {
+    it('should update the zoom', function () {
+      this.model = new MapModel();
+      this.model.setZoom(20);
+
+      expect(this.model.get('zoom')).toEqual(20);
+    });
+  });
+});
 
 describe('Map view', function () {
   beforeEach(function () {
@@ -298,7 +245,10 @@ describe('Map view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map");
 
-    this.view = new MapView({el: $('#map_canvas')});
+    this.view = new MapView({
+      el: $('#map_canvas'),
+      model: new MapModel()
+    });
   });
 
   afterEach(function () {
@@ -316,7 +266,10 @@ describe('Map view', function () {
     beforeEach(function () {
       // We need to create a new view since we need to attach the spy first
       spyOn(MapView.prototype, 'resize');
-      this.view = new MapView({el: $('#map_canvas')});
+      this.view = new MapView({
+        el: $('#map_canvas'),
+        model: new MapModel()
+      });
     });
 
     it('should react to window resize events', function () {
@@ -346,185 +299,57 @@ describe('Map view', function () {
       this.view.zoomToBounds(this.fixtures.Locations.valid.bounds);
     });
   });
-
-  describe('showing results from a search', function () {
-    beforeEach(function () {
-      this.locationSearchResult = new LocationSearchResult();
-      this.fixture = this.fixtures.Locations.valid;
-
-      this.server = sinon.fakeServer.create();
-      this.server.respondWith(
-          "GET",
-          this.locationSearchResult.url(),
-          this.validResponse(this.fixture)
-      );
-    });
-
-    afterEach(function () {
-      this.server.restore();
-    });
-
-
-    describe('search contains no campuses', function () {
-      beforeEach(function () {
-        this.fixtures.campuses = [];
-        this.server.restore();
-        this.server = sinon.fakeServer.create();
-        this.server.respondWith(
-            "GET",
-            this.locationSearchResult.url(),
-            this.validResponse(this.fixtures)
-        );
-
-        this.view.initialize();
-        this.oldBounds = this.view.map.getBounds();
-        this.view.searchResults.fetch();
-        this.server.respond();
-      });
-
-      it('should not change map bounds', function () {
-        // TODO: fix row bellow
-//		      expect(this.view.map.getBounds()).toBeDefined();
-        expect(this.view.map.getBounds()).toEqual(this.oldBounds);
-      });
-    });
-
-
-    // TODO: Complete this function when knowledge on how to handle events in jasmine
-    describe('search contains a couple of campuses', function () {
-      beforeEach(function () {
-        var campusSelect = '<select name="campus" id="campus">' +
-            '<option value="">Default value</option>' +
-            '</select>';
-        $('#page-map').append(campusSelect);
-
-        this.view.initialize();
-      });
-
-
-      it('should change map bounds', function () {
-        var self = this;
-
-        // TODO: fix row bellow
-        //expect(this.view.map.getBounds()).toBeDefined();
-        this.oldBounds = this.view.map.getBounds();
-
-        google.maps.event.addListener(this.view.map, 'zoom_changed', function () {
-          expect(self.view.searchResults.length).toEqual(4);
-
-          expect(this.getBounds()).toBeDefined();
-          expect(this.getBounds()).toNotEqual(self.oldBounds);
-
-          // TODO: find reason for the bellow lines to not work.
-//          expect(this.getBounds().getSouthWest().lat()).toBeGreaterThan(self.fixtures.bounds.minLat);
-//        expect(this.getBounds().getSouthWest().lng()).toBeGreaterThan(self.fixtures.bounds.minLng);
-//          expect(this.getBounds().getNorthEast().lat()).toBeLessThan(self.fixtures.bounds.maxLat);
-//        expect(this.getBounds().getNorthEast().lng()).toBeLessThan(self.fixtures.bounds.maxLng);
-        });
-
-        this.view.searchResults.fetch();
-        this.server.respond();
-      });
-    });
-
-  });
 });
 
-describe('Autocomplete model', function () {
-  describe('when creating an empty autocomplete', function () {
-    beforeEach(function () {
-      this.auto = new Autocomplete();
+describe('App view', function () {
+  beforeEach(function () {
+    var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
+        "<div id='search-box' class='ui-mini'>" +
+        "<ul id='search-autocomplete' " +
+        "data-role='listview' " +
+        "data-theme='a' " +
+        "data-filter-theme='a' " +
+        "data-mini='true' " +
+        "data-filter-mini='true' " +
+        "data-filter='true' " +
+        "data-filter-placeholder='Enter search string' " +
+        "data-autodividers='true' " +
+        "data-inset= 'true'>" +
+        "</ul>" +
+        "</div>" +
+        "<div id='map_canvas'></div>" +
+        "</div>";
+
+    $('#stage').replaceWith(html);
+    $.mobile.loadPage("#page-map");
+
+    this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
+  });
+
+  afterEach(function () {
+    $('#page-map').replaceWith("<div id='stage'></div>");
+  });
+
+  describe('instantiation', function () {
+    it('should create a div of #page-map', function () {
+      expect(this.view.el.nodeName).toEqual("DIV");
+      expect(this.view.el.id).toEqual("page-map");
     });
 
-    it('should have id 0', function () {
-      expect(this.auto.get('id')).toEqual(0);
-    });
-
-    it('should have name "unknown"', function () {
-      expect(this.auto.get('name')).toEqual('unknown');
+    it('should set this.header from options.header', function () {
+      expect(this.view.title).toEqual("foobar");
     });
   });
 
-  describe('when creating a autocomplete model', function () {
+  describe('render', function () {
     beforeEach(function () {
-      this.auto = new Autocomplete({
-        id: 1,
-        name: "foo"
-      });
+      $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
     });
 
-    it('i should get the values i set', function () {
-      expect(this.auto.get('id')).toEqual(1);
-      expect(this.auto.get('name')).toEqual('foo');
-    });
-  });
-});
-
-describe('Autocomplete collection', function () {
-  describe('creating an empty collection', function () {
-    beforeEach(function () {
-      this.autos = new Autocompletes();
-    });
-
-    it('should have Autocomplete for model', function () {
-      expect(this.autos.model).toBe(Autocomplete);
-    });
-
-    it('should have a url pointing at broker geo api', function () {
-      expect(this.autos.url()).toMatch(/http:\/\/.+\.su\.se\/geo\/.+/);
-    });
-
-    it('should have a empty _prevSync map', function () {
-      expect(this.autos._prevSync).toMatch({});
-    });
-  });
-
-  describe('fetching a collection of results', function () {
-    beforeEach(function () {
-      this.autos = new Autocompletes();
-      this.fixture = this.fixtures.Autocompletes.valid;
-
-      this.server = sinon.fakeServer.create();
-      this.server.respondWith(
-          "GET",
-          this.autos.url(),
-          this.validResponse(this.fixture)
-      );
-    });
-
-    afterEach(function () {
-      this.server.restore();
-    });
-
-    it('should make a correct request', function () {
-      this.autos.fetch();
-      expect(this.server.requests.length).toEqual(1);
-      expect(this.server.requests[0].method).toEqual("GET");
-      expect(this.server.requests[0].url).toMatch(/.*\/search/);
-    });
-
-    it('should return all results', function () {
-      var self = this;
-      runs(function () {
-        self.autos.fetch();
-        self.server.respond();
-      });
-
-      waitsFor(function () {
-        return self.autos.length > 0;
-      }, "Waiting for returning call", 100);
-
-      runs(function () {
-        expect(this.autos.length).toEqual(11);
-      });
-    });
-
-    it('should override defaults', function () {
-      this.autos.fetch();
-      this.server.respond();
-      var firstAuto = this.autos.get(1);
-      expect(firstAuto.get('id')).toEqual(1);
-      expect(firstAuto.get('name')).toEqual('Juridiska institutionen');
+    it('should replace heaser with this.header', function () {
+      //spyOn(this.view.mapView, 'render');
+      this.view.render();
+      expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
     });
   });
 });
@@ -595,12 +420,14 @@ describe('MapRouter', function () {
       this.router = new MapRouter();
 
       spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
     });
 
     it("should initialize an AppView", function () {
       this.router.defaultRoute('foo');
 
       expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(AppView.prototype.render).toHaveBeenCalled();
     });
   });
 
@@ -700,23 +527,6 @@ describe('MapRouter', function () {
     });
   });
 });
-
-describe('MenuPopupView', function () {
-  describe('initialization', function () {
-    it('should set campuses from options', function () {
-      var menu = new MenuPopupView({campuses: 'foo'});
-
-      expect(menu.campuses).toEqual('foo')
-    });
-
-    it('should set appModel from options', function () {
-      var menu = new MenuPopupView({appModel: 'bar'});
-
-      expect(menu.appModel).toEqual('bar')
-    });
-  });
-});
-
 
 describe('Campus model', function () {
   describe('when creating an empty Campus', function () {

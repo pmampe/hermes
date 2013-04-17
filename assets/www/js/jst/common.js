@@ -13,7 +13,7 @@ JST['common/header'] = _.template(" \
     <% } %> \
 \
     <% if (menubutton) { %>\
-      <a id='menubutton' data-role='button' rel='external' data-ajax='false' data-transition='fade' \
+      <a id='menubutton' data-role='button' \
          data-icon='grid' data-iconpos='notext' class='ui-btn-right'> \
         Meny \
       </a> \
