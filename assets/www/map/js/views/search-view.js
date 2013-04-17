@@ -33,7 +33,7 @@ var SearchView = Backbone.View.extend(
         'focus input': 'showFilteredList',
         'keyup input': 'inputKeyup',
         'click #cancelFilter': 'hideFilteredList',
-        'click .autocomplete-link': 'showClickedLoction',
+        'click .autocomplete-link': 'showClickedLoction'
       },
 
       /**
@@ -132,7 +132,7 @@ var SearchView = Backbone.View.extend(
 
       filterSearch: function (text, searchValue) {
         //search value- what we are looking for, text- the filter item being evaluated
-        var eval = true;
+        var evalRet = true;
 
         var splitText = text.split(" "); //unstable? depends on data
         splitText.push(text);
@@ -141,11 +141,11 @@ var SearchView = Backbone.View.extend(
         $.each(splitText, function (i, val) {
           //===0, it occurs at the beginning of the string
           if (val.toLowerCase().indexOf(searchValue) === 0) {
-            eval = false;
+            evalRet = false;
           }
         });
 
-        return eval;
+        return evalRet;
         //returns true of false, truth filters out said instance
       }
     }); //-- End of Search view

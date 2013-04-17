@@ -260,18 +260,15 @@ describe('Map views search filter', function () {
         expect($("#search-autocomplete li:not(.ui-screen-hidden).ui-btn").size()).toBe(2);
       });
 
-//      describe('private function - getClickedLocation', function () {
-//        it('should return a new Location object with the inputed html markup', function () {
-//          var name = 'Axel';
-//          var markupHTML = '<a class="autocomplete-link ui-link-inherit">' + name + '</a>';
-//
-//          var location = new Locations([{ id: 1, name: 'Axel' }]);
-//
-//          expect(mapView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
-//        });
-//      });
+      describe('private function - getClickedLocation', function () {
+        it('should return a new Location object with the inputed html markup', function () {
+          var name = 'Axel';
+          var markupHTML = '<a class="autocomplete-link ui-link-inherit">' + name + '</a>';
+
+          expect(appView.searchView.getClickedLocation(markupHTML).size()).toBe(1);
+          expect(appView.searchView.getClickedLocation(markupHTML).at(0).get("name")).toBe(name);
+        });
+      });
     });
-
   });
-
 });
