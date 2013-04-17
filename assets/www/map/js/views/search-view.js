@@ -52,6 +52,7 @@ var SearchView = Backbone.View.extend(
       },
 
       showFilteredList: function () {
+        $("#search-box form").addClass("tight");
         $("#cancelFilter").show();
 
         //if input field not empty trigger new filtering with existing value, else show whole filter
@@ -72,6 +73,7 @@ var SearchView = Backbone.View.extend(
        * (when clicking on elements in the list).
        */
       hideFilteredList: function (evt) {
+        $("#search-box form").removeClass("tight");
         $("#cancelFilter").hide();
         $("#search-autocomplete li").addClass("ui-screen-hidden");
       },

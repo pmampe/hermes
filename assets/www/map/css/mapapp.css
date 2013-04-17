@@ -212,26 +212,26 @@ a {
 **SearchView styling
 **/
 
-div#search-box{
+div.search-box{
     margin: 16px 8px;
 }
 
-div#search-box .cancel-filter-button {
+div.search-box .cancel-filter-button {
     position: absolute;
     right: 5px;
     top: 45px;
     display:none;
 }
 
-div#search-box form{
+div.search-box form.tight {
    margin-right: 80px;
 }
 
-ul#search-autocomplete{
+div.search-box ul{
     margin-top: 16px;
 }
 
-ul#search-autocomplete li.ui-li-divider{
+div.search-box ul li.ui-li-divider{
     font-size: 12px;
     padding: 0.2em 15px;
 }
