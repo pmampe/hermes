@@ -104,8 +104,6 @@ var AppView = Backbone.View.extend(
         var lat = campus.getLat();
         var lng = campus.getLng();
         this.mapView.model.setMapPosition(lat, lng);
-
-        var locations = this.locations.byCampus(campus.get('name'));
-        this.mapView.replacePoints(locations);
+        this.mapView.replacePoints(this.locations);
       }
     });
