@@ -124,37 +124,3 @@ var Locations = Backbone.Collection.extend(
         }));
       }
     });
-
-/**
- * A collection of searchresults for Locations.
- *
- * @class Backbone collection of Locations
- * @type {Backbone.Collection}
- */
-var LocationSearchResult = Backbone.Collection.extend(
-    /** @lends LocationSearchResult */
-    {
-      /** The model used for this collection. */
-      model: Location,
-      bounds: null,
-      campuses: null,
-
-      /**
-       * Intercept method performed after fetch().
-       * In this method the bounds and campuses variable are set.
-       */
-      parse: function (response) {
-        this.bounds = response.bounds;
-        this.campuses = response.campuses;
-        return response.locations;
-      },
-
-      /**
-       * Constructs the URL used for getting search results.
-       *
-       * @return {string} the URL.
-       */
-      url: function () {
-        return config.map.search.url;
-      }
-    });
