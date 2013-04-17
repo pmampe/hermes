@@ -54,6 +54,7 @@ var GenericLocationView = Backbone.View.extend(
        * Remove marker from map.
        */
       remove: function () {
+        this.infoWindow.remove();
         this.marker.setMap(null);
         this.marker = null;
       }
