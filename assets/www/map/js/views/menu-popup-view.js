@@ -22,10 +22,10 @@ var MenuPopupView = Backbone.View.extend(
 
         // Calculate header size & position menupopup beneath
         var header = $('div[data-role="header"]');
-        var top = header.position().top;
-        var height = header.height();
+        var margin = header.position().top + header.height();
+
         $('<style>')
-            .text('.menupopup-margin { margin-top: ' + (top + height) + 'px; }')
+            .text('.menupopup-margin { margin-top: ' + Math.round(margin) + 'px; }')
             .appendTo('head');
         this.$el.parent().addClass('menupopup-margin');
       },
