@@ -519,23 +519,6 @@ describe('MapRouter', function () {
   });
 });
 
-describe('MenuPopupView', function () {
-  describe('initialization', function () {
-    it('should set campuses from options', function () {
-      var menu = new MenuPopupView({campuses: 'foo'});
-
-      expect(menu.campuses).toEqual('foo')
-    });
-
-    it('should set appModel from options', function () {
-      var menu = new MenuPopupView({appModel: 'bar'});
-
-      expect(menu.appModel).toEqual('bar')
-    });
-  });
-});
-
-
 describe('Campus model', function () {
   describe('when creating an empty Campus', function () {
     beforeEach(function () {

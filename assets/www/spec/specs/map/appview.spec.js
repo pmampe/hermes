@@ -141,4 +141,15 @@ describe('App view', function () {
       expect(this.view.mapView.replacePoints).toHaveBeenCalled();
     });
   });
+
+  describe('menu', function () {
+    it('callback function should set campus', function () {
+      this.view.model.set = function (key, val) {
+        expect(key).toEqual('campus');
+        expect(val).toEqual('foo');
+      };
+
+      this.view.menuSelectCallback('foo');
+    });
+  });
 });
