@@ -19,17 +19,14 @@ var MapView = Backbone.View.extend(
       /** The info window */
       mapInfoWindowView: null,
 
-      searchView: null,
-
       searchHiddenFromToolbar: false,
 
       /**
        * @constructs
        */
-      initialize: function () {
+      initialize: function (options) {
         _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
 
-        this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
         this.pointViews = {};
         this.campusPoint = null;
@@ -66,19 +63,9 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(11, 11))
         })});
 
-        this.searchView = new SearchView({ el: $('#search-box'),
-          mapView: this
-        });
-
-
-        var self = this;
-
-        this.locations.on("reset", function () {
-          self.replacePoints(self.locations);
-          self.searchView.render(self.locations);
-        });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
+        this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         this.currentPositionPoint = new PointLocationView({
@@ -141,17 +128,17 @@ var MapView = Backbone.View.extend(
        */
       fadingMsg: function (locMsg) {
         $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
-        .css({
-          "position": "fixed",
-          "opacity": 0.9,
-          "top": $(window).scrollTop() + 100,
-          "width": "100%"
-        })
-        .appendTo($.mobile.pageContainer)
-        .delay(2200)
-        .fadeOut(1000, function () {
-          $(this).remove();
-        });
+            .css({
+              "position": "fixed",
+              "opacity": 0.9,
+              "top": $(window).scrollTop() + 100,
+              "width": "100%"
+            })
+            .appendTo($.mobile.pageContainer)
+            .delay(2200)
+            .fadeOut(1000, function () {
+              $(this).remove();
+            });
       },
 
       /**
@@ -199,6 +186,10 @@ var MapView = Backbone.View.extend(
                 console.error(error);
               });
         }
+      },
+
+      updateMapPosition: function () {
+        this.map.panTo(this.model.get('mapPosition'));
       },
 
       /**
@@ -264,10 +255,9 @@ var MapView = Backbone.View.extend(
           campusesMap[$(item).text()] = $(item).val();
         });
 
-        var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
-        campusPopupView.render();
+        var menuPopupView = new MenuPopupView({ el: $('#menupopup'), campuses: campuses, campusesMap: campusesMap });
+        menuPopupView.render();
       },
-
 
       /**
        * Resets the search results from the search results collection.

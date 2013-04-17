@@ -242,3 +242,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* --- End Direction styles --- */
+
+#menupopup-popup {
+  right: 0;
+  left: auto;
+}

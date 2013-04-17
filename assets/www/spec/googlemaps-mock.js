@@ -18,6 +18,8 @@ google.maps.Map = function (element, options) {
   };
   this.fitBounds = function (bounds) {
   };
+  this.panTo = function (position) {
+  };
   this.getZoom = function () {
   };
   this.setZoom = function (zoom) {

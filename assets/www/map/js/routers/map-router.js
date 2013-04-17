@@ -7,27 +7,47 @@ var MapRouter = Backbone.Router.extend({
   },
 
   defaultRoute: function (actions) {
-    var appView = new AppView({ el: $('#page-map') });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel()
+    });
     appView.render();
 
     $('#page-map').trigger("pagecreate");
   },
 
   auditoriums: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Hör- & skrivsalar" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({ types: ["auditorium"] }),
+      title: "Hör- & skrivsalar"
+    });
     appView.render();
-    appView.showType("auditorium");
+    appView.updateLocations();
   },
 
   buildings: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Hus" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({
+        menu: true,
+        types: ["building"]
+      }),
+      title: "Hus"
+    });
     appView.render();
-    appView.showType("building");
+    appView.updateLocations();
   },
 
   parkingspaces: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Parkeringar" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({
+        types: ["parkingspace"]
+      }),
+      title: "Parkeringar"
+    });
     appView.render();
-    appView.showType("parkingspace");
+    appView.updateLocations();
   }
 });

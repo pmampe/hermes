@@ -256,6 +256,22 @@ describe('Map model', function () {
       expect(this.model.get('location').lat()).toEqual(40);
       expect(this.model.get('location').lng()).toEqual(50);
     });
+
+    it('should have a default mapPosition', function () {
+      expect(this.model.get('mapPosition')).toBeDefined();
+      expect(this.model.get('mapPosition').lat()).toBeDefined();
+      expect(this.model.get('mapPosition').lng()).toBeDefined();
+    });
+  });
+
+  describe('setMapPosition', function () {
+    it('should update the mapPosition', function () {
+      this.model = new MapModel({ mapPosition: new google.maps.LatLng(0, 0) });
+      this.model.setMapPosition(10, 20);
+
+      expect(this.model.get('mapPosition').lat()).toEqual(10);
+      expect(this.model.get('mapPosition').lng()).toEqual(20);
+    });
   });
 });
 
@@ -331,26 +347,6 @@ describe('Map view', function () {
     });
   });
 
-  describe('show campuses list', function () {
-    beforeEach(function () {
-      var campusPopup = '<div data-role="popup" id="campusesPopup" data-transition="turn">' +
-          '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
-          '<li data-role="list-divider" role="heading">' +
-          'Välj Campus' +
-          '</li>' +
-          '</ul>' +
-          '</div>';
-      $('#page-map').append(campusPopup);
-      $.mobile.loadPage("#page-map");
-    });
-
-    it('should populate campus popup list with the correct number of campuses', function () {
-      expect($("#campusesPopup li").length).toEqual(1);
-      this.view.showCampusesList(["Frescati", "Kista", "Frescati hage"]);
-      expect($("#campusesPopup li").length).toEqual(4);
-    });
-  });
-
   describe('showing results from a search', function () {
     beforeEach(function () {
       this.locationSearchResult = new LocationSearchResult();
@@ -362,16 +358,6 @@ describe('Map view', function () {
           this.locationSearchResult.url(),
           this.validResponse(this.fixture)
       );
-
-      var campusPopup = '<div data-role="popup" id="campusesPopup" data-transition="turn">' +
-          '<ul id="campusesPopupList" data-role="listview" data-inset="true">' +
-          '<li data-role="list-divider" role="heading">' +
-          'Välj Campus' +
-          '</li>' +
-          '</ul>' +
-          '</div>';
-      $('#page-map').append(campusPopup);
-      $.mobile.loadPage("#page-map");
     });
 
     afterEach(function () {
@@ -401,10 +387,6 @@ describe('Map view', function () {
 //		      expect(this.view.map.getBounds()).toBeDefined();
         expect(this.view.map.getBounds()).toEqual(this.oldBounds);
       });
-
-      it('should not show campuses list', function () {
-        expect($("#campusesPopup li").length).toEqual(1);
-      });
     });
 
 
@@ -428,14 +410,10 @@ describe('Map view', function () {
         this.oldBounds = this.view.map.getBounds();
 
         google.maps.event.addListener(this.view.map, 'zoom_changed', function () {
-          console.log("search results:");
           expect(self.view.searchResults.length).toEqual(4);
-
 
           expect(this.getBounds()).toBeDefined();
           expect(this.getBounds()).toNotEqual(self.oldBounds);
-          console.log(this.getBounds());
-          console.log(self.oldBounds);
 
           // TODO: find reason for the bellow lines to not work.
 //          expect(this.getBounds().getSouthWest().lat()).toBeGreaterThan(self.fixtures.bounds.minLat);
@@ -449,59 +427,6 @@ describe('Map view', function () {
       });
     });
 
-  });
-});
-
-describe('App view', function () {
-  beforeEach(function () {
-    var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
-        "<div id='search-box' class='ui-mini'>" +
-        "<ul id='search-autocomplete' " +
-        "data-role='listview' " +
-        "data-theme='a' " +
-        "data-filter-theme='a' " +
-        "data-mini='true' " +
-        "data-filter-mini='true' " +
-        "data-filter='true' " +
-        "data-filter-placeholder='Enter search string' " +
-        "data-autodividers='true' " +
-        "data-inset= 'true'>" +
-        "</ul>" +
-        "</div>" +
-        "<div id='map_canvas'></div>" +
-        "</div>";
-
-    $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-map");
-
-    this.view = new AppView({el: $('#page-map'), title: "foobar"});
-  });
-
-  afterEach(function () {
-    $('#page-map').replaceWith("<div id='stage'></div>");
-  });
-
-  describe('instantiation', function () {
-    it('should create a div of #page-map', function () {
-      expect(this.view.el.nodeName).toEqual("DIV");
-      expect(this.view.el.id).toEqual("page-map");
-    });
-
-    it('should set this.header from options.header', function () {
-      expect(this.view.title).toEqual("foobar");
-    });
-  });
-
-  describe('render', function () {
-    beforeEach(function () {
-      $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
-    });
-
-    it('should replace heaser with this.header', function () {
-      //spyOn(this.view.mapView, 'render');
-      this.view.render();
-      expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
-    });
   });
 });
 
@@ -662,6 +587,189 @@ describe('MapRouter', function () {
       Backbone.history.loadUrl("parkingspaces");
 
       expect(MapRouter.prototype.parkingspaces).toHaveBeenCalled();
+    });
+  });
+
+  describe('when choosing defaultRoute', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.defaultRoute('foo');
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+  });
+
+  describe('when choosing auditoriums', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.auditoriums();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'auditorium'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["auditorium"]);
+      });
+
+      this.router.auditoriums();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Hör- & skrivsalar");
+      });
+
+      this.router.auditoriums();
+    });
+  });
+
+  describe('when choosing buildings', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.buildings();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'building'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["building"]);
+      });
+
+      this.router.buildings();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Hus");
+      });
+
+      this.router.buildings();
+    });
+
+    it("should initialize an AppView with menu=true", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('menu')).toBeTruthy();
+      });
+
+      this.router.buildings();
+    });
+  });
+});
+
+describe('MenuPopupView', function () {
+  describe('initialization', function () {
+    it('should set campuses from options', function () {
+      var menu = new MenuPopupView({campuses: 'foo'});
+
+      expect(menu.campuses).toEqual('foo')
+    });
+
+    it('should set appModel from options', function () {
+      var menu = new MenuPopupView({appModel: 'bar'});
+
+      expect(menu.appModel).toEqual('bar')
+    });
+  });
+});
+
+
+describe('Campus model', function () {
+  describe('when creating an empty Campus', function () {
+    beforeEach(function () {
+      this.campus = new Campus();
+    });
+
+    it('should have id 0', function () {
+      expect(this.campus.get('id')).toEqual(0);
+    });
+
+    it('should have name "Unknown"', function () {
+      expect(this.campus.get('name')).toEqual('Unknown');
+    });
+
+    it('should have coords', function () {
+      expect(this.campus.get('coords')).toBeDefined();
+    });
+
+    it('should have zoom', function () {
+      expect(this.campus.get('zoom')).toBeDefined();
+    });
+  });
+
+  describe('getLat', function () {
+    it('should return latitude from coords', function () {
+      this.campus = new Campus({ coords: [10, 20] });
+
+      expect(this.campus.getLat()).toEqual(10);
+    });
+  });
+
+  describe('getLng', function () {
+    it('should return longitude from coords', function () {
+      this.campus = new Campus({ coords: [10, 20] });
+
+      expect(this.campus.getLng()).toEqual(20);
+    });
+  });
+});
+
+describe('Campus collection', function () {
+  describe('creating an empty collection', function () {
+    beforeEach(function () {
+      this.campuses = new Campuses();
+    });
+
+    it('should have Campus for model', function () {
+      expect(this.campuses.model).toBe(Campus);
+    });
+
+    it('should have a url from config', function () {
+      expect(this.campuses.url()).toMatch(config.map.campuses.url);
     });
   });
 });

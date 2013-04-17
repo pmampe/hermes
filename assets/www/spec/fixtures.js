@@ -145,6 +145,23 @@ beforeEach(function () {
       }
     },
 
+    Campuses: {
+      valid: [
+        {
+          id: 0,
+          name: 'Frescati',
+          coords: [59.363317, 18.0592],
+          zoom: 15
+        },
+        {
+          id: 1,
+          name: 'Kista',
+          coords: [59, 18],
+          zoom: 16
+        }
+      ]
+    },
+
     FilterItems: {
       valid: {
         locations: [
