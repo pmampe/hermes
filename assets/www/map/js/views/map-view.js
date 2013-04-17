@@ -27,7 +27,7 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "initializeSearchView", "resetSearchResults", "showCampusesList");
+        _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
 
         this.locations = new Locations();
         this.searchResults = new LocationSearchResult();
@@ -66,11 +66,16 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(11, 11))
         })});
 
+        this.searchView = new SearchView({ el: $('#search-box'),
+          mapView: this
+        });
+
+
         var self = this;
 
         this.locations.on("reset", function () {
           self.replacePoints(self.locations);
-          self.initializeSearchView();
+          self.searchView.render(self.locations);
         });
         this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
@@ -81,6 +86,16 @@ var MapView = Backbone.View.extend(
           gmap: this.map,
           infoWindow: this.mapInfoWindowView
         });
+
+        $(window).on("resize.mapview", _.bind(this.resize, this));
+      },
+
+      /**
+       * Remove handler for the view.
+       */
+      remove: function () {
+        $(window).off(".mapview");
+        Backbone.View.prototype.remove.call(this);
       },
 
       /**
@@ -88,8 +103,7 @@ var MapView = Backbone.View.extend(
        */
       render: function () {
 
-        // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("[data-role='footer']").outerHeight());
+        this.resize();
 
         this.currentPositionPoint.render();
 
@@ -113,16 +127,11 @@ var MapView = Backbone.View.extend(
       },
 
       /**
-       * Opens the search popup (or slide down)
-       *
-       * @param event the triggering event.
+       * Handler for window resizing.
        */
-      initializeSearchView: function (event) {
-        this.searchView = new SearchView({ el: $('#search-box'),
-          filterList:  this.locations,
-          mapView: this
-        });
-        this.searchView.render();
+      resize: function () {
+        // Force the height of the map to fit the window
+        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
       },
 
       /**
@@ -131,13 +140,18 @@ var MapView = Backbone.View.extend(
        * @param locMsg The message to put in the box.
        */
       fadingMsg: function (locMsg) {
-        $("<div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div>")
-            .css({ "display": "block", "opacity": 0.9, "top": $(window).scrollTop() + 100 })
-            .appendTo($.mobile.pageContainer)
-            .delay(2200)
-            .fadeOut(1000, function () {
-              $(this).remove();
-            });
+        $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
+        .css({
+          "position": "fixed",
+          "opacity": 0.9,
+          "top": $(window).scrollTop() + 100,
+          "width": "100%"
+        })
+        .appendTo($.mobile.pageContainer)
+        .delay(2200)
+        .fadeOut(1000, function () {
+          $(this).remove();
+        });
       },
 
       /**
