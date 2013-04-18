@@ -1,5 +1,6 @@
 var MapRouter = Backbone.Router.extend({
   routes: {
+    "computerLabs" : "computerLabs",
     "auditoriums": "auditoriums",
     "buildings": "buildings",
     "parkingspaces": "parkingspaces",
@@ -14,6 +15,16 @@ var MapRouter = Backbone.Router.extend({
     appView.render();
 
     $('#page-map').trigger("pagecreate");
+  },
+
+  computerLabs: function () {
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({ types: ["computer_labs"] }),
+      title: "Datorsalar"
+    });
+    appView.render();
+    appView.updateLocations();
   },
 
   auditoriums: function () {

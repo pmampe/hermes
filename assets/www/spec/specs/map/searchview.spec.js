@@ -205,9 +205,10 @@ describe('Search view', function () {
         spyOn(SearchView.prototype, "render");
         spyOn(SearchView.prototype, "populateFilter");
 
-        var options = Object;
-        options.placeholderSuffix = category;
-        var searchView = new SearchView(options);
+        var searchView = new SearchView({
+          collection: new Locations(),
+          placeholderSuffix: category
+        });
 
         var result = $("#search-box input").attr('placeholder');
         strip = result.split(" ");
