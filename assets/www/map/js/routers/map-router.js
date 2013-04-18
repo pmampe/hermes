@@ -55,7 +55,8 @@ var MapRouter = Backbone.Router.extend({
     var appView = new AppView({
       el: $('#page-map'),
       model: new AppModel({
-        types: ["parkingspace"]
+        filterByCampus: true,
+        types: ["parking", "handicap_parking"]
       }),
       title: "Parkeringar"
     });

@@ -11,6 +11,7 @@ var AppModel = Backbone.Model.extend(
        */
       defaults: {
         menu: false,
+        filterByCampus: false,
         campus: new Campus({ name: "Frescati" }),
         types: []
       }
