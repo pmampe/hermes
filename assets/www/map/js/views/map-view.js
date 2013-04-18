@@ -10,16 +10,11 @@ var MapView = Backbone.View.extend(
     /** @lends MapView */
     {
 
-      /** The model for this view */
-      model: new MapModel(),
-
       /** The map */
       map: null,
 
       /** The info window */
       mapInfoWindowView: null,
-
-      searchView: null,
 
       searchHiddenFromToolbar: false,
 
@@ -27,12 +22,10 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render", "resetSearchResults", "showCampusesList");
+        _.bindAll(this, "render");
 
         this.locations = new Locations();
-        this.searchResults = new LocationSearchResult();
         this.pointViews = {};
-        this.campusPoint = null;
 
         // Google Maps Options
         var myOptions = {
@@ -66,19 +59,9 @@ var MapView = Backbone.View.extend(
               new google.maps.Point(11, 11))
         })});
 
-        this.searchView = new SearchView({ el: $('#search-box'),
-          mapView: this
-        });
-
-
-        var self = this;
-
-        this.locations.on("reset", function () {
-          self.replacePoints(self.locations);
-          self.searchView.render(self.locations);
-        });
-        this.searchResults.on("reset", this.resetSearchResults, this);
         this.model.on('change:location', this.updateCurrentPosition, this);
+        this.model.on('change:mapPosition', this.updateMapPosition, this);
+        this.model.on('change:zoom', this.updateMapZoom, this);
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         this.currentPositionPoint = new PointLocationView({
@@ -141,17 +124,17 @@ var MapView = Backbone.View.extend(
        */
       fadingMsg: function (locMsg) {
         $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
-        .css({
-          "position": "fixed",
-          "opacity": 0.9,
-          "top": $(window).scrollTop() + 100,
-          "width": "100%"
-        })
-        .appendTo($.mobile.pageContainer)
-        .delay(2200)
-        .fadeOut(1000, function () {
-          $(this).remove();
-        });
+            .css({
+              "position": "fixed",
+              "opacity": 0.9,
+              "top": $(window).scrollTop() + 100,
+              "width": "100%"
+            })
+            .appendTo($.mobile.pageContainer)
+            .delay(2200)
+            .fadeOut(1000, function () {
+              $(this).remove();
+            });
       },
 
       /**
@@ -201,37 +184,12 @@ var MapView = Backbone.View.extend(
         }
       },
 
-      /**
-       * Creates a new point for a campus and positions the map over it.
-       *
-       * @param {Array} coords array of lat & lng. ex: [59, 18]
-       * @param {int} zoom zoom level over the campus.
-       * @param {string} name the campus name
-       */
-      updateCampusPoint: function (coords, zoom, name) {
-        if (this.campusPoint) {
-          this.campusPoint.remove();
-        }
+      updateMapPosition: function () {
+        this.map.panTo(this.model.get('mapPosition'));
+      },
 
-        var googleCoords = new google.maps.LatLng(coords[0], coords[1]);
-        this.map.panTo(googleCoords);
-        this.map.setZoom(zoom);
-
-        var self = this;
-
-        // TODO: choose pinImage for campusLocations or remove pinImage var
-        this.campusPoint = new PointLocationView({
-          model: new Location({
-            id: -200,
-            campus: name,
-            type: 'Campus',
-            name: name,
-            coords: [coords],
-            pin: null
-          }),
-          gmap: self.map,
-          infoWindow: this.mapInfoWindowView
-        });
+      updateMapZoom: function () {
+        this.map.setZoom(this.model.get('zoom'));
       },
 
       /**
@@ -251,47 +209,6 @@ var MapView = Backbone.View.extend(
             this.map.setZoom(17);
           }
         }
-      },
-
-      /**
-       * Show a popup list of the different campuses sent in.
-       *
-       * @param {List} campuses list, ex ['Frescati', 'Kista', etc...]
-       */
-      showCampusesList: function (campuses) {
-        var campusesMap = {};
-        $("#campus").children().not(":first").each(function (k, item) {
-          campusesMap[$(item).text()] = $(item).val();
-        });
-
-        var campusPopupView = new CampusPopupView({ el: $('#campusesPopup'), campuses: campuses, campusesMap: campusesMap });
-        campusPopupView.render();
-      },
-
-
-      /**
-       * Resets the search results from the search results collection.
-       *
-       * If the search result contains more than 1 campuses, show the list of campuses
-       * for the user to choose.
-       * Also if no specific campus has been selected in the campus drop-down, then
-       * zoom out the map so that all the results are visible.
-       */
-      resetSearchResults: function () {
-        this.replacePoints(this.searchResults);
-
-        // zoom out to include all points when no campuses have been selected
-        if ($("#campus").val() === "") {
-          this.zoomToBounds(this.searchResults.bounds);
-        }
-
-        // if the search results exists in multiple campuses, show campus list
-        if (this.searchResults.campuses && this.searchResults.campuses.length > 1) {
-          this.fadingMsg("Sökningen returnerade träffar i flera campus.");
-          this.showCampusesList(this.searchResults.campuses);
-        }
-
-        $.mobile.loading('hide');
       },
 
       /**

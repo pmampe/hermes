@@ -73,6 +73,7 @@ var InfoWindow = Backbone.View.extend(
         if (this.infoWindow) {
           this.infoWindow.close();
         }
+        Backbone.View.prototype.remove.call(this);
       }
     }); //-- End of InfoWindow view
 

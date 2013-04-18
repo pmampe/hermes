@@ -1,5 +1,6 @@
 var MapRouter = Backbone.Router.extend({
   routes: {
+    "computerLabs" : "computerLabs",
     "auditoriums": "auditoriums",
     "buildings": "buildings",
     "parkingspaces": "parkingspaces",
@@ -8,33 +9,69 @@ var MapRouter = Backbone.Router.extend({
   },
 
   defaultRoute: function (actions) {
-    var appView = new AppView({ el: $('#page-map') });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel()
+    });
     appView.render();
 
     $('#page-map').trigger("pagecreate");
   },
 
-  auditoriums: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Hör- & skrivsalar" });
+  computerLabs: function () {
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({ types: ["computer_labs"] }),
+      title: "Datorsalar"
+    });
     appView.render();
-    appView.showType("auditorium");
+    appView.updateLocations();
+  },
+
+  auditoriums: function () {
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({ types: ["auditorium"] }),
+      title: "Hör- & skrivsalar"
+    });
+    appView.render();
+    appView.updateLocations();
   },
 
   buildings: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Hus" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({
+        menu: true,
+        types: ["building"]
+      }),
+      title: "Hus"
+    });
     appView.render();
-    appView.showType("building");
+    appView.updateLocations();
   },
 
   parkingspaces: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Parkeringar" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({
+        types: ["parkingspace"]
+      }),
+      title: "Parkeringar"
+    });
     appView.render();
-    appView.showType("parkingspace");
+    appView.updateLocations();
   },
 
   departments: function () {
-    var appView = new AppView({ el: $('#page-map'), title: "Institutioner" });
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({
+        types: ["organization"]
+      }),
+      title: "Institutioner"
+    });
     appView.render();
-    appView.showType("organization");
+    appView.updateLocations();
   }
 });
