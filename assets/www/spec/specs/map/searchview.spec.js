@@ -200,6 +200,22 @@ describe('Search view', function () {
         appView.searchView.collection = new Locations(this.fixtures.FilterItems.valid.locations);
       });
 
+      it('should show placeholder text in search field according to page title', function () {
+        var category = "Axel Baxel";
+        spyOn(SearchView.prototype, "render");
+        spyOn(SearchView.prototype, "populateFilter");
+
+        var options = Object;
+        options.placeholderSuffix = category;
+        var searchView = new SearchView(options);
+
+        var result = $("#search-box input").attr('placeholder');
+        strip = result.split(" ");
+        result = result.replace(strip[0] , "");
+
+        expect(result.replace(" ", "")).toEqual(category);
+      });
+
       it('should show cancel button on focus on input field', function () {
         expect($("#cancelFilter").is(":visible")).toBeFalsy();
         $('#search-box input').trigger('focus');
