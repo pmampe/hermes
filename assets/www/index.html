@@ -19,7 +19,8 @@
   <script src="js/jquery.mobile-config.js"></script>
 
     <!-- Translation with i18next -->
-   <script type="text/javascript" src="js/lib/i18next-1.5.8.min.js" />
+   <script type="text/javascript" src="js/lib/i18next-1.5.8.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
 
     <!-- Global config file -->
   <script src="js/config.js"></script>
@@ -113,14 +114,19 @@
         appView.render();
     })
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getLocale();
+    });
+</script>
 
 <script type="text/javascript">
-    $.i18n.init({lng: "en"}, function() {
+   // var option = { resGetPath: 'map/locales/sv.json' };
+
+  //  $.i18n.init(option, function() {
         // save to use translation function as resources are fetched
-        $(".nav").i18n();
-        i18n.t("map.menu.search");
-        $(".nav").i18n();
-    })
+       // $(".nav").i18n();
+   // })
 </script>
 
 </body>
