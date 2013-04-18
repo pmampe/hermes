@@ -31,10 +31,19 @@ describe('App view', function () {
     $('#page-map').append(menuPopup);
     $.mobile.loadPage("#page-map");
 
+    this.server = sinon.fakeServer.create();
+    this.server.respondWith(
+        "GET",
+        new Locations().url(),
+        this.validResponse(this.fixtures.Locations.valid)
+    );
+
     this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
+    this.server.respond();
   });
 
   afterEach(function () {
+    this.server.restore();
     $('#page-map').replaceWith("<div id='stage'></div>");
   });
 
