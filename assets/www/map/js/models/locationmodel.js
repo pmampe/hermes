@@ -63,18 +63,6 @@ var Locations = Backbone.Collection.extend(
     {
       /** The model used for this Location. */
       model: Location,
-      bounds: null,
-      campuses: null,
-
-      /**
-       * Intercept method performed after fetch().
-       * In this method the bounds and campuses variable are set.
-       */
-      parse: function (response) {
-        this.bounds = response.bounds;
-        this.campuses = response.campuses;
-        return response.locations;
-      },
 
       /**
        * Constructs the URL used for getting locations.
