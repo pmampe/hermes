@@ -45,5 +45,10 @@ function setLocale(locale) {
     options.locale = locale;
   }
 
-  i18n.init(options);
+  i18n.init(options, function() {
+    // save to use translation function as resources are fetched
+    $(".nav").i18n();
+    i18n.t("map.menu.search");
+  })
+
 }

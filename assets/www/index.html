@@ -18,20 +18,31 @@
 
   <script src="js/jquery.mobile-config.js"></script>
 
-  <!-- Global config file -->
+    <!-- Translation with i18next -->
+   <script type="text/javascript" src="js/lib/i18next-1.5.8.min.js" />
+
+    <!-- Global config file -->
   <script src="js/config.js"></script>
 
   <!-- Default javascripts -->
   <script src="js/jst/common.js"></script>
   <script src="js/default.js"></script>
-
   <script src="js/views/app-view.js"></script>
+  <script src="map/js/main.js"></script>
+
 </head>
 <body>
 <div data-role="page" class="type-home" id="page-home" data-header="common/header">
   <!-- Home -->
   <div data-role="content">
-    <div id="buttongrid" class="ui-grid-b">
+      <!-- test -->
+      <ul class="nav">
+          <li><a href="#" data-i18n="map.menu.home"></a></li>
+          <li><a href="#" data-i18n="map.menu.search"></a></li>
+          <li><a href="#" data-i18n="map.menu.directions"></a></li>
+      </ul>
+
+      <div id="buttongrid" class="ui-grid-b">
       <div class="ui-block-a">
         <a href="map/index.html#/buildings" data-ajax="false">
           <img src="img/icons/buildings.png"><br/>
@@ -39,7 +50,7 @@
         </a>
       </div>
       <div class="ui-block-b">
-        <a href="map/index.html" data-ajax="false">
+        <a href="map/index.html" data-ajax="false" data-i18n="map.menu.home">
           <img src="img/icons/departments.png"><br/>
           Institutioner
         </a>
@@ -97,10 +108,20 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function () {
-    var appView = new AppView({ el: $('#page-home') });
-    appView.render();
-  })
+    $(document).ready(function () {
+        var appView = new AppView({ el: $('#page-home') });
+        appView.render();
+    })
 </script>
+
+<script type="text/javascript">
+    $.i18n.init({lng: "en"}, function() {
+        // save to use translation function as resources are fetched
+        $(".nav").i18n();
+        i18n.t("map.menu.search");
+        $(".nav").i18n();
+    })
+</script>
+
 </body>
 </html>
