@@ -16,8 +16,6 @@ var SearchView = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
 
-        this.clickCallback = options.clickCallback;
-
         this.inputField = $("#search-autocomplete").parent().find("form input");
 
         // This is done to show a search icon or text in the mobile keyboard
@@ -92,29 +90,21 @@ var SearchView = Backbone.View.extend(
        *           an empty Locations collection is returned.
        */
       getClickedLocation: function (target) {
-        var itemName = $(target).html();
-        var item;
-        $.each(this.collection.toJSON(), function (i, v) {
-          if (v.name == itemName) {
-            item = v;
-            return false;
-          }
-        });
-
-        return this.collection.get(item);
+        var modelid = $(target).attr('data-modelid');
+        return this.collection.get(modelid);
       },
 
       showClickedLoction: function (event, ui) {
         this.hideFilteredList();
         var location = this.getClickedLocation(event.target);
-        this.clickCallback(location);
+        this.trigger("selected", location);
       },
 
       populateFilter: function (list) {
         var html = "";
 
         $.each(list, function (i, val) {
-          html += "<li id='" + val.id + "' data-icon='false' ><a class='autocomplete-link'>" + val.name + "</a></li>";
+          html += "<li id='" + val.id + "' data-icon='false' ><a data-modelid='" + val.id + "' class='autocomplete-link'>" + val.name + "</a></li>";
         });
 
         var $ul = $('#search-autocomplete');

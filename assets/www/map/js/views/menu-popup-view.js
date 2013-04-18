@@ -18,7 +18,6 @@ var MenuPopupView = Backbone.View.extend(
         _.bindAll(this, "render", "selectCampus", "updateCampuses");
 
         this.campuses = options.campuses;
-        this.callback = options.callback;
 
         // Calculate header size & position menupopup beneath
         var header = $('div[data-role="header"]');
@@ -56,7 +55,7 @@ var MenuPopupView = Backbone.View.extend(
       selectCampus: function (evt) {
         // get the campus id from the parent <li> (format "campus-X", where X is a number)
         var campusId = $(evt.target).closest('li').get(0).id.split("campus-")[1];
-        this.callback(this.campuses.get(campusId));
+        this.trigger('selected', this.campuses.get(campusId));
 
         this.$el.popup('close');
       },

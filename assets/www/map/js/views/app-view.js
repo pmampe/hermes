@@ -33,13 +33,23 @@ var AppView = Backbone.View.extend(
         this.searchView = new SearchView({
           el: $('#search-box'),
           collection: filterByCampus ? this.campuses : this.locations,
-          placeholderSuffix: options.title ? options.title.toLowerCase() : undefined,
-          clickCallback: filterByCampus ? this.campusCallback : this.locationCallback
+          placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
         });
 
         var self = this;
+        this.searchView.on('selected', function (selectedElement) {
+          if (filterByCampus) {
+            self.campusCallback(selectedElement);
+          }
+          else {
+            self.locationCallback(selectedElement);
+          }
+        });
+
         this.model.on('change:campus', this.changeCampus, this);
-        this.locations.on("reset", function() { self.mapView.replacePoints(self.locations) });
+        this.locations.on("reset", function () {
+          self.mapView.replacePoints(self.locations)
+        });
 
         this.updateLocations();
 
@@ -48,10 +58,10 @@ var AppView = Backbone.View.extend(
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.campuses,
-            appModel: this.model,
-            callback: this.menuSelectCallback
+            appModel: this.model
           });
 
+          this.menuPopupView.on('selected', this.menuSelectCallback);
           this.model.on('change:campus', this.changeCampus, this);
 
           this.changeCampus();

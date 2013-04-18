@@ -212,7 +212,7 @@ describe('Search view', function () {
 
         var result = $("#search-box input").attr('placeholder');
         strip = result.split(" ");
-        result = result.replace(strip[0] , "");
+        result = result.replace(strip[0], "");
 
         expect(result.replace(" ", "")).toEqual(category);
       });
@@ -281,7 +281,7 @@ describe('Search view', function () {
       describe('private function - getClickedLocation', function () {
         it('should return a new Location object with the inputed html markup', function () {
           var name = 'Axel';
-          var markupHTML = '<a class="autocomplete-link ui-link-inherit">' + name + '</a>';
+          var markupHTML = '<a data-modelid="1" class="autocomplete-link ui-link-inherit">' + name + '</a>';
 
           expect(appView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
         });
