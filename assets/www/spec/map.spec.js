@@ -461,7 +461,7 @@ describe('MapRouter', function () {
 
     it("should initialize an AppView with types 'computerLabs'", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(options.model.get('types')).toEqual(["computerLabs"]);
+        expect(options.model.get('types')).toEqual(["computer_labs"]);
       });
 
       this.router.computerLabs();
