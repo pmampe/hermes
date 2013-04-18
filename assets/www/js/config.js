@@ -16,9 +16,6 @@ var config = (function(pgBrokerBaseURL) {
       "location": {
         "url": pgBrokerBaseURL + "/geo/poi"
       },
-      "search": {
-        "url": pgBrokerBaseURL + "/geo/search"
-      },
       "icon": {
         "urlPrefix": pgBrokerBaseURL + "/image/view"
       }
