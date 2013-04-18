@@ -318,10 +318,19 @@ describe('App view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map");
 
+    this.server = sinon.fakeServer.create();
+    this.server.respondWith(
+        "GET",
+        new Locations().url(),
+        this.validResponse(this.fixtures.Locations.valid)
+    );
+
     this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
+    this.server.respond();
   });
 
   afterEach(function () {
+    this.server.restore();
     $('#page-map').replaceWith("<div id='stage'></div>");
   });
 
@@ -356,7 +365,7 @@ describe('MapRouter', function () {
     });
 
     it('should have the correct amount of routes', function () {
-      expect(_.size(this.router.routes)).toEqual(4);
+      expect(_.size(this.router.routes)).toEqual(6);
     });
 
     it('*actions route exists & points to default route', function () {
@@ -399,6 +408,24 @@ describe('MapRouter', function () {
       Backbone.history.loadUrl("buildings");
 
       expect(MapRouter.prototype.buildings).toHaveBeenCalled();
+    });
+
+    it("should call buildings for /parkingspaces", function () {
+      spyOn(MapRouter.prototype, "parkingspaces");
+      new MapRouter();
+
+      Backbone.history.loadUrl("parkingspaces");
+
+      expect(MapRouter.prototype.parkingspaces).toHaveBeenCalled();
+    });
+
+    it("should call buildings for /departments", function () {
+      spyOn(MapRouter.prototype, "departments");
+      new MapRouter();
+
+      Backbone.history.loadUrl("departments");
+
+      expect(MapRouter.prototype.departments).toHaveBeenCalled();
     });
 
     it("should call computerLabs for /computerLabs", function () {

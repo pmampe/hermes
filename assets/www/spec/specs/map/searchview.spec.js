@@ -1,4 +1,4 @@
-describe('Map views search filter', function () {
+describe('Search view', function () {
   beforeEach(function () {
     var html = "<div data-role='page' id='page-map' style='width:200px; height:200px'>" +
         "<div id='search-box' class='ui-mini'>" +
@@ -43,8 +43,9 @@ describe('Map views search filter', function () {
     });
 
     it('should render search view on location refresh', function () {
+      spyOn(SearchView.prototype, "render");
+
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
-      spyOn(appView.searchView, "render");
       runs(function () {
         appView.locations.fetch();
         this.server.respond();
@@ -55,7 +56,7 @@ describe('Map views search filter', function () {
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(appView.searchView.render).toHaveBeenCalled();
+        expect(SearchView.prototype.render).toHaveBeenCalled();
       });
     });
   });
@@ -68,8 +69,8 @@ describe('Map views search filter', function () {
           this.validResponse(this.fixtures.FilterItems.valid)
       );
 
+      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
-      spyOn(appView.searchView, "render");
       runs(function () {
         appView.locations.fetch();
         this.server.respond();
@@ -95,8 +96,8 @@ describe('Map views search filter', function () {
       );
 
       spyOn(SearchView.prototype, "filterSearch");
+      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
-      spyOn(appView.searchView, "render");
       runs(function () {
         appView.locations.fetch();
         this.server.respond();
@@ -107,7 +108,7 @@ describe('Map views search filter', function () {
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(appView.searchView.render).toHaveBeenCalled();
+        expect(SearchView.prototype.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
         var list = this.fixtures.FilterItems.valid.locations;
         appView.searchView.populateFilter(list);
@@ -124,8 +125,8 @@ describe('Map views search filter', function () {
           this.validResponse(this.fixtures.FilterItems.valid)
       );
 
+      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
-      spyOn(appView.searchView, "render");
       runs(function () {
         appView.locations.fetch();
         this.server.respond();
@@ -136,7 +137,7 @@ describe('Map views search filter', function () {
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(appView.searchView.render).toHaveBeenCalled();
+        expect(SearchView.prototype.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
         var list = this.fixtures.FilterItems.valid.locations;
         appView.searchView.populateFilter(list);
@@ -196,7 +197,7 @@ describe('Map views search filter', function () {
         appView = new AppView({ el: $('#page-map'), model: new AppModel()});
         var list = this.fixtures.FilterItems.valid.locations;
         appView.searchView.populateFilter(list);
-        appView.searchView.items = new Locations(this.fixtures.FilterItems.valid.locations);
+        appView.searchView.collection = new Locations(this.fixtures.FilterItems.valid.locations);
       });
 
       it('should show placeholder text in search field according to page title', function () {
@@ -204,13 +205,14 @@ describe('Map views search filter', function () {
         spyOn(SearchView.prototype, "render");
         spyOn(SearchView.prototype, "populateFilter");
 
-        var options = Object;
-        options.placeholderSuffix = category;
-        var searchView = new SearchView(options);
+        var searchView = new SearchView({
+          collection: new Locations(),
+          placeholderSuffix: category
+        });
 
         var result = $("#search-box input").attr('placeholder');
         strip = result.split(" ");
-        result = result.replace(strip[0] , "");
+        result = result.replace(strip[0], "");
 
         expect(result.replace(" ", "")).toEqual(category);
       });
@@ -279,10 +281,9 @@ describe('Map views search filter', function () {
       describe('private function - getClickedLocation', function () {
         it('should return a new Location object with the inputed html markup', function () {
           var name = 'Axel';
-          var markupHTML = '<a class="autocomplete-link ui-link-inherit">' + name + '</a>';
+          var markupHTML = '<a data-modelid="1" class="autocomplete-link ui-link-inherit">' + name + '</a>';
 
-          expect(appView.searchView.getClickedLocation(markupHTML).size()).toBe(1);
-          expect(appView.searchView.getClickedLocation(markupHTML).at(0).get("name")).toBe(name);
+          expect(appView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
         });
       });
     });
