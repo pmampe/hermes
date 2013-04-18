@@ -37,8 +37,11 @@ var AppView = Backbone.View.extend(
           clickCallback: filterByCampus ? this.campusCallback : this.locationCallback
         });
 
+        var self = this;
         this.model.on('change:campus', this.changeCampus, this);
-        this.locations.on("reset", this.mapView.replacePoints(this.locations));
+        this.locations.on("reset", function () {
+          self.mapView.replacePoints(self.locations)
+        });
 
         this.updateLocations();
 
