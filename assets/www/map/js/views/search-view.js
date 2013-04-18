@@ -16,8 +16,6 @@ var SearchView = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
 
-        this.clickCallback = options.clickCallback;
-
         this.inputField = $("#search-autocomplete").parent().find("form input");
 
         // This is done to show a search icon or text in the mobile keyboard
@@ -107,7 +105,7 @@ var SearchView = Backbone.View.extend(
       showClickedLoction: function (event, ui) {
         this.hideFilteredList();
         var location = this.getClickedLocation(event.target);
-        this.clickCallback(location);
+        this.trigger("selected", location);
       },
 
       populateFilter: function (list) {
