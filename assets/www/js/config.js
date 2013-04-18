@@ -7,9 +7,6 @@ var config = (function(pgBrokerBaseURL) {
     },
 
     "map": {
-      "autocomplete": {
-        "url": pgBrokerBaseURL + "/geo/search"
-      },
       "campuses": {
         "url": pgBrokerBaseURL + "/geo/campuses"
       },
