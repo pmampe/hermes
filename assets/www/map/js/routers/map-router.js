@@ -4,6 +4,7 @@ var MapRouter = Backbone.Router.extend({
     "auditoriums": "auditoriums",
     "buildings": "buildings",
     "parkingspaces": "parkingspaces",
+    "departments": "departments",
     "*actions": "defaultRoute"
   },
 
@@ -58,6 +59,18 @@ var MapRouter = Backbone.Router.extend({
         types: ["parking", "handicap_parking"]
       }),
       title: "Parkeringar"
+    });
+    appView.render();
+    appView.updateLocations();
+  },
+
+  departments: function () {
+    var appView = new AppView({
+      el: $('#page-map'),
+      model: new AppModel({
+        types: ["organization"]
+      }),
+      title: "Institutioner"
     });
     appView.render();
     appView.updateLocations();
