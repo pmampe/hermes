@@ -15,6 +15,7 @@ var SearchView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
+
         this.inputField = $("#search-autocomplete").parent().find("form input");
 
         // This is done to show a search icon or text in the mobile keyboard
@@ -25,7 +26,7 @@ var SearchView = Backbone.View.extend(
 
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
-        this.mapView = options.mapView;
+        this.collection.on("reset", this.render);
       },
 
       /** Registers events */
@@ -39,9 +40,8 @@ var SearchView = Backbone.View.extend(
       /**
        * Render the search view.
        */
-      render: function (items) {
-        this.items = items;
-        this.populateFilter(this.items.toJSON());
+      render: function () {
+        this.populateFilter(this.collection.toJSON());
         this.delegateEvents();
       },
 
@@ -90,34 +90,21 @@ var SearchView = Backbone.View.extend(
        *           an empty Locations collection is returned.
        */
       getClickedLocation: function (target) {
-        var itemName = $(target).html();
-        var item;
-        $.each(this.items.toJSON(), function (i, v) {
-          if (v.name == itemName) {
-            item = v;
-            return false;
-          }
-        });
-
-        var location = new Locations([]);
-
-        if (item) {
-          location = new Locations([this.items.get(item)]);
-        }
-        return location;
+        var modelid = $(target).attr('data-modelid');
+        return this.collection.get(modelid);
       },
 
       showClickedLoction: function (event, ui) {
         this.hideFilteredList();
         var location = this.getClickedLocation(event.target);
-        this.mapView.replacePoints(location);
+        this.trigger("selected", location);
       },
 
       populateFilter: function (list) {
         var html = "";
 
         $.each(list, function (i, val) {
-          html += "<li id='" + val.id + "' data-icon='false' ><a class='autocomplete-link'>" + val.name + "</a></li>";
+          html += "<li id='" + val.id + "' data-icon='false' ><a data-modelid='" + val.id + "' class='autocomplete-link'>" + val.name + "</a></li>";
         });
 
         var $ul = $('#search-autocomplete');
