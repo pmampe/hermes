@@ -18,7 +18,11 @@
 
   <script src="js/jquery.mobile-config.js"></script>
 
-  <!-- Global config file -->
+    <!-- Translation with i18next -->
+   <script type="text/javascript" src="js/lib/i18next-1.5.8.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
+
+    <!-- Global config file -->
   <script src="js/config.js"></script>
 
   <!-- Default javascripts -->
@@ -26,12 +30,20 @@
   <script src="js/default.js"></script>
 
   <script src="js/views/app-view.js"></script>
+  <script src="js/locale.js"></script>
 </head>
 <body>
 <div data-role="page" class="type-home" id="page-home" data-header="common/header">
   <!-- Home -->
   <div data-role="content">
-    <div id="buttongrid" class="ui-grid-b">
+      <!-- test -->
+      <ul class="nav" id="nav">
+          <li><a href="#" data-i18n="map.menu.home"></a></li>
+          <li><a href="#" data-i18n="map.menu.search"></a></li>
+          <li><a href="#" data-i18n="map.menu.directions"></a></li>
+      </ul>
+
+      <div id="buttongrid" class="ui-grid-b">
       <div class="ui-block-a">
         <a href="map/index.html#/buildings" data-ajax="false">
           <img src="img/icons/buildings.png"><br/>
@@ -100,7 +112,13 @@
   $(document).ready(function () {
     var appView = new AppView({ el: $('#page-home') });
     appView.render();
-  })
+  });
 </script>
+<!--<script type="text/javascript">
+    $(document).ready(function () {
+        getLocale();
+    });
+</script>-->
+
 </body>
 </html>
