@@ -150,14 +150,25 @@ var MapView = Backbone.View.extend(
         }
       },
 
+      /**
+       * Sets center of the map to model.mapPosition
+       */
       updateMapPosition: function () {
         this.map.panTo(this.model.get('mapPosition'));
       },
 
+      /**
+       * Zooms the map to model.zoom
+       */
       updateMapZoom: function () {
         this.map.setZoom(this.model.get('zoom'));
       },
 
+      /**
+       * Sets position of the current position point.
+       *
+       * @param position Phonegap geolocation Position
+       */
       updateCurrentPosition: function (position) {
         this.currentPositionPoint.model.set('coords', [
           [position.coords.latitude, position.coords.longitude]
