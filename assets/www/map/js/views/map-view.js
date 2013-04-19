@@ -22,10 +22,11 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render");
+        _.bindAll(this, "render", "updateCurrentPosition");
 
         this.locations = new Locations();
         this.pointViews = {};
+        this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         // Google Maps Options
         var myOptions = {
@@ -42,8 +43,7 @@ var MapView = Backbone.View.extend(
         this.$el.gmap(myOptions);
         this.map = this.$el.gmap("get", "map");
 
-
-        this.model.set({currentPosition: new Location({
+        var currentPosition = new Location({
           id: -100,
           campus: null,
           type: 'CurrentPosition',
@@ -57,19 +57,17 @@ var MapView = Backbone.View.extend(
               new google.maps.Size(22, 22),
               new google.maps.Point(0, 18),
               new google.maps.Point(11, 11))
-        })});
-
-        this.model.on('change:location', this.updateCurrentPosition, this);
-        this.model.on('change:mapPosition', this.updateMapPosition, this);
-        this.model.on('change:zoom', this.updateMapZoom, this);
-        this.mapInfoWindowView = new InfoWindow({mapView: this});
+        });
 
         this.currentPositionPoint = new PointLocationView({
-          model: this.model.get('currentPosition'),
+          model: currentPosition,
           gmap: this.map,
           infoWindow: this.mapInfoWindowView
         });
 
+        this.on('updateCurrentPosition', this.updateCurrentPosition);
+        this.model.on('change:mapPosition', this.updateMapPosition, this);
+        this.model.on('change:zoom', this.updateMapZoom, this);
         $(window).on("resize.mapview", _.bind(this.resize, this));
       },
 
@@ -78,6 +76,7 @@ var MapView = Backbone.View.extend(
        */
       remove: function () {
         $(window).off(".mapview");
+
         Backbone.View.prototype.remove.call(this);
       },
 
@@ -91,8 +90,6 @@ var MapView = Backbone.View.extend(
         this.currentPositionPoint.render();
 
         var self = this;
-
-        this.updateGPSPosition();
 
         /* Using the two blocks below istead of creating a new view for
          * page-dir, which holds the direction details. This because
@@ -153,43 +150,18 @@ var MapView = Backbone.View.extend(
         }
       },
 
-      /**
-       * Updates the current position.
-       */
-      updateCurrentPosition: function () {
-        this.model.get('currentPosition').set({
-          coords: [
-            [this.model.get('location').lat(), this.model.get('location').lng()]
-          ]
-        });
-      },
-
-      /**
-       * Update the position from GPS.
-       */
-      updateGPSPosition: function () {
-        if (navigator.geolocation) {
-          var self = this; // once inside block bellow, this will be the function
-          navigator.geolocation.getCurrentPosition(
-              function (position) {
-                self.fadingMsg('Using device geolocation to get current position.');
-                self.model.setLocation(position.coords.latitude, position.coords.longitude); // store current position
-
-                // accuracy = position.coords.accuracy;
-              },
-              function (error) {
-                self.fadingMsg('Unable to get location\n');
-                console.error(error);
-              });
-        }
-      },
-
       updateMapPosition: function () {
         this.map.panTo(this.model.get('mapPosition'));
       },
 
       updateMapZoom: function () {
         this.map.setZoom(this.model.get('zoom'));
+      },
+
+      updateCurrentPosition: function (position) {
+        this.currentPositionPoint.model.set('coords', [
+          [position.coords.latitude, position.coords.longitude]
+        ]);
       },
 
       /**
