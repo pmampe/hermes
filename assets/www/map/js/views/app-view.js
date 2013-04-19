@@ -17,7 +17,7 @@ var AppView = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, "render", 'locationCallback', 'campusCallback', 'menuSelectCallback', "startGPSPositioning");
 
-        $(document).on("deviceready", this.startGPSPositioning);
+        $(document).on("deviceready.appview", this.startGPSPositioning);
 
         this.title = options.title;
         this.campuses = new Campuses();
@@ -100,6 +100,8 @@ var AppView = Backbone.View.extend(
        * Remove handler for the view.
        */
       remove: function () {
+        $(document).off('.appview');
+
         // Stop GPS positioning watch
         if (this.gpsWatchId && navigator.geolocation) {
           navigator.geolocation.clearWatch(this.gpsWatchId);
