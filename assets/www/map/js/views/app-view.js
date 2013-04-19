@@ -17,11 +17,12 @@ var AppView = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, "render", 'locationCallback', 'campusCallback', 'menuSelectCallback', "startGPSPositioning");
 
+        $(document).on("deviceready", this.startGPSPositioning);
+
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
         this.mapModel = new MapModel();
-
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
@@ -53,8 +54,6 @@ var AppView = Backbone.View.extend(
         });
 
         this.updateLocations();
-
-        this.startGPSPositioning();
 
         // Display a menu button
         if (showMenu) {
