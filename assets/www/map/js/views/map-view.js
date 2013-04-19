@@ -24,7 +24,6 @@ var MapView = Backbone.View.extend(
       initialize: function () {
         _.bindAll(this, "render", "updateCurrentPosition");
 
-        this.locations = new Locations();
         this.pointViews = {};
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
