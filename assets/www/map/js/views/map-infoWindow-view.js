@@ -20,7 +20,9 @@ var InfoWindow = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, 'render');
 
-        this.infoWindow = new google.maps.InfoWindow();
+        this.infoWindow = new google.maps.InfoWindow({
+          maxWidth: 300
+        });
 
         var self = this;
 

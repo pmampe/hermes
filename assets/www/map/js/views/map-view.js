@@ -35,7 +35,18 @@ var MapView = Backbone.View.extend(
           mapTypeControl: false,
           navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-          streetViewControl: false
+          streetViewControl: false,
+          styles: [
+            {
+              featureType: "poi",
+              elementType: "labels",
+              stylers: [
+                {
+                  visibility: "off"
+                }
+              ]
+            }
+          ]
         };
 
         // Add the Google Map to the page
