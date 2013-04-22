@@ -50,7 +50,7 @@ var AppView = Backbone.View.extend(
 
         this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
-          self.mapView.replacePoints(self.locations)
+          self.mapView.replacePoints(self.locations);
         });
 
         this.updateLocations();
@@ -87,7 +87,7 @@ var AppView = Backbone.View.extend(
       render: function () {
         $('div[data-role="header"] > h1').text(this.title);
 
-        if (this.model.get('menu') == true) {
+        if (this.model.get('menu') === true) {
           $('div[data-role="header"]').append(JST['map/menu/button']);
           $('#menubutton').button();
 
@@ -177,7 +177,7 @@ var AppView = Backbone.View.extend(
           // Get the current position or display error message
           this.gpsWatchId = navigator.geolocation.getCurrentPosition(
               function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos)
+                self.mapView.trigger('updateCurrentPosition', pos);
               },
               function (error) {
                 self.mapView.fadingMsg('Unable to get location');
@@ -187,7 +187,7 @@ var AppView = Backbone.View.extend(
           // Start watching for GPS position changes
           this.gpsWatchId = navigator.geolocation.watchPosition(
               function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos)
+                self.mapView.trigger('updateCurrentPosition', pos);
               },
               function (error) {
               },
