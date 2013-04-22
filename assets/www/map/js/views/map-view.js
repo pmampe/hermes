@@ -22,7 +22,13 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render", "updateCurrentPosition", 'handleZoomChanged');
+        _.bindAll(this,
+            'render',
+            'updateCurrentPosition',
+            'handleZoomChanged',
+            'removeAllMarkers',
+            'addMarkers'
+        );
 
         this.locations = new Locations();
         this.pointViews = {};
@@ -197,15 +203,30 @@ var MapView = Backbone.View.extend(
        * @param {Location} newPoints the new points to paint on the map.
        */
       replacePoints: function (newPoints) {
-        var self = this;
+        this.removeAllMarkers();
+        this.addMarkers(newPoints)
+      },
 
-        _.each(_.values(self.pointViews), function (pointView) {
+      /**
+       * Remove all markers from the map.
+       */
+      removeAllMarkers: function () {
+        _.each(_.values(this.pointViews), function (pointView) {
           // remove all the map markers
           pointView.remove();
         });
 
         // empty the map
-        self.pointViews = {};
+        this.pointViews = {};
+      },
+
+      /**
+       * Add new markers to the map.
+       *
+       * @param newPoints the new markers.
+       */
+      addMarkers: function (newPoints) {
+        var self = this;
 
         newPoints.each(function (item) {
           var point = null;
