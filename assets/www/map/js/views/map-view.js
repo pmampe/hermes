@@ -222,25 +222,26 @@ var MapView = Backbone.View.extend(
 
         newPoints.each(function (item) {
           var point = null;
+          var shape = item.get('shape');
 
-          if (item.get('shape') == "line") {
+          if (shape == "line") {
             point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
           }
-          else if (item.get('shape') == "polygon") {
+          else if (shape == "polygon") {
             point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
-
-            // if the polygon has an icon, draw it
-            if (item.get('hasIcon')) {
-              var iconPoint = new PointLocationView({
-                model: item,
-                gmap: self.map,
-                infoWindow: self.mapInfoWindowView,
-                customizedPosition: point.getCenterOfPolygon()});
-              self.pointViews[iconPoint.id] = iconPoint;
-            }
           }
           else {
             point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+          }
+
+          // if the polygon has an icon, draw it
+          if (item.get('hasIcon') && (shape == "line" || shape == "polygon")) {
+            var iconPoint = new PointLocationView({
+              model: item,
+              gmap: self.map,
+              infoWindow: self.mapInfoWindowView,
+              customizedPosition: point.getCenter()});
+            self.pointViews[iconPoint.id] = iconPoint;
           }
 
           self.pointViews[point.cid] = point;
