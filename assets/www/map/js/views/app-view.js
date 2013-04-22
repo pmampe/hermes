@@ -27,6 +27,13 @@ var AppView = Backbone.View.extend(
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
 
+        var self = this;
+
+        i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+          self.$el.i18n();
+        });
+
+
         this.mapView = new MapView({
           el: $('#map_canvas'),
           model: this.mapModel
@@ -38,7 +45,7 @@ var AppView = Backbone.View.extend(
           placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
         });
 
-        var self = this;
+
         this.searchView.on('selected', function (selectedElement) {
           if (filterByCampus) {
             self.campusCallback(selectedElement);
