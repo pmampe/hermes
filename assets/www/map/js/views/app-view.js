@@ -25,13 +25,11 @@ var AppView = Backbone.View.extend(
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
 
-        getLocale();
-        setLocale("en");
-
         var self = this;
-        i18n.init(i18n.options,function(){
-          self.$el.i18n();
 
+        getLocale();
+        i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+          self.$el.i18n();
         });
 
 

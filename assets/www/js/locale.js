@@ -43,6 +43,5 @@ function setLocale(locale) {
   if (locale) {
     options.locale = locale;
   }
-  console.log("miip");
   i18n.init(options);
 }

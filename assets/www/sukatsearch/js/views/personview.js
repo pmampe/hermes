@@ -13,6 +13,13 @@ var PersonDetailsView = Backbone.View.extend({
   //since this template will render inside a div, we don't need to specify a tagname
   initialize: function() {
     _.bindAll(this, "render", "addContact");
+
+    var self = this;
+    getLocale();
+    i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+      self.$el.i18n();
+    });
+
   },
 
   render: function() {
