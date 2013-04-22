@@ -12,9 +12,9 @@ describe('MapRouter', function () {
       expect(this.router.routes['*actions']).toEqual('defaultRoute');
     });
 
-    it('static routes exists & points to the correct right function', function () {
-      expect(this.router.routes['auditoriums']).toEqual('auditoriums');
-      expect(this.router.routes['computerLabs']).toEqual('computerLabs');
+    it('static routes exists & points to the correct function', function () {
+      expect(this.router.routes.auditoriums).toEqual('auditoriums');
+      expect(this.router.routes.computerLabs).toEqual('computerLabs');
     });
   });
 
