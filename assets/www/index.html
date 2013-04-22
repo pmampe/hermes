@@ -20,7 +20,6 @@
 
     <!-- Translation with i18next -->
    <script type="text/javascript" src="js/lib/i18next-1.5.8.min.js"></script>
-  <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
 
     <!-- Global config file -->
   <script src="js/config.js"></script>
@@ -36,13 +35,6 @@
 <div data-role="page" class="type-home" id="page-home" data-header="common/header">
   <!-- Home -->
   <div data-role="content">
-      <!-- test -->
-      <ul class="nav" id="nav">
-          <li><a href="#" data-i18n="map.menu.home"></a></li>
-          <li><a href="#" data-i18n="map.menu.search"></a></li>
-          <li><a href="#" data-i18n="map.menu.directions"></a></li>
-      </ul>
-
       <div id="buttongrid" class="ui-grid-b">
       <div class="ui-block-a">
         <a href="map/index.html#/buildings" data-ajax="false">
@@ -114,11 +106,5 @@
     appView.render();
   });
 </script>
-<!--<script type="text/javascript">
-    $(document).ready(function () {
-        getLocale();
-    });
-</script>-->
-
 </body>
 </html>
