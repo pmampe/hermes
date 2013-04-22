@@ -47,3 +47,12 @@ function setLocale(locale) {
 
   i18n.init(options);
 }
+
+function getPrefLanguage(){
+  console.log("hej");
+  navigator.
+  navigator.globalization.getPreferredLanguage(
+    function (language){alert(language.value);},
+      function (){alert("error getting language");}
+  )
+}

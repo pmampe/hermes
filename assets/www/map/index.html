@@ -26,17 +26,26 @@
   <script src="js/lib/jquery.ui.map/jquery.ui.map.overlays.js"></script>
   <script src="js/lib/jquery.ui.map/jquery.ui.map.services.js"></script>
   <script src="../js/lib/i18next-1.5.8.min.js"></script>
-
+  <script src="js/main.js"></script>
   <script type="text/template" id="search-popup_filter_button_template">
     <a id="<%= id %>" data-role="button" data-inline="true" data-mini="true" href="#" data-icon="delete"
        data-iconpos="right"><%= name %></a>
   </script>
 
+  <script type="text/javascript">
+    $(document).ready(function () {
+      //getPrefLanguage();
+    });
+
+  </script>
   <script type="text/template" id="infoWindow_template">
     <div class='iw'>
       <h3><%= itemName %></h3>
       <% if (itemText != null) { %>
       <%= itemText %>
+      <% } %>
+      <% if (itemTextEn != null) { %>
+      <%= itemTextEn %>
       <% } %>
 
       <div id="directions" style="<%= displayMode %>">
@@ -93,11 +102,12 @@
 <script src="js/views/map-view.js"></script>
 <script src="js/views/app-view.js"></script>
 <script src="js/routers/map-router.js"></script>
-<script src="js/main.js"></script>
+
 
 <script type="text/javascript">
   $(document).ready(function () {
     startModule();
+    getPrefLanguage();
   });
 </script>
 

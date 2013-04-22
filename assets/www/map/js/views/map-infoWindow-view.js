@@ -59,6 +59,7 @@ var InfoWindow = Backbone.View.extend(
         var template = _.template($("#infoWindow_template").html(), {
           itemName: model.get("name") + (model.get("building") ? ", " + model.get("building") : ""),
           itemText: model.get("text"),
+          itemTextEn: model.get("textEn"),
           displayMode: displayMode
         });
 
