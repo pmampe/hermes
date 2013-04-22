@@ -59,6 +59,24 @@
   text-shadow: none;
 }
 
+.iw i.elevator:before,
+.iw i.toilet:before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: 16px;
+  vertical-align: top;
+}
+
+.iw i.elevator:before {
+  background-image: url("../../img/icons/Handikapphiss.png");
+}
+
+.iw i.toilet:before {
+  background-image: url("../../img/icons/HandikappWC.png");
+}
+
 /* Customize the search popup to stick to the top */
 
 /* --- Direction styles --- */

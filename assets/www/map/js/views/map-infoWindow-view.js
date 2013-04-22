@@ -56,8 +56,11 @@ var InfoWindow = Backbone.View.extend(
         this.remove(); // remove previous infowindow
 
         var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
-        var variables = { itemName: model.get("name"), itemText: model.get("text"), displayMode: displayMode };
-        var template = _.template($("#infoWindow_template").html(), variables);
+        var template = _.template($("#infoWindow_template").html(), {
+          itemName: model.get("name") + (model.get("building") ? ", " + model.get("building") : ""),
+          itemText: model.get("text"),
+          displayMode: displayMode
+        });
 
         this.infoWindow.setContent(template);
         if (latlng) {
