@@ -8,7 +8,7 @@
 var PolygonLocationView = GenericLocationView.extend(
     /** @lends PolygonLocationView */
     {
-      
+
       points: null,
 
       /**
@@ -17,7 +17,7 @@ var PolygonLocationView = GenericLocationView.extend(
        */
       initialize: function (options) {
         this.points = options.model.getGPoints();
-        
+
         options.marker = new google.maps.Polygon({
           strokeColor: "#000000",
           strokeOpacity: 0.8,
@@ -39,27 +39,6 @@ var PolygonLocationView = GenericLocationView.extend(
         });
 
         this.constructor.__super__.initialize.apply(this, [options]);
-      },
-      
-      getCenterOfPolygon: function() {
-        if (this.points) {
-          var sumLat = 0;
-          var sumLng = 0;
-          var numberOfPoints = 0;
-          $(this.points).each(function(i, v) {
-            sumLat += v.lat();
-            sumLng += v.lng();
-            numberOfPoints++;
-          });
-          var latCenter = sumLat / numberOfPoints;
-          var lngCenter = sumLng / numberOfPoints;
-          
-          var coord = new google.maps.LatLng(latCenter, lngCenter);
-  
-          return coord;
-        } else {
-          return -1; // TODO: throw exception instead..
-        }
       },
 
       /**
