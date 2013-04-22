@@ -3,64 +3,56 @@ beforeEach(function () {
   this.fixtures = {
 
     Locations: {
-      valid: {
-        campuses: ["Sveaplan", "Kista", "Konradsberg", "Frescati", "Kräftriket"],
-        bounds: {
-          minLat: 59.32586664408746,
-          maxLat: 59.40853646825391,
-          minLng: 17.938205392915247,
-          maxLng: 18.060504
+      valid: [
+        {
+          id: 1,
+          name: 'first',
+          campus: 'Frescati',
+          type: 'parkering',
+          shape: "line",
+          text: "Foobar",
+          coords: [
+            [59.00, 18.00]
+          ],
+          directionAware: false
         },
-        locations: [
-          {
-            id: 1,
-            name: 'first',
-            campus: 'Frescati',
-            type: 'parkering',
-            shape: "line",
-            text: "Foobar",
-            coords: [
-              [59.00, 18.00]
-            ],
-            directionAware: false
-          },
-          {
-            id: 2,
-            name: '2nd',
-            campus: 'Frescati',
-            type: 'parkering',
-            shape: "line",
-            text: "Foobar",
-            coords: [
-              [59.00, 18.00]
-            ],
-            directionAware: false
-          },
-          {
-            id: 3,
-            name: 'third',
-            campus: 'Frescati',
-            type: 'hörsal',
-            shape: "line",
-            text: "Foobar",
-            coords: [
-              [59.00, 18.00]
-            ],
-            directionAware: false
-          },
-          {
-            id: 4,
-            name: '4th',
-            campus: 'Kista',
-            type: 'parkering',
-            shape: "line",
-            text: "Foobar",
-            coords: [
-              [59.00, 18.00]
-            ],
-            directionAware: false
-          }
-        ]}
+        {
+          id: 2,
+          name: '2nd',
+          campus: 'Frescati',
+          type: 'parkering',
+          shape: "line",
+          text: "Foobar",
+          coords: [
+            [59.00, 18.00]
+          ],
+          directionAware: false
+        },
+        {
+          id: 3,
+          name: 'third',
+          campus: 'Frescati',
+          type: 'hörsal',
+          shape: "line",
+          text: "Foobar",
+          coords: [
+            [59.00, 18.00]
+          ],
+          directionAware: false
+        },
+        {
+          id: 4,
+          name: '4th',
+          campus: 'Kista',
+          type: 'parkering',
+          shape: "line",
+          text: "Foobar",
+          coords: [
+            [59.00, 18.00]
+          ],
+          directionAware: false
+        }
+      ]
     },
 
     Persons: {

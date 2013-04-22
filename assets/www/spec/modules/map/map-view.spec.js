@@ -58,20 +58,4 @@ describe('Map view', function () {
       expect(MapView.prototype.resize.calls.length).toBe(0);
     });
   });
-
-  describe('zoom to a new bound in the map', function () {
-    it('should set map bounds correctly', function () {
-      var self = this;
-
-      // TODO: fix this test, for some reason not working here, works when running in normal map..
-      google.maps.event.addListener(this.view.map, 'bounds_changed', function () {
-        expect(this.getBounds().getSouthWest().lat()).toBeGreaterThan(self.fixtures.Locations.valid.bounds.minLat);
-        expect(this.getBounds().getSouthWest().lng()).toBeGreaterThan(self.fixtures.Locations.valid.bounds.minLng);
-        expect(this.getBounds().getNorthEast().lat()).toBeLessThan(self.fixtures.Locations.valid.bounds.maxLat);
-        expect(this.getBounds().getNorthEast().lng()).toBeLessThan(self.fixtures.Locations.valid.bounds.maxLng);
-      });
-
-      this.view.zoomToBounds(this.fixtures.Locations.valid.bounds);
-    });
-  });
 });
