@@ -30,7 +30,6 @@ var MapView = Backbone.View.extend(
             'addMarkers'
         );
 
-        this.locations = new Locations();
         this.pointViews = {};
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
@@ -41,7 +40,18 @@ var MapView = Backbone.View.extend(
           mapTypeControl: false,
           navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-          streetViewControl: false
+          streetViewControl: false,
+          styles: [
+            {
+              featureType: "poi",
+              elementType: "labels",
+              stylers: [
+                {
+                  visibility: "off"
+                }
+              ]
+            }
+          ]
         };
 
         // Add the Google Map to the page
@@ -164,14 +174,25 @@ var MapView = Backbone.View.extend(
         }
       },
 
+      /**
+       * Sets center of the map to model.mapPosition
+       */
       updateMapPosition: function () {
         this.map.panTo(this.model.get('mapPosition'));
       },
 
+      /**
+       * Zooms the map to model.zoom
+       */
       updateMapZoom: function () {
         this.map.setZoom(this.model.get('zoom'));
       },
 
+      /**
+       * Sets position of the current position point.
+       *
+       * @param position Phonegap geolocation Position
+       */
       updateCurrentPosition: function (position) {
         this.currentPositionPoint.model.set('coords', [
           [position.coords.latitude, position.coords.longitude]
@@ -230,25 +251,26 @@ var MapView = Backbone.View.extend(
 
         newPoints.each(function (item) {
           var point = null;
+          var shape = item.get('shape');
 
-          if (item.get('shape') == "line") {
+          if (shape == "line") {
             point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
           }
-          else if (item.get('shape') == "polygon") {
+          else if (shape == "polygon") {
             point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
-
-            // if the polygon has an icon, draw it
-            if (item.get('hasIcon')) {
-              var iconPoint = new PointLocationView({
-                model: item,
-                gmap: self.map,
-                infoWindow: self.mapInfoWindowView,
-                customizedPosition: point.getCenterOfPolygon()});
-              self.pointViews[iconPoint.id] = iconPoint;
-            }
           }
           else {
             point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+          }
+
+          // if the polygon has an icon, draw it
+          if (item.get('hasIcon') && (shape == "line" || shape == "polygon")) {
+            var iconPoint = new PointLocationView({
+              model: item,
+              gmap: self.map,
+              infoWindow: self.mapInfoWindowView,
+              customizedPosition: point.getCenter()});
+            self.pointViews[iconPoint.id] = iconPoint;
           }
 
           self.pointViews[point.cid] = point;

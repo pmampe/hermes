@@ -50,6 +50,27 @@ var GenericLocationView = Backbone.View.extend(
         this.infoWindow.render(model, anchor, latLng);
       },
 
+      getCenter: function () {
+        if (this.model.getGPoints()) {
+          var sumLat = 0;
+          var sumLng = 0;
+          var numberOfPoints = 0;
+          $(this.model.getGPoints()).each(function (i, v) {
+            sumLat += v.lat();
+            sumLng += v.lng();
+            numberOfPoints++;
+          });
+          var latCenter = sumLat / numberOfPoints;
+          var lngCenter = sumLng / numberOfPoints;
+
+          var coord = new google.maps.LatLng(latCenter, lngCenter);
+
+          return coord;
+        } else {
+          return -1; // TODO: throw exception instead..
+        }
+      },
+
       /**
        * Remove marker from map.
        */

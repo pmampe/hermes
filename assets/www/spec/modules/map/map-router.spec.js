@@ -12,9 +12,9 @@ describe('MapRouter', function () {
       expect(this.router.routes['*actions']).toEqual('defaultRoute');
     });
 
-    it('static routes exists & points to the correct right function', function () {
-      expect(this.router.routes['auditoriums']).toEqual('auditoriums');
-      expect(this.router.routes['computerLabs']).toEqual('computerLabs');
+    it('static routes exists & points to the correct function', function () {
+      expect(this.router.routes.auditoriums).toEqual('auditoriums');
+      expect(this.router.routes.computerLabs).toEqual('computerLabs');
     });
   });
 
@@ -25,7 +25,7 @@ describe('MapRouter', function () {
 
     it("should call defaultRoute for empty url", function () {
       spyOn(MapRouter.prototype, "defaultRoute");
-      new MapRouter();
+      this.router = new MapRouter();
 
       Backbone.history.loadUrl("/");
 
@@ -34,7 +34,7 @@ describe('MapRouter', function () {
 
     it("should call auditoriums for /auditoriums", function () {
       spyOn(MapRouter.prototype, "auditoriums");
-      new MapRouter();
+      this.router = new MapRouter();
 
       Backbone.history.loadUrl("auditoriums");
 
@@ -43,7 +43,7 @@ describe('MapRouter', function () {
 
     it("should call buildings for /buildings", function () {
       spyOn(MapRouter.prototype, "buildings");
-      new MapRouter();
+      this.router = new MapRouter();
 
       Backbone.history.loadUrl("buildings");
 
@@ -52,7 +52,7 @@ describe('MapRouter', function () {
 
     it("should call buildings for /parkingspaces", function () {
       spyOn(MapRouter.prototype, "parkingspaces");
-      new MapRouter();
+      this.router = new MapRouter();
 
       Backbone.history.loadUrl("parkingspaces");
 
@@ -61,7 +61,7 @@ describe('MapRouter', function () {
 
     it("should call buildings for /departments", function () {
       spyOn(MapRouter.prototype, "departments");
-      new MapRouter();
+      this.router = new MapRouter();
 
       Backbone.history.loadUrl("departments");
 
@@ -70,7 +70,7 @@ describe('MapRouter', function () {
 
     it("should call computerLabs for /computerLabs", function () {
       spyOn(MapRouter.prototype, "computerLabs");
-      new MapRouter();
+      this.router = new MapRouter();
 
       Backbone.history.loadUrl("computerLabs");
 

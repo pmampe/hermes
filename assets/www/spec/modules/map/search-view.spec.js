@@ -38,7 +38,7 @@ describe('Search view', function () {
   describe('instantiation', function () {
     it('should initialize search view on app view initialization', function () {
       spyOn(SearchView.prototype, "initialize");
-      new AppView({ el: $('#page-map'), model: new AppModel() });
+      this.view = new AppView({ el: $('#page-map'), model: new AppModel() });
       expect(SearchView.prototype.initialize).toHaveBeenCalled();
     });
 
@@ -152,7 +152,7 @@ describe('Search view', function () {
   describe('mobile keyboard handling', function () {
     beforeEach(function () {
       spyOn(SearchView.prototype, "hideFilteredList");
-      new AppView({ el: $('#page-map'), model: new AppModel()});
+      this.view = new AppView({ el: $('#page-map'), model: new AppModel()});
     });
 
     it('should set type to search on the search input field', function () {
@@ -185,7 +185,7 @@ describe('Search view', function () {
   describe('Filtered list', function () {
     it('should call showFileredList on focus on input field', function () {
       spyOn(SearchView.prototype, "showFilteredList");
-      new AppView({ el: $('#page-map'), model: new AppModel() });
+      this.view = new AppView({ el: $('#page-map'), model: new AppModel() });
       $('#search-box input').trigger('focus');
       expect(SearchView.prototype.showFilteredList).toHaveBeenCalled();
     });
