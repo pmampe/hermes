@@ -6,9 +6,6 @@
  */
 function startModule() {
 
-  // Get locale from phonegapg
-    getLocale();
-
   var mapRouter = new MapRouter();
   Backbone.history.start();
 }

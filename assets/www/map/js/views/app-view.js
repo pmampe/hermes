@@ -29,7 +29,6 @@ var AppView = Backbone.View.extend(
 
         var self = this;
 
-        getLocale();
         i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
           self.$el.i18n();
         });

@@ -5,6 +5,7 @@ function startModule() {
   getLocale();
   i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
     $('#search_page').i18n();
+    $('#details_page').i18n();
   });
 
   searchView = new SukatSearchView({el: $('#search_view')});
