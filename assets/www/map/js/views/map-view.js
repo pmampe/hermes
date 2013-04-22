@@ -22,10 +22,10 @@ var MapView = Backbone.View.extend(
        * @constructs
        */
       initialize: function () {
-        _.bindAll(this, "render");
+        _.bindAll(this, "render", "updateCurrentPosition");
 
-        this.locations = new Locations();
         this.pointViews = {};
+        this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         // Google Maps Options
         var myOptions = {
@@ -34,7 +34,18 @@ var MapView = Backbone.View.extend(
           mapTypeControl: false,
           navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-          streetViewControl: false
+          streetViewControl: false,
+          styles: [
+            {
+              featureType: "poi",
+              elementType: "labels",
+              stylers: [
+                {
+                  visibility: "off"
+                }
+              ]
+            }
+          ]
         };
 
         // Add the Google Map to the page
@@ -42,8 +53,7 @@ var MapView = Backbone.View.extend(
         this.$el.gmap(myOptions);
         this.map = this.$el.gmap("get", "map");
 
-
-        this.model.set({currentPosition: new Location({
+        var currentPosition = new Location({
           id: -100,
           campus: null,
           type: 'CurrentPosition',
@@ -57,19 +67,17 @@ var MapView = Backbone.View.extend(
               new google.maps.Size(22, 22),
               new google.maps.Point(0, 18),
               new google.maps.Point(11, 11))
-        })});
-
-        this.model.on('change:location', this.updateCurrentPosition, this);
-        this.model.on('change:mapPosition', this.updateMapPosition, this);
-        this.model.on('change:zoom', this.updateMapZoom, this);
-        this.mapInfoWindowView = new InfoWindow({mapView: this});
+        });
 
         this.currentPositionPoint = new PointLocationView({
-          model: this.model.get('currentPosition'),
+          model: currentPosition,
           gmap: this.map,
           infoWindow: this.mapInfoWindowView
         });
 
+        this.on('updateCurrentPosition', this.updateCurrentPosition);
+        this.model.on('change:mapPosition', this.updateMapPosition, this);
+        this.model.on('change:zoom', this.updateMapZoom, this);
         $(window).on("resize.mapview", _.bind(this.resize, this));
       },
 
@@ -78,6 +86,7 @@ var MapView = Backbone.View.extend(
        */
       remove: function () {
         $(window).off(".mapview");
+
         Backbone.View.prototype.remove.call(this);
       },
 
@@ -91,8 +100,6 @@ var MapView = Backbone.View.extend(
         this.currentPositionPoint.render();
 
         var self = this;
-
-        this.updateGPSPosition();
 
         /* Using the two blocks below istead of creating a new view for
          * page-dir, which holds the direction details. This because
@@ -154,42 +161,28 @@ var MapView = Backbone.View.extend(
       },
 
       /**
-       * Updates the current position.
+       * Sets center of the map to model.mapPosition
        */
-      updateCurrentPosition: function () {
-        this.model.get('currentPosition').set({
-          coords: [
-            [this.model.get('location').lat(), this.model.get('location').lng()]
-          ]
-        });
-      },
-
-      /**
-       * Update the position from GPS.
-       */
-      updateGPSPosition: function () {
-        if (navigator.geolocation) {
-          var self = this; // once inside block bellow, this will be the function
-          navigator.geolocation.getCurrentPosition(
-              function (position) {
-                self.fadingMsg('Using device geolocation to get current position.');
-                self.model.setLocation(position.coords.latitude, position.coords.longitude); // store current position
-
-                // accuracy = position.coords.accuracy;
-              },
-              function (error) {
-                self.fadingMsg('Unable to get location\n');
-                console.error(error);
-              });
-        }
-      },
-
       updateMapPosition: function () {
         this.map.panTo(this.model.get('mapPosition'));
       },
 
+      /**
+       * Zooms the map to model.zoom
+       */
       updateMapZoom: function () {
         this.map.setZoom(this.model.get('zoom'));
+      },
+
+      /**
+       * Sets position of the current position point.
+       *
+       * @param position Phonegap geolocation Position
+       */
+      updateCurrentPosition: function (position) {
+        this.currentPositionPoint.model.set('coords', [
+          [position.coords.latitude, position.coords.longitude]
+        ]);
       },
 
       /**
@@ -229,25 +222,26 @@ var MapView = Backbone.View.extend(
 
         newPoints.each(function (item) {
           var point = null;
+          var shape = item.get('shape');
 
-          if (item.get('shape') == "line") {
+          if (shape == "line") {
             point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
           }
-          else if (item.get('shape') == "polygon") {
+          else if (shape == "polygon") {
             point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
-
-            // if the polygon has an icon, draw it
-            if (item.get('hasIcon')) {
-              var iconPoint = new PointLocationView({
-                model: item,
-                gmap: self.map,
-                infoWindow: self.mapInfoWindowView,
-                customizedPosition: point.getCenterOfPolygon()});
-              self.pointViews[iconPoint.id] = iconPoint;
-            }
           }
           else {
             point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+          }
+
+          // if the polygon has an icon, draw it
+          if (item.get('hasIcon') && (shape == "line" || shape == "polygon")) {
+            var iconPoint = new PointLocationView({
+              model: item,
+              gmap: self.map,
+              infoWindow: self.mapInfoWindowView,
+              customizedPosition: point.getCenter()});
+            self.pointViews[iconPoint.id] = iconPoint;
           }
 
           self.pointViews[point.cid] = point;

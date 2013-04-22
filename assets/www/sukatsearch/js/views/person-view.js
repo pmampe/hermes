@@ -1,7 +1,7 @@
 var PersonView = Backbone.View.extend({
-  template:$("#personTemplate").html(),
+  template: $("#personTemplate").html(),
 
-  render:function () {
+  render: function () {
     var tmpl = _.template(this.template);
 
     this.el = $(tmpl(this.model.toJSON()));
@@ -11,7 +11,7 @@ var PersonView = Backbone.View.extend({
 
 var PersonDetailsView = Backbone.View.extend({
   //since this template will render inside a div, we don't need to specify a tagname
-  initialize: function() {
+  initialize: function () {
     _.bindAll(this, "render", "addContact");
 
     var self = this;
@@ -22,13 +22,13 @@ var PersonDetailsView = Backbone.View.extend({
 
   },
 
-  render: function() {
+  render: function () {
 
     var template = _.template($('#personDetailsTemplate').html());
 
     var container = this.options.viewContainer,
-    person = this.model,
-    renderedContent = template(this.model.toJSON());
+        person = this.model,
+        renderedContent = template(this.model.toJSON());
 
     container.html(renderedContent);
     container.trigger('create');
@@ -39,7 +39,7 @@ var PersonDetailsView = Backbone.View.extend({
     "click a[id=add_contact_button]": "addContact"
   },
 
-  addContact: function( event ) {
+  addContact: function (event) {
 
     var phoneNumbers = [];
     phoneNumbers[0] = new ContactField('work', this.model.get('telephoneNumber'), true);
