@@ -177,7 +177,7 @@ var AppView = Backbone.View.extend(
           // Get the current position or display error message
           this.gpsWatchId = navigator.geolocation.getCurrentPosition(
               function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos)
+                self.mapView.trigger('updateCurrentPosition', pos);
               },
               function (error) {
                 self.mapView.fadingMsg('Unable to get location');
@@ -187,7 +187,7 @@ var AppView = Backbone.View.extend(
           // Start watching for GPS position changes
           this.gpsWatchId = navigator.geolocation.watchPosition(
               function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos)
+                self.mapView.trigger('updateCurrentPosition', pos);
               },
               function (error) {
               },
