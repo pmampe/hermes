@@ -87,7 +87,7 @@ var AppView = Backbone.View.extend(
       render: function () {
         $('div[data-role="header"] > h1').text(this.title);
 
-        if (this.model.get('menu') == true) {
+        if (this.model.get('menu') === true) {
           $('div[data-role="header"]').append(JST['map/menu/button']);
           $('#menubutton').button();
 
