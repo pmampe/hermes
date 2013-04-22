@@ -15,13 +15,21 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render", 'locationCallback', 'campusCallback', 'menuSelectCallback', "startGPSPositioning");
+        _.bindAll(this,
+            "render",
+            'locationCallback',
+            'campusCallback',
+            'menuSelectCallback',
+            "startGPSPositioning",
+            'handleZoomChanged'
+        );
 
         $(document).on("deviceready.appview", this.startGPSPositioning);
 
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
+        this.zoomLocations = new Locations();
         this.mapModel = new MapModel();
 
         var filterByCampus = this.model.get('filterByCampus');
@@ -29,7 +37,8 @@ var AppView = Backbone.View.extend(
 
         this.mapView = new MapView({
           el: $('#map_canvas'),
-          model: this.mapModel
+          model: this.mapModel,
+          zoomCallback: this.handleZoomChanged
         });
 
         this.searchView = new SearchView({
@@ -51,6 +60,9 @@ var AppView = Backbone.View.extend(
         this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
           self.mapView.replacePoints(self.locations)
+        });
+        this.zoomLocations.on("reset", function () {
+          self.mapView.replacePoints(self.zoomLocations)
         });
 
         this.updateLocations();
@@ -131,6 +143,24 @@ var AppView = Backbone.View.extend(
        */
       menuSelectCallback: function (campus) {
         this.model.set('campus', campus);
+      },
+
+      /**
+       * Handle changed zoom level.
+       *
+       * @param zoom the new zoom level.
+       */
+      handleZoomChanged: function (zoom) {
+        if (zoom > 16) {
+          this.zoomLocations.fetch({
+            data: {
+              types: ['handicap_entrance']
+            },
+            error: function () {
+              alert("ERROR! Failed to fetch locations.");
+            }
+          });
+        }
       },
 
       /**

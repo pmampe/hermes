@@ -21,8 +21,8 @@ var MapView = Backbone.View.extend(
       /**
        * @constructs
        */
-      initialize: function () {
-        _.bindAll(this, "render", "updateCurrentPosition");
+      initialize: function (options) {
+        _.bindAll(this, "render", "updateCurrentPosition", 'handleZoomChanged');
 
         this.locations = new Locations();
         this.pointViews = {};
@@ -65,6 +65,10 @@ var MapView = Backbone.View.extend(
           infoWindow: this.mapInfoWindowView
         });
 
+        var self = this;
+        $(this.map).addEventListener('zoom_changed', function () {
+          options.zoomCallback(self.map.getZoom());
+        });
         this.on('updateCurrentPosition', this.updateCurrentPosition);
         this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.model.on('change:zoom', this.updateMapZoom, this);
@@ -132,6 +136,10 @@ var MapView = Backbone.View.extend(
             .fadeOut(1000, function () {
               $(this).remove();
             });
+      },
+
+      handleZoomChanged: function () {
+        this.trigger('selected', this.map.getZoom());
       },
 
       /**
