@@ -66,8 +66,11 @@
   width: 16px;
   height: 16px;
   background-size: 16px;
-  background-image: url("../../img/icons/Handikapphiss.png");
   vertical-align: top;
+}
+
+.iw i.elevator:before {
+  background-image: url("../../img/icons/Handikapphiss.png");
 }
 
 .iw i.toilet:before {
