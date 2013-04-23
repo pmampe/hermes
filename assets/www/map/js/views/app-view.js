@@ -30,7 +30,7 @@ var AppView = Backbone.View.extend(
         this.campuses = new Campuses();
         this.locations = new Locations();
         this.mapModel = new MapModel();
-        this.zoomLocaionsDisplayed = false;
+        this.zoomOn = false;
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
@@ -149,13 +149,13 @@ var AppView = Backbone.View.extend(
        */
       handleZoomChanged: function (zoom) {
         if (this.model.get('zoomSensitive') === true) {
-          if (zoom > config.map.zoom.threshold && this.zoomLocaionsDisplayed === false) {
-            this.zoomLocaionsDisplayed = true;
+          if (zoom > config.map.zoom.threshold && this.zoomOn === false) {
+            this.zoomOn = true;
             this.model.get('toggleMarkerVisibility')(this.locations, true);
           }
-          else if (zoom <= config.map.zoom.threshold && this.zoomLocaionsDisplayed === true) {
+          else if (zoom <= config.map.zoom.threshold && this.zoomOn === true) {
             this.model.get('toggleMarkerVisibility')(this.locations, false);
-            this.zoomLocaionsDisplayed = false;
+            this.zoomOn = false;
           }
         }
       },
