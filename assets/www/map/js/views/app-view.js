@@ -38,6 +38,7 @@ var AppView = Backbone.View.extend(
 
         i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
           self.$el.i18n();
+          $('#search-box').i18n();
         });
 
 

@@ -8,36 +8,36 @@ JST['common/header'] = _.template(" \
     <% if (backbutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' data-rel='back' \
          data-icon='arrow-l' data-iconpos='left' class='ui-btn-left'> \
-        Tillbaka \
+        <span data-i18n='common.header.back'></span>\
       </a> \
     <% } %> \
 \
     <% if (menubutton) { %>\
       <a id='menubutton' data-role='button' \
          data-icon='grid' data-iconpos='notext' class='ui-btn-right'> \
-        Meny \
+        <span data-i18n='common.header.menu'></span> \
       </a> \
     <% } %> \
 \
     <% if (homebutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' href='../index.html' \
          data-icon='home' data-iconpos='notext' class='ui-btn-right'> \
-        Hem \
+        <span data-i18n='common.header.home'></span> \
       </a> \
     <% } %> \
 ");
 
 JST['common/external-link-dialog'] = _.template(' \
   <div data-role="header"> \
-    <h2>Extern l&auml;nk</h2> \
+    <h2><span data-i18n="common.external.link"></span></h2> \
   </div> \
   <div data-role="content"> \
-    <p>Sidan kommer &ouml;ppnas i extern webbl&auml;sare, vill du forts&auml;tta?</p> \
+    <p><span data-i18n="common.external.question"></span></p> \
     <p> \
       <fieldset class="ui-grid-a"> \
-        <div class="ui-block-a"><a data-role="button" data-rel="back">Nej</a></div> \
+        <div class="ui-block-a"><a data-role="button" data-rel="back"><span data-i18n="common.external.no"></span></a></div> \
         <div class="ui-block-b"><a data-role="button" data-rel="external" href="<%= href%>" target="_blank" \
-          data-ajax="false" data-theme="b">Ja</a></div> \
+          data-ajax="false" data-theme="b"><span data-i18n="common.external.link"></span></a></div> \
       </fieldset> \
     </p> \
   </div> \

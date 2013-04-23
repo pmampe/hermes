@@ -1,17 +1,31 @@
 {
-  "map":{
+  "common": {
+  "header":{
+    "back": "Tillbaka",
+    "home": "Hem",
+    "menu": "Meny"
+  },
 
+  "external":{
+    "link": "Extern länk",
+    "question": "Sidan kommer öppnas i en extern webbläsare, vill du fortsätta?",
+    "yes": "Ja",
+    "no": "Nej"
+  }
+},
+  "map":{
     "menu":{
       "home":"Hem",
       "search":"Sök",
-      "directions":"Vägbeskrivning"
+      "directions":"Vägbeskrivning",
+      "cancel": "Avbryt"
     },
 
     "infoWindow":{
       "directions":"Vägbeskrivning",
       "walking":"Gående",
-      "bicycling":"Med cyckel",
-      "publicTransit":"Med kolektivtrafik",
+      "bicycling":"Med cykel",
+      "publicTransit":"Med kollektivtrafik",
       "car":"Med bil"
     }
   }

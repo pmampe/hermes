@@ -45,10 +45,18 @@ var MapRouter = Backbone.Router.extend({
         menu: true,
         types: ["building"]
       }),
-      title: "Hus"
+      title: i18n.t('map.building.title')
     });
+
+  /*  getLocale();
+    i18n.init({resGetPath: '../../../i18n/__lng__.json'}, function(){
+      $('#page-map').i18n();
+    });*/
+
     appView.render();
     appView.updateLocations();
+
+
   },
 
   parkingspaces: function () {

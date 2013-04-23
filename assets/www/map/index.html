@@ -30,8 +30,6 @@
   <script src="js/lib/jquery.ui.map/jquery.ui.map.overlays.js"></script>
   <script src="js/lib/jquery.ui.map/jquery.ui.map.services.js"></script>
 
-
-
   <script type="text/template" id="search-popup_filter_button_template">
     <a id="<%= id %>" data-role="button" data-inline="true" data-mini="true" href="#" data-icon="delete"
        data-iconpos="right"><%= name %></a>
@@ -109,6 +107,7 @@
 
 <div data-role="page" data-theme="a" data-fullscreen="true" id="page-map"
      data-header="common/header" data-header-options="backbutton notfixed">
+
   <div id="search-box" class="ui-mini search-box">
     <ul id="search-autocomplete"
         data-role='listview'
@@ -122,7 +121,9 @@
         data-inset='true'>
     </ul>
     <a id="cancelFilter" href="#" class="cancel-filter-button"
-       data-role="button" data-inline="true" data-mini="true">Cancel</a>
+       data-role="button" data-inline="true" data-mini="true">
+        <span data-i18n="map.menu.cancel"></span>
+       </a>
   </div>
 
   <div data-role="content" id="map-content">
