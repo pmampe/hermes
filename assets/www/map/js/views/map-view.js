@@ -30,7 +30,7 @@ var MapView = Backbone.View.extend(
             'addMarkers'
         );
 
-        this.pointViews = {};
+        this.pointViews = [];
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         // Google Maps Options
@@ -232,13 +232,13 @@ var MapView = Backbone.View.extend(
        * Remove all markers from the map.
        */
       removeAllMarkers: function () {
-        _.each(_.values(this.pointViews), function (pointView) {
+        _.each(this.pointViews, function (pointView) {
           // remove all the map markers
           pointView.remove();
         });
 
         // empty the map
-        this.pointViews = {};
+        this.pointViews = [];
       },
 
       /**
@@ -270,17 +270,16 @@ var MapView = Backbone.View.extend(
               gmap: self.map,
               infoWindow: self.mapInfoWindowView,
               customizedPosition: point.getCenter()});
-            self.pointViews[iconPoint.id] = iconPoint;
+            self.pointViews.push(iconPoint);
           }
 
-          self.pointViews[point.cid] = point;
+          self.pointViews.push(point);
         });
 
         // If there is only one marker on the map, display the info window.
         if (_.size(this.pointViews) == 1) {
-          _.each(this.pointViews, function (value, key, list) {
-            value.openInfoWindow(value.model, value.marker, value.getPosition({model: value.model}));
-          });
+          var point = _first(this.pointViews);
+          point.openInfoWindow(point.model, point.marker, point.getPosition({model: point.model}));
         }
       },
 
