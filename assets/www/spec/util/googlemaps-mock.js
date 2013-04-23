@@ -39,10 +39,21 @@ google.maps.MarkerImage = function (image) {
 google.maps.Marker = function (options) {
   this.setMap = function (map) {
   };
+  this.setVisible = function (visibility) {
+  };
 };
 
 google.maps.Polyline = function (options) {
   this.setMap = function (map) {
+  };
+  this.setVisible = function (visibility) {
+  };
+};
+
+google.maps.Polygon = function (options) {
+  this.setMap = function (map) {
+  };
+  this.setVisible = function (visibility) {
   };
 };
 

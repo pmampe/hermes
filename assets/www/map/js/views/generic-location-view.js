@@ -14,13 +14,14 @@ var GenericLocationView = Backbone.View.extend(
        * @param options options for the location view. Expects model, gmap, marker & infoWindow
        */
       initialize: function (options) {
-        _.bindAll(this, "updatePosition");
+        _.bindAll(this, "updatePosition", 'updateVisibility');
         this.model = options.model;
         this.gmap = options.gmap;
         this.marker = options.marker;
         this.infoWindow = options.infoWindow;
 
         this.model.on('change:coords', this.updatePosition);
+        this.model.on('change:visible', this.updateVisibility);
 
         // render the initial point state
         this.render();
@@ -30,6 +31,7 @@ var GenericLocationView = Backbone.View.extend(
        * Renders a location on the map.
        */
       render: function () {
+        this.updateVisibility();
         this.marker.setMap(this.gmap);
       },
 
@@ -37,6 +39,13 @@ var GenericLocationView = Backbone.View.extend(
        * Update position on the map.
        */
       updatePosition: function () {
+      },
+
+      /**
+       * Update visibilty on the map.
+       */
+      updateVisibility: function () {
+        this.marker.setVisible(this.model.isVisible());
       },
 
       /**
