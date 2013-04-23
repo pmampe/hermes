@@ -46,6 +46,15 @@ google.maps.Marker = function (options) {
 google.maps.Polyline = function (options) {
   this.setMap = function (map) {
   };
+  this.setVisible = function (visibility) {
+  };
+};
+
+google.maps.Polygon = function (options) {
+  this.setMap = function (map) {
+  };
+  this.setVisible = function (visibility) {
+  };
 };
 
 google.maps.LatLng = function (lat, lng) {
