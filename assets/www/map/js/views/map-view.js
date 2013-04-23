@@ -83,7 +83,7 @@ var MapView = Backbone.View.extend(
 
         var self = this;
         $(this.map).addEventListener('zoom_changed', function () {
-          options.zoomCallback(self.map.getZoom());
+          self.trigger('zoom_changed', self.map.getZoom());
         });
         this.on('updateCurrentPosition', this.updateCurrentPosition);
         this.model.on('change:mapPosition', this.updateMapPosition, this);

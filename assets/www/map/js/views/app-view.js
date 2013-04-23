@@ -36,8 +36,7 @@ var AppView = Backbone.View.extend(
 
         this.mapView = new MapView({
           el: $('#map_canvas'),
-          model: this.mapModel,
-          zoomCallback: this.handleZoomChanged
+          model: this.mapModel
         });
 
         this.searchView = new SearchView({
@@ -56,6 +55,7 @@ var AppView = Backbone.View.extend(
           }
         });
 
+        this.mapView.on('zoom_changed', this.handleZoomChanged);
         this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
           self.trigger('toggleMarkerVisibility', self.locations, false); // Hide the hidden locations before displaying them.
