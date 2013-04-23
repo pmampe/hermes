@@ -18,6 +18,8 @@ var Location = Backbone.Model.extend(
         coords: [],
         directionAware: true,
         hasIcon: false,
+        handicapAdapted: false,
+        visible: true,
         pin: new google.maps.MarkerImage(
             'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkw' +
                 'AAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQWIJ3tCJcAAAC/SURBVAjXNc4/jgFRAMDh3/tj8oaJKchENBRsQTZ2VCpncAFO4A' +
@@ -44,10 +46,20 @@ var Location = Backbone.Model.extend(
 
       /**
        * Get a generated poi-type.
+       *
        * @return {string} the poi-type
        */
       getPoiType: function () {
         return this.get('campus') + "." + this.get('type');
+      },
+
+      /**
+       * Checks if the location is visible on the map.
+       *
+       * @return true if visible, false if not.
+       */
+      isVisible: function () {
+        return this.get('visible');
       }
     });
 
