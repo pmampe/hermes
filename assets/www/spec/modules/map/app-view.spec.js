@@ -192,16 +192,18 @@ describe('App view', function () {
 
   describe('zoom change', function () {
     it('should call toggleMarkerVisibility with true on zoom > threshold', function () {
-      var called = false;
-      this.view.model.set('toggleMarkerVisibility', function (collection, visible) {
-        called = true;
+      var res = false;
+      this.view.on('toggleMarkerVisibility', function (collection, visible) {
+        res = visible;
       });
       this.view.model.set('zoomSensitive', true);
       config.map.zoom.threshold = 17;
 
       this.view.handleZoomChanged(18);
+      expect(res).toBeTruthy();
 
-      expect(called).toBeTruthy();
+      this.view.handleZoomChanged(16);
+      expect(res).toBeFalsy();
     });
   });
 });

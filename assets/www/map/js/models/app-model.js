@@ -14,8 +14,6 @@ var AppModel = Backbone.Model.extend(
         filterByCampus: false,
         campus: new Campus({ name: "Frescati" }),
         types: [],
-        zoomSensitive: false,
-        toggleMarkerVisibility: function (locations, visible) {
-        }
+        zoomSensitive: false
       }
     });

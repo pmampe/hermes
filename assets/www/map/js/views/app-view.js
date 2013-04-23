@@ -30,7 +30,6 @@ var AppView = Backbone.View.extend(
         this.campuses = new Campuses();
         this.locations = new Locations();
         this.mapModel = new MapModel();
-        this.zoomOn = false;
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
@@ -59,7 +58,7 @@ var AppView = Backbone.View.extend(
 
         this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
-          self.model.get('toggleMarkerVisibility')(self.locations, false); // Hide the hidden locations before displaying them.
+          self.trigger('toggleMarkerVisibility', self.locations, false); // Hide the hidden locations before displaying them.
           self.mapView.replacePoints(self.locations);
         });
 
@@ -149,13 +148,11 @@ var AppView = Backbone.View.extend(
        */
       handleZoomChanged: function (zoom) {
         if (this.model.get('zoomSensitive') === true) {
-          if (zoom > config.map.zoom.threshold && this.zoomOn === false) {
-            this.zoomOn = true;
-            this.model.get('toggleMarkerVisibility')(this.locations, true);
+          if (zoom > config.map.zoom.threshold) {
+            this.trigger('toggleMarkerVisibility', this.locations, true);
           }
-          else if (zoom <= config.map.zoom.threshold && this.zoomOn === true) {
-            this.model.get('toggleMarkerVisibility')(this.locations, false);
-            this.zoomOn = false;
+          else if (zoom <= config.map.zoom.threshold) {
+            this.trigger('toggleMarkerVisibility', this.locations, false);
           }
         }
       },

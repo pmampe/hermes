@@ -57,21 +57,21 @@ var MapRouter = Backbone.Router.extend({
       model: new AppModel({
         filterByCampus: true,
         types: ["parking", "handicap_parking", 'entrance'],
-        zoomSensitive: true,
-        toggleMarkerVisibility: function (locations, visible) {
-          locations.each(function (item) {
-            if (item.get('type') == 'entrance') {
-              if (item.get('handicapAdapted') === true) {
-                item.set('visible', visible);
-              }
-              else {
-                item.set('visible', false);
-              }
-            }
-          });
-        }
+        zoomSensitive: true
       }),
       title: "Parkeringar"
+    });
+    appView.on('toggleMarkerVisibility', function (locations, visible) {
+      locations.each(function (item) {
+        if (item.get('type') == 'entrance') {
+          if (item.get('handicapAdapted') === true) {
+            item.set('visible', visible);
+          }
+          else {
+            item.set('visible', false);
+          }
+        }
+      });
     });
     appView.render();
     appView.updateLocations();
