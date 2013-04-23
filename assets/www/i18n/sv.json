@@ -1,0 +1,18 @@
+{
+  "map":{
+
+    "menu":{
+      "home":"Hem",
+      "search":"Sök",
+      "directions":"Vägbeskrivning"
+    },
+
+    "infoWindow":{
+      "directions":"Vägbeskrivning",
+      "walking":"Gående",
+      "bicycling":"Med cyckel",
+      "publicTransit":"Med kolektivtrafik",
+      "car":"Med bil"
+    }
+  }
+}
