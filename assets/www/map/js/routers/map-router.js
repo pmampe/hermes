@@ -61,7 +61,12 @@ var MapRouter = Backbone.Router.extend({
         toggleMarkerVisibility: function (locations, visible) {
           locations.each(function (item) {
             if (item.get('type') == 'entrance') {
-              item.set('visible', visible);
+              if (item.get('handicapAdapted') === true) {
+                item.set('visible', visible);
+              }
+              else {
+                item.set('visible', false);
+              }
             }
           });
         }
