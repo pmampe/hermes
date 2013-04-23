@@ -27,7 +27,7 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 
   var addClass = templateData.menubutton || templateData.homebutton || templateData.backbutton ? "" : "nobuttons";
 
-  $this.find('[data-role="header"]').remove();
+  $this.find('[data-role="page"][data-role="header"]').remove();
 
   $('<div></div>').attr(attrs).prependTo(this).html(function () {
     return JST[headerTemplate](templateData);
@@ -44,12 +44,15 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   var $externalLinkDialog = $('#external-link-dialog');
   $externalLinkDialog.remove();
 
-  $externalLinkDialog = $('<div id="external-link-dialog"></div>').html(JST["common/external-link-dialog"]({
+  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup"></div>').html(JST["common/external-link-dialog"]({
     href: $(this).attr("href")
-  })).appendTo("body");
+  })).appendTo($.mobile.activePage);
 
   $externalLinkDialog.find("a[target=_blank]").click(function () {
-    $externalLinkDialog.dialog('close');
+    $externalLinkDialog.popup('close');
   });
-  $.mobile.changePage('#external-link-dialog', { role: "dialog" });
+
+  $externalLinkDialog.popup();
+  $.mobile.activePage.page('destroy').page();
+  $externalLinkDialog.popup('open');
 });
