@@ -17,7 +17,6 @@ beforeEach(function () {
             name: 'first',
             campus: 'Frescati',
             type: 'parkering',
-            subType: 'mc',
             shape: "line",
             text: "Foobar",
             coords: [
@@ -30,7 +29,6 @@ beforeEach(function () {
             name: '2nd',
             campus: 'Frescati',
             type: 'parkering',
-            subType: 'mc',
             shape: "line",
             text: "Foobar",
             coords: [
@@ -43,7 +41,6 @@ beforeEach(function () {
             name: 'third',
             campus: 'Frescati',
             type: 'hörsal',
-            subType: 'mc',
             shape: "line",
             text: "Foobar",
             coords: [
@@ -56,7 +53,6 @@ beforeEach(function () {
             name: '4th',
             campus: 'Kista',
             type: 'parkering',
-            subType: 'mc',
             shape: "line",
             text: "Foobar",
             coords: [

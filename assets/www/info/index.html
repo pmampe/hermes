@@ -25,8 +25,19 @@
 <!-- Default javascripts -->
 <script src="../js/jst/common.js"></script>
 <script src="../js/default.js"></script>
+<script src="../js/lib/i18next-1.5.8.min.js"></script>
+<script src="../js/locale.js"></script>
 
-<div id="search_page" data-role="page" data-header="common/header" data-header-options="backbutton">
+<script type="text/javascript">
+  $(document).ready(function () {
+    getLocale();
+    i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+      $('#info_page').i18n();
+    });
+  });
+</script>
+
+<div id="info_page" data-role="page" data-header="common/header" data-header-options="backbutton">
   <div id="info_view" data-role="content">
     <p>Information om tillgänglighet (hörslinga, handikappanpassad toalett, hiss, entré och parkering) på SU hittar du
       söker fram en sal, ett hus eller parkeringar i appen.</p>

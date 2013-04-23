@@ -15,12 +15,24 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render", 'menuSelectCallback');
+        _.bindAll(this, "render", 'locationCallback', 'campusCallback', 'menuSelectCallback', "startGPSPositioning");
+
+        $(document).on("deviceready.appview", this.startGPSPositioning);
 
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
         this.mapModel = new MapModel();
+
+        var filterByCampus = this.model.get('filterByCampus');
+        var showMenu = this.model.get('menu');
+
+        var self = this;
+
+        i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+          self.$el.i18n();
+        });
+
 
         this.mapView = new MapView({
           el: $('#map_canvas'),
@@ -29,31 +41,42 @@ var AppView = Backbone.View.extend(
 
         this.searchView = new SearchView({
           el: $('#search-box'),
-          mapView: this.mapView,
+          collection: filterByCampus ? this.campuses : this.locations,
           placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
         });
 
 
-        var self = this;
+        this.searchView.on('selected', function (selectedElement) {
+          if (filterByCampus) {
+            self.campusCallback(selectedElement);
+          }
+          else {
+            self.locationCallback(selectedElement);
+          }
+        });
+
+        this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
           self.mapView.replacePoints(self.locations);
-          self.searchView.render(self.locations);
         });
 
         this.updateLocations();
 
         // Display a menu button
-        if (this.model.get('menu') == true) {
+        if (showMenu) {
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.campuses,
-            appModel: this.model,
-            callback: this.menuSelectCallback
+            appModel: this.model
           });
 
+          this.menuPopupView.on('selected', this.menuSelectCallback);
           this.model.on('change:campus', this.changeCampus, this);
 
           this.changeCampus();
+        }
+
+        if (showMenu || filterByCampus) {
           this.campuses.fetch();
         }
       },
@@ -71,13 +94,41 @@ var AppView = Backbone.View.extend(
       render: function () {
         $('div[data-role="header"] > h1').text(this.title);
 
-        if (this.model.get('menu') == true) {
+        if (this.model.get('menu') === true) {
           $('div[data-role="header"]').append(JST['map/menu/button']);
           $('#menubutton').button();
 
           this.delegateEvents();
         }
         this.mapView.render();
+      },
+
+      /**
+       * Remove handler for the view.
+       */
+      remove: function () {
+        $(document).off('.appview');
+
+        // Stop GPS positioning watch
+        if (this.gpsWatchId && navigator.geolocation) {
+          navigator.geolocation.clearWatch(this.gpsWatchId);
+        }
+
+        Backbone.View.prototype.remove.call(this);
+      },
+
+      locationCallback: function (selectedModel) {
+        var collection = new Locations([]);
+
+        if (selectedModel) {
+          collection.add(selectedModel);
+        }
+
+        this.mapView.replacePoints(collection);
+      },
+
+      campusCallback: function (selectedModel) {
+        this.model.set('campus', selectedModel);
       },
 
       /**
@@ -120,5 +171,35 @@ var AppView = Backbone.View.extend(
         this.mapModel.setMapPosition(lat, lng);
         this.mapModel.setZoom(campus.getZoom());
         this.mapView.replacePoints(this.locations);
+      },
+
+      /**
+       * Update the position from GPS.
+       */
+      startGPSPositioning: function () {
+        if (navigator.geolocation) {
+          this.mapView.fadingMsg('Using device geolocation to get current position.');
+          var self = this;
+
+          // Get the current position or display error message
+          this.gpsWatchId = navigator.geolocation.getCurrentPosition(
+              function (pos) {
+                self.mapView.trigger('updateCurrentPosition', pos);
+              },
+              function (error) {
+                self.mapView.fadingMsg('Unable to get location');
+              }
+          );
+
+          // Start watching for GPS position changes
+          this.gpsWatchId = navigator.geolocation.watchPosition(
+              function (pos) {
+                self.mapView.trigger('updateCurrentPosition', pos);
+              },
+              function (error) {
+              },
+              1000
+          );
+        }
       }
     });

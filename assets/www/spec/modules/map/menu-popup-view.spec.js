@@ -16,10 +16,7 @@ describe('Menu popup view', function () {
 
     this.view = new MenuPopupView({
       el: $('#menupopup'),
-      campuses: this.campuses,
-      callback: function () {
-        return 'bar';
-      }
+      campuses: this.campuses
     });
   });
 
@@ -30,10 +27,6 @@ describe('Menu popup view', function () {
   describe('initializing', function () {
     it('should set campuses from options', function () {
       expect(this.view.campuses).toEqual(this.campuses);
-    });
-
-    it('should set callback function from options', function () {
-      expect(this.view.callback()).toEqual('bar');
     });
 
     it('should add new class for menu margin', function () {
@@ -56,7 +49,6 @@ describe('Menu popup view', function () {
 
   describe('selectCampus', function () {
     it('runs callback & closes menu popup', function () {
-      spyOn(this.view, "callback");
       var campus = new Campus({ id: 0, name: 'foo'});
 
       this.view.campuses.add([campus]);
@@ -65,7 +57,6 @@ describe('Menu popup view', function () {
 
       this.view.selectCampus({target: "#link"});
 
-      expect(this.view.callback).toHaveBeenCalledWith(campus);
       expect($('#menupopup').parent().hasClass('ui-popup-hidden')).toBeTruthy();
     });
   });

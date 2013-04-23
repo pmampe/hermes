@@ -7,17 +7,11 @@ var config = (function(pgBrokerBaseURL) {
     },
 
     "map": {
-      "autocomplete": {
-        "url": pgBrokerBaseURL + "/geo/search"
-      },
       "campuses": {
         "url": pgBrokerBaseURL + "/geo/campuses"
       },
       "location": {
         "url": pgBrokerBaseURL + "/geo/poi"
-      },
-      "search": {
-        "url": pgBrokerBaseURL + "/geo/search"
       },
       "icon": {
         "urlPrefix": pgBrokerBaseURL + "/image/view"
