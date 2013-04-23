@@ -9,14 +9,14 @@ describe('Generic location view', function () {
 
     });
 
-    it('should render infoWindow', function () {
+    it('should open infoWindow', function () {
       this.view.infoWindow = new InfoWindow();
 
-      spyOn(this.view.infoWindow, "render");
+      spyOn(this.view.infoWindow, "open");
 
       this.view.openInfoWindow(0, 1, 2);
 
-      expect(this.view.infoWindow.render).toHaveBeenCalledWith(0, 1, 2);
+      expect(this.view.infoWindow.open).toHaveBeenCalledWith(0, 1, 2);
     });
   });
 
@@ -31,15 +31,15 @@ describe('Generic location view', function () {
 
     });
 
-    it('should remove info window', function () {
-      spyOn(this.view.infoWindow, "remove");
+    it('should close info window on remove', function () {
+      spyOn(this.view.infoWindow, "close");
       this.view.marker = {};
       this.view.marker.setMap = function (foo) {
       };
 
       this.view.remove();
 
-      expect(this.view.infoWindow.remove).toHaveBeenCalled();
+      expect(this.view.infoWindow.close).toHaveBeenCalled();
     });
 
     it('should clear map for marker', function () {
