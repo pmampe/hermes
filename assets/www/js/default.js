@@ -44,7 +44,7 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   var $externalLinkDialog = $('#external-link-dialog');
   $externalLinkDialog.remove();
 
-  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup"></div>').html(JST["common/external-link-dialog"]({
+  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
     href: $(this).attr("href")
   })).appendTo($.mobile.activePage);
 
