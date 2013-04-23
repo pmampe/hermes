@@ -15,7 +15,6 @@ var Location = Backbone.Model.extend(
         type: 'unknown',
         shape: "point",
         text: "",
-        textEn: "",
         coords: [],
         directionAware: true,
         hasIcon: false,

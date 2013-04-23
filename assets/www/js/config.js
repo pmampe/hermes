@@ -18,5 +18,4 @@ var config = (function(pgBrokerBaseURL) {
       }
     }
   };
-})("http://localhost:8080/hermes-broker");
-//})("http://pgbroker-dev.it.su.se");
+})("http://pgbroker-dev.it.su.se");
