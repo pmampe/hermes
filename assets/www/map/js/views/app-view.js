@@ -15,7 +15,14 @@ var AppView = Backbone.View.extend(
        * @constructs
        */
       initialize: function (options) {
-        _.bindAll(this, "render", 'locationCallback', 'campusCallback', 'menuSelectCallback', "startGPSPositioning");
+        _.bindAll(this,
+            "render",
+            'locationCallback',
+            'campusCallback',
+            'menuSelectCallback',
+            "startGPSPositioning",
+            'handleZoomChanged'
+        );
 
         $(document).on("deviceready.appview", this.startGPSPositioning);
 
@@ -55,8 +62,10 @@ var AppView = Backbone.View.extend(
           }
         });
 
+        this.mapView.on('zoom_changed', this.handleZoomChanged);
         this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
+          self.trigger('toggleMarkerVisibility', self.locations, false); // Hide the hidden locations before displaying them.
           self.mapView.replacePoints(self.locations);
         });
 
@@ -71,7 +80,6 @@ var AppView = Backbone.View.extend(
           });
 
           this.menuPopupView.on('selected', this.menuSelectCallback);
-          this.model.on('change:campus', this.changeCampus, this);
 
           this.changeCampus();
         }
@@ -138,6 +146,22 @@ var AppView = Backbone.View.extend(
        */
       menuSelectCallback: function (campus) {
         this.model.set('campus', campus);
+      },
+
+      /**
+       * Handle changed zoom level.
+       *
+       * @param zoom the new zoom level.
+       */
+      handleZoomChanged: function (zoom) {
+        if (this.model.get('zoomSensitive') === true) {
+          if (zoom > config.map.zoom.threshold) {
+            this.trigger('toggleMarkerVisibility', this.locations, true);
+          }
+          else if (zoom <= config.map.zoom.threshold) {
+            this.trigger('toggleMarkerVisibility', this.locations, false);
+          }
+        }
       },
 
       /**

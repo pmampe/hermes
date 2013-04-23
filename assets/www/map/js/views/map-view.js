@@ -21,10 +21,16 @@ var MapView = Backbone.View.extend(
       /**
        * @constructs
        */
-      initialize: function () {
-        _.bindAll(this, "render", "updateCurrentPosition");
+      initialize: function (options) {
+        _.bindAll(this,
+            'render',
+            'updateCurrentPosition',
+            'handleZoomChanged',
+            'removeAllMarkers',
+            'addMarkers'
+        );
 
-        this.pointViews = {};
+        this.pointViews = [];
         this.mapInfoWindowView = new InfoWindow({mapView: this});
 
         // Google Maps Options
@@ -75,6 +81,10 @@ var MapView = Backbone.View.extend(
           infoWindow: this.mapInfoWindowView
         });
 
+        var self = this;
+        $(this.map).addEventListener('zoom_changed', function () {
+          self.trigger('zoom_changed', self.map.getZoom());
+        });
         this.on('updateCurrentPosition', this.updateCurrentPosition);
         this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.model.on('change:zoom', this.updateMapZoom, this);
@@ -144,6 +154,10 @@ var MapView = Backbone.View.extend(
             });
       },
 
+      handleZoomChanged: function () {
+        this.trigger('selected', this.map.getZoom());
+      },
+
       /**
        * There are a maximum of 3 buttons - home, search and directions
        * (in that order). Given the number of buttons to display the
@@ -210,15 +224,30 @@ var MapView = Backbone.View.extend(
        * @param {Location} newPoints the new points to paint on the map.
        */
       replacePoints: function (newPoints) {
-        var self = this;
+        this.removeAllMarkers();
+        this.addMarkers(newPoints)
+      },
 
-        _.each(_.values(self.pointViews), function (pointView) {
+      /**
+       * Remove all markers from the map.
+       */
+      removeAllMarkers: function () {
+        _.each(this.pointViews, function (pointView) {
           // remove all the map markers
           pointView.remove();
         });
 
         // empty the map
-        self.pointViews = {};
+        this.pointViews = [];
+      },
+
+      /**
+       * Add new markers to the map.
+       *
+       * @param newPoints the new markers.
+       */
+      addMarkers: function (newPoints) {
+        var self = this;
 
         newPoints.each(function (item) {
           var point = null;
@@ -241,17 +270,16 @@ var MapView = Backbone.View.extend(
               gmap: self.map,
               infoWindow: self.mapInfoWindowView,
               customizedPosition: point.getCenter()});
-            self.pointViews[iconPoint.id] = iconPoint;
+            self.pointViews.push(iconPoint);
           }
 
-          self.pointViews[point.cid] = point;
+          self.pointViews.push(point);
         });
 
         // If there is only one marker on the map, display the info window.
         if (_.size(this.pointViews) == 1) {
-          _.each(this.pointViews, function (value, key, list) {
-            value.openInfoWindow(value.model, value.marker, value.getPosition({model: value.model}));
-          });
+          var point = _.first(this.pointViews);
+          point.openInfoWindow(point.model, point.marker, point.getPosition({model: point.model}));
         }
       },
 

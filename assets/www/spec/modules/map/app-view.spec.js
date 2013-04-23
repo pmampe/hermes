@@ -131,6 +131,9 @@ describe('App view', function () {
     it('sets map position to selected campus', function () {
       spyOn(this.view.mapView.model, "setMapPosition");
       spyOn(this.view.mapView.model, "setZoom");
+
+      this.view.mapView.replacePoints = function (foo) {
+      };
       var campus = new Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
@@ -184,6 +187,23 @@ describe('App view', function () {
       };
 
       this.view.campusCallback(campus);
+    });
+  });
+
+  describe('zoom change', function () {
+    it('should call toggleMarkerVisibility with true on zoom > threshold', function () {
+      var res = false;
+      this.view.on('toggleMarkerVisibility', function (collection, visible) {
+        res = visible;
+      });
+      this.view.model.set('zoomSensitive', true);
+      config.map.zoom.threshold = 17;
+
+      this.view.handleZoomChanged(18);
+      expect(res).toBeTruthy();
+
+      this.view.handleZoomChanged(16);
+      expect(res).toBeFalsy();
     });
   });
 });

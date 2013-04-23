@@ -65,4 +65,30 @@ describe('Generic location view', function () {
       expect(this.view.marker).toBeNull();
     });
   });
+
+  describe('updateVisibility', function () {
+    beforeEach(function () {
+      GenericLocationView.prototype.render = function () {
+      };
+
+      this.view = new GenericLocationView({
+        model: new Location(),
+        infoWindow: new InfoWindow()
+      });
+
+    });
+
+    it('should set visibility of model on marker', function () {
+      this.view.marker = new google.maps.Marker();
+      spyOn(this.view.marker, 'setVisible');
+
+      this.view.model.set('visible', true);
+      this.view.updateVisibility();
+      expect(this.view.marker.setVisible).toHaveBeenCalledWith(true);
+
+      this.view.model.set('visible', false);
+      this.view.updateVisibility();
+      expect(this.view.marker.setVisible).toHaveBeenCalledWith(false);
+    });
+  });
 });

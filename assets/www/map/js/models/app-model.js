@@ -13,6 +13,7 @@ var AppModel = Backbone.Model.extend(
         menu: false,
         filterByCampus: false,
         campus: new Campus({ name: "Frescati" }),
-        types: []
+        types: [],
+        zoomSensitive: false
       }
     });
