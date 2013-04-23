@@ -1,4 +1,4 @@
-var config = (function(pgBrokerBaseURL) {
+var config = (function (pgBrokerBaseURL) {
   return {
     "sukat": {
       "search": {
@@ -15,6 +15,9 @@ var config = (function(pgBrokerBaseURL) {
       },
       "icon": {
         "urlPrefix": pgBrokerBaseURL + "/image/view"
+      },
+      "zoom": {
+        "threshold": 17
       }
     }
   };

@@ -29,8 +29,8 @@ var AppView = Backbone.View.extend(
         this.title = options.title;
         this.campuses = new Campuses();
         this.locations = new Locations();
-        this.zoomLocations = new Locations();
         this.mapModel = new MapModel();
+        this.zoomLocaionsDisplayed = false;
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
@@ -59,10 +59,8 @@ var AppView = Backbone.View.extend(
 
         this.model.on('change:campus', this.changeCampus, this);
         this.locations.on("reset", function () {
+          self.model.get('toggleMarkerVisibility')(self.locations, false); // Hide the hidden locations before displaying them.
           self.mapView.replacePoints(self.locations);
-        });
-        this.zoomLocations.on("reset", function () {
-          self.mapView.addMarkers(self.zoomLocations);
         });
 
         this.updateLocations();
@@ -76,7 +74,6 @@ var AppView = Backbone.View.extend(
           });
 
           this.menuPopupView.on('selected', this.menuSelectCallback);
-          this.model.on('change:campus', this.changeCampus, this);
 
           this.changeCampus();
         }
@@ -151,15 +148,15 @@ var AppView = Backbone.View.extend(
        * @param zoom the new zoom level.
        */
       handleZoomChanged: function (zoom) {
-        if (zoom > 16) {
-          this.zoomLocations.fetch({
-            data: {
-              types: ['handicap_entrance']
-            },
-            error: function () {
-              alert("ERROR! Failed to fetch locations.");
-            }
-          });
+        if (this.model.get('zoomSensitive') === true) {
+          if (zoom > config.map.zoom.threshold && this.zoomLocaionsDisplayed === false) {
+            this.zoomLocaionsDisplayed = true;
+            this.model.get('toggleMarkerVisibility')(this.locations, true);
+          }
+          else if (zoom <= config.map.zoom.threshold && this.zoomLocaionsDisplayed === true) {
+            this.model.get('toggleMarkerVisibility')(this.locations, false);
+            this.zoomLocaionsDisplayed = false;
+          }
         }
       },
 
