@@ -189,4 +189,19 @@ describe('App view', function () {
       this.view.campusCallback(campus);
     });
   });
+
+  describe('zoom change', function () {
+    it('should call toggleMarkerVisibility with true on zoom > threshold', function () {
+      var called = false;
+      this.view.model.set('toggleMarkerVisibility', function (collection, visible) {
+        called = true;
+      });
+      this.view.model.set('zoomSensitive', true);
+      config.map.zoom.threshold = 17;
+
+      this.view.handleZoomChanged(18);
+
+      expect(called).toBeTruthy();
+    });
+  });
 });
