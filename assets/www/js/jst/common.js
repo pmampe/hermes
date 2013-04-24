@@ -3,26 +3,26 @@ if (!("JST" in window) || "JST" === undefined) {
 }
 
 JST['common/header'] = _.template(" \
-    <h1><%= title %></h1> \
-\
+    <h1><span><%= title %></span></h1> \
+    \
     <% if (backbutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' data-rel='back' \
          data-icon='arrow-l' data-iconpos='left' class='ui-btn-left'> \
-        <span data-i18n='common.header.back'></span>\
+        <span data-i18n='common.header.back'>Back</span>\
       </a> \
     <% } %> \
 \
     <% if (menubutton) { %>\
       <a id='menubutton' data-role='button' \
          data-icon='grid' data-iconpos='notext' class='ui-btn-right'> \
-        <span data-i18n='common.header.menu'></span> \
+        <span data-i18n='common.header.menu'>Menu</span> \
       </a> \
     <% } %> \
 \
     <% if (homebutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' href='../index.html' \
          data-icon='home' data-iconpos='notext' class='ui-btn-right'> \
-        <span data-i18n='common.header.home'></span> \
+        <span data-i18n='common.header.home'>Home</span> \
       </a> \
     <% } %> \
 ");

@@ -18,12 +18,18 @@
      "menu":{
       "home":"Home",
       "search":"Search",
+      "searchfor":"Search for ",
       "directions":"Directions",
       "cancel": "Cancel"
     },
 
-      "building": {
-        "title": "Buildings"
+      "titles": {
+        "buildings": "Buildings",
+        "departments": "Departments",
+        "computerlabs": "Computer labs",
+        "auditoriums": "Auditoriums",
+        "parking":"Parking spaces",
+        "restaurants": "Restaurants"
     },
 
     "infoWindow":{
@@ -33,5 +39,20 @@
       "publicTransit":"By public transit",
       "car":"By car"
     }
+  },
+
+  "sukat":{
+    "search" : "Search",
+    "placeholder":"Please enter name",
+    "searchpersons": "Search persons",
+    "searchresult" : "Search result",
+    "username":"User name:",
+    "email":"E-mail:",
+    "phone":"Phone:",
+    "contacts":"Add to contacts",
+    "call":"Call",
+    "sms":"SMS",
+    "sendemail":"Send email"
   }
+
 }

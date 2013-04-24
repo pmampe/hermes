@@ -101,7 +101,9 @@ var AppView = Backbone.View.extend(
        * Render the app module.
        */
       render: function () {
-        $('div[data-role="header"] > h1').text(this.title);
+        //$('div[data-role="header"] > h1').text(this.title);
+        $('div[data-role="header"] > h1 > span').attr('data-i18n',this.title);
+        $('div[data-role="header"]').i18n();
 
         if (this.model.get('menu') === true) {
           $('div[data-role="header"]').append(JST['map/menu/button']);

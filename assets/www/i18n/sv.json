@@ -17,8 +17,18 @@
     "menu":{
       "home":"Hem",
       "search":"Sök",
+      "searchfor":"Sök ",
       "directions":"Vägbeskrivning",
       "cancel": "Avbryt"
+    },
+
+    "titles": {
+      "buildings": "Hus",
+      "departments": "Institutioner",
+      "computerlabs": "Datorsalar",
+      "auditoriums": "Hörsalar",
+      "parking": "Parkeringar",
+      "restaurants": "Matställen"
     },
 
     "infoWindow":{
@@ -28,5 +38,19 @@
       "publicTransit":"Med kollektivtrafik",
       "car":"Med bil"
     }
+  },
+
+  "sukat":{
+    "search" : "Sök",
+    "placeholder":"Sök på för- & efternamn",
+    "searchpersons": "Sök personal",
+    "searchresult" : "Sökresultat",
+    "username":"Användarnamn:",
+    "email":"E-post:",
+    "phone":"Telefon:",
+    "contacts":"Skapa ny kontakt",
+    "call":"Ring",
+    "sms":"SMSa",
+    "sendemail":"Skicka e-post"
   }
 }
