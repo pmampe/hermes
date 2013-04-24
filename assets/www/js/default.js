@@ -27,7 +27,7 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 
   var addClass = templateData.menubutton || templateData.homebutton || templateData.backbutton ? "" : "nobuttons";
 
-  $this.find('[data-role="page"][data-role="header"]').remove();
+  $this.find('[data-role="header"]').remove();
 
   $('<div></div>').attr(attrs).prependTo(this).html(function () {
     return JST[headerTemplate](templateData);
