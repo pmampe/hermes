@@ -29,15 +29,15 @@ JST['common/header'] = _.template(" \
 
 JST['common/external-link-dialog'] = _.template(' \
   <div data-role="header"> \
-    <h2><span data-i18n="common.external.link"></span></h2> \
+    <h2><span data-i18n="common.external.link">External link</span></h2> \
   </div> \
   <div data-role="content"> \
-    <p><span data-i18n="common.external.question"></span></p> \
+    <p><span data-i18n="common.external.question">The page will be displayed in an external browser, do you wish to continue?</span></p> \
     <p> \
       <fieldset class="ui-grid-a"> \
-        <div class="ui-block-a"><a data-role="button" data-rel="back"><span data-i18n="common.external.no"></span></a></div> \
+        <div class="ui-block-a"><a data-role="button" data-rel="back"><span data-i18n="common.external.no">No</span></a></div> \
         <div class="ui-block-b"><a data-role="button" data-rel="external" href="<%= href%>" target="_blank" \
-          data-ajax="false" data-theme="b"><span data-i18n="common.external.link"></span></a></div> \
+          data-ajax="false" data-theme="b"><span data-i18n="common.external.yes">Yes</span></a></div> \
       </fieldset> \
     </p> \
   </div> \
