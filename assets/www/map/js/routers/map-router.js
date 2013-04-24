@@ -52,27 +52,22 @@ var MapRouter = Backbone.Router.extend({
   },
 
   parkingspaces: function () {
+    var appModel = new AppModel({
+      filterByCampus: true,
+      types: ["parking", "handicap_parking", 'entrance'],
+      zoomSensitive: true
+    });
+
     var appView = new AppView({
       el: $('#page-map'),
-      model: new AppModel({
-        filterByCampus: true,
-        types: ["parking", "handicap_parking", 'entrance'],
-        zoomSensitive: true
-      }),
+      model: appModel,
       title: "Parkeringar"
     });
-    appView.on('toggleMarkerVisibility', function (locations, visible) {
-      locations.each(function (item) {
-        if (item.get('type') == 'entrance') {
-          if (item.get('handicapAdapted') === true) {
-            item.set('visible', visible);
-          }
-          else {
-            item.set('visible', false);
-          }
-        }
-      });
+    var self = this;
+    appModel.locations.on('reset', function () {
+      self.handleParkingspaceLocationsReset(appView, appModel)
     });
+    appView.on('toggleMarkerVisibility', this.handleParkingspaceMarkerVisibility);
     appView.render();
     appView.updateLocations();
   },
@@ -87,5 +82,40 @@ var MapRouter = Backbone.Router.extend({
     });
     appView.render();
     appView.updateLocations();
+  },
+
+  /**
+   * Handle visibility of parkingspace markers
+   *
+   * @param locations collecion of locations
+   * @param visible true = set markers visible, false = hide markers
+   */
+  handleParkingspaceMarkerVisibility: function (locations, visible) {
+    locations.each(function (item) {
+      if (item.get('type') == 'entrance') {
+        if (item.get('handicapAdapted') === true) {
+          item.set('visible', visible);
+        }
+        else {
+          item.set('visible', false);
+        }
+      }
+    });
+  },
+
+  /**
+   * Handler for reset event on locations
+   *
+   * @param appView the app view
+   * @param appModel the app model
+   */
+  handleParkingspaceLocationsReset: function (appView, appModel) {
+    appModel.set('zoomSensitive', true);
+    appModel.locations.byType(["parking", "handicap_parking"]).each(function (item) {
+      item.on('clicked', function () {
+        appModel.set('zoomSensitive', false);
+        appView.trigger('toggleMarkerVisibility', appModel.locations, true);
+      });
+    });
   }
 });
