@@ -39,6 +39,14 @@ describe('Location model', function () {
     it('should have a pin', function () {
       expect(this.location.get('pin')).toBeDefined();
     });
+
+    it('should have handicapAdapted=false', function () {
+      expect(this.location.get('handicapAdapted')).toBeFalsy()
+    });
+
+    it('should default to visible=true', function () {
+      expect(this.location.isVisible()).toBeTruthy();
+    });
   });
 
   describe('when creating a location', function () {
