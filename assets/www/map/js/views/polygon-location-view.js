@@ -30,14 +30,6 @@ var PolygonLocationView = GenericLocationView.extend(
           paths: this.points
         });
 
-        var self = this;
-        google.maps.event.addListener(options.marker, 'click', function (event) {
-          if (options.model.get('directionAware')) {
-            options.infoWindow.setDestination(event.latLng);
-          }
-          self.openInfoWindow(options.model, this, event.latLng);
-        });
-
         this.constructor.__super__.initialize.apply(this, [options]);
       },
 

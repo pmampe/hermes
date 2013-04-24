@@ -154,7 +154,7 @@ describe('Locations collection', function () {
       this.locations.fetch();
       this.server.respond();
 
-      var subCollection = this.locations.byType('hörsal');
+      var subCollection = this.locations.byType(['hörsal']);
       expect(subCollection.size()).toEqual(1);
     });
 
