@@ -27,8 +27,6 @@ var AppView = Backbone.View.extend(
         $(document).on("deviceready.appview", this.startGPSPositioning);
 
         this.title = options.title;
-        this.campuses = new Campuses();
-        this.locations = new Locations();
         this.mapModel = new MapModel();
 
         var filterByCampus = this.model.get('filterByCampus');
@@ -48,7 +46,7 @@ var AppView = Backbone.View.extend(
 
         this.searchView = new SearchView({
           el: $('#search-box'),
-          collection: filterByCampus ? this.campuses : this.locations,
+          collection: this.model.getFilterCollection(),
           placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
         });
 
@@ -64,9 +62,9 @@ var AppView = Backbone.View.extend(
 
         this.mapView.on('zoom_changed', this.handleZoomChanged);
         this.model.on('change:campus', this.changeCampus, this);
-        this.locations.on("reset", function () {
-          self.trigger('toggleMarkerVisibility', self.locations, false); // Hide the hidden locations before displaying them.
-          self.mapView.replacePoints(self.locations);
+        this.model.locations.on("reset", function () {
+          self.trigger('toggleMarkerVisibility', self.model.locations, false); // Hide the hidden locations before displaying them.
+          self.mapView.replacePoints(self.model.locations);
         });
 
         this.updateLocations();
@@ -75,17 +73,13 @@ var AppView = Backbone.View.extend(
         if (showMenu) {
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
-            campuses: this.campuses,
+            campuses: this.model.campuses,
             appModel: this.model
           });
 
           this.menuPopupView.on('selected', this.menuSelectCallback);
 
           this.changeCampus();
-        }
-
-        if (showMenu || filterByCampus) {
-          this.campuses.fetch();
         }
       },
 
@@ -156,10 +150,10 @@ var AppView = Backbone.View.extend(
       handleZoomChanged: function (zoom) {
         if (this.model.get('zoomSensitive') === true) {
           if (zoom > config.map.zoom.threshold) {
-            this.trigger('toggleMarkerVisibility', this.locations, true);
+            this.trigger('toggleMarkerVisibility', this.model.locations, true);
           }
           else if (zoom <= config.map.zoom.threshold) {
-            this.trigger('toggleMarkerVisibility', this.locations, false);
+            this.trigger('toggleMarkerVisibility', this.model.locations, false);
           }
         }
       },
@@ -174,15 +168,9 @@ var AppView = Backbone.View.extend(
       /**
        * Show all locations of a specific type.
        */
+      // TODO Why do we need to call updateLocations twice initially?
       updateLocations: function () {
-        this.locations.fetch({
-          data: {
-            types: this.model.get('types')
-          },
-          error: function () {
-            alert("ERROR! Failed to fetch locations.");
-          }
-        });
+        this.model.fetchLocations();
       },
 
       /**
@@ -194,7 +182,7 @@ var AppView = Backbone.View.extend(
         var lng = campus.getLng();
         this.mapModel.setMapPosition(lat, lng);
         this.mapModel.setZoom(campus.getZoom());
-        this.mapView.replacePoints(this.locations);
+        this.mapView.replacePoints(this.model.locations);
       },
 
       /**

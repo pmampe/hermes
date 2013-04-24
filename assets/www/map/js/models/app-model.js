@@ -15,5 +15,33 @@ var AppModel = Backbone.Model.extend(
         campus: new Campus({ name: "Frescati" }),
         types: [],
         zoomSensitive: false
+      },
+
+      initialize: function () {
+        this.campuses = new Campuses();
+        this.locations = new Locations();
+
+        if (this.get('showMenu') || this.get('filterByCampus')) {
+          this.campuses.fetch();
+        }
+      },
+
+      getFilterCollection: function () {
+        return this.get('filterByCampus') ? this.campuses : this.locations;
+      },
+
+      /**
+       * Fetch all locations of a specific type.
+       */
+      fetchLocations: function () {
+        this.locations.fetch({
+          data: {
+            types: this.get('types')
+          },
+          error: function () {
+            alert("ERROR! Failed to fetch locations.");
+          }
+        });
       }
+
     });

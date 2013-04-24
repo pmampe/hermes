@@ -14,7 +14,7 @@ var MapView = Backbone.View.extend(
       map: null,
 
       /** The info window */
-      mapInfoWindowView: null,
+      infoWindowView: null,
 
       searchHiddenFromToolbar: false,
 
@@ -31,7 +31,9 @@ var MapView = Backbone.View.extend(
         );
 
         this.pointViews = [];
-        this.mapInfoWindowView = new InfoWindow({mapView: this});
+        this.infoWindowView = new InfoWindow({
+          mapView: this
+        });
 
         // Google Maps Options
         var myOptions = {
@@ -78,7 +80,7 @@ var MapView = Backbone.View.extend(
         this.currentPositionPoint = new PointLocationView({
           model: currentPosition,
           gmap: this.map,
-          infoWindow: this.mapInfoWindowView
+          infoWindow: this.infoWindowView
         });
 
         var self = this;
@@ -97,6 +99,7 @@ var MapView = Backbone.View.extend(
       remove: function () {
         $(window).off(".mapview");
 
+        this.infoWindowView.remove();
         Backbone.View.prototype.remove.call(this);
       },
 
@@ -254,13 +257,13 @@ var MapView = Backbone.View.extend(
           var shape = item.get('shape');
 
           if (shape == "line") {
-            point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
           else if (shape == "polygon") {
-            point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
           else {
-            point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.mapInfoWindowView });
+            point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
 
           // if the polygon has an icon, draw it
@@ -268,7 +271,7 @@ var MapView = Backbone.View.extend(
             var iconPoint = new PointLocationView({
               model: item,
               gmap: self.map,
-              infoWindow: self.mapInfoWindowView,
+              infoWindow: self.infoWindowView,
               customizedPosition: point.getCenter()});
             self.pointViews.push(iconPoint);
           }

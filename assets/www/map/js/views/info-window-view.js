@@ -18,7 +18,7 @@ var InfoWindow = Backbone.View.extend(
        * @param options Options for this class. Expects a {MapView}.
        */
       initialize: function (options) {
-        _.bindAll(this, 'render');
+        _.bindAll(this, 'open', 'close');
 
         this.infoWindow = new google.maps.InfoWindow({
           maxWidth: 260
@@ -28,7 +28,7 @@ var InfoWindow = Backbone.View.extend(
 
         // TODO: refactor to (backbone) events: { [selector]: [function] }, couldn't get this to work. /lucien
         $(".dir-button").live("click", function () {
-          self.remove();
+          self.close();
 
           // show the directions toolbar
           options.mapView.showNumberOfButtons(4);
@@ -42,6 +42,14 @@ var InfoWindow = Backbone.View.extend(
       },
 
       /**
+       * Remove handler for the view.
+       */
+      remove: function () {
+        this.close();
+        Backbone.View.prototype.remove.call(this);
+      },
+
+      /**
        * Sets the destination.
        * @param destination
        */
@@ -50,16 +58,15 @@ var InfoWindow = Backbone.View.extend(
       },
 
       /**
-       * Render the info window.
+       * Opens the info window.
        */
-      render: function (model, anchor, latlng) {
-        this.remove(); // remove previous infowindow
+      open: function (model, anchor, latlng) {
+        this.close(); // close previous infowindow
 
         var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
         var template = _.template($("#infoWindow_template").html(), {
-          itemName: model.get("name") + (model.get("building") ? ", " + model.get("building") : ""),
-          itemText: model.get("text"),
-          displayMode: displayMode
+          displayMode: displayMode,
+          model: model
         });
 
         this.infoWindow.setContent(template);
@@ -74,11 +81,10 @@ var InfoWindow = Backbone.View.extend(
       /**
        * Closes the info window.
        */
-      remove: function () {
+      close: function() {
         if (this.infoWindow) {
           this.infoWindow.close();
         }
-        Backbone.View.prototype.remove.call(this);
       }
     }); //-- End of InfoWindow view
 
