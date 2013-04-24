@@ -21,7 +21,7 @@ var AppModel = Backbone.Model.extend(
         this.campuses = new Campuses();
         this.locations = new Locations();
 
-        if (this.get('showMenu') || this.get('filterByCampus')) {
+        if (this.get('menu') || this.get('filterByCampus')) {
           this.campuses.fetch();
         }
       },
