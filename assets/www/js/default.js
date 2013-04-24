@@ -44,7 +44,7 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   var $externalLinkDialog = $('#external-link-dialog');
   $externalLinkDialog.remove();
 
-  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
+  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
     href: $(this).attr("href")
   })).appendTo($.mobile.activePage);
 
@@ -53,6 +53,6 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   });
 
   $externalLinkDialog.popup();
-  $.mobile.activePage.page('destroy').page();
+  $externalLinkDialog.trigger('create');
   $externalLinkDialog.popup('open');
 });

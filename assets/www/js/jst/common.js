@@ -28,10 +28,6 @@ JST['common/header'] = _.template(" \
 ");
 
 JST['common/external-link-dialog'] = _.template(' \
-  <div data-role="header" data-rel="back">\
-   <a data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext">Close</a>\
-    <h1>Extern l&auml;nk</h1> \
-  </div> \
   <div data-role="content"> \
     <p>Sidan kommer &ouml;ppnas i extern webbl&auml;sare, vill du forts&auml;tta?</p> \
       <fieldset class="ui-grid-a"> \
