@@ -85,24 +85,6 @@ describe('App view', function () {
       this.view.initialize({title: 'foo'});
       expect(this.view.menuPopupView).toBeUndefined();
     });
-
-    it('should fetch campuses', function () {
-      var self = this;
-      runs(function () {
-        self.view.model.set('menu', true);
-        self.view.initialize({title: 'foo'});
-        self.server.respond();
-      });
-
-      waitsFor(function () {
-        return self.view.campuses.length > 0;
-      });
-
-      runs(function () {
-        expect(this.view.campuses).toBeDefined();
-        expect(this.view.campuses.length).toEqual(2);
-      });
-    });
   });
 
   describe('render', function () {
