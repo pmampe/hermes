@@ -56,7 +56,7 @@ var GenericLocationView = Backbone.View.extend(
        * @param {google.maps.LatLng} latLng position of the infoWindow.
        */
       openInfoWindow: function (model, anchor, latLng) {
-        this.infoWindow.render(model, anchor, latLng);
+        this.infoWindow.open(model, anchor, latLng);
       },
 
       getCenter: function () {
@@ -84,7 +84,7 @@ var GenericLocationView = Backbone.View.extend(
        * Remove marker from map.
        */
       remove: function () {
-        this.infoWindow.remove();
+        this.infoWindow.close();
         this.marker.setMap(null);
         this.marker = null;
         Backbone.View.prototype.remove.call(this);

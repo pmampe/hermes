@@ -47,12 +47,12 @@ describe('Search view', function () {
 
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
-        appView.locations.fetch();
+        appView.model.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return appView.locations.length > 0;
+        return appView.model.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
@@ -72,12 +72,12 @@ describe('Search view', function () {
       spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
-        appView.locations.fetch();
+        appView.model.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return appView.locations.length > 0;
+        return appView.model.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
@@ -99,12 +99,12 @@ describe('Search view', function () {
       spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
-        appView.locations.fetch();
+        appView.model.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return appView.locations.length > 0;
+        return appView.model.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
@@ -128,12 +128,12 @@ describe('Search view', function () {
       spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
-        appView.locations.fetch();
+        appView.model.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return appView.locations.length > 0;
+        return appView.model.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
