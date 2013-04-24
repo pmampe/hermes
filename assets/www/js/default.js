@@ -48,7 +48,7 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
     href: $(this).attr("href")
   })).appendTo('body');
 
-  $externalLinkDialog.find("a[target=_blank]").click(function () {
+  $externalLinkDialog.find("a[target=_system]").click(function () {
     $externalLinkDialog.popup('close');
   });
 

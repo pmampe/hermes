@@ -131,7 +131,7 @@ describe('External-link-dialog', function () {
 
       expect($externalLinkDialog.find("a[data-role=button][data-rel=back]").text()).toBe("Nej");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
-      expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_blank");
+      expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_system");
     });
   });
 });
