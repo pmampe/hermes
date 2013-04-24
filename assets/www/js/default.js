@@ -44,12 +44,15 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   var $externalLinkDialog = $('#external-link-dialog');
   $externalLinkDialog.remove();
 
-  $externalLinkDialog = $('<div id="external-link-dialog"></div>').html(JST["common/external-link-dialog"]({
+  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
     href: $(this).attr("href")
-  })).appendTo("body");
+  })).appendTo('body');
 
   $externalLinkDialog.find("a[target=_blank]").click(function () {
-    $externalLinkDialog.dialog('close');
+    $externalLinkDialog.popup('close');
   });
-  $.mobile.changePage('#external-link-dialog', { role: "dialog" });
+
+  $externalLinkDialog.popup();
+  $externalLinkDialog.trigger('create');
+  $externalLinkDialog.popup('open');
 });
