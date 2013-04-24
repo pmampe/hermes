@@ -20,6 +20,15 @@ var GenericLocationView = Backbone.View.extend(
         this.marker = options.marker;
         this.infoWindow = options.infoWindow;
 
+        var self = this;
+        google.maps.event.addListener(this.marker, 'click', function (event) {
+          self.model.trigger('clicked');
+          if (self.model.get('directionAware')) {
+            self.infoWindow.setDestination(event.latLng);
+          }
+          self.openInfoWindow(self.model, this, event.latLng);
+        });
+
         this.model.on('change:coords', this.updatePosition);
         this.model.on('change:visible', this.updateVisibility);
 
