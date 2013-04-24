@@ -32,7 +32,7 @@ JST['common/external-link-dialog'] = _.template(' \
     <p>Sidan kommer &ouml;ppnas i extern webbl&auml;sare, vill du forts&auml;tta?</p> \
       <fieldset class="ui-grid-a"> \
         <div class="ui-block-a"><a data-role="button" data-rel="back">Nej</a></div> \
-        <div class="ui-block-b"><a data-role="button" data-rel="external" href="<%= href%>" target="_blank" \
+        <div class="ui-block-b"><a data-role="button" data-rel="external" href="<%= href%>" target="_system" \
           data-ajax="false" data-theme="b">Ja</a></div> \
       </fieldset> \
   </div> \
