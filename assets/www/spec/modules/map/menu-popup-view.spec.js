@@ -40,10 +40,11 @@ describe('Menu popup view', function () {
 
   describe('render', function () {
     it('close other popups & open menu popup', function () {
+      spyOn(this.view.$el, 'popup');
       this.view.render();
 
       expect($('#other-popup').parent().hasClass('ui-popup-hidden')).toBeTruthy();
-      expect($('#menupopup').parent().hasClass('ui-popup-active')).toBeTruthy();
+      expect(this.view.$el.popup).toHaveBeenCalledWith('open');
     });
   });
 
