@@ -46,7 +46,7 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
 
   $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
     href: $(this).attr("href")
-  })).appendTo($.mobile.activePage);
+  })).appendTo('body');
 
   $externalLinkDialog.find("a[target=_blank]").click(function () {
     $externalLinkDialog.popup('close');

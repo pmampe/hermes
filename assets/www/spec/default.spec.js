@@ -111,30 +111,23 @@ describe('External-link-dialog', function () {
   var changePageArguments;
 
   beforeEach(function () {
-    this.origBody = $('#stage').html();
-    $('#stage').html('<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>');
-
-    this.oldChangePage = $.mobile.changePage;
-    $.mobile.changePage = function () {
-      changePageArguments = arguments;
-    };
+    var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
+    $('#stage').replaceWith(html);
+    $.mobile.loadPage("#page");
   });
 
   afterEach(function () {
-    $('#stage').html(this.origBody);
-    $.mobile.changePage = this.oldChangePage;
+    $('#page').replaceWith("<div id='stage'></div>");
   });
 
   describe('when document contains links with target _blank', function () {
-    it('should present a dialog with info and possibility to continue or cancel', function () {
-      $.mobile.loadPage('#page');
-
+    it('should present a popup with info and possibility to continue or cancel', function () {
       $("#page").find("a").trigger("click");
 
-      expect(changePageArguments[0]).toBe("#external-link-dialog");
-      expect(changePageArguments[1].role).toBe("dialog");
-
       var $externalLinkDialog = $("#external-link-dialog");
+
+      expect($externalLinkDialog).toBeDefined();
+      expect($externalLinkDialog.attr('data-role')).toBe("popup");
 
       expect($externalLinkDialog.find("a[data-role=button][data-rel=back]").text()).toBe("Nej");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
