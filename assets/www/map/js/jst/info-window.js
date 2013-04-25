@@ -5,9 +5,9 @@ if (!("JST" in window) || "JST" === undefined) {
 JST['map/infoWindow'] = _.template(" \
 <div class='iw'>\
   <h3><%= model.get('name') %><%= model.has('buildingName') ? \", \" + model.get('buildingName') : '' %></h3>\
-  <% if (model.has('text')) { %> \
-  <%= model.get('text') %> \
-  <% } %> \
+   <% if (itemText != null) { %>\
+  <%= itemText  %>\
+  <% } %>\
   <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %> \
   <i class='hearing_loop'></i><%= i18n.t('map.infoWindow.hearing_loop') + ' ' + i18n.t('common.exists') %> \
   <% } else if (model.get('type') === 'auditorium') { %> \

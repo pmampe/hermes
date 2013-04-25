@@ -70,20 +70,15 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        var template = JST['map/infoWindow']({
-          displayDirections: model.get('directionAware'),
-          model: model
-
-
-          /**      //var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
+        var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
 
         //translate info window body by altering var text
         var text= this.getLanguageKey();
 
-        var template = _.template($("#infoWindow_template").html(), {
-          displayMode: displayMode,
+        var template = JST['map/infoWindow']({
+          displayDirections: model.get('directionAware'),
           model: model,
-          itemText: model.get(text)*/
+          itemText: model.get(text)
         });
 
         this.infoWindow.setContent(template);
