@@ -78,6 +78,10 @@ var Locations = Backbone.Collection.extend(
       /** The model used for this Location. */
       model: Location,
 
+      initialize: function (models, options) {
+        this.searchableTypes = options ? options.searchableTypes : [];
+      },
+
       /**
        * Constructs the URL used for getting locations.
        *
@@ -85,6 +89,19 @@ var Locations = Backbone.Collection.extend(
        */
       url: function () {
         return config.map.location.url;
+      },
+
+      /**
+       * Filter by searchable types.
+       *
+       * @return {Array} an array of filtered Locations.
+       */
+      bySearchable: function () {
+        if (!this.searchableTypes || this.searchableTypes.length == 0) return this;
+        var self = this;
+        return _(this.filter(function (location) {
+          return _.contains(self.searchableTypes, location.get("type"));
+        }));
       },
 
       /**
