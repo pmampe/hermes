@@ -62,6 +62,17 @@ describe('Search view', function () {
   });
 
   describe('filter functions', function () {
+    beforeEach(function () {
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          Locations.prototype.url(),
+          this.validResponse(this.fixtures.FilterItems.valid)
+      );
+
+      spyOn(SearchView.prototype, "render");
+    });
+
     it('should populate filter with the correct number of campuses', function () {
       this.server.respondWith(
           "GET",
@@ -93,15 +104,7 @@ describe('Search view', function () {
     });
 
     it('should trigger custom filtering for each filter item', function () {
-      this.server = sinon.fakeServer.create();
-      this.server.respondWith(
-          "GET",
-          Locations.prototype.url(),
-          this.validResponse(this.fixtures.FilterItems.valid.locations)
-      );
-
       spyOn(SearchView.prototype, "filterSearch");
-      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
         appView.model.locations.fetch();
@@ -123,14 +126,6 @@ describe('Search view', function () {
     });
 
     it('should overwrite jquery mobiles filtering', function () {
-      this.server = sinon.fakeServer.create();
-      this.server.respondWith(
-          "GET",
-          Locations.prototype.url(),
-          this.validResponse(this.fixtures.FilterItems.valid.locations)
-      );
-
-      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
         appView.model.locations.fetch();
@@ -245,6 +240,33 @@ describe('Search view', function () {
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
 
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
+      });
+
+      it('should hide filtered list and cancelButton as well as reset (show all) locations when clicking cancel button and filtered text is empty', function () {
+        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+
+        $('#search-box input').trigger('focus');
+        $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
+
+        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
+
+        spyOn(SearchView.prototype, "resetLocations");
+        $("#cancelFilter").trigger("click");
+        expect(SearchView.prototype.resetLocations).toHaveBeenCalled();
+      });
+
+      it('should hide filtered list and cancelButton  and keep locations in mapView when clicking cancel button and filtered text is NOT empty', function () {
+        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+
+        $('#search-box input').trigger('focus');
+        $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
+
+        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
+
+        spyOn(SearchView.prototype, "resetLocations");
+        $('#search-box input').val('Ax');
+        $("#cancelFilter").trigger("click");
+        expect(SearchView.prototype.resetLocations).not.toHaveBeenCalled();
       });
 
       it('should hide filtered list and cancelButton on click list item', function () {
