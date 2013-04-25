@@ -12,6 +12,7 @@ function startModule() {
   searchView.render();
   $('#search_page').trigger("pagecreate");
 
+  $('#search_page').i18n();
 
   $('#details_page').live('pagebeforeshow', function () {
     var itemsDetailsContainer = $('#details_page').find(":jqmData(role='content')"),

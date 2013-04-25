@@ -206,15 +206,14 @@ describe('Search view', function () {
         spyOn(SearchView.prototype, "populateFilter");
 
         var searchView = new SearchView({
+          el: "#search-box",
           collection: new Locations(),
           placeholderSuffix: category
         });
 
-        var result = $("#search-box input").attr('placeholder');
-        strip = result.split(" ");
-        result = result.replace(strip[0], "");
+        var result = searchView.$el.find("input").attr('placeholder');
 
-        expect(result.replace(" ", "")).toEqual(category);
+        expect(result).toMatch(/.*Axel Baxel/i);
       });
 
       it('should show cancel button on focus on input field', function () {

@@ -56,7 +56,6 @@ describe('Default-header', function () {
       expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
       var $button = $header.find("a");
-      expect($button.text().trim()).toBe("Tillbaka");
       expect($button.data("role")).toBe("button");
       expect($button.data("rel")).toBe("back");
       expect($button.data("icon")).toBe("arrow-l");
@@ -76,7 +75,6 @@ describe('Default-header', function () {
       expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
       var $button = $header.find("a");
-      expect($button.text().trim()).toBe("Hem");
       expect($button.data("role")).toBe("button");
       expect($button.data("icon")).toBe("home");
       expect($button.hasClass("ui-btn-right")).toBeTruthy();
@@ -107,13 +105,11 @@ describe('Default-header', function () {
 });
 
 describe('External-link-dialog', function () {
-
-  var changePageArguments;
-
   beforeEach(function () {
     var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page");
+    i18n.init(i18n.options);
   });
 
   afterEach(function () {
@@ -129,7 +125,6 @@ describe('External-link-dialog', function () {
       expect($externalLinkDialog).toBeDefined();
       expect($externalLinkDialog.attr('data-role')).toBe("popup");
 
-      expect($externalLinkDialog.find("a[data-role=button][data-rel=back]").text()).toBe("Nej");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_system");
     });

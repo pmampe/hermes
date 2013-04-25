@@ -1,22 +1,113 @@
 {
   "common": {
     "exists": "exists",
-    "dont_exist": "does not exist"
-  },
-  "map": {
-    "menu": {
+    "dont_exist": "does not exist",
+
+    "header":{
+      "back": "Back",
       "home": "Home",
-      "search": "Search",
-      "directions": "Directions"
+      "menu": "Menu"
     },
 
-    "infoWindow": {
-      "directions": "Directions",
-      "walking": "Walking",
-      "bicycling": "Bicycling",
-      "publicTransit": "By public transit",
-      "car": "By car",
+    "external":{
+      "link": "External link",
+      "question": "The page will be displayed in an external browser, do you wish to continue?",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+
+  "map":{
+     "menu":{
+      "home":"Home",
+      "search":"Search",
+      "searchfor":"Search for ",
+      "directions":"Directions",
+      "cancel": "Cancel"
+    },
+
+      "titles": {
+        "buildings": "Buildings",
+        "departments": "Departments",
+        "computerlabs": "Computer labs",
+        "auditoriums": "Auditoriums",
+        "parking":"Parking spaces",
+        "restaurants": "Restaurants"
+    },
+
+    "infoWindow":{
+      "directions":"Directions",
+      "walking":"Walking",
+      "bicycling":"Bicycling",
+      "publicTransit":"By public transit",
+      "car":"By car",
       "hearing_loop": "Hearing loop"
     }
+  },
+  "start":{
+    "menuItem":{
+      "buildings":"Buildings",
+      "departments": "Departments",
+      "auditoriums": "Auditoriums",
+      "computerLabs": "Computer Labs",
+      "parkingspaces": "Parking Spaces",
+      "restaurants": "Restaurants",
+      "sukatSearch": "Staff",
+      "courses": "Courses",
+      "studentService": "Student Service",
+      "accessibility": "Accessibility"
+    },
+    "header":{
+      "title": "Stockholm University"
+    }
+  },
+  "studentService":{
+    "menu":{
+      "applicationAndAdmission": "Admission",
+      "degreeAndCertificate": "Degrees and Certificates",
+      "guidanceCounseling": "Guidance Counceling",
+      "infoCentre": "Information Centre",
+      "healthService": "Student Health",
+      "studentDisabilityService": "Student Disability Service",
+      "studyAbroad": "Study Abroad",
+      "equality": "Equality"
+    },
+    "header":{
+      "title": "Student Service"
+    }
+  },
+  "navigation":{
+    "button":{
+        "back": "Back"
+    }
+  },
+  "accessibility":{
+    "info":{
+      "desc": "Some text about accessibility at Stockholm University, bla, bla, bla..."
+    },
+    "icon":{
+      "handicapEntrance": "Handicap entrance",
+      "handicapLift": "Handicap lift",
+      "handicapToilet": "Handicap toilet",
+      "handicapParking": "Handicap parkin",
+      "hearingLoop": "Hearing loop"
+    },
+    "header":{
+      "title": "Accessibility"
+    }
+  },
+
+  "sukat":{
+    "search" : "Search",
+    "placeholder":"Please enter name",
+    "searchpersons": "Search persons",
+    "searchresult" : "Search result",
+    "username":"User name:",
+    "email":"E-mail:",
+    "phone":"Phone:",
+    "contacts":"Add to contacts",
+    "call":"Call",
+    "sms":"SMS",
+    "sendemail":"Send email"
   }
 }

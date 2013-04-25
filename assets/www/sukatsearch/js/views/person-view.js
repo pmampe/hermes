@@ -19,6 +19,7 @@ var PersonDetailsView = Backbone.View.extend({
   render: function () {
 
     var template = _.template($('#personDetailsTemplate').html());
+    $('#details_page').i18n();
 
     var container = this.options.viewContainer,
         person = this.model,
