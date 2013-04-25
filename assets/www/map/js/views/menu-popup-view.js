@@ -21,7 +21,9 @@ var MenuPopupView = Backbone.View.extend(
 
         // Calculate header size & position menupopup beneath
         var header = $('div[data-role="header"]');
-        var margin = header.position().top + header.height();
+        if (header.size() > 0) {
+          var margin = header.position().top + header.height();
+        }
 
         $('<style>')
             .text('.menupopup-margin { margin-top: ' + Math.round(margin) + 'px; }')
@@ -43,8 +45,7 @@ var MenuPopupView = Backbone.View.extend(
         // close any other open popup (only one popup can be open at the same time.)
         $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close");
 
-        var popup = this.$el;
-        popup.popup("open");
+        this.$el.popup("open");
       },
 
       /**

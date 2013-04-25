@@ -14,12 +14,13 @@ var GenericLocationView = Backbone.View.extend(
        * @param options options for the location view. Expects model, gmap, marker & infoWindow
        */
       initialize: function (options) {
-        _.bindAll(this, "updatePosition", 'updateVisibility');
+        _.bindAll(this, "updatePosition", 'updateVisibility', 'handleMarkerClick');
         this.model = options.model;
         this.gmap = options.gmap;
         this.marker = options.marker;
         this.infoWindow = options.infoWindow;
 
+        google.maps.event.addListener(this.marker, 'click', this.handleMarkerClick);
         this.model.on('change:coords', this.updatePosition);
         this.model.on('change:visible', this.updateVisibility);
 
@@ -49,7 +50,7 @@ var GenericLocationView = Backbone.View.extend(
       },
 
       /**
-       * Open a infoWindow ocer the location.
+       * Open a infoWindow over the location.
        *
        * @param model the model of the location.
        * @param anchor the location to anchor the info window to.
@@ -59,6 +60,7 @@ var GenericLocationView = Backbone.View.extend(
         this.infoWindow.open(model, anchor, latLng);
       },
 
+      //TODO: written for polygons, should work for markers, but might return bad results for lines
       getCenter: function () {
         if (this.model.getGPoints()) {
           var sumLat = 0;
@@ -78,6 +80,19 @@ var GenericLocationView = Backbone.View.extend(
         } else {
           return -1; // TODO: throw exception instead..
         }
+      },
+
+      /**
+       * Handle 'click' event on marker.
+       *
+       * @param event the 'click' event
+       */
+      handleMarkerClick: function (event) {
+        this.model.trigger('clicked');
+        if (this.model.get('directionAware')) {
+          this.infoWindow.setDestination(event.latLng);
+        }
+        this.openInfoWindow(this.model, this.marker, event.latLng);
       },
 
       /**

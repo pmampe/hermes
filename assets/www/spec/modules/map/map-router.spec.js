@@ -234,4 +234,84 @@ describe('MapRouter', function () {
       this.router.buildings();
     });
   });
+
+  describe('when choosing parkingspaces', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.parkingspaces();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.parkingspaces();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.parkingspaces();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'auditorium'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["parking", "handicap_parking", 'entrance']);
+      });
+
+      this.router.parkingspaces();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("Parkeringar");
+      });
+
+      this.router.parkingspaces();
+    });
+  });
+
+  describe('when handling parkingspace marker visibility', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+    });
+
+    it("should set handicap adapted locations visible", function () {
+      var locations = new Locations(this.fixtures.Locations.valid);
+      var location = new Location({
+        name: 'Entre 1',
+        type: 'entrance',
+        handicapAdapted: true,
+        visible: false
+      });
+      locations.add([location]);
+
+      this.router.handleParkingspaceMarkerVisibility(locations, true);
+
+      expect(location.isVisible()).toBeTruthy();
+    });
+
+    it("should set handicap adapted locations invisible", function () {
+      var locations = new Locations(this.fixtures.Locations.valid);
+      var location = new Location({
+        name: 'Entre 1',
+        type: 'entrance',
+        handicapAdapted: true,
+        visible: true
+      });
+      locations.add([location]);
+
+      this.router.handleParkingspaceMarkerVisibility(locations, false);
+
+      expect(location.isVisible()).toBeFalsy();
+    });
+  });
 });

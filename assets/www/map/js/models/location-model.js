@@ -105,9 +105,9 @@ var Locations = Backbone.Collection.extend(
        * @param {string} type the type to filter by.
        * @return {Array} an array of filtered Locations.
        */
-      byType: function (type) {
+      byType: function (types) {
         return _(this.filter(function (data) {
-          return data.get("type") == type;
+          return _.contains(types, data.get("type"));
         }));
       },
 
