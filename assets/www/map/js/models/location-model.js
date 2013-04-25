@@ -56,6 +56,21 @@ var Location = Backbone.Model.extend(
       },
 
       /**
+       * The name for this model.
+       *
+       * @returns the name.
+       */
+      getName: function () {
+        var name = this.get('name');
+
+        if (this.has('buildingName')) {
+          name += ", " + model.get('buildingName');
+        }
+
+        return name;
+      },
+
+      /**
        * Checks if the location is visible on the map.
        *
        * @return true if visible, false if not.
@@ -134,6 +149,20 @@ var Locations = Backbone.Collection.extend(
       byBuilding: function (building) {
         return _(this.filter(function (location) {
           return location.get('buildingId') === building.id
+        }));
+      },
+
+      /**
+       * Filter Locations by building.
+       *
+       * @param {string} building the Building to filter by.
+       * @return {Array} an array of filtered Locations.
+       */
+      byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
+        return _(this.filter(function (location) {
+          var res = location.get('buildingId') === building.id;
+          res &= _.contains(types, location.get("type"));
+          return res && location.get('handicapAdapted') === adapted;
         }));
       }
     });

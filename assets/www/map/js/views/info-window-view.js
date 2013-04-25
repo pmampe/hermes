@@ -70,10 +70,44 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        var template = JST['map/infoWindow']({
+        var tOptions = {
+          name: model.getName(),
           displayDirections: model.get('directionAware'),
           model: model
-        });
+        };
+
+        if (model.get('type') == 'building') {
+          var hasElevators = this.appModel.locations.byBuildingAndTypeAndHandicapAdapted(
+              model,
+              ['elevator'],
+              true
+          ).size() > 0;
+
+          var hasEntrances = this.appModel.locations.byBuildingAndTypeAndHandicapAdapted(
+              model,
+              ['entrance'],
+              true
+          ).size() > 0;
+
+
+          var toilets = this.appModel.locations.byBuildingAndTypeAndHandicapAdapted(
+              model,
+              ['toilet'],
+              true
+          );
+
+          var floors = [];
+          _.each(_.flatten(toilets), function (toilet) {
+            floors.push(toilet.get('floor'));
+          });
+          floors = _.uniq(floors.sort(), true).join(', ');
+
+          tOptions.hasElevators = hasElevators;
+          tOptions.hasEntrances = hasEntrances;
+          tOptions.tFloors = floors;
+        }
+
+        var template = JST['map/infoWindow'](tOptions);
 
         this.infoWindow.setContent(template);
         if (latlng) {

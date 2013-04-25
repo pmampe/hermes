@@ -32,8 +32,8 @@ var MapRouter = Backbone.Router.extend({
     var appView = new AppView({
       el: $('#page-map'),
       model: new AppModel({ types: ["auditorium"] }),
-      title:'map.titles.auditoriums'
-     // title: "Hör- & skrivsalar"
+      title: 'map.titles.auditoriums'
+      // title: "Hör- & skrivsalar"
     });
     appView.render();
     appView.updateLocations();
@@ -44,8 +44,8 @@ var MapRouter = Backbone.Router.extend({
       el: $('#page-map'),
       model: new AppModel({
         menu: true,
-        types: ["building", "entrance"],
-        nonVisibleTypes: ["entrance"]
+        types: ["building", "entrance", "elevator", "toilet"],
+        nonVisibleTypes: ["entrance", "elevator", "toilet"]
       }),
       title: 'map.titles.buildings'
     });

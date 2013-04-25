@@ -1,27 +1,24 @@
 {
   "common": {
-    "exists": "finns",
-    "dont_exist": "finns ej",
-
-    "header":{
+    "header": {
       "back": "Tillbaka",
       "home": "Hem",
       "menu": "Meny"
     },
 
-    "external":{
+    "external": {
       "link": "Extern länk",
       "question": "Sidan kommer öppnas i en extern webbläsare, vill du fortsätta?",
       "yes": "Ja",
       "no": "Nej"
     }
   },
-  "map":{
-    "menu":{
-      "home":"Hem",
-      "search":"Sök",
-      "searchfor":"Sök ",
-      "directions":"Vägbeskrivning",
+  "map": {
+    "menu": {
+      "home": "Hem",
+      "search": "Sök",
+      "searchfor": "Sök ",
+      "directions": "Vägbeskrivning",
       "cancel": "Avbryt"
     },
 
@@ -34,18 +31,35 @@
       "restaurants": "Matställen"
     },
 
-    "infoWindow":{
-      "directions":"Vägbeskrivning",
-      "walking":"Gående",
-      "bicycling":"Med cykel",
-      "publicTransit":"Med kollektivtrafik",
-      "car":"Med bil",
-      "hearing_loop": "Hörslinga"
+    "infoWindow": {
+      "directions": "Vägbeskrivning",
+      "walking": "Gående",
+      "bicycling": "Med cykel",
+      "publicTransit": "Med kollektivtrafik",
+      "car": "Med bil",
+      "hearing_loop": {
+        "exists": "Hörslinga finns",
+        "noexists": "Hörslinga loop finns ej"
+      },
+      "elevator": {
+        "exists": "Tillgänglig hiss finns",
+        "noexists": "Tillgänglig hiss finns ej"
+      },
+      "toilet": {
+        "exists": "Tillgänglig toalett finns, plan",
+        "noexists": "Tillgänglig toalett finns ej"
+      },
+      "entrance": {
+        "exists": "Tillgänglig entré finns",
+        "show": "Visa tillgängliga entréer",
+        "hide": "Göm tillgängliga entréer",
+        "noexists": "Tillgänglig entré finns ej"
+      }
     }
   },
-  "start":{
-    "menuItem":{
-      "buildings":"Hus",
+  "start": {
+    "menuItem": {
+      "buildings": "Hus",
       "departments": "Institutioner",
       "auditoriums": "Hör- & skrivsalar",
       "computerLabs": "Datorsalar",
@@ -56,12 +70,12 @@
       "studentService": "Studentservice",
       "accessibility": "Tillgänglighet i appen"
     },
-    "header":{
+    "header": {
       "title": "Stockholms universitet"
     }
   },
-  "studentService":{
-    "menu":{
+  "studentService": {
+    "menu": {
       "applicationAndAdmission": "Anmälan & antagning",
       "degreeAndCertificate": "Examen & studieintyg",
       "guidanceCounseling": "Studievägledning",
@@ -71,42 +85,42 @@
       "studyAbroad": "Studera utomlands",
       "equality": "Jämlikhet & likabehandling"
     },
-    "header":{
+    "header": {
       "title": "Studentservice"
     }
   },
-  "navigation":{
-    "button":{
+  "navigation": {
+    "button": {
       "back": "Tillbaka"
     }
   },
-  "accessibility":{
-    "info":{
+  "accessibility": {
+    "info": {
       "desc": "Information om tillgänglighet (hörslinga, handikappanpassad toalett, hiss, entré och parkering) på SU hittar du söker fram en sal, ett hus eller parkeringar i appen."
     },
-    "icon":{
+    "icon": {
       "handicapEntrance": "Handikappentré",
       "handicapLift": "Handikapphiss",
       "handicapToilet": "Handikapptoalett",
       "handicapParking": "Handikapp-parkering",
       "hearingLoop": "Hörslinga"
     },
-    "header":{
+    "header": {
       "title": "Tillgänglighet i appen"
     }
   },
 
-  "sukat":{
-    "search" : "Sök",
-    "placeholder":"Sök på för- & efternamn",
+  "sukat": {
+    "search": "Sök",
+    "placeholder": "Sök på för- & efternamn",
     "searchpersons": "Sök personal",
-    "searchresult" : "Sökresultat",
-    "username":"Användarnamn:",
-    "email":"E-post:",
-    "phone":"Telefon:",
-    "contacts":"Skapa ny kontakt",
-    "call":"Ring",
-    "sms":"SMSa",
-    "sendemail":"Skicka e-post"
+    "searchresult": "Sökresultat",
+    "username": "Användarnamn:",
+    "email": "E-post:",
+    "phone": "Telefon:",
+    "contacts": "Skapa ny kontakt",
+    "call": "Ring",
+    "sms": "SMSa",
+    "sendemail": "Skicka e-post"
   }
 }
