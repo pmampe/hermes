@@ -31,8 +31,9 @@ var MapView = Backbone.View.extend(
         );
 
         this.pointViews = [];
-        this.infoWindowView = new InfoWindow({
-          mapView: this
+        this.infoWindowView = new InfoWindowView({
+          mapView: this,
+          appModel: options.appModel
         });
 
         // Google Maps Options
@@ -159,22 +160,6 @@ var MapView = Backbone.View.extend(
 
       handleZoomChanged: function () {
         this.trigger('selected', this.map.getZoom());
-      },
-
-      /**
-       * There are a maximum of 3 buttons - home, search and directions
-       * (in that order). Given the number of buttons to display the
-       * footer will display them.
-       */
-      showNumberOfButtons: function (nOButtons) {
-        var directionsVisible = $("#footer-buttons3").is(":visible");
-        $(".footer-button").hide();
-
-        if (directionsVisible) {
-          $("#footer-buttons2b").show();
-        } else {
-          $("#footer-buttons" + nOButtons).show();
-        }
       },
 
       /**

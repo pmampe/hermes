@@ -10,7 +10,9 @@ describe('Generic location view', function () {
     });
 
     it('should open infoWindow', function () {
-      this.view.infoWindow = new InfoWindow();
+      this.view.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
 
       spyOn(this.view.infoWindow, "open");
 
@@ -26,7 +28,9 @@ describe('Generic location view', function () {
 
       this.view = new GenericLocationView({
         model: new Backbone.Model(),
-        infoWindow: new InfoWindow()
+        infoWindow: new InfoWindowView({
+          appModel: new AppModel()
+        })
       });
 
     });
@@ -73,7 +77,9 @@ describe('Generic location view', function () {
 
       this.view = new GenericLocationView({
         model: new Location(),
-        infoWindow: new InfoWindow()
+        infoWindow: new InfoWindowView({
+          appModel: new AppModel()
+        })
       });
 
     });

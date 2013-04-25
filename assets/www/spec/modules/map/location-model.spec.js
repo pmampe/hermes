@@ -39,6 +39,14 @@ describe('Location model', function () {
     it('should have a pin', function () {
       expect(this.location.get('pin')).toBeDefined();
     });
+
+    it('should have handicapAdapted=false', function () {
+      expect(this.location.get('handicapAdapted')).toBeFalsy()
+    });
+
+    it('should default to visible=true', function () {
+      expect(this.location.isVisible()).toBeTruthy();
+    });
   });
 
   describe('when creating a location', function () {
@@ -105,7 +113,7 @@ describe('Locations collection', function () {
     it('should return all locations', function () {
       this.locations.fetch();
       this.server.respond();
-      expect(this.locations.length).toEqual(4);
+      expect(this.locations.length).toEqual(6);
     });
 
     it('should override defaults', function () {
@@ -115,7 +123,7 @@ describe('Locations collection', function () {
       expect(firstLocation.get('id')).toEqual(1);
       expect(firstLocation.get('name')).toEqual('first');
       expect(firstLocation.get('campus')).toEqual('Frescati');
-      expect(firstLocation.get('type')).toEqual('parkering');
+      expect(firstLocation.get('type')).toEqual('parking');
       expect(firstLocation.get('shape')).toEqual('line');
       expect(firstLocation.get('text')).toEqual('Foobar');
       expect(firstLocation.get('coords')[0].length).toEqual(2);
@@ -154,7 +162,7 @@ describe('Locations collection', function () {
       this.locations.fetch();
       this.server.respond();
 
-      var subCollection = this.locations.byType(['hörsal']);
+      var subCollection = this.locations.byType(['auditorium']);
       expect(subCollection.size()).toEqual(1);
     });
 
@@ -163,10 +171,19 @@ describe('Locations collection', function () {
       this.server.respond();
 
       var types = [];
-      types.push('parkering');
+      types.push('parking');
       var subCollection = this.locations.byCampusAndType('Frescati', types);
       expect(subCollection.size()).toEqual(2);
     });
+
+    it('byBuilding should return all rooms in a building', function () {
+      this.locations.fetch();
+      this.server.respond();
+
+      var subCollection = this.locations.byBuilding(this.locations.get(5));
+      expect(subCollection.size()).toEqual(1);
+    });
+
   });
 });
 
