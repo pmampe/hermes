@@ -209,9 +209,10 @@ describe('MapRouter', function () {
       expect(AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
-    it("should initialize an AppView with types 'building'", function () {
+    it("should initialize an AppView with types ['building', 'entrance'] and nonVisibleTypes 'entrance'", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(options.model.get('types')).toEqual(["building"]);
+        expect(options.model.get('types')).toEqual(["building", "entrance"]);
+        expect(options.model.get('nonVisibleTypes')).toEqual(["entrance"]);
       });
 
       this.router.buildings();

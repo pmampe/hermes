@@ -41,7 +41,8 @@ var AppView = Backbone.View.extend(
 
         this.mapView = new MapView({
           el: $('#map_canvas'),
-          model: this.mapModel
+          model: this.mapModel,
+          appModel: this.model
         });
 
         this.searchView = new SearchView({

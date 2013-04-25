@@ -18,6 +18,8 @@ var Location = Backbone.Model.extend(
         coords: [],
         directionAware: true,
         hasIcon: false,
+        buildingName: null,
+        buildingId: null,
         handicapAdapted: false,
         visible: true,
         pin: new google.maps.MarkerImage(
@@ -120,6 +122,18 @@ var Locations = Backbone.Collection.extend(
         var ret = this.byCampus(campus);
         return _(ret.filter(function (data) {
           return _.contains(types, data.get("type"));
+        }));
+      },
+
+      /**
+       * Filter Locations by building.
+       *
+       * @param {string} building the Building to filter by.
+       * @return {Array} an array of filtered Locations.
+       */
+      byBuilding: function (building) {
+        return _(this.filter(function (location) {
+          return location.get('buildingId') === building.id
         }));
       }
     });

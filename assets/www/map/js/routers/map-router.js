@@ -43,7 +43,8 @@ var MapRouter = Backbone.Router.extend({
       el: $('#page-map'),
       model: new AppModel({
         menu: true,
-        types: ["building"]
+        types: ["building", "entrance"],
+        nonVisibleTypes: ["entrance"]
       }),
       title: "Hus"
     });
