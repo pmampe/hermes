@@ -56,7 +56,6 @@ describe('Default-header', function () {
       expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
       var $button = $header.find("a");
-      expect($button.text().trim()).toBe("Tillbaka");
       expect($button.data("role")).toBe("button");
       expect($button.data("rel")).toBe("back");
       expect($button.data("icon")).toBe("arrow-l");
@@ -107,9 +106,6 @@ describe('Default-header', function () {
 });
 
 describe('External-link-dialog', function () {
-
-  var changePageArguments;
-
   beforeEach(function () {
     var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
     $('#stage').replaceWith(html);
