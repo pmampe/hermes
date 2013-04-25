@@ -162,7 +162,7 @@ describe('Locations collection', function () {
       this.locations.fetch();
       this.server.respond();
 
-      var subCollection = this.locations.byType('auditorium');
+      var subCollection = this.locations.byType(['auditorium']);
       expect(subCollection.size()).toEqual(1);
     });
 
