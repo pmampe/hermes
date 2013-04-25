@@ -1,9 +1,10 @@
 describe('Info window view', function () {
   beforeEach(function () {
-    $('#stage').replaceWith("<div data-role='page' id='page-map'><div class='iw'>" +
-                            "<a id='walking' href='#' class='dir-button'></a>" +
-                            "<a id='bicycling' href='#' class='dir-button'></a>" +
-                            "</div></div>");
+    $('#stage').replaceWith("<div data-role='page' id='page-map'></div>");
+    $('#page-map').append(JST['map/infoWindow']({
+      model: new Location(),
+      displayDirections: true
+    }));
   });
 
   afterEach(function () {
@@ -47,8 +48,10 @@ describe('Info window view', function () {
 
     it('should remove event handler from document for click on directions', function () {
       // Mock MapView and getDirections on it
-      var MapView = function () {}
-      MapView.prototype.getDirections = function () {}
+      var MapView = function () {
+      }
+      MapView.prototype.getDirections = function () {
+      }
       spyOn(MapView.prototype, "getDirections");
 
       this.infoWindow = new InfoWindowView({
@@ -68,8 +71,10 @@ describe('Info window view', function () {
 
   describe('when clicking on a direction link in infowindow', function () {
     // Mock MapView and getDirections on it
-    var MapView = function () {}
-    MapView.prototype.getDirections = function () {}
+    var MapView = function () {
+    }
+    MapView.prototype.getDirections = function () {
+    }
 
     beforeEach(function () {
       spyOn(MapView.prototype, "getDirections");
@@ -91,7 +96,7 @@ describe('Info window view', function () {
       expect($(".dir-button.selected").attr("id")).toEqual("walking");
 
       $(".dir-button:last").trigger("click");
-      expect($(".dir-button.selected").attr("id")).toEqual("bicycling");
+      expect($(".dir-button.selected").attr("id")).toEqual("driving");
       expect($(".dir-button.selected").length).toEqual(1);
     });
 
@@ -113,4 +118,42 @@ describe('Info window view', function () {
     });
   });
 
+  describe('Info-window template', function () {
+    it('should set hearing_loop for auditoriums when handicapAdpted', function () {
+      // First expect to find no hearing loops
+      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+
+      var location = new Location({
+        type: 'auditorium',
+        handicapAdapted: true
+      });
+
+      $('#page-map').replaceWith("<div data-role='page' id='page-map'></div>");
+      $('#page-map').append(JST['map/infoWindow']({
+        model: location,
+        displayDirections: false
+      }));
+
+      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(1);
+    });
+
+    it('should set hearing_loop for auditoriums when handicapAdpted', function () {
+      // First expect to find no hearing loops
+      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+
+      var location = new Location({
+        type: 'auditorium',
+        handicapAdapted: false
+      });
+
+      $('#page-map').replaceWith("<div data-role='page' id='page-map'></div>");
+      $('#page-map').append(JST['map/infoWindow']({
+        model: location,
+        displayDirections: false
+      }));
+
+      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.hearing_loop common.dont_exist.*/);
+    });
+  });
 });
