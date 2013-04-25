@@ -56,6 +56,7 @@ var MapRouter = Backbone.Router.extend({
     var appModel = new AppModel({
       filterByCampus: true,
       types: ["parking", "handicap_parking", 'entrance'],
+      nonVisibleTypes: ["entrance"],
       zoomSensitive: true
     });
 
