@@ -89,12 +89,12 @@ describe('App view', function () {
 
   describe('render', function () {
     beforeEach(function () {
-      $('#page-map').append("<div data-role='header'><h1>foo</h1></div>");
+      $('#page-map').append("<div data-role='header'><h1><span>foo</span></h1></div>");
     });
 
     it('should replace header with this.header', function () {
       this.view.render();
-      expect($('div[data-role="header"] > h1').text()).toEqual("foobar");
+      expect($('div[data-role="header"] > h1 > span').attr('data-i18n')).toEqual("foobar");
     });
 
     it('should call mapview render', function () {
