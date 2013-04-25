@@ -109,6 +109,7 @@ describe('External-link-dialog', function () {
     var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page");
+    i18n.init(i18n.options);
   });
 
   afterEach(function () {
@@ -124,7 +125,6 @@ describe('External-link-dialog', function () {
       expect($externalLinkDialog).toBeDefined();
       expect($externalLinkDialog.attr('data-role')).toBe("popup");
 
-      expect($externalLinkDialog.find("a[data-role=button][data-rel=back]").text()).toBe("Nej");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_system");
     });
