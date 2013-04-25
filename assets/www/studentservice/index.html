@@ -30,6 +30,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    $('div[data-role="header"] > h1').attr('data-i18n','studentService.header.title');
     getLocale();
     i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
       $('#studentservice_page').i18n();
@@ -42,24 +43,19 @@
   <div id="studentservice_view" data-role="content">
 
     <ul data-role="listview" data-inset="true">
-      <li><a href="http://www.su.se/utbildning/anmalan-antagning" target="_blank">Anm&auml;lan &amp; antagning</a></li>
-      <li><a href="http://www.su.se/utbildning/examen-hogtid/examensbevis-ansokningsblanketter-1.6326" target="_blank">Examen
-        &amp;
-        studieintyg</a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice" target="_blank">Infocenter</a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling" target="_blank">J&auml;mlikhet
-        &amp;
-        likabehandling</a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/studenthalsovard" target="_blank">Studenth&auml;lsan</a>
+      <li><a href="http://www.su.se/utbildning/anmalan-antagning" target="_blank" data-i18n="studentService.menu.applicationAndAdmission"></a></li>
+      <li><a href="http://www.su.se/utbildning/examen-hogtid/examensbevis-ansokningsblanketter-1.6326" target="_blank" data-i18n="studentService.menu.degreeAndCertificate"></a></li>
+      <li><a href="http://www.su.se/utbildning/studentservice" target="_blank" data-i18n="studentService.menu.infoCentre"></a></li>
+      <li><a href="http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling" target="_blank" data-i18n="studentService.menu.equality"></a></li>
+      <li><a href="http://www.su.se/utbildning/studentservice/studenthalsovard" target="_blank" data-i18n="studentService.menu.healthService"></a>
       </li>
       <li>
         <a href="http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning/studera-med-funktionsnedsattning-1.20886"
-           target="_blank">Studentst&ouml;d</a>
+           target="_blank" data-i18n="studentService.menu.studentDisabilityService"></a>
       </li>
       <li><a href="http://www.su.se/utbildning/studentservice/studera-utomlands/studera-utomlands-1.6088"
-             target="_blank">Studera
-        utomlands</a></li>
-      <li><a href="http://www.su.se/utbildning/studievagledning/allman-studie-och-karriarvagledning" target="_blank">Studiev&auml;gledning</a>
+             target="_blank" data-i18n="studentService.menu.studyAbroad"></a></li>
+      <li><a href="http://www.su.se/utbildning/studievagledning/allman-studie-och-karriarvagledning" target="_blank" data-i18n="studentService.menu.guidanceCounseling"></a>
       </li>
     </ul>
 

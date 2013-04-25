@@ -30,6 +30,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    $('div[data-role="header"] > h1').attr('data-i18n','accessibility.header.title');
     getLocale();
     i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
       $('#info_page').i18n();
@@ -39,18 +40,17 @@
 
 <div id="info_page" data-role="page" data-header="common/header" data-header-options="backbutton">
   <div id="info_view" data-role="content">
-    <p>Information om tillgänglighet (hörslinga, handikappanpassad toalett, hiss, entré och parkering) på SU hittar du
-      söker fram en sal, ett hus eller parkeringar i appen.</p>
+    <p data-i18n="accessibility.info.desc"></p>
 
-    <p><img src="../img/icons/Handikappentre.png">Handikappentré</p>
+    <p><img src="../img/icons/Handikappentre.png"><span data-i18n="accessibility.icon.handicapEntrance"></span></p>
 
-    <p><img src="../img/icons/Handikapphiss.png">Handikapphiss</p>
+    <p><img src="../img/icons/Handikapphiss.png"><span data-i18n="accessibility.icon.handicapLift"></span></p>
 
-    <p><img src="../img/icons/HandikappWC.png">Handikapptoalett</p>
+    <p><img src="../img/icons/HandikappWC.png"><span data-i18n="accessibility.icon.handicapToilet"></span></p>
 
-    <p><img src="../img/icons/Parkering-handikapp.png">Handikapp-parkering</p>
+    <p><img src="../img/icons/Parkering-handikapp.png"><span data-i18n="accessibility.icon.handicapParking"></span></p>
 
-    <p><img src="../img/icons/h-slinga.png">Hörslinga</p>
+    <p><img src="../img/icons/h-slinga.png"><span data-i18n="accessibility.icon.hearingLoop"></span></p>
   </div>
 </div>
 

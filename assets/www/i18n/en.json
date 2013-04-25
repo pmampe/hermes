@@ -13,5 +13,58 @@
       "publicTransit":"By public transit",
       "car":"By car"
     }
+  },
+  "start":{
+    "menuItem":{
+      "buildings":"Buildings",
+      "departments": "Departments",
+      "auditoriums": "Auditoriums",
+      "computerLabs": "Computer Labs",
+      "parkingspaces": "Parking Spaces",
+      "restaurants": "Restaurants",
+      "sukatSearch": "Staff",
+      "courses": "Courses",
+      "studentService": "Student Service",
+      "accessibility": "Accessibility"
+    },
+    "header":{
+      "title": "Stockholm University"
+    }
+  },
+  "studentService":{
+    "menu":{
+      "applicationAndAdmission": "Admission",
+      "degreeAndCertificate": "Degrees and Certificates",
+      "guidanceCounseling": "Guidance Counceling",
+      "infoCentre": "Information Centre",
+      "healthService": "Student Health",
+      "studentDisabilityService": "Student Disability Service",
+      "studyAbroad": "Study Abroad",
+      "equality": "Equality"
+    },
+    "header":{
+      "title": "Student Service"
+    }
+  },
+  "navigation":{
+    "button":{
+        "back": "Back"
+    }
+  },
+  "accessibility":{
+    "info":{
+      "desc": "Some text about accessibility at Stockholm University, bla, bla, bla..."
+    },
+    "icon":{
+      "handicapEntrance": "Handicap entrance",
+      "handicapLift": "Handicap lift",
+      "handicapToilet": "Handicap toilet",
+      "handicapParking": "Handicap parkin",
+      "hearingLoop": "Hearing loop"
+    },
+    "header":{
+      "title": "Accessibility"
+    }
   }
+
 }

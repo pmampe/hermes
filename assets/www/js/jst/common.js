@@ -8,7 +8,7 @@ JST['common/header'] = _.template(" \
     <% if (backbutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' data-rel='back' \
          data-icon='arrow-l' data-iconpos='left' class='ui-btn-left'> \
-        Tillbaka \
+          <span data-i18n='navigation.button.back'></span>\
       </a> \
     <% } %> \
 \

@@ -14,5 +14,58 @@
       "publicTransit":"Med kolektivtrafik",
       "car":"Med bil"
     }
+  },
+  "start":{
+    "menuItem":{
+      "buildings":"Hus",
+      "departments": "Institutioner",
+      "auditoriums": "Hör- & skrivsalar",
+      "computerLabs": "Datorsalar",
+      "parkingspaces": "Parkeringar",
+      "restaurants": "Matställen",
+      "sukatSearch": "Personal",
+      "courses": "Kurser & Program",
+      "studentService": "Studentservice",
+      "accessibility": "Tillgänglighet i appen"
+    },
+    "header":{
+      "title": "Stockholms universitet"
+    }
+  },
+  "studentService":{
+    "menu":{
+      "applicationAndAdmission": "Anmälan & antagning",
+      "degreeAndCertificate": "Examen & studieintyg",
+      "guidanceCounseling": "Studievägledning",
+      "infoCentre": "Infocenter",
+      "healthService": "Studenthälsan",
+      "studentDisabilityService": "Studentstöd",
+      "studyAbroad": "Studera utomlands",
+      "equality": "Jämlikhet & likabehandling"
+    },
+    "header":{
+      "title": "Studentservice"
+    }
+  },
+  "navigation":{
+    "button":{
+      "back": "Tillbaka"
+    }
+  },
+  "accessibility":{
+    "info":{
+      "desc": "Information om tillgänglighet (hörslinga, handikappanpassad toalett, hiss, entré och parkering) på SU hittar du söker fram en sal, ett hus eller parkeringar i appen."
+    },
+    "icon":{
+      "handicapEntrance": "Handikappentré",
+      "handicapLift": "Handikapphiss",
+      "handicapToilet": "Handikapptoalett",
+      "handicapParking": "Handikapp-parkering",
+      "hearingLoop": "Hörslinga"
+    },
+    "header":{
+      "title": "Tillgänglighet i appen"
+    }
   }
+
 }
