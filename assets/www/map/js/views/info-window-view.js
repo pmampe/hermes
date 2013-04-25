@@ -70,9 +70,15 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
+        var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
+
+        //translate info window body by altering var text
+        var text= this.getLanguageKey();
+
         var template = JST['map/infoWindow']({
           displayDirections: model.get('directionAware'),
-          model: model
+          model: model,
+          itemText: model.get(text)
         });
 
         this.infoWindow.setContent(template);
@@ -94,6 +100,22 @@ var InfoWindowView = Backbone.View.extend(
 
         this.updateRelatedLinks(model);
 
+      },
+
+      getLanguageKey: function(){
+        var text ="textEn";
+        if(this.getRootLanguage()=='sv'){
+          text= 'text';
+        } else {
+          text= 'textEn';
+        }
+        return text;
+      },
+
+      getRootLanguage: function(){
+       language = navigator.language.split("-");
+       rootLanguage = (language[0]);
+       return rootLanguage;
       },
 
       /**
