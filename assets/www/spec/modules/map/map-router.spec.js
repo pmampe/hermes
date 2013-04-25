@@ -273,7 +273,7 @@ describe('MapRouter', function () {
 
     it("should initialize an AppView with correct title", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(options.title).toEqual("Parkeringar");
+        expect(options.title).toEqual("map.titles.parking");
       });
 
       this.router.parkingspaces();
