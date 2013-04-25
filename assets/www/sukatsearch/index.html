@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  <title>Search persons</title>
+  <!--<title><span data-i18n="sukat.search"></span>Search persons</title>-->
+   <title>Search staff</title>
 
   <link rel="stylesheet" href="../css/jquery.mobile-1.3.0.min.css"/>
   <link rel="stylesheet" href="../css/mobile.css"/>
@@ -15,10 +16,10 @@
   <script type="text/template" id="search_template">
 
     <div data-role="fieldcontain">
-      <input id="search_input" type="search" placeholder="Name, uid or mail" name="">
+      <input id="search_input" type="search" data-i18n="[placeholder]sukat.placeholder;" placeholder="Please enter name, ID or email" name=""/>
     </div>
     <a id="search_button" href="#page1" data-role="button">
-      Search
+        <span data-i18n="sukat.search">Search</span>
     </a>
 
     <div id='result_content'></div>
@@ -27,7 +28,7 @@
   <script type="text/template" id="result_template">
     <ul id='result_list' data-inset="true" data-divider-theme="b" data-role="listview">
       <li role="heading" data-role="list-divider">
-        Search results (<%= result_count %>)
+          <span data-i18n="sukat.searchresult">Search results</span> (<%= result_count %>)
       </li>
     </ul>
   </script>
@@ -43,27 +44,27 @@
   <script type="text/template" id="personDetailsTemplate">
     <h2><%= displayName %></h2>
 
-    <b>Username:</b> <%= uid %><br/>
-    <b>E-mail:</b> <%= mail %><br/>
-    <b>Phone:</b> <%= telephoneNumber %><br/>
+    <b><%= i18n.t('sukat.username') %></b> <%= uid %><br/>
+    <b><%= i18n.t('sukat.email') %></b> <%= mail %><br/>
+    <b><%= i18n.t('sukat.phone') %></b> <%= telephoneNumber %><br/>
 
     <img src="https://maps.googleapis.com/maps/api/staticmap?center=Stockholm University&amp;zoom=14&amp;size=100x100&amp;markers=Universitetsvägen 10D&amp;sensor=false"
          height="100" width="100"/>
 
     <a id="add_contact_button" href="#" data-role="button">
-      Add to contacts
+        <%= i18n.t('sukat.contacts') %>
     </a>
 
     <a id="make_call_button" href="tel:<%= telephoneNumber %>" data-role="button">
-      Call
+        <%= i18n.t('sukat.call') %>
     </a>
 
     <a id="make_sms_button" href="sms:<%= telephoneNumber %>" data-role="button">
-      SMS
+        <%= i18n.t('sukat.sms') %>
     </a>
 
     <a id="send_mail_button" href="mailto:<%= mail %>" data-role="button">
-      Send mail
+        <%= i18n.t('sukat.sendemail') %>
     </a>
   </script>
 

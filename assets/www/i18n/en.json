@@ -1,9 +1,35 @@
 {
+  "common": {
+    "header":{
+      "back": "Back",
+      "home": "Home",
+      "menu": "Menu"
+    },
+
+    "external":{
+      "link": "External link",
+      "question": "The page will be displayed in an external browser, do you wish to continue?",
+      "yes": "Yes",
+      "no": "No"
+    }
+  },
+
   "map":{
      "menu":{
       "home":"Home",
       "search":"Search",
-      "directions":"Directions"
+      "searchfor":"Search for ",
+      "directions":"Directions",
+      "cancel": "Cancel"
+    },
+
+      "titles": {
+        "buildings": "Buildings",
+        "departments": "Departments",
+        "computerlabs": "Computer labs",
+        "auditoriums": "Auditoriums",
+        "parking":"Parking spaces",
+        "restaurants": "Restaurants"
     },
 
     "infoWindow":{
@@ -65,6 +91,19 @@
     "header":{
       "title": "Accessibility"
     }
-  }
+  },
 
+  "sukat":{
+    "search" : "Search",
+    "placeholder":"Please enter name",
+    "searchpersons": "Search persons",
+    "searchresult" : "Search result",
+    "username":"User name:",
+    "email":"E-mail:",
+    "phone":"Phone:",
+    "contacts":"Add to contacts",
+    "call":"Call",
+    "sms":"SMS",
+    "sendemail":"Send email"
+  }
 }

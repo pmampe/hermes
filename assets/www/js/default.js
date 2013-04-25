@@ -48,6 +48,8 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
     href: $(this).attr("href")
   })).appendTo('body');
 
+  $('#external-link-dialog').i18n();
+
   $externalLinkDialog.find("a[target=_system]").click(function () {
     $externalLinkDialog.popup('close');
   });

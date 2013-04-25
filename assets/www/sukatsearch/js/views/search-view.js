@@ -10,6 +10,8 @@ var SukatSearchView = Backbone.View.extend({
   render: function () {
     var template = _.template($("#search_template").html(), {});
     this.el.innerHTML = template;
+    $('title').html(i18n.t('sukat.searchpersons')); //translates the title
+
   },
 
   events: {
@@ -42,6 +44,7 @@ var SukatSearchView = Backbone.View.extend({
     });
 
     $('#search_page').trigger("pagecreate");
+    $('#search_page').i18n();
   },
 
   renderPerson: function (item) {

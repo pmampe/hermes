@@ -2,6 +2,7 @@ describe('MapRouter', function () {
   describe('after initialization', function () {
     beforeEach(function () {
       this.router = new MapRouter();
+      i18n.init({resGetPath: '../../i18n/en.json'});
     });
 
     it('should have the correct amount of routes', function () {
@@ -131,7 +132,7 @@ describe('MapRouter', function () {
 
     it("should initialize an AppView with correct title", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(options.title).toEqual("Datorsalar");
+        expect(i18n.t(options.title)).toEqual("Datorsalar");
       });
 
       this.router.computerLabs();

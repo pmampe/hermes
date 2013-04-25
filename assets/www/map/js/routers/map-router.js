@@ -22,7 +22,7 @@ var MapRouter = Backbone.Router.extend({
     var appView = new AppView({
       el: $('#page-map'),
       model: new AppModel({ types: ["computer_labs"] }),
-      title: "Datorsalar"
+      title: 'map.titles.computerlabs'
     });
     appView.render();
     appView.updateLocations();
@@ -32,7 +32,8 @@ var MapRouter = Backbone.Router.extend({
     var appView = new AppView({
       el: $('#page-map'),
       model: new AppModel({ types: ["auditorium"] }),
-      title: "Hör- & skrivsalar"
+      title:'map.titles.auditoriums'
+     // title: "Hör- & skrivsalar"
     });
     appView.render();
     appView.updateLocations();
@@ -45,7 +46,7 @@ var MapRouter = Backbone.Router.extend({
         menu: true,
         types: ["building"]
       }),
-      title: "Hus"
+      title: 'map.titles.buildings'
     });
     appView.render();
     appView.updateLocations();
@@ -61,7 +62,7 @@ var MapRouter = Backbone.Router.extend({
     var appView = new AppView({
       el: $('#page-map'),
       model: appModel,
-      title: "Parkeringar"
+      title: "map.titles.parking"
     });
     var self = this;
     appModel.locations.on('reset', function () {
@@ -78,7 +79,7 @@ var MapRouter = Backbone.Router.extend({
       model: new AppModel({
         types: ["organization"]
       }),
-      title: "Institutioner"
+      title: 'map.titles.departments'
     });
     appView.render();
     appView.updateLocations();
