@@ -132,7 +132,7 @@ describe('MapRouter', function () {
 
     it("should initialize an AppView with correct title", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(i18n.t(options.title)).toEqual("Datorsalar");
+        expect(i18n.t(options.title)).toEqual("map.titles.computerlabs");
       });
 
       this.router.computerLabs();
@@ -176,7 +176,7 @@ describe('MapRouter', function () {
 
     it("should initialize an AppView with correct title", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(options.title).toEqual("Hör- & skrivsalar");
+        expect(options.title).toEqual("map.titles.auditoriums");
       });
 
       this.router.auditoriums();
@@ -220,7 +220,7 @@ describe('MapRouter', function () {
 
     it("should initialize an AppView with correct title", function () {
       AppView.prototype.initialize.andCallFake(function (options) {
-        expect(options.title).toEqual("Hus");
+        expect(options.title).toEqual("map.titles.buildings");
       });
 
       this.router.buildings();
