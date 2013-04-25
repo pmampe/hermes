@@ -21,7 +21,7 @@ var InfoWindowView = Backbone.View.extend(
         _.bindAll(this, 'open', 'close', 'updateRelatedLinks');
 
         this.appModel = options.appModel;
-        this.appModel.on("change:showingNonVisibleForLocation", function() {
+        this.appModel.on("change:showingNonVisibleForLocation", function () {
           var showingNonVisibleForLocation = this.appModel.get('showingNonVisibleForLocation');
           this.updateRelatedLinks(showingNonVisibleForLocation ? showingNonVisibleForLocation.location : null);
         }, this);
@@ -70,9 +70,8 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
-        var template = _.template($("#infoWindow_template").html(), {
-          displayMode: displayMode,
+        var template = JST['map/infoWindow']({
+          displayDirections: model.get('directionAware'),
           model: model
         });
 
@@ -85,11 +84,11 @@ var InfoWindowView = Backbone.View.extend(
         }
 
         var self = this;
-        $(".iw a.showRelated").click(function() {
+        $(".iw a.showRelated").click(function () {
           var $this = $(this);
           self.appModel.showNonVisibleForLocationByRelation(model, $this.data("related-by"), $this.data("related-types").split(" "));
         });
-        $(".iw a.hideRelated").click(function() {
+        $(".iw a.hideRelated").click(function () {
           self.appModel.showNonVisibleForLocationByRelation(null);
         });
 
@@ -101,7 +100,7 @@ var InfoWindowView = Backbone.View.extend(
        * Updates links for showing related locations in the infowindow given the location that related is shown for
        * @param location
        */
-      updateRelatedLinks: function(location) {
+      updateRelatedLinks: function (location) {
         $('.iw a.showRelated').show();
         $('.iw a.hideRelated').hide();
         var showingNonVisibleForLocation = this.appModel.get("showingNonVisibleForLocation");
@@ -115,7 +114,7 @@ var InfoWindowView = Backbone.View.extend(
       /**
        * Closes the info window.
        */
-      close: function() {
+      close: function () {
         if (this.infoWindow) {
           this.infoWindow.close();
         }
