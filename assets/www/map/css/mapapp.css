@@ -61,7 +61,8 @@
 
 .iw i.elevator:before,
 .iw i.toilet:before,
-.iw i.hearing_loop:before {
+.iw i.hearing_loop:before,
+.iw i.entrance:before {
   content: "";
   display: inline-block;
   width: 16px;
@@ -73,13 +74,18 @@
 .iw i.elevator:before {
   background-image: url("../../img/icons/Handikapphiss.png");
 }
-
 .iw i.toilet:before {
   background-image: url("../../img/icons/HandikappWC.png");
 }
-
 .iw i.hearing_loop:before {
   background-image: url("../../img/icons/hearing_loop.png");
+}
+.iw i.entrance:before {
+  background-image: url("../../img/icons/Handikappentre.png");
+}
+
+.iw a.hideRelated {
+  display: none;
 }
 
 /* Customize the search popup to stick to the top */

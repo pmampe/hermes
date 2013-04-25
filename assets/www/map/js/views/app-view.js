@@ -34,14 +34,15 @@ var AppView = Backbone.View.extend(
 
         var self = this;
 
-        i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+        i18n.init({resGetPath: '../i18n/__lng__.json'}, function () {
           self.$el.i18n();
         });
 
 
         this.mapView = new MapView({
           el: $('#map_canvas'),
-          model: this.mapModel
+          model: this.mapModel,
+          appModel: this.model
         });
 
         this.searchView = new SearchView({
@@ -149,10 +150,10 @@ var AppView = Backbone.View.extend(
        */
       handleZoomChanged: function (zoom) {
         if (this.model.get('zoomSensitive') === true) {
-          if (zoom > config.map.zoom.threshold) {
+          if (zoom >= config.map.zoom.threshold) {
             this.trigger('toggleMarkerVisibility', this.model.locations, true);
           }
-          else if (zoom <= config.map.zoom.threshold) {
+          else if (zoom < config.map.zoom.threshold) {
             this.trigger('toggleMarkerVisibility', this.model.locations, false);
           }
         }

@@ -17,7 +17,7 @@ var config = (function (pgBrokerBaseURL) {
         "urlPrefix": pgBrokerBaseURL + "/image/view"
       },
       "zoom": {
-        "threshold": 17
+        "threshold": 16
       }
     }
   };

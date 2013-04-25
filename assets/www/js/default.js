@@ -41,14 +41,18 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 $(document).on("click", "a[target=_blank][data-rel!=external]", function (event) {
   event.preventDefault();
 
+  var href = $(this).attr("href");
+
   var $externalLinkDialog = $('#external-link-dialog');
   $externalLinkDialog.remove();
 
   $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
-    href: $(this).attr("href")
+    href: href
   })).appendTo('body');
 
-  $externalLinkDialog.find("a[target=_system]").click(function () {
+  $externalLinkDialog.find("a[target=_system]").click(function (event) {
+    event.preventDefault();
+    window.open(href, '_system');
     $externalLinkDialog.popup('close');
   });
 
