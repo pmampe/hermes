@@ -11,7 +11,7 @@ describe('Translations with i18n', function () {
     var resources = {
       en: { translation: { start: { menuItem: { buildings: 'buildings' } } } }
     };
-    i18n.init({resStore: resources});
+    i18n.init({resStore: resources, fallbackLng: 'en'});
 
   });
 
