@@ -9,7 +9,7 @@ JST['map/infoWindow'] = _.template(" \
   <%= model.get('text') %> \
   <% } %> \
   <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %> \
-  <i class='hearing_loop'/><%= i18n.t('map.infoWindow.hearing_loop') + ' ' + i18n.t('common.exists') %> \
+  <i class='hearing_loop'></i><%= i18n.t('map.infoWindow.hearing_loop') + ' ' + i18n.t('common.exists') %> \
   <% } else if (model.get('type') === 'auditorium') { %> \
   <%= i18n.t('map.infoWindow.hearing_loop') + ' ' + i18n.t('common.dont_exist') %> \
   <% } %>\
