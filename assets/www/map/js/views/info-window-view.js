@@ -73,7 +73,7 @@ var InfoWindowView = Backbone.View.extend(
         var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
 
         //translate info window body by altering var text
-        var text= this.translate();
+        var text= this.getLanguageKey();
 
         var template = _.template($("#infoWindow_template").html(), {
           displayMode: displayMode,
@@ -102,14 +102,20 @@ var InfoWindowView = Backbone.View.extend(
 
       },
 
-      translate: function(){
+      getLanguageKey: function(){
         var text ="textEn";
-        if(getPrefLanguage()=='sv'){
+        if(this.getRootLanguage()=='sv'){
           text= 'text';
         } else {
           text= 'textEn';
         }
         return text;
+      },
+
+      getRootLanguage: function(){
+       language = navigator.language.split("-");
+       rootLanguage = (language[0]);
+       return rootLanguage;
       },
 
       /**

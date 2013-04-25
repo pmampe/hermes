@@ -9,12 +9,3 @@ function startModule() {
   var mapRouter = new MapRouter();
   Backbone.history.start();
 }
-
-function getPrefLanguage(){
-
-  language = navigator.language.split("-");
-  rootLanguage = (language[0]);
-
-  return rootLanguage;
-
-}
