@@ -1,18 +1,23 @@
 {
-  "map":{
+  "common": {
+    "exists": "finns",
+    "dont_exist": "finns ej"
+  },
+  "map": {
 
-    "menu":{
-      "home":"Hem",
-      "search":"Sök",
-      "directions":"Vägbeskrivning"
+    "menu": {
+      "home": "Hem",
+      "search": "Sök",
+      "directions": "Vägbeskrivning"
     },
 
-    "infoWindow":{
-      "directions":"Vägbeskrivning",
-      "walking":"Gående",
-      "bicycling":"Med cyckel",
-      "publicTransit":"Med kolektivtrafik",
-      "car":"Med bil"
+    "infoWindow": {
+      "directions": "Vägbeskrivning",
+      "walking": "Gående",
+      "bicycling": "Med cyckel",
+      "publicTransit": "Med kolektivtrafik",
+      "car": "Med bil",
+      "hearing_loop": "Hörslinga"
     }
   }
 }

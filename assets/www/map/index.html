@@ -30,8 +30,6 @@
   <script src="js/lib/jquery.ui.map/jquery.ui.map.overlays.js"></script>
   <script src="js/lib/jquery.ui.map/jquery.ui.map.services.js"></script>
 
-
-
   <script type="text/template" id="search-popup_filter_button_template">
     <a id="<%= id %>" data-role="button" data-inline="true" data-mini="true" href="#" data-icon="delete"
        data-iconpos="right"><%= name %></a>
@@ -42,6 +40,11 @@
       <h3><%= model.get('name') %><%= model.has('buildingName') ? ", " + model.get('buildingName') : '' %></h3>
       <% if (model.has('text')) { %>
       <%= model.get('text') %>
+      <% } %>
+      <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %>
+      <i class="hearing_loop"/><%= i18n.t('map.infoWindow.hearing_loop') + " " + i18n.t('common.exists') %>
+      <% } else if (model.get('type') === 'auditorium') { %>
+      <%= i18n.t('map.infoWindow.hearing_loop') + " " + i18n.t('common.dont_exist') %>
       <% } %>
 
       <div id="directions" style="<%= displayMode %>">

@@ -1,17 +1,22 @@
 {
-  "map":{
-     "menu":{
-      "home":"Home",
-      "search":"Search",
-      "directions":"Directions"
+  "common": {
+    "exists": "exists",
+    "dont_exist": "does not exist"
+  },
+  "map": {
+    "menu": {
+      "home": "Home",
+      "search": "Search",
+      "directions": "Directions"
     },
 
-    "infoWindow":{
-      "directions":"Directions",
-      "walking":"Walking",
-      "bicycling":"Bicycling",
-      "publicTransit":"By public transit",
-      "car":"By car"
+    "infoWindow": {
+      "directions": "Directions",
+      "walking": "Walking",
+      "bicycling": "Bicycling",
+      "publicTransit": "By public transit",
+      "car": "By car",
+      "hearing_loop": "Hearing loop"
     }
   }
 }
