@@ -10,3 +10,11 @@ function startModule() {
   Backbone.history.start();
 }
 
+function getPrefLanguage(){
+
+  language = navigator.language.split("-");
+  rootLanguage = (language[0]);
+
+  return rootLanguage;
+
+}

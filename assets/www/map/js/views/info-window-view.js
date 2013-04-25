@@ -71,9 +71,14 @@ var InfoWindowView = Backbone.View.extend(
         this.close(); // close previous infowindow
 
         var displayMode = model.get('directionAware') ? "display:inline" : "display:none";
+
+        //translate info window body by altering var text
+        var text= this.translate();
+
         var template = _.template($("#infoWindow_template").html(), {
           displayMode: displayMode,
-          model: model
+          model: model,
+          itemText: model.get(text)
         });
 
         this.infoWindow.setContent(template);
@@ -95,6 +100,16 @@ var InfoWindowView = Backbone.View.extend(
 
         this.updateRelatedLinks(model);
 
+      },
+
+      translate: function(){
+        var text ="textEn";
+        if(getPrefLanguage()=='sv'){
+          text= 'text';
+        } else {
+          text= 'textEn';
+        }
+        return text;
       },
 
       /**
