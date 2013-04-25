@@ -75,7 +75,6 @@ describe('Default-header', function () {
       expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
       var $button = $header.find("a");
-      expect($button.text().trim()).toBe("Hem");
       expect($button.data("role")).toBe("button");
       expect($button.data("icon")).toBe("home");
       expect($button.hasClass("ui-btn-right")).toBeTruthy();
