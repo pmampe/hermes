@@ -67,7 +67,7 @@ describe('Search view', function () {
       this.server.respondWith(
           "GET",
           Locations.prototype.url(),
-          this.validResponse(this.fixtures.FilterItems.valid)
+          this.validResponse(this.fixtures.FilterItems.valid.locations)
       );
 
       spyOn(SearchView.prototype, "render");
