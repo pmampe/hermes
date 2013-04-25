@@ -153,7 +153,7 @@ describe('Info window view', function () {
       }));
 
       expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
-      expect($('#page-map').text()).toMatch(/.*map.infoWindow.hearing_loop common.dont_exist.*/);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.hearing_loop.noexists.*/);
     });
   });
 });
