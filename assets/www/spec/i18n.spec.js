@@ -7,23 +7,22 @@ describe('Translations with i18n', function () {
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-home");
 
     var resources = {
-      en: { start: { 'menuItem': 'buildings' } }
+      en: { translation: { start: { menuItem: { buildings: 'buildings' } } } }
     };
     i18n.init({resStore: resources});
 
   });
 
   afterEach(function () {
-    $('#page-map').replaceWith("<div id='stage'></div>");
+    $('#page-home').replaceWith("<div id='stage'></div>");
   });
 
   describe('when applying', function () {
     it('should translate key', function () {
-      $('#page-home').i18n();
-      expect($('#page-home').find('span').text()).toEqual("buildings");
+      $('#page-home > [data-role="content"]').find('span').i18n();
+      expect($('#page-home > [data-role="content"]').find('span').text()).toEqual("buildings");
     });
   });
 
