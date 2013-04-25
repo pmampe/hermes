@@ -155,5 +155,62 @@ describe('Info window view', function () {
       expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.hearing_loop.noexists.*/);
     });
+
+    it('should set correct building information when no accessible elevators, toilets or entrances exist', function(){
+
+      var location = new Location({
+        type: 'building',
+        nonVisibleTypes: ["entrance", "elevator", "toilet"]
+      });
+
+      $('#page-map').append(JST['map/infoWindow']({
+        model: location,
+        hasElevators: false,
+        tFloors: '',
+        hasEntrances: false,
+        displayDirections: false
+      }));
+
+      expect($('#page-map').find('i[class="elevator"]').size()).toEqual(0);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.elevator.noexists.*/);
+
+      expect($('#page-map').find('i[class="toilet"]').size()).toEqual(0);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.toilet.noexists.*/);
+
+      expect($('#page-map').find('i[class="entrance"]').size()).toEqual(0);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.noexists.*/);
+    });
+
+    it('should set correct building information when accessible elevators, toilets or entrances exist', function(){
+
+      var location = new Location({
+        type: 'building',
+        nonVisibleTypes: ["entrance", "elevator", "toilet"]
+      });
+
+      $('#page-map').append(JST['map/infoWindow']({
+        model: location,
+        hasElevators: true,
+        tFloors: [1],
+        hasEntrances: true,
+        displayDirections: false
+      }));
+
+      expect($('#page-map').find('i[class="elevator"]').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.elevator.exists.*/);
+
+      expect($('#page-map').find('i[class="toilet"]').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.toilet.exists.*/);
+
+      expect($('#page-map').find('i[class="entrance"]').size()).toEqual(1);
+
+      expect($('#page-map').find('a[class="showRelated"]').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.show.*/);
+
+      expect($('#page-map').find('a[class="hideRelated"]').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.hide.*/);
+    });
+
+
   });
 });
