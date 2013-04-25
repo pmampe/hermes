@@ -34,7 +34,7 @@ var AppView = Backbone.View.extend(
 
         var self = this;
 
-        i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
+        i18n.init({resGetPath: '../i18n/__lng__.json'}, function () {
           self.$el.i18n();
           $('#search-box').i18n();
         });
@@ -95,8 +95,7 @@ var AppView = Backbone.View.extend(
        * Render the app module.
        */
       render: function () {
-        //$('div[data-role="header"] > h1').text(this.title);
-        $('div[data-role="header"] > h1 > span').attr('data-i18n',this.title);
+        $('div[data-role="header"] > h1 > span').attr('data-i18n', this.title);
         $('div[data-role="header"]').i18n();
 
         if (this.model.get('menu') === true) {
