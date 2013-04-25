@@ -8,7 +8,7 @@ beforeEach(function () {
           id: 1,
           name: 'first',
           campus: 'Frescati',
-          type: 'parkering',
+          type: 'parking',
           shape: "line",
           text: "Foobar",
           coords: [
@@ -20,7 +20,7 @@ beforeEach(function () {
           id: 2,
           name: '2nd',
           campus: 'Frescati',
-          type: 'parkering',
+          type: 'parking',
           shape: "line",
           text: "Foobar",
           coords: [
@@ -32,7 +32,7 @@ beforeEach(function () {
           id: 3,
           name: 'third',
           campus: 'Frescati',
-          type: 'hörsal',
+          type: 'auditorium',
           shape: "line",
           text: "Foobar",
           coords: [
@@ -44,9 +44,28 @@ beforeEach(function () {
           id: 4,
           name: '4th',
           campus: 'Kista',
-          type: 'parkering',
+          type: 'parking',
           shape: "line",
           text: "Foobar",
+          coords: [
+            [59.00, 18.00]
+          ],
+          directionAware: false
+        },
+        {
+          id: 5,
+          name: "Aula magna",
+          type: "building",
+          coords: [
+            [59.00, 18.00]
+          ],
+          directionAware: false
+        },
+        {
+          id: 6,
+          name: "Aula magna entré",
+          type: "entrance",
+          buildingId: 5,
           coords: [
             [59.00, 18.00]
           ],
