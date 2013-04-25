@@ -77,7 +77,7 @@ var SearchView = Backbone.View.extend(
         $("#search-box form").removeClass("tight");
         $("#cancelFilter").hide();
         $("#search-autocomplete li").addClass("ui-screen-hidden");
-        
+
         if (this.inputField.val() == "") {
           this.resetLocations();
         }
@@ -104,7 +104,7 @@ var SearchView = Backbone.View.extend(
         var location = this.getClickedLocation(event.target);
         this.trigger("selected", location);
       },
-      
+
       resetLocations: function() {
         this.collection.trigger("change");
       },

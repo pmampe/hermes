@@ -80,7 +80,6 @@ describe('Search view', function () {
           this.validResponse(this.fixtures.FilterItems.valid.locations)
       );
 
-      spyOn(SearchView.prototype, "render");
       var appView = new AppView({
         el: $('#page-map'),
         model: new AppModel({
