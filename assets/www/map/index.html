@@ -41,6 +41,11 @@
       <% if (model.has('text')) { %>
       <%= model.get('text') %>
       <% } %>
+      <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %>
+      <i class="hearing_loop"/><%= i18n.t('map.infoWindow.hearing_loop') + " " + i18n.t('common.exists') %>
+      <% } else if (model.get('type') === 'auditorium') { %>
+      <%= i18n.t('map.infoWindow.hearing_loop') + " " + i18n.t('common.dont_exist') %>
+      <% } %>
 
       <div id="directions" style="<%= displayMode %>">
         <div data-i18n="map.infoWindow.directions"><%= i18n.t('map.infoWindow.directions') %>:</div>

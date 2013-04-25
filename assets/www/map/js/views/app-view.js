@@ -65,7 +65,6 @@ var AppView = Backbone.View.extend(
         this.mapView.on('zoom_changed', this.handleZoomChanged);
         this.model.on('change:campus', this.changeCampus, this);
         this.model.locations.on("reset", function () {
-          self.trigger('toggleMarkerVisibility', self.model.locations, false); // Hide the hidden locations before displaying them.
           self.mapView.replacePoints(self.model.locations);
         });
 

@@ -1,18 +1,21 @@
 {
   "common": {
-  "header":{
-    "back": "Tillbaka",
-    "home": "Hem",
-    "menu": "Meny"
-  },
+    "exists": "finns",
+    "dont_exist": "finns ej",
 
-  "external":{
-    "link": "Extern länk",
-    "question": "Sidan kommer öppnas i en extern webbläsare, vill du fortsätta?",
-    "yes": "Ja",
-    "no": "Nej"
-  }
-},
+    "header":{
+      "back": "Tillbaka",
+      "home": "Hem",
+      "menu": "Meny"
+    },
+
+    "external":{
+      "link": "Extern länk",
+      "question": "Sidan kommer öppnas i en extern webbläsare, vill du fortsätta?",
+      "yes": "Ja",
+      "no": "Nej"
+    }
+  },
   "map":{
     "menu":{
       "home":"Hem",
@@ -36,7 +39,8 @@
       "walking":"Gående",
       "bicycling":"Med cykel",
       "publicTransit":"Med kollektivtrafik",
-      "car":"Med bil"
+      "car":"Med bil",
+      "hearing_loop": "Hörslinga"
     }
   },
   "start":{

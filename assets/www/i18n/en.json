@@ -1,5 +1,8 @@
 {
   "common": {
+    "exists": "exists",
+    "dont_exist": "does not exist",
+
     "header":{
       "back": "Back",
       "home": "Home",
@@ -37,7 +40,8 @@
       "walking":"Walking",
       "bicycling":"Bicycling",
       "publicTransit":"By public transit",
-      "car":"By car"
+      "car":"By car",
+      "hearing_loop": "Hearing loop"
     }
   },
   "start":{
