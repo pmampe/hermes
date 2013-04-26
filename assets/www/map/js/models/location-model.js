@@ -64,7 +64,7 @@ var Location = Backbone.Model.extend(
         var name = this.get('name');
 
         if (this.has('buildingName')) {
-          name += ", " + model.get('buildingName');
+          name += ", " + this.get('buildingName');
         }
 
         return name;
