@@ -18,7 +18,7 @@ JST['map/infoWindow/building'] = _.template(" \
 <% if (hasEntrances === true) { %> \
 <i class='entrance'></i> \
 <a class='showRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.show') %></a> \
-<a class='hideRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.hide') %></a> \
+<a class='hideRelated' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.hide') %></a> \
 <% } else { %> \
 <%= i18n.t('map.infoWindow.entrance.noexists') %> \
 <% } %> \
