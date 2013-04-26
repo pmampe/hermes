@@ -267,7 +267,7 @@ var MapView = Backbone.View.extend(
         // If there is only one marker on the map, display the info window.
         if (_.size(this.pointViews) == 1) {
           var point = _.first(this.pointViews);
-          point.openInfoWindow(point.model, point.marker, point.getPosition({model: point.model}));
+          point.openInfoWindow(point.model, point.marker);
         }
       },
 
