@@ -48,7 +48,6 @@ var MapRouter = Backbone.Router.extend({
       el: $('#page-map'),
       model: new AppModel({ types: ["auditorium"] }),
       title: 'map.titles.auditoriums'
-      // title: "Hör- & skrivsalar"
     });
     appView.render();
     appView.updateLocations();
