@@ -1,15 +1,12 @@
 {
   "common": {
-    "exists": "exists",
-    "dont_exist": "does not exist",
-
-    "header":{
+    "header": {
       "back": "Back",
       "home": "Home",
       "menu": "Menu"
     },
 
-    "external":{
+    "external": {
       "link": "External link",
       "question": "The page will be displayed in an external browser, do you wish to continue?",
       "yes": "Yes",
@@ -17,36 +14,53 @@
     }
   },
 
-  "map":{
-     "menu":{
-      "home":"Home",
-      "search":"Search",
-      "searchfor":"Search for ",
-      "directions":"Directions",
+  "map": {
+    "menu": {
+      "home": "Home",
+      "search": "Search",
+      "searchfor": "Search for ",
+      "directions": "Directions",
       "cancel": "Cancel"
     },
 
-      "titles": {
-        "buildings": "Buildings",
-        "departments": "Departments",
-        "computerlabs": "Computer labs",
-        "auditoriums": "Auditoriums",
-        "parking":"Parking spaces",
-        "restaurants": "Restaurants"
+    "titles": {
+      "buildings": "Buildings",
+      "departments": "Departments",
+      "computerlabs": "Computer labs",
+      "auditoriums": "Auditoriums",
+      "parking": "Parking spaces",
+      "restaurants": "Restaurants"
     },
 
-    "infoWindow":{
-      "directions":"Directions",
-      "walking":"Walking",
-      "bicycling":"Bicycling",
-      "publicTransit":"By public transit",
-      "car":"By car",
-      "hearing_loop": "Hearing loop"
+    "infoWindow": {
+      "directions": "Directions",
+      "walking": "Walking",
+      "bicycling": "Bicycling",
+      "publicTransit": "By public transit",
+      "car": "By car",
+      "hearing_loop": {
+        "exists": "Hearing loop exists",
+        "noexists": "Hearing loop does not exist"
+      },
+      "elevator": {
+        "exists": "Accessible elevator exists",
+        "noexists": "Accessible elevator does not exist"
+      },
+      "toilet": {
+        "exists": "Accessible toilet exists, floor",
+        "noexists": "Accessible toilet does not exist"
+      },
+      "entrance": {
+        "exists": "Accessible entrance exists",
+        "show": "Show accessible entrances",
+        "hide": "Hide accessible entrances",
+        "noexists": "Accessible entrance does not exist"
+      }
     }
   },
-  "start":{
-    "menuItem":{
-      "buildings":"Buildings",
+  "start": {
+    "menuItem": {
+      "buildings": "Buildings",
       "departments": "Departments",
       "auditoriums": "Auditoriums",
       "computerLabs": "Computer Labs",
@@ -57,12 +71,12 @@
       "studentService": "Student Service",
       "accessibility": "Accessibility"
     },
-    "header":{
+    "header": {
       "title": "Stockholm University"
     }
   },
-  "studentService":{
-    "menu":{
+  "studentService": {
+    "menu": {
       "applicationAndAdmission": "Admission",
       "degreeAndCertificate": "Degrees and Certificates",
       "guidanceCounseling": "Guidance Counceling",
@@ -72,42 +86,42 @@
       "studyAbroad": "Study Abroad",
       "equality": "Equality"
     },
-    "header":{
+    "header": {
       "title": "Student Service"
     }
   },
-  "navigation":{
-    "button":{
-        "back": "Back"
+  "navigation": {
+    "button": {
+      "back": "Back"
     }
   },
-  "accessibility":{
-    "info":{
+  "accessibility": {
+    "info": {
       "desc": "Some text about accessibility at Stockholm University, bla, bla, bla..."
     },
-    "icon":{
+    "icon": {
       "handicapEntrance": "Handicap entrance",
       "handicapLift": "Handicap lift",
       "handicapToilet": "Handicap toilet",
       "handicapParking": "Handicap parkin",
       "hearingLoop": "Hearing loop"
     },
-    "header":{
+    "header": {
       "title": "Accessibility"
     }
   },
 
-  "sukat":{
-    "search" : "Search",
-    "placeholder":"Please enter name",
+  "sukat": {
+    "search": "Search",
+    "placeholder": "Please enter name",
     "searchpersons": "Search persons",
-    "searchresult" : "Search result",
-    "username":"User name:",
-    "email":"E-mail:",
-    "phone":"Phone:",
-    "contacts":"Add to contacts",
-    "call":"Call",
-    "sms":"SMS",
-    "sendemail":"Send email"
+    "searchresult": "Search result",
+    "username": "User name:",
+    "email": "E-mail:",
+    "phone": "Phone:",
+    "contacts": "Add to contacts",
+    "call": "Call",
+    "sms": "SMS",
+    "sendemail": "Send email"
   }
 }
