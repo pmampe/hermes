@@ -1,0 +1,42 @@
+/****************
+ ** Graphic design styling
+ JQuery Mobile
+ ****
+ Font:
+ ****
+ Basics:
+ Padding text 0.3 em
+ ****
+ Colors:
+ SU blue #002F5F
+ turquoise (Himmel) #ACDEE6
+ grey text
+ black text
+ button blue
+*******
+ Guide lines:
+ - Use tag and classes for styling- not IDs
+ - Be specific
+ ***********/
+
+/*************
+ ** Header
+ ***********/
+.ui-header.ui-bar-a {
+    background: #002F5F;
+}
+
+/*************
+ ** Search View
+ ***********/
+.ui-body-a {
+    background: white;
+}
+
+.search-box,
+.search-box form {
+    background: #ACDEE6;
+}
+
+
+
