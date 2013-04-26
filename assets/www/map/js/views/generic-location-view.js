@@ -19,6 +19,7 @@ var GenericLocationView = Backbone.View.extend(
         this.infoWindow = options.infoWindow;
 
         google.maps.event.addListener(this.marker, 'click', this.handleMarkerClick);
+        this.model.on('click', this.handleMarkerClick);
         this.model.on('change:coords', this.updatePosition);
         this.model.on('change:visible', this.updateVisibility);
 
@@ -90,9 +91,9 @@ var GenericLocationView = Backbone.View.extend(
       handleMarkerClick: function (event) {
         this.model.trigger('clicked');
         if (this.model.get('directionAware')) {
-          this.infoWindow.setDestination(event.latLng);
+          this.infoWindow.setDestination(this.getCenter());
         }
-        this.openInfoWindow(this.model, this.marker, event.latLng);
+        this.openInfoWindow(this.model, this.marker, this.getCenter());
       },
 
       /**
