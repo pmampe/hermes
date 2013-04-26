@@ -42,7 +42,7 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function () {
-        this.populateFilter(this.collection.toJSON());
+        this.populateFilter();
         this.delegateEvents();
       },
 
@@ -77,6 +77,10 @@ var SearchView = Backbone.View.extend(
         $("#search-box form").removeClass("tight");
         $("#cancelFilter").hide();
         $("#search-autocomplete li").addClass("ui-screen-hidden");
+
+        if (this.inputField.val() == "") {
+          this.resetLocations();
+        }
       },
 
       /**
@@ -101,12 +105,16 @@ var SearchView = Backbone.View.extend(
         this.trigger("selected", location);
       },
 
-      populateFilter: function (list) {
-        var html = "";
+      resetLocations: function() {
+        this.collection.trigger("change");
+      },
 
-        $.each(list, function (i, val) {
-          html += "<li id='" + val.id + "' data-icon='false' ><a data-modelid='" + val.id + "' class='autocomplete-link'>" + val.name + "</a></li>";
-        });
+      populateFilter: function () {
+        var html = this.collection.bySearchable().reduce(function (memo, location) {
+          return memo + '<li id="' + location.get('id') + '" data-icon="false">' +
+                        '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.get('name') + '</a>' +
+                        '</li>';
+        }, "");
 
         var $ul = $('#search-autocomplete');
         $ul.html(html);

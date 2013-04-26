@@ -6,7 +6,7 @@ describe('MapRouter', function () {
     });
 
     it('should have the correct amount of routes', function () {
-      expect(_.size(this.router.routes)).toEqual(6);
+      expect(_.size(this.router.routes)).toEqual(7);
     });
 
     it('*actions route exists & points to default route', function () {

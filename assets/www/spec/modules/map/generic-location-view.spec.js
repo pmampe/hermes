@@ -20,8 +20,19 @@ describe('Generic location view', function () {
 
       expect(this.view.infoWindow.open).toHaveBeenCalledWith(0, 1, 2);
     });
-  });
 
+    it('should translate info window body', function () {
+      this.view.infoWindow = new InfoWindowView({ appModel: new AppModel({text: 'på svenska', textEn: 'in english'})});
+
+      if(this.view.infoWindow.getRootLanguage()=='sv'){
+         var expected = 'på svenska';
+      } else {
+         var expected = 'in english';
+      }
+      var text = this.view.infoWindow.getLanguageKey();
+      expect(this.view.infoWindow.appModel.get(text)).toEqual(expected);
+   });
+});
   describe('remove', function () {
     beforeEach(function () {
       spyOn(GenericLocationView.prototype, "render");

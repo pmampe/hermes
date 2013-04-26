@@ -22,7 +22,9 @@ var AppModel = Backbone.Model.extend(
       initialize: function () {
         _.bindAll(this, "hideAllNonVisibleTypes", "showNonVisibleForLocationByRelation");
         this.campuses = new Campuses();
-        this.locations = new Locations();
+        this.locations = new Locations(null, {
+          searchableTypes: _.difference(this.get('types'), this.get('nonVisibleTypes'))
+        });
 
         // Hide nonVisibleTypes when locations is fetched
         this.locations.on("reset", this.hideAllNonVisibleTypes);

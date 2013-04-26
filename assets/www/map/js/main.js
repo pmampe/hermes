@@ -9,4 +9,3 @@ function startModule() {
   var mapRouter = new MapRouter();
   Backbone.history.start();
 }
-

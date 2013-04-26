@@ -62,41 +62,48 @@ describe('Search view', function () {
   });
 
   describe('filter functions', function () {
-    it('should populate filter with the correct number of campuses', function () {
+    beforeEach(function () {
+      this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
           Locations.prototype.url(),
-          this.validResponse(this.fixtures.FilterItems.valid)
+          this.validResponse(this.fixtures.FilterItems.valid.locations)
       );
 
       spyOn(SearchView.prototype, "render");
-      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+    });
+
+    it('should populate filter with the correct number of campuses', function () {
+      this.server.respondWith(
+          "GET",
+          Campuses.prototype.url(),
+          this.validResponse(this.fixtures.FilterItems.valid.locations)
+      );
+
+      var appView = new AppView({
+        el: $('#page-map'),
+        model: new AppModel({
+          filterByCampus: true
+        })
+      });
+
       runs(function () {
-        appView.model.locations.fetch();
         this.server.respond();
       });
 
       waitsFor(function () {
-        return appView.model.locations.length > 0;
+        return appView.model.campuses.length > 0;
       }, "Waiting for returning call", 1000);
 
       runs(function () {
         expect($("#search-autocomplete li").length).toEqual(0);
-        var list = this.fixtures.FilterItems.valid.locations;
-        appView.searchView.populateFilter(list);
+        appView.searchView.populateFilter();
         expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
       });
     });
 
     it('should trigger custom filtering for each filter item', function () {
-      this.server.respondWith(
-          "GET",
-          Locations.prototype.url(),
-          this.validResponse(this.fixtures.FilterItems.valid)
-      );
-
       spyOn(SearchView.prototype, "filterSearch");
-      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
         appView.model.locations.fetch();
@@ -110,8 +117,7 @@ describe('Search view', function () {
       runs(function () {
         expect(SearchView.prototype.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
-        var list = this.fixtures.FilterItems.valid.locations;
-        appView.searchView.populateFilter(list);
+        appView.searchView.populateFilter();
         expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
         expect(SearchView.prototype.filterSearch.calls.length).toEqual(4);
@@ -119,13 +125,6 @@ describe('Search view', function () {
     });
 
     it('should overwrite jquery mobiles filtering', function () {
-      this.server.respondWith(
-          "GET",
-          Locations.prototype.url(),
-          this.validResponse(this.fixtures.FilterItems.valid)
-      );
-
-      spyOn(SearchView.prototype, "render");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
         appView.model.locations.fetch();
@@ -139,8 +138,7 @@ describe('Search view', function () {
       runs(function () {
         expect(SearchView.prototype.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
-        var list = this.fixtures.FilterItems.valid.locations;
-        appView.searchView.populateFilter(list);
+        appView.searchView.populateFilter();
         expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
         expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(2);
@@ -195,9 +193,8 @@ describe('Search view', function () {
 
       beforeEach(function () {
         appView = new AppView({ el: $('#page-map'), model: new AppModel()});
-        var list = this.fixtures.FilterItems.valid.locations;
-        appView.searchView.populateFilter(list);
         appView.searchView.collection = new Locations(this.fixtures.FilterItems.valid.locations);
+        appView.searchView.populateFilter();
       });
 
       it('should show placeholder text in search field according to page title', function () {
@@ -242,6 +239,33 @@ describe('Search view', function () {
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
 
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
+      });
+
+      it('should hide filtered list and cancelButton as well as reset (show all) locations when clicking cancel button and filtered text is empty', function () {
+        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+
+        $('#search-box input').trigger('focus');
+        $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
+
+        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
+
+        spyOn(SearchView.prototype, "resetLocations");
+        $("#cancelFilter").trigger("click");
+        expect(SearchView.prototype.resetLocations).toHaveBeenCalled();
+      });
+
+      it('should hide filtered list and cancelButton  and keep locations in mapView when clicking cancel button and filtered text is NOT empty', function () {
+        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+
+        $('#search-box input').trigger('focus');
+        $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
+
+        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
+
+        spyOn(SearchView.prototype, "resetLocations");
+        $('#search-box input').val('Ax');
+        $("#cancelFilter").trigger("click");
+        expect(SearchView.prototype.resetLocations).not.toHaveBeenCalled();
       });
 
       it('should hide filtered list and cancelButton on click list item', function () {

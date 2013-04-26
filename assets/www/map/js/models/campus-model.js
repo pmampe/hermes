@@ -53,5 +53,14 @@ var Campuses = Backbone.Collection.extend(
        */
       url: function () {
         return config.map.campuses.url;
+      },
+
+      /**
+       * This is needed by SearchView.
+       *
+       * @return {Array} an array of filtered Campuses.
+       */
+      bySearchable: function () {
+        return this;
       }
     });

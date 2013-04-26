@@ -3,6 +3,7 @@ describe('Info window view', function () {
     $('#stage').replaceWith("<div data-role='page' id='page-map'></div>");
     $('#page-map').append(JST['map/infoWindow']({
       model: new Location(),
+      itemText: "",
       displayDirections: true
     }));
   });
@@ -131,6 +132,7 @@ describe('Info window view', function () {
       $('#page-map').replaceWith("<div data-role='page' id='page-map'></div>");
       $('#page-map').append(JST['map/infoWindow']({
         model: location,
+        itemText: '',
         displayDirections: false
       }));
 
@@ -149,6 +151,7 @@ describe('Info window view', function () {
       $('#page-map').replaceWith("<div data-role='page' id='page-map'></div>");
       $('#page-map').append(JST['map/infoWindow']({
         model: location,
+        itemText: '',
         displayDirections: false
       }));
 
