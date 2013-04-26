@@ -21,7 +21,7 @@ var SearchView = Backbone.View.extend(
         // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
         if (options.placeholderSuffix) {
-         // this.inputField.attr("placeholder", "Sök " + options.placeholderSuffix);
+          // this.inputField.attr("placeholder", "Sök " + options.placeholderSuffix);
           this.inputField.attr("placeholder", i18n.t('map.menu.searchfor') + i18n.t(options.placeholderSuffix).toLowerCase());
         }
 
@@ -34,7 +34,7 @@ var SearchView = Backbone.View.extend(
       events: {
         'focus input': 'showFilteredList',
         'keyup input': 'inputKeyup',
-        'click #cancelFilter': 'hideFilteredList',
+        'click #cancelFilter': 'handleCancelClick',
         'click .autocomplete-link': 'showClickedLoction'
       },
 
@@ -69,18 +69,25 @@ var SearchView = Backbone.View.extend(
       },
 
       /**
-       * If evt is an object, i.e. a blur event, then delay the execussion
-       * of hiding the list. This is done in order to capture the click event
-       * (when clicking on elements in the list).
+       * Handle click on cancel button.
+       *
+       * @param evt the click event.
        */
-      hideFilteredList: function (evt) {
-        $("#search-box form").removeClass("tight");
-        $("#cancelFilter").hide();
-        $("#search-autocomplete li").addClass("ui-screen-hidden");
+      handleCancelClick: function (evt) {
+        this.hideFilteredList();
 
         if (this.inputField.val() == "") {
           this.resetLocations();
         }
+      },
+
+      /**
+       * Hides the filter list.
+       */
+      hideFilteredList: function () {
+        $("#search-box form").removeClass("tight");
+        $("#cancelFilter").hide();
+        $("#search-autocomplete li").addClass("ui-screen-hidden");
       },
 
       /**
@@ -105,15 +112,15 @@ var SearchView = Backbone.View.extend(
         this.trigger("selected", location);
       },
 
-      resetLocations: function() {
-        this.collection.trigger("change");
+      resetLocations: function () {
+        this.collection.trigger("reset");
       },
 
       populateFilter: function () {
         var html = this.collection.bySearchable().reduce(function (memo, location) {
           return memo + '<li id="' + location.get('id') + '" data-icon="false">' +
-                        '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.get('name') + '</a>' +
-                        '</li>';
+              '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.get('name') + '</a>' +
+              '</li>';
         }, "");
 
         var $ul = $('#search-autocomplete');
