@@ -76,7 +76,7 @@ var SearchView = Backbone.View.extend(
       handleCancelClick: function (evt) {
         this.hideFilteredList();
 
-        if (this.inputField.val() == "") {
+        if (this.inputField.val() === "") {
           this.resetLocations();
         }
       },

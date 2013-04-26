@@ -1,4 +1,24 @@
 /**
+ * Set locale.
+ *
+ * @param {string} locale the locale to use.
+ * @example setLocale("en_US");
+ */
+function setLocale(locale) {
+  var options = {
+    useCookie: false,
+    fallbackLng: 'en',
+    resGetPath: 'i18n/__lng__.json',
+    getAsync: false
+  };
+
+  if (locale) {
+    options.locale = locale;
+  }
+  i18n.init(options);
+}
+
+/**
  * Get locale from phonegap. Calls set locale.
  * *
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
@@ -24,24 +44,4 @@ function getLocale() {
   else {
     setLocale();
   }
-}
-
-/**
- * Set locale.
- *
- * @param {string} locale the locale to use.
- * @example setLocale("en_US");
- */
-function setLocale(locale) {
-  var options = {
-    useCookie: false,
-    fallbackLng: 'en',
-    resGetPath: 'i18n/__lng__.json',
-    getAsync: false
-  };
-
-  if (locale) {
-    options.locale = locale;
-  }
-  i18n.init(options);
 }
