@@ -49,10 +49,8 @@ describe('Info window view', function () {
 
     it('should remove event handler from document for click on directions', function () {
       // Mock MapView and getDirections on it
-      var MapView = function () {
-      }
-      MapView.prototype.getDirections = function () {
-      }
+      var MapView = function () {};
+      MapView.prototype.getDirections = function () {};
       spyOn(MapView.prototype, "getDirections");
 
       this.infoWindow = new InfoWindowView({
@@ -72,10 +70,8 @@ describe('Info window view', function () {
 
   describe('when clicking on a direction link in infowindow', function () {
     // Mock MapView and getDirections on it
-    var MapView = function () {
-    }
-    MapView.prototype.getDirections = function () {
-    }
+    var MapView = function () {};
+    MapView.prototype.getDirections = function () {};
 
     beforeEach(function () {
       spyOn(MapView.prototype, "getDirections");

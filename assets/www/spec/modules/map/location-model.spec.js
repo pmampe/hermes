@@ -41,7 +41,7 @@ describe('Location model', function () {
     });
 
     it('should have handicapAdapted=false', function () {
-      expect(this.location.get('handicapAdapted')).toBeFalsy()
+      expect(this.location.get('handicapAdapted')).toBeFalsy();
     });
 
     it('should default to visible=true', function () {
