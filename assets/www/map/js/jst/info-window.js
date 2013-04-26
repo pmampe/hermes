@@ -27,8 +27,8 @@ JST['map/infoWindow/building'] = _.template(" \
 JST['map/infoWindow'] = _.template(" \
 <div class='iw'>\
   <h3><%= name %></h3>\
-  <% if (model.has('text')) { %> \
-  <%= model.get('text') %> \
+  <% if (itemText != null) { %>\
+  <%= itemText  %>\
   <% } %> \
   <% if (model.get('type') === 'building'){ %> \
   <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \
