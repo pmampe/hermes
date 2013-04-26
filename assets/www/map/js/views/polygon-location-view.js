@@ -18,7 +18,7 @@ var PolygonLocationView = GenericLocationView.extend(
       initialize: function (options) {
         this.points = options.model.getGPoints();
 
-        options.marker = new google.maps.Polygon({
+        this.marker = new google.maps.Polygon({
           strokeColor: "#000000",
           strokeOpacity: 0.8,
           strokeWeight: 3,

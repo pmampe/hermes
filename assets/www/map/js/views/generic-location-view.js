@@ -15,9 +15,7 @@ var GenericLocationView = Backbone.View.extend(
        */
       initialize: function (options) {
         _.bindAll(this, "updatePosition", 'updateVisibility', 'handleMarkerClick');
-        this.model = options.model;
         this.gmap = options.gmap;
-        this.marker = options.marker;
         this.infoWindow = options.infoWindow;
 
         google.maps.event.addListener(this.marker, 'click', this.handleMarkerClick);
@@ -46,7 +44,9 @@ var GenericLocationView = Backbone.View.extend(
        * Update visibilty on the map.
        */
       updateVisibility: function () {
-        this.marker.setVisible(this.model.isVisible());
+        if (this.marker) {
+          this.marker.setVisible(this.model.isVisible());
+        }
       },
 
       /**

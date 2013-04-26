@@ -26,7 +26,7 @@ var PointLocationView = GenericLocationView.extend(
               new google.maps.Size(22, 22));
         }
 
-        options.marker = new google.maps.Marker({
+        this.marker = new google.maps.Marker({
           position: position,
           poiType: options.model.getPoiType(),
           visible: true,

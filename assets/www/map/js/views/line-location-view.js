@@ -15,7 +15,7 @@ var LineLocationView = GenericLocationView.extend(
        */
       initialize: function (options) {
 
-        options.marker = new google.maps.Polyline({
+        this.marker = new google.maps.Polyline({
           strokeColor: "#000000",
           strokeOpacity: 0.8,
           strokeWeight: 3,
