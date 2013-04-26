@@ -64,7 +64,7 @@ var AppView = Backbone.View.extend(
 
         this.mapView.on('zoom_changed', this.handleZoomChanged);
         this.model.on('change:campus', this.changeCampus, this);
-        this.model.locations.on("reset change", function () {
+        this.model.locations.on("reset", function () {
           self.mapView.replacePoints(self.model.locations);
         });
 
