@@ -159,7 +159,7 @@ describe('Info window view', function () {
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.hearing_loop.noexists.*/);
     });
 
-    it('should set correct building information when no accessible elevators, toilets or entrances exist', function(){
+    it('should set correct building information when no accessible elevators, toilets or entrances exist', function () {
 
       var location = new Location({
         type: 'building',
@@ -168,6 +168,7 @@ describe('Info window view', function () {
 
       $('#page-map').append(JST['map/infoWindow']({
         model: location,
+        itemText: '',
         hasElevators: false,
         tFloors: '',
         hasEntrances: false,
@@ -184,7 +185,7 @@ describe('Info window view', function () {
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.noexists.*/);
     });
 
-    it('should set correct building information when accessible elevators, toilets or entrances exist', function(){
+    it('should set correct building information when accessible elevators, toilets or entrances exist', function () {
 
       var location = new Location({
         type: 'building',
@@ -193,6 +194,7 @@ describe('Info window view', function () {
 
       $('#page-map').append(JST['map/infoWindow']({
         model: location,
+        itemText: '',
         hasElevators: true,
         tFloors: [1],
         hasEntrances: true,
