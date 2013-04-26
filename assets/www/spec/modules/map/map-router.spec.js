@@ -315,4 +315,56 @@ describe('MapRouter', function () {
       expect(location.isVisible()).toBeFalsy();
     });
   });
+
+  describe('when choosing resturants', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.restaurants();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.restaurants();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.restaurants();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'resturant'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["restaurant"]);
+      });
+
+      this.router.restaurants();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("map.titles.restaurants");
+      });
+
+      this.router.restaurants();
+    });
+
+    it("should set filterByCampus in app model", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('filterByCampus')).toBeTruthy();
+      });
+
+      this.router.restaurants();
+    });
+  });
 });
