@@ -150,6 +150,17 @@ describe('Locations collection', function () {
       this.server.restore();
     });
 
+    it('bySearchable should return all with types that is in searchable types', function () {
+      this.locations = new Locations(null, {
+        searchableTypes: ["parking"]
+      });
+      this.locations.fetch();
+      this.server.respond();
+
+      var subCollection = this.locations.bySearchable();
+      expect(subCollection.size()).toEqual(3);
+    });
+
     it('byCampus should return all by campus', function () {
       this.locations.fetch();
       this.server.respond();
