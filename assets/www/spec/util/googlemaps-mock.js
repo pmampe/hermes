@@ -41,6 +41,8 @@ google.maps.Marker = function (options) {
   };
   this.setVisible = function (visibility) {
   };
+  this.setPosition = function (position) {
+  };
 };
 
 google.maps.Polyline = function (options) {
