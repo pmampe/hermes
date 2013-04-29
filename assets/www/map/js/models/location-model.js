@@ -172,9 +172,11 @@ var Locations = Backbone.Collection.extend(
       },
 
       /**
-       * Filter Locations by building.
+       * Filter Locations by building, types and whether the location is handicap adapted or not.
        *
        * @param {string} building the Building to filter by.
+       * @param {Array} types an array of types to filter by.
+       * @param {boolean} adapted handicap adapted locations.
        * @return {Array} an array of filtered Locations.
        */
       byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
