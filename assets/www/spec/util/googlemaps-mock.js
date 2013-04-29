@@ -48,6 +48,8 @@ google.maps.Polyline = function (options) {
   };
   this.setVisible = function (visibility) {
   };
+  this.setPath = function (path) {
+  };
 };
 
 google.maps.Polygon = function (options) {
