@@ -4,8 +4,7 @@
  *
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  */
-function startModule() {
-
+function startMapModule() {
   var mapRouter = new MapRouter();
   Backbone.history.start();
 }
