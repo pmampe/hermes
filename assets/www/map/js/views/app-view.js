@@ -121,16 +121,21 @@ var AppView = Backbone.View.extend(
         Backbone.View.prototype.remove.call(this);
       },
 
+      /**
+       * Handle selected model from search view.
+       *
+       * @param selectedModel the selected model
+       */
       locationCallback: function (selectedModel) {
-        var collection = new Locations([]);
-
-        if (selectedModel) {
-          collection.add(selectedModel);
-        }
-
-        this.mapView.replacePoints(collection);
+        this.model.hideAllModelsExceptOne(selectedModel);
+        selectedModel.trigger('click');
       },
 
+      /**
+       * Handle selected model from search view.
+       *
+       * @param selectedModel the selected model
+       */
       campusCallback: function (selectedModel) {
         this.model.set('campus', selectedModel);
       },

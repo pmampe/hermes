@@ -61,9 +61,29 @@ var AppModel = Backbone.Model.extend(
       hideAllNonVisibleTypes: function () {
         var nonVisibleTypes = this.get("nonVisibleTypes");
 
-        _.invoke(this.locations.filter(function (location) {
-          return _.contains(nonVisibleTypes, location.get('type'));
-        }), "set", "visible", false);
+        this.locations.each(function (location) {
+          if (_.contains(nonVisibleTypes, location.get('type'))) {
+            location.set('visible', false);
+          }
+          else {
+            location.set('visible', true);
+          }
+        });
+      },
+
+      /**
+       * Sets no visibility on all locations except the provided
+       *
+       * @param visibleModel the model to set visible.
+       */
+      hideAllModelsExceptOne: function (visibleModel) {
+        this.locations.each(function (item) {
+          if (item != visibleModel) {
+            item.set('visible', false);
+          }
+        });
+
+        visibleModel.set('visible', true);
       },
 
       /**
@@ -76,7 +96,7 @@ var AppModel = Backbone.Model.extend(
 
         var showingNonVisibleForLocation = null;
         if (byFunction) {
-          var relatedWithType = byFunction.call(this.locations, location).filter(function(location) {
+          var relatedWithType = byFunction.call(this.locations, location).filter(function (location) {
             return _.contains(types, location.get('type'));
           });
 

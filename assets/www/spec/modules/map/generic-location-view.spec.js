@@ -15,9 +15,12 @@ describe('Generic location view', function () {
         appModel: new AppModel()
       });
 
+      spyOn(this.view, 'getCenter').andCallFake(function () {
+        return 2;
+      });
       spyOn(this.view.infoWindow, "open");
 
-      this.view.openInfoWindow(0, 1, 2);
+      this.view.openInfoWindow(0, 1);
 
       expect(this.view.infoWindow.open).toHaveBeenCalledWith(0, 1, 2);
     });

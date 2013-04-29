@@ -32,7 +32,6 @@ var MapRouter = Backbone.Router.extend({
     appView.updateLocations();
   },
 
-
   computerLabs: function () {
     var appView = new AppView({
       el: $('#page-map'),
