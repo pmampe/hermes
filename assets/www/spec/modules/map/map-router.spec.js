@@ -316,6 +316,50 @@ describe('MapRouter', function () {
     });
   });
 
+  describe('when handling parkingspace locations reset', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+    });
+
+    it("should set zoomSensitive=true on the app model", function () {
+      spyOn(AppView.prototype, "initialize");
+      var appModel = new AppModel();
+      var appView = new AppView();
+
+      this.router.handleParkingspaceLocationsReset(appView, appModel);
+
+      expect(appModel.get('zoomSensitive')).toBeTruthy();
+    });
+
+    it("should attach a event trigger on the 'clicked' event on parking & handicap_parking models", function () {
+      spyOn(AppView.prototype, "initialize");
+      var location = new Location({
+        type: 'parking'
+      });
+      var locations = new Locations();
+      locations.add([location]);
+
+      var appModel = new AppModel();
+      appModel.locations = locations;
+      var appView = new AppView();
+
+      var checkCollection = false;
+      var checkVisible = false;
+      appView.on('toggleMarkerVisibility', function (collection, visible) {
+        checkCollection = (collection === locations);
+        checkVisible = visible;
+      });
+
+      this.router.handleParkingspaceLocationsReset(appView, appModel);
+
+      location.trigger('clicked');
+
+      expect(appModel.get('zoomSensitive')).toBeFalsy();
+      expect(checkCollection).toBeTruthy();
+      expect(checkVisible).toBeTruthy();
+    });
+  });
+
   describe('when choosing resturants', function () {
     beforeEach(function () {
       this.router = new MapRouter();
