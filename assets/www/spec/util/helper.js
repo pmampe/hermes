@@ -11,6 +11,10 @@ var helper = {
   }
 };
 
+navigator.language = function () {
+  return "en-US";
+};
+
 beforeEach(function () {
 
   this.validResponse = function (responseText) {
