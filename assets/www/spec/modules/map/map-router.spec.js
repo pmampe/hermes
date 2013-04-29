@@ -278,6 +278,24 @@ describe('MapRouter', function () {
 
       this.router.parkingspaces();
     });
+
+    it("should call handleParkingspaceLocationsReset on locations reset", function () {
+      spyOn(window, 'AppModel');
+      spyOn(this.router, 'handleParkingspaceLocationsReset');
+
+      var locations = new Locations();
+      var appModel = new AppModel();
+      appModel.locations = locations;
+
+      AppModel.andCallFake(function (options) {
+        return appModel;
+      });
+
+      this.router.parkingspaces();
+      locations.trigger('reset');
+
+      expect(this.router.handleParkingspaceLocationsReset).toHaveBeenCalled();
+    });
   });
 
   describe('when handling parkingspace marker visibility', function () {
