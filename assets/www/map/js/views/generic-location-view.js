@@ -19,6 +19,7 @@ var GenericLocationView = Backbone.View.extend(
         this.infoWindow = options.infoWindow;
 
         google.maps.event.addListener(this.marker, 'click', this.handleMarkerClick);
+        this.model.on('click', this.handleMarkerClick);
         this.model.on('change:coords', this.updatePosition);
         this.model.on('change:visible', this.updateVisibility);
 
@@ -54,10 +55,9 @@ var GenericLocationView = Backbone.View.extend(
        *
        * @param model the model of the location.
        * @param anchor the location to anchor the info window to.
-       * @param {google.maps.LatLng} latLng position of the infoWindow.
        */
-      openInfoWindow: function (model, anchor, latLng) {
-        this.infoWindow.open(model, anchor, latLng);
+      openInfoWindow: function (model, anchor) {
+        this.infoWindow.open(model, anchor, this.getCenter());
       },
 
       //TODO: written for polygons, should work for markers, but might return bad results for lines
@@ -74,9 +74,7 @@ var GenericLocationView = Backbone.View.extend(
           var latCenter = sumLat / numberOfPoints;
           var lngCenter = sumLng / numberOfPoints;
 
-          var coord = new google.maps.LatLng(latCenter, lngCenter);
-
-          return coord;
+          return new google.maps.LatLng(latCenter, lngCenter);
         } else {
           return -1; // TODO: throw exception instead..
         }
@@ -90,9 +88,9 @@ var GenericLocationView = Backbone.View.extend(
       handleMarkerClick: function (event) {
         this.model.trigger('clicked');
         if (this.model.get('directionAware')) {
-          this.infoWindow.setDestination(event.latLng);
+          this.infoWindow.setDestination(this.getCenter());
         }
-        this.openInfoWindow(this.model, this.marker, event.latLng);
+        this.openInfoWindow(this.model, this.marker);
       },
 
       /**

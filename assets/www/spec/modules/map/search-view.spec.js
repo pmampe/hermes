@@ -241,13 +241,15 @@ describe('Search view', function () {
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
       });
 
-      it('should hide filtered list and cancelButton as well as reset (show all) locations when clicking cancel button and filtered text is empty', function () {
-        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+      it('should hide filtered list and cancelButton as well as trigger "reset" event on collection when clicking cancel button and filtered text is empty', function () {
+        var selected = false;
+        appView.searchView.on('selected', function (item) {
+          selected = true;
+        });
 
         $('#search-box input').trigger('focus');
         $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
-
-        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
+        expect(selected).toBeTruthy();
 
         spyOn(SearchView.prototype, "resetLocations");
         $("#cancelFilter").trigger("click");
@@ -255,21 +257,18 @@ describe('Search view', function () {
       });
 
       it('should hide filtered list and cancelButton  and keep locations in mapView when clicking cancel button and filtered text is NOT empty', function () {
-        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
-
-        $('#search-box input').trigger('focus');
-        $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
-
-        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
-
         spyOn(SearchView.prototype, "resetLocations");
+
         $('#search-box input').val('Ax');
         $("#cancelFilter").trigger("click");
         expect(SearchView.prototype.resetLocations).not.toHaveBeenCalled();
       });
 
       it('should hide filtered list and cancelButton on click list item', function () {
-        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+        var selected = false;
+        appView.searchView.on('selected', function (item) {
+          selected = true;
+        });
 
         $('#search-box input').trigger('focus');
         $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
@@ -278,7 +277,7 @@ describe('Search view', function () {
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
 
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
-        expect(MapView.prototype.replacePoints).toHaveBeenCalled();
+        expect(selected).toBeTruthy();
       });
 
       it('should filter on entered text', function () {
