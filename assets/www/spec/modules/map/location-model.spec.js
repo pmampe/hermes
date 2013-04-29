@@ -179,6 +179,17 @@ describe('Locations collection', function () {
       expect(subCollection.size()).toEqual(3);
     });
 
+    it('bySearchable should return self for no searchable types', function () {
+      this.locations = new Locations(null, {
+        searchableTypes: []
+      });
+      this.locations.fetch();
+      this.server.respond();
+
+      var subCollection = this.locations.bySearchable();
+      expect(subCollection).toEqual(this.locations);
+    });
+
     it('byCampus should return all by campus', function () {
       this.locations.fetch();
       this.server.respond();
