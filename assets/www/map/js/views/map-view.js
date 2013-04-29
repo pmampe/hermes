@@ -213,7 +213,7 @@ var MapView = Backbone.View.extend(
        */
       replacePoints: function (newPoints) {
         this.removeAllMarkers();
-        this.addMarkers(newPoints)
+        this.addMarkers(newPoints);
       },
 
       /**
