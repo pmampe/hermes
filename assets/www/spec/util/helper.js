@@ -3,6 +3,16 @@ afterEach(function () {
   $('body > :not([id=HTMLReporter])').hide();
 });
 
+beforeEach(function () {
+  this.validResponse = function (responseText) {
+    return [
+      200,
+      {"Content-Type": "application/json"},
+      JSON.stringify(responseText)
+    ];
+  };
+});
+
 var helper = {
   trigger: function (obj, name) {
     var e = document.createEvent('Event');
@@ -14,14 +24,3 @@ var helper = {
 navigator.language = function () {
   return "en-US";
 };
-
-beforeEach(function () {
-
-  this.validResponse = function (responseText) {
-    return [
-      200,
-      {"Content-Type": "application/json"},
-      JSON.stringify(responseText)
-    ];
-  };
-});
