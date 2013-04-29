@@ -221,9 +221,21 @@ describe('Locations collection', function () {
       this.server.respond();
 
       var subCollection = this.locations.byBuilding(this.locations.get(5));
-      expect(subCollection.size()).toEqual(1);
+      expect(subCollection.size()).toEqual(2);
     });
 
+    it('byBuildingAndTypeAndHandicapAdapted should return all rooms in a building for specific types with specified handicap adaption', function () {
+      this.locations.fetch();
+      this.server.respond();
+
+      var building = this.locations.get(5);
+
+      var subCollection = this.locations.byBuildingAndTypeAndHandicapAdapted(building, ['auditorium'], true);
+      expect(subCollection.size()).toEqual(1);
+
+      subCollection = this.locations.byBuildingAndTypeAndHandicapAdapted(building, ['auditorium'], false);
+      expect(subCollection.size()).toEqual(0);
+    });
   });
 });
 
