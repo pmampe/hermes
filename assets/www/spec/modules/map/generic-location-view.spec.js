@@ -106,4 +106,60 @@ describe('Generic location view', function () {
       expect(this.view.marker.setVisible).toHaveBeenCalledWith(false);
     });
   });
+
+  describe('handleMarkerClick', function () {
+    beforeEach(function () {
+      GenericLocationView.prototype.render = function () {
+      };
+
+      this.view = new GenericLocationView({
+        model: new Location(),
+        infoWindow: new InfoWindowView({
+          appModel: new AppModel()
+        })
+      });
+
+    });
+
+    it('should set trigger the "clicked" event on its model', function () {
+      spyOn(this.view, 'openInfoWindow');
+
+      var clicked = false;
+      this.view.model.on('clicked', function () {
+        clicked = true;
+      });
+
+      this.view.handleMarkerClick({latLng: ''});
+
+      expect(clicked).toBeTruthy();
+    });
+
+    it('should call openInfoWindow', function () {
+      spyOn(this.view, 'openInfoWindow');
+
+      this.view.handleMarkerClick({latLng: ''});
+
+      expect(this.view.openInfoWindow).toHaveBeenCalledWith(this.view.model, this.view.marker, '');
+    });
+
+    it('should set destination on infoWindow if directionAware=true', function () {
+      spyOn(this.view, 'openInfoWindow');
+      spyOn(this.view.infoWindow, 'setDestination');
+      this.view.model.set('directionAware', true);
+
+      this.view.handleMarkerClick({latLng: ''});
+
+      expect(this.view.infoWindow.setDestination).toHaveBeenCalledWith('');
+    });
+
+    it('should not set destination on infoWindow if directionAware=false', function () {
+      spyOn(this.view, 'openInfoWindow');
+      spyOn(this.view.infoWindow, 'setDestination');
+      this.view.model.set('directionAware', false);
+
+      this.view.handleMarkerClick({latLng: ''});
+
+      expect(this.view.infoWindow.setDestination).not.toHaveBeenCalled();
+    });
+  });
 });
