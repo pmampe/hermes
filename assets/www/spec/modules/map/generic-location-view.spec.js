@@ -162,4 +162,48 @@ describe('Generic location view', function () {
       expect(this.view.infoWindow.setDestination).not.toHaveBeenCalled();
     });
   });
+
+  describe('getCenter', function () {
+    beforeEach(function () {
+      GenericLocationView.prototype.render = function () {
+      };
+    });
+
+    it('should return correct results for point', function () {
+      this.view = new GenericLocationView({
+        model: new Location({ coords: [
+          [10, 10]
+        ] })
+      });
+
+      expect(this.view.getCenter().lat()).toEqual(10);
+      expect(this.view.getCenter().lng()).toEqual(10);
+    });
+
+    it('should return correct results for line', function () {
+      this.view = new GenericLocationView({
+        model: new Location({ coords: [
+          [10, 10],
+          [20, 20]
+        ] })
+      });
+
+      expect(this.view.getCenter().lat()).toEqual(15);
+      expect(this.view.getCenter().lng()).toEqual(15);
+    });
+
+    it('should return correct results for polygon', function () {
+      this.view = new GenericLocationView({
+        model: new Location({ coords: [
+          [10, 10],
+          [20, 20],
+          [10, 20],
+          [20, 10]
+        ] })
+      });
+
+      expect(this.view.getCenter().lat()).toEqual(15);
+      expect(this.view.getCenter().lng()).toEqual(15);
+    });
+  });
 });
