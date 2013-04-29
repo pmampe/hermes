@@ -152,7 +152,7 @@ describe('Generic location view', function () {
 
       this.view.handleMarkerClick({latLng: ''});
 
-      expect(this.view.infoWindow.setDestination).toHaveBeenCalledWith('');
+      expect(this.view.infoWindow.setDestination).toHaveBeenCalledWith(this.view.getCenter());
     });
 
     it('should not set destination on infoWindow if directionAware=false', function () {
