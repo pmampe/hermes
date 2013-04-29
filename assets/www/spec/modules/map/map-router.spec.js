@@ -278,6 +278,68 @@ describe('MapRouter', function () {
 
       this.router.parkingspaces();
     });
+
+    it("should call handleParkingspaceLocationsReset on locations reset", function () {
+      spyOn(window, 'AppModel');
+      spyOn(this.router, 'handleParkingspaceLocationsReset');
+
+      var locations = new Locations();
+      var appModel = new AppModel();
+      appModel.locations = locations;
+
+      AppModel.andCallFake(function (options) {
+        return appModel;
+      });
+
+      this.router.parkingspaces();
+      locations.trigger('reset');
+
+      expect(this.router.handleParkingspaceLocationsReset).toHaveBeenCalled();
+    });
+  });
+
+  describe('when choosing departments', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.departments();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.departments();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.departments();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'auditorium'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["organization"]);
+      });
+
+      this.router.departments();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("map.titles.departments");
+      });
+
+      this.router.departments();
+    });
   });
 
   describe('when handling parkingspace marker visibility', function () {
@@ -313,6 +375,50 @@ describe('MapRouter', function () {
       this.router.handleParkingspaceMarkerVisibility(locations, false);
 
       expect(location.isVisible()).toBeFalsy();
+    });
+  });
+
+  describe('when handling parkingspace locations reset', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+    });
+
+    it("should set zoomSensitive=true on the app model", function () {
+      spyOn(AppView.prototype, "initialize");
+      var appModel = new AppModel();
+      var appView = new AppView();
+
+      this.router.handleParkingspaceLocationsReset(appView, appModel);
+
+      expect(appModel.get('zoomSensitive')).toBeTruthy();
+    });
+
+    it("should attach a event trigger on the 'clicked' event on parking & handicap_parking models", function () {
+      spyOn(AppView.prototype, "initialize");
+      var location = new Location({
+        type: 'parking'
+      });
+      var locations = new Locations();
+      locations.add([location]);
+
+      var appModel = new AppModel();
+      appModel.locations = locations;
+      var appView = new AppView();
+
+      var checkCollection = false;
+      var checkVisible = false;
+      appView.on('toggleMarkerVisibility', function (collection, visible) {
+        checkCollection = (collection === locations);
+        checkVisible = visible;
+      });
+
+      this.router.handleParkingspaceLocationsReset(appView, appModel);
+
+      location.trigger('clicked');
+
+      expect(appModel.get('zoomSensitive')).toBeFalsy();
+      expect(checkCollection).toBeTruthy();
+      expect(checkVisible).toBeTruthy();
     });
   });
 

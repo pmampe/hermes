@@ -15,6 +15,7 @@ describe('Default-header', function () {
   afterEach(function () {
     $(document).attr('title', this.origTitle);
     $('#page').replaceWith("<div id='stage'></div>");
+    $('div[data-role="popup"]').remove();
     window.history = this.oldHistory;
   });
 
@@ -105,18 +106,21 @@ describe('Default-header', function () {
 });
 
 describe('External-link-dialog', function () {
-  beforeEach(function () {
-    var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
-    $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page");
-    i18n.init(i18n.options);
-  });
-
-  afterEach(function () {
-    $('#page').replaceWith("<div id='stage'></div>");
-  });
-
   describe('when document contains links with target _blank', function () {
+    beforeEach(function () {
+      var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
+      $('#stage').replaceWith(html);
+      $.mobile.loadPage("#page");
+      i18n.init(i18n.options);
+    });
+
+    afterEach(function () {
+      $('#page').replaceWith("<div id='stage'></div>");
+      $('.ui-popup-screen').remove();
+      $('.ui-popup-container').remove();
+      $('div[data-role="popup"]').remove();
+    });
+
     it('should present a popup with info and possibility to continue or cancel', function () {
       $("#page").find("a").trigger("click");
 
@@ -127,6 +131,24 @@ describe('External-link-dialog', function () {
 
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_system");
+    });
+
+    it('pressing "yes" should call window.open with target _system', function () {
+      spyOn(window, 'open');
+
+      $("#page").find("a").trigger("click");
+      $("#external-link-dialog").find("a[target=_system]").trigger('click');
+
+      expect(window.open).toHaveBeenCalledWith('testing.html', '_system');
+    });
+
+    it('pressing "yes" should close the popup', function () {
+      $("#page").find("a").trigger("click");
+
+      var popup = $("#external-link-dialog");
+      popup.find("a[target=_system]").trigger('click');
+
+      expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy();
     });
   });
 });

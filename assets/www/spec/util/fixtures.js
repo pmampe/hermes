@@ -33,12 +33,14 @@ beforeEach(function () {
           name: 'third',
           campus: 'Frescati',
           type: 'auditorium',
+          buildingId: 5,
           shape: "line",
           text: "Foobar",
           coords: [
             [59.00, 18.00]
           ],
-          directionAware: false
+          directionAware: false,
+          handicapAdapted: true
         },
         {
           id: 4,

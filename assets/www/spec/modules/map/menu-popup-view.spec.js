@@ -41,6 +41,8 @@ describe('Menu popup view', function () {
   describe('render', function () {
     it('close other popups & open menu popup', function () {
       spyOn(this.view.$el, 'popup');
+      $("#other-popup").popup();
+      $("#other-popup").popup('open');
       this.view.render();
 
       expect($('#other-popup').parent().hasClass('ui-popup-hidden')).toBeTruthy();

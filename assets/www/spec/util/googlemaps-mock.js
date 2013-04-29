@@ -41,6 +41,8 @@ google.maps.Marker = function (options) {
   };
   this.setVisible = function (visibility) {
   };
+  this.setPosition = function (position) {
+  };
 };
 
 google.maps.Polyline = function (options) {
@@ -48,12 +50,16 @@ google.maps.Polyline = function (options) {
   };
   this.setVisible = function (visibility) {
   };
+  this.setPath = function (path) {
+  };
 };
 
 google.maps.Polygon = function (options) {
   this.setMap = function (map) {
   };
   this.setVisible = function (visibility) {
+  };
+  this.setPath = function (path) {
   };
 };
 
