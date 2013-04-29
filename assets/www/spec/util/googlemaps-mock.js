@@ -57,6 +57,8 @@ google.maps.Polygon = function (options) {
   };
   this.setVisible = function (visibility) {
   };
+  this.setPath = function (path) {
+  };
 };
 
 google.maps.LatLng = function (lat, lng) {
