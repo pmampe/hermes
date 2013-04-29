@@ -205,5 +205,13 @@ describe('Generic location view', function () {
       expect(this.view.getCenter().lat()).toEqual(15);
       expect(this.view.getCenter().lng()).toEqual(15);
     });
+
+    it('should return -1 for no GPoints', function () {
+      this.view = new GenericLocationView({
+        model: new Location({ coords: [] })
+      });
+
+      expect(this.view.getCenter()).toEqual(-1);
+    });
   });
 });

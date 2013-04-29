@@ -62,7 +62,7 @@ var GenericLocationView = Backbone.View.extend(
 
       //TODO: written for polygons, should work for markers, but might return bad results for lines
       getCenter: function () {
-        if (this.model.getGPoints()) {
+        if (this.model.getGPoints().length > 0) {
           var sumLat = 0;
           var sumLng = 0;
           var numberOfPoints = 0;
