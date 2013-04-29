@@ -298,6 +298,50 @@ describe('MapRouter', function () {
     });
   });
 
+  describe('when choosing departments', function () {
+    beforeEach(function () {
+      this.router = new MapRouter();
+
+      spyOn(AppView.prototype, "initialize");
+      spyOn(AppView.prototype, "render");
+      spyOn(AppView.prototype, "updateLocations");
+    });
+
+    it("should initialize an AppView", function () {
+      this.router.departments();
+
+      expect(AppView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it("should render an AppView", function () {
+      this.router.departments();
+
+      expect(AppView.prototype.render).toHaveBeenCalled();
+    });
+
+    it("should update locations", function () {
+      this.router.departments();
+
+      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+    });
+
+    it("should initialize an AppView with types 'auditorium'", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.model.get('types')).toEqual(["organization"]);
+      });
+
+      this.router.departments();
+    });
+
+    it("should initialize an AppView with correct title", function () {
+      AppView.prototype.initialize.andCallFake(function (options) {
+        expect(options.title).toEqual("map.titles.departments");
+      });
+
+      this.router.departments();
+    });
+  });
+
   describe('when handling parkingspace marker visibility', function () {
     beforeEach(function () {
       this.router = new MapRouter();
