@@ -1,6 +1,6 @@
 /****************
  ** Graphic design styling
- JQuery Mobile
+ jQuery Mobile
  ****
  Font:
  ****
@@ -8,11 +8,15 @@
  Padding text 0.3 em
  ****
  Colors:
- SU blue #002F5F
- turquoise (Himmel) #ACDEE6
- grey text
+ blue #4f709e
+ color="#5f7b99"
+ SU blue #002F5F color="#002e5f"
+ turquoise (Himmel)color="#d7e0eb"
+ grey text color="#999999" color="#a0aeba"
  black text
  button blue
+ blue text 363636
+ blue border color="#001021"
 *******
  Guide lines:
  - Use tag and classes for styling- not IDs
@@ -22,21 +26,94 @@
 /*************
  ** Header
  ***********/
-.ui-header.ui-bar-a {
-    background: #002F5F;
+
+.ui-bar-a {
+
+    border: 1px solid #001021;
+
 }
 
 /*************
  ** Search View
  ***********/
-.ui-body-a {
+
+
+div.search-box {
+    margin: 15px 0 0;
+    background-color: #d7e0eb;
+
+}
+
+/*The list*/
+
+.ui-listview-inset .ui-li {
+    border-left-width: 0;
+    border-right-width: 0;
+}
+div.search-box ul li.ui-li-divider {
+    font-size: 10px;
+    padding: 0.1em 15px;
+}
+
+.ui-btn-up-b {
+    border:none;
+    border-top: 1px solid #a1a1a1;
+    background-color: #ffffff;
+
+}
+
+div.search-box form {
+    border:none;
+
+}
+
+div.search-box ul {
+    margin-top: 16px;
+}
+
+.ui-body-a,
+.ui-overlay-a {
+   border: 1px solid #b3b3b3 /*{a-body-border}*/;
+    color: #363636 /*{a-body-color}*/;
+    text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #ffffff /*{a-body-shadow-color}*/;
+    background: white /*{a-body-background-color}*/;
+
+}
+
+
+/*.ui-body-a {
     background: white;
 }
 
-.search-box,
 .search-box form {
-    background: #ACDEE6;
+    border: none;
+
+}
+
+[data-theme=b].ui-btn-corner-all {
+    -moz-border-radius:             0 !important;
+    -webkit-border-radius:          0 !important;
+    border-radius:                  0 !important;
+}​
+
+
+div.search-box ul li.ui-li-divider {
+    font-size: 12px;
+    padding: 0.2em 15px;
 }
 
 
+.ui-btn {
+    -moz-border-radius:   5px
+    -webkit-border-radius:5px
+     border-radius:   5px
+}
 
+div.search-box input {
+    text-shadow: 0 0 0 white;
+    color: black !important;
+}*/
+
+div.search-box input.ui-focus {
+
+}
