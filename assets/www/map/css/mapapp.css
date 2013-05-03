@@ -52,7 +52,7 @@
   min-width: 110px;
 }
 
-.iw {
+.iw, .gm-iw {
   /* direction text style */
   font: 12px/1.5 Verdana, sans-serif;
   color: #2A3333;
