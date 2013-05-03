@@ -248,9 +248,11 @@ a {
 
 div.search-box .cancel-filter-button {
   position: absolute;
-  right: 5px;
-  top: 45px;
+  right: 0px;
+  top: 49px;
   display: none;
+  height: 28px;
+  line-height:12px;
 }
 
 div.search-box form.tight {
