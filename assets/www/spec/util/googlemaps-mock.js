@@ -92,3 +92,10 @@ google.maps.InfoWindow = function () {
   this.close = function () {
   };
 };
+
+google.maps.DirectionsTravelMode = {
+  WALKING: 'W',
+  BICYCLING: 'B',
+  DRIVING: 'D',
+  TRANSIT: 'T'
+};

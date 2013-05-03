@@ -60,4 +60,21 @@ describe('Map view', function () {
       expect(MapView.prototype.resize.calls.length).toBe(0);
     });
   });
+
+  describe('getDirections', function () {
+    it('should use origin from current position', function () {
+      spyOn(this.view.currentPositionPoint, 'getPosition').andCallFake(function () {
+        return 'foobar';
+      });
+
+      var origOk = false;
+      this.view.$el.gmap = function (command, options) {
+        if (options.origin === 'foobar') {
+          origOk = true;
+        }
+      };
+
+      this.view.getDirections("walking", 'destination');
+    });
+  });
 });
