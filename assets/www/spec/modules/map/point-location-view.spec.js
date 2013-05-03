@@ -20,7 +20,7 @@ describe('Line location view', function () {
       });
 
       expect(google.maps.Marker).toHaveBeenCalledWith({
-        position: this.view.getPosition({model: this.view.model}),
+        position: this.view.getPosition(),
         poiType: this.view.model.getPoiType(),
         visible: true,
         icon: this.view.model.get('pin'),
@@ -77,7 +77,7 @@ describe('Line location view', function () {
         model: new Location()
       });
 
-      var pos = this.view.getPosition({ model: this.view.model });
+      var pos = this.view.getPosition();
 
       expect(pos).toEqual(this.view.model.getGPoints()[0]);
     });

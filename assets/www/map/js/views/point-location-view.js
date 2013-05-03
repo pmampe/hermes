@@ -14,6 +14,7 @@ var PointLocationView = GenericLocationView.extend(
        * @param options options for this view.
        */
       initialize: function (options) {
+        _.bindAll(this, 'getPosition', 'updatePosition');
 
         var pin = options.model.get('pin');
         var position = this.getPosition(options);
@@ -44,10 +45,10 @@ var PointLocationView = GenericLocationView.extend(
        */
       getPosition: function (options) {
         var position;
-        if (options.customizedPosition) {
+        if (options && options.customizedPosition) {
           position = options.customizedPosition;
         } else {
-          position = _.flatten(options.model.getGPoints())[0];
+          position = _.flatten(this.model.getGPoints())[0];
         }
 
         return position;
