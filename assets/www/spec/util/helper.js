@@ -21,6 +21,4 @@ var helper = {
   }
 };
 
-navigator.language = function () {
-  return "en-US";
-};
+navigator.language = "en-US";
