@@ -1,3 +1,15 @@
+$(document).on('deviceready', function () {
+  gaPlugin = window.plugins.gaPlugin;
+  gaPlugin.init(
+      function () { /* suppress success */
+      },
+      function () { /* suppress errors */
+      },
+      config.core.ga.account,
+      10 // Seconds between sending stats.
+  );
+});
+
 /*
  * Default handling of generic header triggered by data-header attribute
  */
