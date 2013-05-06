@@ -1,3 +1,13 @@
+$(document).on('deviceready', function () {
+  window.gaPlugin = window.plugins.gaPlugin;
+  gaPlugin.init(
+      null, /* suppress success */
+      null, /* suppress errors */
+      config.core.ga.account,
+      10 // Seconds between sending stats.
+  );
+});
+
 /*
  * Default handling of generic header triggered by data-header attribute
  */

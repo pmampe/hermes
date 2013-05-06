@@ -3,8 +3,8 @@ var AppView = Backbone.View.extend({
 
     $(document).on('deviceready.appview', this.handleDeviceReady);
 
-    initLocale();
-    $('div[data-role="header"] > h1').attr('data-i18n', 'start.header.title');
+    initLocale({ resGetPath: '../i18n/__lng__.json' });
+    $('div[data-role="header"] > h1').attr('data-i18n', 'accessibility.header.title');
     this.$el.i18n();
   },
 
@@ -21,6 +21,6 @@ var AppView = Backbone.View.extend({
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
-    gaPlugin.trackPage(null, null, "index.html");
+    gaPlugin.trackPage(null, null, "accessibility/index.html");
   }
 });

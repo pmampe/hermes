@@ -60,6 +60,7 @@
   <!-- TODO: Add globalization to the feture list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
   <gap:plugin name="InAppBrowser"/>
+  <gap:plugin name="GAPlugin"/>
 
   <access origin="http://su.se" subdomains="true"/>
   <access origin="http://pgbroker-dev.it.su.se" subdomains="true"/>

@@ -70,7 +70,7 @@ saga {
   baseDir = file('assets/www/')
   outputDir = file('build/reports/coverage')
   includes = '**/*spec.html'
-  noInstrumentPatterns = [".*/cordova.*\\.js", ".+\\/lib\\/.*", ".+\\/spec\\/.*"]
+  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/GAPlugin.*\\.js", ".+\\/lib\\/.*", ".+\\/spec\\/.*"]
   sourcesToPreload = "**/*.js"
 }
 
@@ -102,7 +102,7 @@ task buildSonarPom(type: Copy) {
 jslint {
   inputDirs = ['assets/www/']
   haltOnFailure = false
-  excludes = '**/cordova*.js,**/lib/**/*.js'
+  excludes = '**/cordova*.js,*/GAPlugin*.js,**/lib/**/*.js'
   options = 'rhino'
   formatterType = 'xml'
 }

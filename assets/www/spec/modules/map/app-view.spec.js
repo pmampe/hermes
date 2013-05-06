@@ -188,4 +188,15 @@ describe('App view', function () {
       expect(res).toBeFalsy();
     });
   });
+
+  describe('on deviceready', function () {
+    it('should call trackPage on GAPlugin', function () {
+      spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
+      spyOn(window.plugins.gaPlugin, 'trackPage');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalled();
+    });
+  });
 });
