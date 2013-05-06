@@ -21,7 +21,8 @@ var AppView = Backbone.View.extend(
             'campusCallback',
             'menuSelectCallback',
             "startGPSPositioning",
-            'handleZoomChanged'
+            'handleZoomChanged',
+            'handleDeviceReady'
         );
 
         $(document).on("deviceready.appview", this.handleDeviceReady);

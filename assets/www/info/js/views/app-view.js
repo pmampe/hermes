@@ -3,7 +3,7 @@ var AppView = Backbone.View.extend({
 
     $(document).on('deviceready.appview', this.handleDeviceReady);
 
-    getLocale();
+    initLocale({ resGetPath: '../i18n/__lng__.json' });
     $('div[data-role="header"] > h1').attr('data-i18n', 'accessibility.header.title');
     this.$el.i18n();
   },
