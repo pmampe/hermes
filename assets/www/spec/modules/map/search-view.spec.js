@@ -16,6 +16,7 @@ describe('Search view', function () {
         "<a id='cancelFilter' href='#' class='cancel-filter-button' " +
         "data-role='button' data-inline='true' data-mini='true' >Cancel</a> " +
         "</div>" +
+        "<div id='noresults' style='display: none'></div>" +
         "<div id='map_canvas'></div>" +
         "</div>";
 
@@ -353,6 +354,32 @@ describe('Search view', function () {
           var markupHTML = '<a data-modelid="1" class="autocomplete-link ui-link-inherit">' + name + '</a>';
 
           expect(appView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
+        });
+      });
+
+      describe('no results', function () {
+        afterEach(function () {
+          var elements = $("#search-autocomplete").children();
+          $.each(elements, function (index, value) {
+            $(value).show();
+          });
+        });
+
+        it('should show noresults-element when no results', function () {
+          var elements = $("#search-autocomplete").children();
+          $.each(elements, function (index, value) {
+            $(value).hide();
+          });
+
+          appView.searchView.inputKeyup({which: 0});
+
+          expect($('#noresults').is(':visible')).toBeTruthy();
+        });
+
+        it('should hide noresults-element when results are found', function () {
+          appView.searchView.inputKeyup({which: 0});
+
+          expect($('#noresults').is(':visible')).toBeFalsy();
         });
       });
     });
