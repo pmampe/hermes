@@ -21,6 +21,7 @@ var AppView = Backbone.View.extend({
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
+    navigator.splashscreen.hide();
     gaPlugin.trackPage(null, null, "index.html");
   }
 });
