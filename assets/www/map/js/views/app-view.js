@@ -24,7 +24,7 @@ var AppView = Backbone.View.extend(
             'handleZoomChanged'
         );
 
-        $(document).on("deviceready.appview", this.startGPSPositioning);
+        $(document).on("deviceready.appview", this.handleDeviceReady);
 
         this.title = options.title;
         this.mapModel = new MapModel();
@@ -147,6 +147,14 @@ var AppView = Backbone.View.extend(
        */
       menuSelectCallback: function (campus) {
         this.model.set('campus', campus);
+      },
+
+      /**
+       * Handles the device ready event.
+       */
+      handleDeviceReady: function () {
+        gaPlugin.trackPage(null, null, "map/index.html");
+        this.startGPSPositioning();
       },
 
       /**

@@ -1,5 +1,5 @@
 $(document).on('deviceready', function () {
-  gaPlugin = window.plugins.gaPlugin;
+  window.gaPlugin = window.plugins.gaPlugin;
   gaPlugin.init(
       function () { /* suppress success */
       },

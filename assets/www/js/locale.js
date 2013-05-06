@@ -8,7 +8,7 @@ function setLocale(locale) {
   var options = {
     useCookie: false,
     fallbackLng: 'en',
-    resGetPath: 'i18n/__lng__.json',
+    resGetPath: '../i18n/__lng__.json',
     getAsync: false
   };
 

@@ -4,13 +4,8 @@ var AppView = Backbone.View.extend({
     $(document).on('deviceready.appview', this.handleDeviceReady);
 
     getLocale();
-    var self = this;
-
-    i18n.init(i18n.options, function () {
-      $('div[data-role="header"] > h1').attr('data-i18n', 'start.header.title');
-      self.$el.i18n();
-    });
-
+    $('div[data-role="header"] > h1').attr('data-i18n', 'studentService.header.title');
+    this.$el.i18n();
   },
 
   /**
@@ -26,6 +21,6 @@ var AppView = Backbone.View.extend({
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
-    gaPlugin.trackPage(null, null, "index.html");
+    gaPlugin.trackPage(null, null, "studentservice/index.html");
   }
 });
