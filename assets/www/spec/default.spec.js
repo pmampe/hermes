@@ -152,3 +152,41 @@ describe('External-link-dialog', function () {
     });
   });
 });
+
+describe('GAPlugin', function () {
+  describe('on deviceready event', function () {
+    it('should init GAPlugin', function () {
+      spyOn(window.plugins.gaPlugin, 'init');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.init).toHaveBeenCalled();
+    });
+
+    it('should set account code on init', function () {
+      spyOn(window.plugins.gaPlugin, 'init');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.init).toHaveBeenCalledWith(
+          null,
+          null,
+          config.core.ga.account,
+          jasmine.any(Number)
+      );
+    });
+
+    it('should set max seconds = 10 on init', function () {
+      spyOn(window.plugins.gaPlugin, 'init');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.init).toHaveBeenCalledWith(
+          null,
+          null,
+          jasmine.any(String),
+          10
+      );
+    });
+  });
+});

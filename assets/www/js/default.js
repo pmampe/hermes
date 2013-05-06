@@ -1,10 +1,8 @@
 $(document).on('deviceready', function () {
   window.gaPlugin = window.plugins.gaPlugin;
   gaPlugin.init(
-      function () { /* suppress success */
-      },
-      function () { /* suppress errors */
-      },
+      null, /* suppress success */
+      null, /* suppress errors */
       config.core.ga.account,
       10 // Seconds between sending stats.
   );
