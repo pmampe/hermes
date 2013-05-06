@@ -274,7 +274,12 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
 
-/* --- End Direction styles --- */
+div.noresults {
+  border: 1px solid #000;
+  font-size: 12.5px;
+  font-weight: bold;
+  display: none;
+}
 
 #menupopup-popup {
   right: 0 !important;

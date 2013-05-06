@@ -56,6 +56,10 @@
         "hide": "Hide accessible entrances",
         "noexists": "Accessible entrance does not exist"
       }
+    },
+
+    "search": {
+      "noresults": "No results available"
     }
   },
   "start": {

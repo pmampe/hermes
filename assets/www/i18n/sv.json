@@ -55,6 +55,10 @@
         "hide": "Göm tillgängliga entréer",
         "noexists": "Tillgänglig entré finns ej"
       }
+    },
+
+    "search": {
+      "noresults": "Inga resultat funna"
     }
   },
   "start": {
