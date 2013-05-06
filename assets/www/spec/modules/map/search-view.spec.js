@@ -145,6 +145,53 @@ describe('Search view', function () {
 
       });
     });
+
+    it('should match beginning of line', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "S")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Söd")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra")).toBeFalsy();
+    });
+
+    it('should match beginning of words', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "h")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "husen")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "-")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Hu")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "A")).toBeFalsy();
+    });
+
+    it('should not match inside words', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "ö")).toBeTruthy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "ödra")).toBeTruthy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "usen")).toBeTruthy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "u")).toBeTruthy();
+    });
+
+    it('should match whole string', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra husen - Hus A")).toBeFalsy();
+    });
+
+    it('should match case insensitive', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "S")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "s")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "södra")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Husen")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "husen")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Hu")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "hu")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "södra husen - hus a")).toBeFalsy();
+    });
   });
 
   describe('mobile keyboard handling', function () {
