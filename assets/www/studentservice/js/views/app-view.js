@@ -8,6 +8,10 @@ var AppView = Backbone.View.extend({
     this.$el.i18n();
   },
 
+  events: {
+    'click a.servicelink': 'handleServiceLinkClick'
+  },
+
   /**
    * Remove handler for the view.
    */
@@ -22,5 +26,12 @@ var AppView = Backbone.View.extend({
    */
   handleDeviceReady: function () {
     gaPlugin.trackPage(null, null, "studentservice/index.html");
+  },
+
+  /**
+   * Handles the device ready event.
+   */
+  handleServiceLinkClick: function (event) {
+    gaPlugin.trackPage(null, null, $(event.target).attr("href"));
   }
 });
