@@ -136,21 +136,9 @@ var SearchView = Backbone.View.extend(
       },
 
       filterSearch: function (text, searchValue) {
-        //search value- what we are looking for, text- the filter item being evaluated
-        var evalRet = true;
+        searchValue = searchValue.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        var pattern = new RegExp("(^| )" + searchValue, 'i');
 
-        var splitText = text.split(" "); //unstable? depends on data
-        splitText.push(text);
-        splitText.push(text.replace(" ", ""));
-
-        $.each(splitText, function (i, val) {
-          //===0, it occurs at the beginning of the string
-          if (val.toLowerCase().indexOf(searchValue) === 0) {
-            evalRet = false;
-          }
-        });
-
-        return evalRet;
-        //returns true of false, truth filters out said instance
+        return !pattern.test(text);
       }
     }); //-- End of Search view
