@@ -7,6 +7,10 @@ var StartView = Backbone.View.extend({
     this.$el.i18n();
   },
 
+  events: {
+    'click a#sisulink': 'handleSISULinkClick'
+  },
+
   /**
    * Remove handler for the view.
    */
@@ -22,5 +26,12 @@ var StartView = Backbone.View.extend({
   handleDeviceReady: function () {
     navigator.splashscreen.hide();
     gaPlugin.trackPage(null, null, "index.html");
+  },
+
+  /**
+   * Handle click on sisu link.
+   */
+  handleSISULinkClick: function (event) {
+    gaPlugin.trackPage(null, null, $(event.currentTarget).attr("href"));
   }
 });
