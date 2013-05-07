@@ -36,7 +36,6 @@
     padding: 6px 7px 0.5em 2px;
 }
 
-.backbutton,
 .ui-header .ui-btn-left.backbutton {
 
     -moz-border-radius-topleft: 0.3em;
@@ -52,7 +51,7 @@
     -webkit-border-bottom-left-radius: 0.2em;
     border-bottom-left-radius: 0.2em;
 
-    margin-left: 15px;
+    margin-left: 10px;
     height: 32px;
 }
 
