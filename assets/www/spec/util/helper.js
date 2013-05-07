@@ -4,6 +4,7 @@ afterEach(function () {
 });
 
 beforeEach(function () {
+  $.mobile.pageContainer = $('body');
   this.validResponse = function (responseText) {
     return [
       200,
