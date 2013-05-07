@@ -1,6 +1,5 @@
-var AppView = Backbone.View.extend({
+var StartView = Backbone.View.extend({
   initialize: function () {
-
     $(document).on('deviceready.appview', this.handleDeviceReady);
 
     initLocale();
@@ -21,6 +20,7 @@ var AppView = Backbone.View.extend({
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
+    navigator.splashscreen.hide();
     gaPlugin.trackPage(null, null, "index.html");
   }
 });

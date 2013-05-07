@@ -51,6 +51,8 @@
   <!-- Android specific -->
 
   <preference name="android-minSdkVersion" value="8"/>
+  <preference name="auto-hide-splash-screen" value="false"/>
+  <preference name="splash-screen-duration" value="30000"/>
 
   <icon src="icon.png"/>
 
@@ -61,6 +63,8 @@
 
   <gap:plugin name="InAppBrowser"/>
   <gap:plugin name="GAPlugin"/>
+
+  <gap:splash src="splash.png"/>
 
   <access origin="http://su.se" subdomains="true"/>
   <access origin="http://pgbroker-dev.it.su.se" subdomains="true"/>

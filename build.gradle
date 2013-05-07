@@ -179,9 +179,12 @@ buildTar.doFirst {
   zipFile.delete()
 }
 
+task copySplash(type: Copy) {
+  from 'res/drawable/splash.png'
+  into 'assets/www'
+}
 
-
-task toPhonegap(dependsOn: buildTar) {
+task toPhonegap(dependsOn: [buildTar, copySplash]) {
   doLast {
 
     if (!phonegapPassword) {
