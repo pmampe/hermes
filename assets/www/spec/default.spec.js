@@ -59,7 +59,6 @@ describe('Default-header', function () {
       var $button = $header.find("a");
       expect($button.data("role")).toBe("button");
       expect($button.data("rel")).toBe("back");
-      expect($button.data("icon")).toBe("arrow-l");
       expect($button.hasClass("ui-btn-left")).toBeTruthy();
       $button.trigger("click");
       expect(window.history.backWasCalled).toBeTruthy();
