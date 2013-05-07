@@ -83,7 +83,7 @@ beforeEach(function () {
           "uid": "test1",
           "displayName": "Test1 Räksmörgås",
           "mail": "test1@su.se",
-          "telephoneNumber": null,
+          "telephoneNumber": 'foobar',
           "sn": "Räksmörgås",
           "cn": "Test1 Räksmörgås",
           "givenName": "Test1",
