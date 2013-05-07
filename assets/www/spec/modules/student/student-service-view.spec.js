@@ -16,7 +16,7 @@ describe('Student view', function () {
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#studentservice_page");
+    $.mobile.loadPage("#studentservice_page", {prefetch: "true"});
 
     this.view = new StudentView({ el: $('#studentservice_page') });
   });
