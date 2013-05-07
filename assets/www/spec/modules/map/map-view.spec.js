@@ -18,7 +18,7 @@ describe('Map view', function () {
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     this.view = new MapView({
       el: $('#map_canvas'),

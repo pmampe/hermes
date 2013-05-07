@@ -22,14 +22,14 @@ describe('App view', function () {
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
         '<ul id="menupopupList" data-role="listview" data-inset="true">' +
         '</ul>' +
         '</div>';
     $('#page-map').append(menuPopup);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     this.server = sinon.fakeServer.create();
     this.server.respondWith(
