@@ -154,7 +154,7 @@ var AppView = Backbone.View.extend(
        * Handles the device ready event.
        */
       handleDeviceReady: function () {
-        gaPlugin.trackPage(null, null, "map/index.html");
+        gaPlugin.trackPage(null, null, "map/index.html#" + Backbone.history.fragment);
         this.startGPSPositioning();
       },
 

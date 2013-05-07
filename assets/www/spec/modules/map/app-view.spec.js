@@ -198,5 +198,15 @@ describe('App view', function () {
 
       expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalled();
     });
+
+    it('should put fragment on url when calling trackPage on GAPlugin', function () {
+      spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
+      spyOn(window.plugins.gaPlugin, 'trackPage');
+      Backbone.history.fragment = "foo";
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "map/index.html#foo");
+    });
   });
 });
