@@ -112,7 +112,9 @@ var Locations = Backbone.Collection.extend(
        * @return {Array} an array of filtered Locations.
        */
       bySearchable: function () {
-        if (!this.searchableTypes || this.searchableTypes.length == 0) return this;
+        if (!this.searchableTypes || this.searchableTypes.length === 0) {
+          return this;
+        }
         var self = this;
         return _(this.filter(function (location) {
           return _.contains(self.searchableTypes, location.get("type"));
@@ -165,14 +167,16 @@ var Locations = Backbone.Collection.extend(
        */
       byBuilding: function (building) {
         return _(this.filter(function (location) {
-          return location.get('buildingId') === building.id
+          return location.get('buildingId') === building.id;
         }));
       },
 
       /**
-       * Filter Locations by building.
+       * Filter Locations by building, types and whether the location is handicap adapted or not.
        *
        * @param {string} building the Building to filter by.
+       * @param {Array} types an array of types to filter by.
+       * @param {boolean} adapted handicap adapted locations.
        * @return {Array} an array of filtered Locations.
        */
       byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {

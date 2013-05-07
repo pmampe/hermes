@@ -52,7 +52,7 @@
   min-width: 110px;
 }
 
-.iw {
+.iw, .gm-iw {
   /* direction text style */
   font: 12px/1.5 Verdana, sans-serif;
   color: #2A3333;
@@ -264,7 +264,12 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
 
-/* --- End Direction styles --- */
+div.noresults {
+  border: 1px solid #000;
+  font-size: 12.5px;
+  font-weight: bold;
+  display: none;
+}
 
 #menupopup-popup {
   right: 0 !important;

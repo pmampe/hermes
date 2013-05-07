@@ -22,14 +22,14 @@ describe('App view', function () {
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     var menuPopup = '<div data-role="popup" id="menupopup" data-transition="turn">' +
         '<ul id="menupopupList" data-role="listview" data-inset="true">' +
         '</ul>' +
         '</div>';
     $('#page-map').append(menuPopup);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     this.server = sinon.fakeServer.create();
     this.server.respondWith(
@@ -186,6 +186,27 @@ describe('App view', function () {
 
       this.view.handleZoomChanged(16);
       expect(res).toBeFalsy();
+    });
+  });
+
+  describe('on deviceready', function () {
+    it('should call trackPage on GAPlugin', function () {
+      spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
+      spyOn(window.plugins.gaPlugin, 'trackPage');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalled();
+    });
+
+    it('should put fragment on url when calling trackPage on GAPlugin', function () {
+      spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
+      spyOn(window.plugins.gaPlugin, 'trackPage');
+      Backbone.history.fragment = "foo";
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "map/index.html#foo");
     });
   });
 });

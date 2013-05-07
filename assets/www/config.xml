@@ -51,6 +51,8 @@
   <!-- Android specific -->
 
   <preference name="android-minSdkVersion" value="8"/>
+  <preference name="auto-hide-splash-screen" value="false"/>
+  <preference name="splash-screen-duration" value="30000"/>
 
   <icon src="icon.png"/>
 
@@ -60,6 +62,9 @@
   <!-- TODO: Add globalization to the feture list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
   <gap:plugin name="InAppBrowser"/>
+  <gap:plugin name="GAPlugin"/>
+
+  <gap:splash src="splash.png"/>
 
   <access origin="http://su.se" subdomains="true"/>
   <access origin="http://pgbroker-dev.it.su.se" subdomains="true"/>

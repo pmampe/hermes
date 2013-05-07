@@ -41,7 +41,7 @@ describe('Location model', function () {
     });
 
     it('should have handicapAdapted=false', function () {
-      expect(this.location.get('handicapAdapted')).toBeFalsy()
+      expect(this.location.get('handicapAdapted')).toBeFalsy();
     });
 
     it('should default to visible=true', function () {
@@ -67,6 +67,24 @@ describe('Location model', function () {
     it('should generate google LatLng when calling getGPoints', function () {
       expect(this.location.getGPoints()[0].lat()).toEqual(59);
       expect(this.location.getGPoints()[0].lng()).toEqual(18);
+    });
+  });
+
+  describe('getName', function () {
+    it('should return name for locations without buildingName"', function () {
+      var location = new Location({
+        name: "The Name",
+        buildingName: null
+      });
+      expect(location.getName()).toEqual("The Name");
+    });
+
+    it('should return "Name, Building Name" for locations with building name', function () {
+      var location = new Location({
+        name: "The Name",
+        buildingName: "Building Name"
+      });
+      expect(location.getName()).toEqual("The Name, Building Name");
     });
   });
 });
@@ -161,6 +179,17 @@ describe('Locations collection', function () {
       expect(subCollection.size()).toEqual(3);
     });
 
+    it('bySearchable should return self for no searchable types', function () {
+      this.locations = new Locations(null, {
+        searchableTypes: []
+      });
+      this.locations.fetch();
+      this.server.respond();
+
+      var subCollection = this.locations.bySearchable();
+      expect(subCollection).toEqual(this.locations);
+    });
+
     it('byCampus should return all by campus', function () {
       this.locations.fetch();
       this.server.respond();
@@ -192,9 +221,21 @@ describe('Locations collection', function () {
       this.server.respond();
 
       var subCollection = this.locations.byBuilding(this.locations.get(5));
-      expect(subCollection.size()).toEqual(1);
+      expect(subCollection.size()).toEqual(2);
     });
 
+    it('byBuildingAndTypeAndHandicapAdapted should return all rooms in a building for specific types with specified handicap adaption', function () {
+      this.locations.fetch();
+      this.server.respond();
+
+      var building = this.locations.get(5);
+
+      var subCollection = this.locations.byBuildingAndTypeAndHandicapAdapted(building, ['auditorium'], true);
+      expect(subCollection.size()).toEqual(1);
+
+      subCollection = this.locations.byBuildingAndTypeAndHandicapAdapted(building, ['auditorium'], false);
+      expect(subCollection.size()).toEqual(0);
+    });
   });
 });
 

@@ -16,11 +16,12 @@ describe('Search view', function () {
         "<a id='cancelFilter' href='#' class='cancel-filter-button' " +
         "data-role='button' data-inline='true' data-mini='true' >Cancel</a> " +
         "</div>" +
+        "<div id='noresults' style='display: none'></div>" +
         "<div id='map_canvas'></div>" +
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     this.server = sinon.fakeServer.create();
     this.server.respondWith(
@@ -145,6 +146,53 @@ describe('Search view', function () {
 
       });
     });
+
+    it('should match beginning of line', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "S")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Söd")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra")).toBeFalsy();
+    });
+
+    it('should match beginning of words', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "h")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "husen")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "-")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Hu")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "A")).toBeFalsy();
+    });
+
+    it('should not match inside words', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "ö")).toBeTruthy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "ödra")).toBeTruthy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "usen")).toBeTruthy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "u")).toBeTruthy();
+    });
+
+    it('should match whole string', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra husen - Hus A")).toBeFalsy();
+    });
+
+    it('should match case insensitive', function () {
+      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+
+      expect(searchView.filterSearch("Södra husen - Hus A", "S")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "s")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "södra")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Husen")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "husen")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Hu")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "hu")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "södra husen - hus a")).toBeFalsy();
+    });
   });
 
   describe('mobile keyboard handling', function () {
@@ -241,13 +289,15 @@ describe('Search view', function () {
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
       });
 
-      it('should hide filtered list and cancelButton as well as reset (show all) locations when clicking cancel button and filtered text is empty', function () {
-        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+      it('should hide filtered list and cancelButton as well as trigger "reset" event on collection when clicking cancel button and filtered text is empty', function () {
+        var selected = false;
+        appView.searchView.on('selected', function (item) {
+          selected = true;
+        });
 
         $('#search-box input').trigger('focus');
         $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
-
-        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
+        expect(selected).toBeTruthy();
 
         spyOn(SearchView.prototype, "resetLocations");
         $("#cancelFilter").trigger("click");
@@ -255,21 +305,18 @@ describe('Search view', function () {
       });
 
       it('should hide filtered list and cancelButton  and keep locations in mapView when clicking cancel button and filtered text is NOT empty', function () {
-        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
-
-        $('#search-box input').trigger('focus');
-        $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
-
-        expect(MapView.prototype.replacePoints.mostRecentCall.args[0].length).toBe(1);
-
         spyOn(SearchView.prototype, "resetLocations");
+
         $('#search-box input').val('Ax');
         $("#cancelFilter").trigger("click");
         expect(SearchView.prototype.resetLocations).not.toHaveBeenCalled();
       });
 
       it('should hide filtered list and cancelButton on click list item', function () {
-        spyOn(MapView.prototype, "replacePoints"); // prevents mapView.replacePoints to fire
+        var selected = false;
+        appView.searchView.on('selected', function (item) {
+          selected = true;
+        });
 
         $('#search-box input').trigger('focus');
         $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
@@ -278,7 +325,7 @@ describe('Search view', function () {
         expect($("#search-autocomplete li.ui-screen-hidden").size()).toBe(listSize);
 
         expect($("#cancelFilter").is(":visible")).toBeFalsy(); // button hidden
-        expect(MapView.prototype.replacePoints).toHaveBeenCalled();
+        expect(selected).toBeTruthy();
       });
 
       it('should filter on entered text', function () {
@@ -307,6 +354,32 @@ describe('Search view', function () {
           var markupHTML = '<a data-modelid="1" class="autocomplete-link ui-link-inherit">' + name + '</a>';
 
           expect(appView.searchView.getClickedLocation(markupHTML).get("name")).toBe(name);
+        });
+      });
+
+      describe('no results', function () {
+        afterEach(function () {
+          var elements = $("#search-autocomplete").children();
+          $.each(elements, function (index, value) {
+            $(value).show();
+          });
+        });
+
+        it('should show noresults-element when no results', function () {
+          var elements = $("#search-autocomplete").children();
+          $.each(elements, function (index, value) {
+            $(value).hide();
+          });
+
+          appView.searchView.inputKeyup({which: 0});
+
+          expect($('#noresults').is(':visible')).toBeTruthy();
+        });
+
+        it('should hide noresults-element when results are found', function () {
+          appView.searchView.inputKeyup({which: 0});
+
+          expect($('#noresults').is(':visible')).toBeFalsy();
         });
       });
     });

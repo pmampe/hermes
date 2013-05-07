@@ -3,6 +3,8 @@ var SukatSearchView = Backbone.View.extend({
   initialize: function () {
     _.bindAll(this, "render", "doSearch", "resetSearchResults");
 
+    $(document).on("deviceready.appview", this.handleDeviceReady);
+
     this.collection = new Persons();
     this.collection.on("reset", this.resetSearchResults, this);
   },
@@ -18,6 +20,22 @@ var SukatSearchView = Backbone.View.extend({
     "click a[id=search_button]": "doSearch"
   },
 
+  /**
+   * Remove handler for the view.
+   */
+  remove: function () {
+    $(document).off('.appview');
+
+    Backbone.View.prototype.remove.call(this);
+  },
+
+  /**
+   * Handles the device ready event.
+   */
+  handleDeviceReady: function () {
+    gaPlugin.trackPage(null, null, "sukat/index.html");
+  },
+
   doSearch: function (event) {
     $.mobile.loading('show', { textVisible: false });
 
@@ -29,7 +47,8 @@ var SukatSearchView = Backbone.View.extend({
       },
       success: function () {
         $.mobile.loading('hide');
-      }
+      },
+      reset: true
     });
   },
 

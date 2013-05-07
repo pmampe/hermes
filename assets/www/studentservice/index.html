@@ -4,22 +4,24 @@
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
   <title>Studentservice</title>
 
-  <link rel="stylesheet" href="../css/jquery.mobile-1.3.0.min.css"/>
+  <link rel="stylesheet" href="../css/jquery.mobile-1.3.1.min.css"/>
   <link rel="stylesheet" href="../css/mobile.css"/>
   <link rel="stylesheet" href="../css/SU-ThemeA-B.css"/>
   <link rel="stylesheet" href="../css/SU-beta.css"/>
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.5.0.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../GAPlugin.js"></script>
 
   <script src="../js/lib/jquery-1.8.2.min.js"></script>
-  <script src="../js/lib/jquery.mobile-1.3.0.min.js"></script>
+  <script src="../js/lib/jquery.mobile-1.3.1.min.js"></script>
 
   <!-- maximum scale added to stop zoom on select controls -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 </head>
 <body>
 
-<script src="../js/lib/underscore-1.3.3-min.js"></script>
+<script src="../js/lib/underscore-1.4.4-min.js"></script>
+<script src="../js/lib/backbone-1.0.0-min.js"></script>
 
 <!-- Global config file -->
 <script src="../js/config.js"></script>
@@ -27,16 +29,15 @@
 <!-- Default javascripts -->
 <script src="../js/default.js"></script>
 <script src="../js/jst/common.js"></script>
-<script src="../js/lib/i18next-1.5.8.min.js"></script>
+<script src="../js/lib/i18next-1.6.2.min.js"></script>
 <script src="../js/locale.js"></script>
+
+<script src="js/views/student-view.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function () {
-    $('div[data-role="header"] > h1').attr('data-i18n','studentService.header.title');
-    getLocale();
-    i18n.init({resGetPath: '../i18n/__lng__.json'},function(){
-      $('#studentservice_page').i18n();
-    });
+    var studentView = new StudentView({ el: $('#studentservice_page') });
+    studentView.render();
   });
 </script>
 
@@ -45,19 +46,50 @@
   <div id="studentservice_view" data-role="content">
 
     <ul data-role="listview" data-inset="true">
-      <li><a href="http://www.su.se/utbildning/anmalan-antagning" target="_blank"><span data-i18n="studentService.menu.applicationAndAdmission">Admission</span></a></li>
-      <li><a href="http://www.su.se/utbildning/examen-hogtid/examensbevis-ansokningsblanketter-1.6326" target="_blank"><span data-i18n="studentService.menu.degreeAndCertificate">Degrees and Certificates</span></a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice" target="_blank"><span data-i18n="studentService.menu.infoCentre">Information Centre</span></a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling" target="_blank"><span data-i18n="studentService.menu.equality">Equality</span></a></li>
-      <li><a href="http://www.su.se/utbildning/studentservice/studenthalsovard" target="_blank"><span data-i18n="studentService.menu.healthService">Student Health</span></a>
+      <li>
+        <a href="http://www.su.se/utbildning/anmalan-antagning" target="_blank" class="servicelink">
+          <span data-i18n="studentService.menu.applicationAndAdmission">Admission</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://www.su.se/utbildning/examen-hogtid/examensbevis-ansokningsblanketter-1.6326" target="_blank"
+           class="servicelink">
+          <span data-i18n="studentService.menu.degreeAndCertificate">Degrees and Certificates</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://www.su.se/utbildning/studentservice" target="_blank" class="servicelink">
+          <span data-i18n="studentService.menu.infoCentre">Information Centre</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling" target="_blank"
+           class="servicelink">
+          <span data-i18n="studentService.menu.equality">Equality</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://www.su.se/utbildning/studentservice/studenthalsovard" target="_blank" class="servicelink">
+          <span data-i18n="studentService.menu.healthService">Student Health</span>
+        </a>
       </li>
       <li>
         <a href="http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning/studera-med-funktionsnedsattning-1.20886"
-           target="_blank"><span data-i18n="studentService.menu.studentDisabilityService">Student Disability Service</span></a>
+           target="_blank" class="servicelink">
+          <span data-i18n="studentService.menu.studentDisabilityService">Student Disability Service</span>
+        </a>
       </li>
-      <li><a href="http://www.su.se/utbildning/studentservice/studera-utomlands/studera-utomlands-1.6088"
-             target="_blank"><span data-i18n="studentService.menu.studyAbroad">Study Abroad</span></a></li>
-      <li><a href="http://www.su.se/utbildning/studievagledning/allman-studie-och-karriarvagledning" target="_blank"><span data-i18n="studentService.menu.guidanceCounseling">Guidance Counceling</span></a>
+      <li>
+        <a href="http://www.su.se/utbildning/studentservice/studera-utomlands/studera-utomlands-1.6088" target="_blank"
+           class="servicelink">
+          <span data-i18n="studentService.menu.studyAbroad">Study Abroad</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://www.su.se/utbildning/studievagledning/allman-studie-och-karriarvagledning" target="_blank"
+           class="servicelink">
+          <span data-i18n="studentService.menu.guidanceCounseling">Guidance Counceling</span>
+        </a>
       </li>
     </ul>
 

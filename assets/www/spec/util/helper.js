@@ -3,16 +3,8 @@ afterEach(function () {
   $('body > :not([id=HTMLReporter])').hide();
 });
 
-var helper = {
-  trigger: function (obj, name) {
-    var e = document.createEvent('Event');
-    e.initEvent(name, true, true);
-    obj.dispatchEvent(e);
-  }
-};
-
 beforeEach(function () {
-
+  $.mobile.pageContainer = $('body');
   this.validResponse = function (responseText) {
     return [
       200,
@@ -21,3 +13,11 @@ beforeEach(function () {
     ];
   };
 });
+
+var helper = {
+  trigger: function (obj, name) {
+    var e = document.createEvent('Event');
+    e.initEvent(name, true, true);
+    obj.dispatchEvent(e);
+  }
+};

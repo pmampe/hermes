@@ -32,7 +32,6 @@ var MapRouter = Backbone.Router.extend({
     appView.updateLocations();
   },
 
-
   computerLabs: function () {
     var appView = new AppView({
       el: $('#page-map'),
@@ -82,7 +81,7 @@ var MapRouter = Backbone.Router.extend({
     });
     var self = this;
     appModel.locations.on('reset', function () {
-      self.handleParkingspaceLocationsReset(appView, appModel)
+      self.handleParkingspaceLocationsReset(appView, appModel);
     });
     appView.on('toggleMarkerVisibility', this.handleParkingspaceMarkerVisibility);
     appView.render();

@@ -18,7 +18,7 @@ describe('Map view', function () {
         "</div>";
 
     $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page-map");
+    $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     this.view = new MapView({
       el: $('#map_canvas'),
@@ -58,6 +58,23 @@ describe('Map view', function () {
       this.view.remove();
       $(document).trigger('resize');
       expect(MapView.prototype.resize.calls.length).toBe(0);
+    });
+  });
+
+  describe('getDirections', function () {
+    it('should use origin from current position', function () {
+      spyOn(this.view.currentPositionPoint, 'getPosition').andCallFake(function () {
+        return 'foobar';
+      });
+
+      var origOk = false;
+      this.view.$el.gmap = function (command, options) {
+        if (options.origin === 'foobar') {
+          origOk = true;
+        }
+      };
+
+      this.view.getDirections("walking", 'destination');
     });
   });
 });

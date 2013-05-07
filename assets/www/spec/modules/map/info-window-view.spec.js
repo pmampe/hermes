@@ -49,10 +49,8 @@ describe('Info window view', function () {
 
     it('should remove event handler from document for click on directions', function () {
       // Mock MapView and getDirections on it
-      var MapView = function () {
-      }
-      MapView.prototype.getDirections = function () {
-      }
+      var MapView = function () {};
+      MapView.prototype.getDirections = function () {};
       spyOn(MapView.prototype, "getDirections");
 
       this.infoWindow = new InfoWindowView({
@@ -60,11 +58,11 @@ describe('Info window view', function () {
         mapView: new MapView()
       });
 
-      $(".dir-button:first").trigger("click");
+      $(".dir-button").first().trigger("click");
       expect(MapView.prototype.getDirections.calls.length).toEqual(1);
 
       this.infoWindow.remove();
-      $(".dir-button:first").trigger("click");
+      $(".dir-button").first().trigger("click");
       expect(MapView.prototype.getDirections.calls.length).toEqual(1);
     });
 
@@ -72,10 +70,8 @@ describe('Info window view', function () {
 
   describe('when clicking on a direction link in infowindow', function () {
     // Mock MapView and getDirections on it
-    var MapView = function () {
-    }
-    MapView.prototype.getDirections = function () {
-    }
+    var MapView = function () {};
+    MapView.prototype.getDirections = function () {};
 
     beforeEach(function () {
       spyOn(MapView.prototype, "getDirections");
@@ -88,22 +84,22 @@ describe('Info window view', function () {
     });
 
     it('should close the info window', function () {
-      $(".dir-button:first").trigger("click");
+      $(".dir-button").first().trigger("click");
       expect(InfoWindowView.prototype.close).toHaveBeenCalled();
     });
 
     it('should set selected on clicked link and unselect others', function () {
-      $(".dir-button:first").trigger("click");
+      $(".dir-button").first().trigger("click");
       expect($(".dir-button.selected").attr("id")).toEqual("walking");
 
-      $(".dir-button:last").trigger("click");
+      $(".dir-button").last().trigger("click");
       expect($(".dir-button.selected").attr("id")).toEqual("driving");
       expect($(".dir-button.selected").length).toEqual(1);
     });
 
     it('should pass destination to getDirections', function () {
       this.infoWindow.setDestination("destination");
-      $(".dir-button:first").trigger("click");
+      $(".dir-button").first().trigger("click");
       expect(MapView.prototype.getDirections).toHaveBeenCalledWith("walking", "destination");
     });
   });

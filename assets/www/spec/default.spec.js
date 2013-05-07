@@ -15,6 +15,7 @@ describe('Default-header', function () {
   afterEach(function () {
     $(document).attr('title', this.origTitle);
     $('#page').replaceWith("<div id='stage'></div>");
+    $('div[data-role="popup"]').remove();
     window.history = this.oldHistory;
   });
 
@@ -22,12 +23,12 @@ describe('Default-header', function () {
 
     it('should be inserted first in the page', function () {
       $('[data-role="page"]').append($('<div data-role="content"></div>'));
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
       expect($('[data-role=page] :first-child').data('role')).toBe('header');
     });
 
     it('should be only one header in page', function () {
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
       $('[data-role="page"]').trigger('pagecreate');
       expect($('[data-role=header]').length).toBe(1);
     });
@@ -36,7 +37,7 @@ describe('Default-header', function () {
 
   describe('using common/header with no options', function () {
     it('should render a header with only title and add class nobuttons', function () {
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.hasClass("nobuttons")).toBeTruthy();
@@ -49,7 +50,7 @@ describe('Default-header', function () {
   describe('using common/header with option backbutton', function () {
     it('should render a header with title and add a back button', function () {
       $('[data-role="page"]').data("header-options", "backbutton");
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.data("theme")).toBe("a");
@@ -68,7 +69,7 @@ describe('Default-header', function () {
   describe('using common/header with option homebutton', function () {
     it('should render a header with title and add a home button', function () {
       $('[data-role="page"]').data("header-options", "homebutton");
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.data("theme")).toBe("a");
@@ -85,7 +86,7 @@ describe('Default-header', function () {
   describe('using common/header with option notfixed', function () {
     it('should render a header without fixed position', function () {
       $('[data-role="page"]').data("header-options", "notfixed");
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.hasClass("ui-header-fixed")).toBeFalsy();
@@ -96,7 +97,7 @@ describe('Default-header', function () {
     it('should render a header without fixed position', function () {
       var explicitTitle = "Explicit title";
       $('[data-role="page"]').data("header-title", explicitTitle);
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.find("h1").text()).toBe(explicitTitle);
@@ -105,18 +106,21 @@ describe('Default-header', function () {
 });
 
 describe('External-link-dialog', function () {
-  beforeEach(function () {
-    var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
-    $('#stage').replaceWith(html);
-    $.mobile.loadPage("#page");
-    i18n.init(i18n.options);
-  });
-
-  afterEach(function () {
-    $('#page').replaceWith("<div id='stage'></div>");
-  });
-
   describe('when document contains links with target _blank', function () {
+    beforeEach(function () {
+      var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
+      $('#stage').replaceWith(html);
+      $.mobile.loadPage("#page", {prefetch: "true"});
+      i18n.init(i18n.options);
+    });
+
+    afterEach(function () {
+      $('#page').replaceWith("<div id='stage'></div>");
+      $('.ui-popup-screen').remove();
+      $('.ui-popup-container').remove();
+      $('div[data-role="popup"]').remove();
+    });
+
     it('should present a popup with info and possibility to continue or cancel', function () {
       $("#page").find("a").trigger("click");
 
@@ -127,6 +131,62 @@ describe('External-link-dialog', function () {
 
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
       expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_system");
+    });
+
+    it('pressing "yes" should call window.open with target _system', function () {
+      spyOn(window, 'open');
+
+      $("#page").find("a").trigger("click");
+      $("#external-link-dialog").find("a[target=_system]").trigger('click');
+
+      expect(window.open).toHaveBeenCalledWith('testing.html', '_system');
+    });
+
+    it('pressing "yes" should close the popup', function () {
+      $("#page").find("a").trigger("click");
+
+      var popup = $("#external-link-dialog");
+      popup.find("a[target=_system]").trigger('click');
+
+      expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy();
+    });
+  });
+});
+
+describe('GAPlugin', function () {
+  describe('on deviceready event', function () {
+    it('should init GAPlugin', function () {
+      spyOn(window.plugins.gaPlugin, 'init');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.init).toHaveBeenCalled();
+    });
+
+    it('should set account code on init', function () {
+      spyOn(window.plugins.gaPlugin, 'init');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.init).toHaveBeenCalledWith(
+          null,
+          null,
+          config.core.ga.account,
+          jasmine.any(Number)
+      );
+    });
+
+    it('should set max seconds = 10 on init', function () {
+      spyOn(window.plugins.gaPlugin, 'init');
+
+      $(document).trigger('deviceready');
+
+      expect(window.plugins.gaPlugin.init).toHaveBeenCalledWith(
+          null,
+          null,
+          jasmine.any(String),
+          10
+      );
     });
   });
 });

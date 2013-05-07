@@ -213,7 +213,7 @@ var MapView = Backbone.View.extend(
        */
       replacePoints: function (newPoints) {
         this.removeAllMarkers();
-        this.addMarkers(newPoints)
+        this.addMarkers(newPoints);
       },
 
       /**
@@ -267,7 +267,7 @@ var MapView = Backbone.View.extend(
         // If there is only one marker on the map, display the info window.
         if (_.size(this.pointViews) == 1) {
           var point = _.first(this.pointViews);
-          point.openInfoWindow(point.model, point.marker, point.getPosition({model: point.model}));
+          point.openInfoWindow(point.model, point.marker);
         }
       },
 
@@ -278,8 +278,7 @@ var MapView = Backbone.View.extend(
        * @param destination optional parameter, defaults to destination (global variable)
        */
       getDirections: function (travelMode, destination) {
-        var orig = this.model.get('location');
-        var dest = destination;
+        var orig = this.currentPositionPoint.getPosition();
         var travMode = null;
 
         if (travelMode == "walking") {
@@ -294,7 +293,7 @@ var MapView = Backbone.View.extend(
 
         this.$el.gmap('displayDirections', {
               'origin': orig,
-              'destination': dest,
+              'destination': destination,
               'travelMode': travMode },
             { 'panel': document.getElementById('dir_panel') },
             function (result, status) {

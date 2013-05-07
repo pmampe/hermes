@@ -40,7 +40,6 @@ describe('App model', function () {
           Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
-      //this.server.autoRespond = true;
     });
 
     it('should set visible to false for nonVisibleTypes', function () {
@@ -65,6 +64,21 @@ describe('App model', function () {
           return !location.isVisible();
         }).length).toBe(1);
       });
+    });
+
+    it('should send alert on error', function () {
+      spyOn(window, 'alert');
+
+      this.xhr = sinon.useFakeXMLHttpRequest();
+      this.xhr.onCreate = function (xhr) {
+        throw "ERROR";
+      };
+
+      this.model = new AppModel();
+      this.model.fetchLocations();
+
+      expect(window.alert).toHaveBeenCalled();
+      this.xhr.restore();
     });
   });
 
@@ -92,7 +106,9 @@ describe('App model', function () {
 
     it('should change showingNonVisibleForLocation and trigger change', function () {
       var wasTriggered = false;
-      this.model.on('change:showingNonVisibleForLocation', function() { wasTriggered = true; });
+      this.model.on('change:showingNonVisibleForLocation', function () {
+        wasTriggered = true;
+      });
       var obj = {
         location: this.model.locations.get(5),
         relatedBy: "building",
@@ -101,6 +117,26 @@ describe('App model', function () {
       this.model.showNonVisibleForLocationByRelation(obj.location, obj.relatedBy, obj.types);
       expect(wasTriggered).toBeTruthy();
       expect(_.isEqual(this.model.get('showingNonVisibleForLocation'), obj)).toBeTruthy();
+    });
+  });
+
+  describe('when getting filter collection', function () {
+    beforeEach(function () {
+      this.model = new AppModel();
+      this.model.campuses = new Campuses();
+      this.model.locations = new Locations();
+    });
+
+    it('should return campuses when filterByCampus === true', function () {
+      this.model.set('filterByCampus', true);
+
+      expect(this.model.getFilterCollection()).toEqual(this.model.campuses);
+    });
+
+    it('should return locations when filterByCampus === false', function () {
+      this.model.set('filterByCampus', false);
+
+      expect(this.model.getFilterCollection()).toEqual(this.model.locations);
     });
   });
 });

@@ -36,20 +36,34 @@ describe('Campus model', function () {
       expect(this.campus.getLng()).toEqual(20);
     });
   });
+
+  describe('getZoom', function () {
+    it('should return the zoom', function () {
+      this.campus = new Campus({ zoom: 10 });
+
+      expect(this.campus.getZoom()).toEqual(10);
+    });
+  });
 });
 
 describe('Campus collection', function () {
-  describe('creating an empty collection', function () {
-    beforeEach(function () {
-      this.campuses = new Campuses();
-    });
+  beforeEach(function () {
+    this.campuses = new Campuses();
+  });
 
+  describe('creating an empty collection', function () {
     it('should have Campus for model', function () {
       expect(this.campuses.model).toBe(Campus);
     });
 
     it('should have a url from config', function () {
       expect(this.campuses.url()).toMatch(config.map.campuses.url);
+    });
+  });
+
+  describe('bySearchable', function () {
+    it('should return self', function () {
+      expect(this.campuses.bySearchable()).toEqual(this.campuses);
     });
   });
 });

@@ -59,27 +59,27 @@ describe('Person collection', function () {
     });
 
     it('should make a correct request', function () {
-      this.persons.fetch();
+      this.persons.fetch({reset: true});
       expect(this.server.requests.length).toEqual(1);
       expect(this.server.requests[0].method).toEqual("GET");
       expect(this.server.requests[0].url).toMatch(/.*\/search/);
     });
 
     it('should return all persons', function () {
-      this.persons.fetch();
+      this.persons.fetch({reset: true});
       this.server.respond();
       expect(this.persons.length).toEqual(2);
     });
 
     it('should override defaults', function () {
-      this.persons.fetch();
+      this.persons.fetch({reset: true});
       this.server.respond();
       var firstPerson = this.persons.get("test1");
       expect(firstPerson.get('id')).toEqual("test1");
       expect(firstPerson.get('uid')).toEqual('test1');
       expect(firstPerson.get('displayName')).toEqual('Test1 Räksmörgås');
       expect(firstPerson.get('mail')).toEqual('test1@su.se');
-      expect(firstPerson.get('telephoneNumber')).toBeNull();
+      expect(firstPerson.get('telephoneNumber')).toEqual('foobar');
       expect(firstPerson.get('sn')).toEqual('Räksmörgås');
       expect(firstPerson.get('cn')).toEqual('Test1 Räksmörgås');
       expect(firstPerson.get('givenName')).toEqual('Test1');

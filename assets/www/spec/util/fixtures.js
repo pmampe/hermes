@@ -33,12 +33,14 @@ beforeEach(function () {
           name: 'third',
           campus: 'Frescati',
           type: 'auditorium',
+          buildingId: 5,
           shape: "line",
           text: "Foobar",
           coords: [
             [59.00, 18.00]
           ],
-          directionAware: false
+          directionAware: false,
+          handicapAdapted: true
         },
         {
           id: 4,
@@ -81,7 +83,7 @@ beforeEach(function () {
           "uid": "test1",
           "displayName": "Test1 Räksmörgås",
           "mail": "test1@su.se",
-          "telephoneNumber": null,
+          "telephoneNumber": 'foobar',
           "sn": "Räksmörgås",
           "cn": "Test1 Räksmörgås",
           "givenName": "Test1",
