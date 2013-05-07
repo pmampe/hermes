@@ -47,7 +47,8 @@ var SukatSearchView = Backbone.View.extend({
       },
       success: function () {
         $.mobile.loading('hide');
-      }
+      },
+      reset: true
     });
   },
 

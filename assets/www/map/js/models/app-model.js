@@ -30,7 +30,7 @@ var AppModel = Backbone.Model.extend(
         this.locations.on("reset", this.hideAllNonVisibleTypes);
 
         if (this.get('menu') || this.get('filterByCampus')) {
-          this.campuses.fetch();
+          this.campuses.fetch({reset: true});
         }
       },
 
@@ -51,7 +51,8 @@ var AppModel = Backbone.Model.extend(
           },
           error: function () {
             alert("ERROR! Failed to fetch locations.");
-          }
+          },
+          reset: true
         });
       },
 
