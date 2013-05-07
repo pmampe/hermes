@@ -23,12 +23,12 @@ describe('Default-header', function () {
 
     it('should be inserted first in the page', function () {
       $('[data-role="page"]').append($('<div data-role="content"></div>'));
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
       expect($('[data-role=page] :first-child').data('role')).toBe('header');
     });
 
     it('should be only one header in page', function () {
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
       $('[data-role="page"]').trigger('pagecreate');
       expect($('[data-role=header]').length).toBe(1);
     });
@@ -37,7 +37,7 @@ describe('Default-header', function () {
 
   describe('using common/header with no options', function () {
     it('should render a header with only title and add class nobuttons', function () {
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.hasClass("nobuttons")).toBeTruthy();
@@ -50,7 +50,7 @@ describe('Default-header', function () {
   describe('using common/header with option backbutton', function () {
     it('should render a header with title and add a back button', function () {
       $('[data-role="page"]').data("header-options", "backbutton");
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.data("theme")).toBe("a");
@@ -69,7 +69,7 @@ describe('Default-header', function () {
   describe('using common/header with option homebutton', function () {
     it('should render a header with title and add a home button', function () {
       $('[data-role="page"]').data("header-options", "homebutton");
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.data("theme")).toBe("a");
@@ -86,7 +86,7 @@ describe('Default-header', function () {
   describe('using common/header with option notfixed', function () {
     it('should render a header without fixed position', function () {
       $('[data-role="page"]').data("header-options", "notfixed");
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.hasClass("ui-header-fixed")).toBeFalsy();
@@ -97,7 +97,7 @@ describe('Default-header', function () {
     it('should render a header without fixed position', function () {
       var explicitTitle = "Explicit title";
       $('[data-role="page"]').data("header-title", explicitTitle);
-      $.mobile.loadPage('#page');
+      $.mobile.loadPage('#page', {prefetch: "true"});
 
       var $header = $('[data-role=header]');
       expect($header.find("h1").text()).toBe(explicitTitle);
@@ -110,7 +110,7 @@ describe('External-link-dialog', function () {
     beforeEach(function () {
       var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
       $('#stage').replaceWith(html);
-      $.mobile.loadPage("#page");
+      $.mobile.loadPage("#page", {prefetch: "true"});
       i18n.init(i18n.options);
     });
 
