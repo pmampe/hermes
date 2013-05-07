@@ -20,9 +20,3 @@ var helper = {
     obj.dispatchEvent(e);
   }
 };
-
-navigator.language = "en-US";
-navigator.splashscreen = {
-  hide: function () {
-  }
-}
