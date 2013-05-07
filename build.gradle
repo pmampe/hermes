@@ -145,11 +145,15 @@ task jsdocjs(type: com.eriwen.gradle.js.tasks.JsDocTask) {
 task buildTar(type: Tar) {
   archiveName archiveFile
   compression Compression.GZIP
-  includes['www']
+  includes = [
+          'www/',
+          'splash.png'
+  ]
   excludes = [
           'www/spec.html',
           'www/spec',
-          '**/cordova*.js']
+          '**/cordova*.js'
+  ]
   from new File("assets/")
 
   eachFile { FileCopyDetails fileCopyDetails ->
@@ -181,7 +185,7 @@ buildTar.doFirst {
 
 task copySplash(type: Copy) {
   from 'res/drawable/splash.png'
-  into 'assets/www'
+  into 'assets'
 }
 
 task toPhonegap(dependsOn: [buildTar, copySplash]) {
