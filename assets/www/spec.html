@@ -41,6 +41,9 @@
   <!-- include source files here... -->
   <script type="text/javascript" src="js/index.js"></script>
 
+  <!-- Start -->
+  <script type="text/javascript" src="js/views/start-view.js"></script>
+
   <!-- Map -->
   <script type="text/javascript" src="map/js/jst/info-window.js"></script>
   <script type="text/javascript" src="map/js/models/location-model.js"></script>
@@ -63,11 +66,19 @@
   <script type="text/javascript" src="sukatsearch/js/models/person-model.js"></script>
   <script type="text/javascript" src="sukatsearch/js/views/search-view.js"></script>
 
-  <!-- include spec files here... -->
+  <!-- TESTS -->
+  <!-- Test utils -->
   <script type="text/javascript" src="spec/util/helper.js"></script>
   <script type="text/javascript" src="spec/util/fixtures.js"></script>
 
+  <!-- Core tests-->
   <script type="text/javascript" src="spec/default.spec.js"></script>
+  <script type="text/javascript" src="spec/i18n.spec.js"></script>
+
+  <!-- Start tests -->
+  <script type="text/javascript" src="spec/modules/start/start-view.spec.js"></script>
+
+  <!-- Map tests -->
   <script type="text/javascript" src="spec/modules/map/main.spec.js"></script>
   <script type="text/javascript" src="spec/modules/map/map-router.spec.js"></script>
   <script type="text/javascript" src="spec/modules/map/app-model.spec.js"></script>
@@ -83,8 +94,9 @@
   <script type="text/javascript" src="spec/modules/map/polygon-location-view.spec.js"></script>
   <script type="text/javascript" src="spec/modules/map/menu-popup-view.spec.js"></script>
   <script type="text/javascript" src="spec/modules/map/info-window-view.spec.js"></script>
+
+  <!-- Sukat tests -->
   <script type="text/javascript" src="spec/sukat.spec.js"></script>
-  <script type="text/javascript" src="spec/i18n.spec.js"></script>
 
   <script type="text/javascript">
     (function () {

@@ -30,7 +30,7 @@
   <script src="js/jst/common.js"></script>
   <script src="js/default.js"></script>
 
-  <script src="js/views/app-view.js"></script>
+  <script src="js/views/start-view.js"></script>
 </head>
 <body>
 <div data-role="page" class="type-home" id="page-home" data-header="common/header">
@@ -103,8 +103,8 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-    var appView = new AppView({ el: $('#page-home') });
-    appView.render();
+    var view = new StartView({ el: $('#page-home') });
+    view.render();
   });
 </script>
 </body>
