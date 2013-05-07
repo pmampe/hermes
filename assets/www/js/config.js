@@ -1,5 +1,11 @@
 var config = (function (pgBrokerBaseURL) {
   return {
+    "core": {
+      "ga": {
+        "account": "UA-39850755-1"
+      }
+    },
+
     "sukat": {
       "search": {
         "url": pgBrokerBaseURL + "/sukat/search"
