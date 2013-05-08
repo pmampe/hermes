@@ -53,7 +53,7 @@
 .ui-overlay-a {
 	border: 1px solid #b3b3b3 /*{a-body-border}*/;
 	color: #363636 /*{a-body-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #ffffff /*{a-body-shadow-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #ffffff /*{a-body-shadow-color}*/;
 	background: #d7e0eb /*{a-body-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #d4dde8 /*{a-body-background-start}*/), to( #d9e2ed /*{a-body-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #d4dde8 /*{a-body-background-start}*/, #d9e2ed /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -630,8 +630,8 @@ a.ui-link-inherit {
 .ui-icon,
 .ui-icon-searchfield:after {
 	background-color: #000000 /*{global-icon-color}*/;
-	background-color: rgba(0,0,0,0.4) /*{global-icon-disc}*/;
-	background-image: url(images/icons-18-white.png) /*{global-icon-set}*/;
+	background-color: transparent /*{global-icon-disc}*/;
+	background-image: url(images/icons-18-black.png) /*{global-icon-set}*/;
 	background-repeat: no-repeat;
 	-webkit-border-radius: 				9px;
 	border-radius: 						9px;
@@ -894,9 +894,9 @@ a.ui-link-inherit {
 	box-shadow: inset 0 1px 4px 			rgba(0,0,0,.2);
 }
 .ui-icon-shadow {
-	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.4) /*{global-icon-shadow}*/;
-	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.4) /*{global-icon-shadow}*/;
-	box-shadow: 0 1px 0 rgba(255,255,255,.4) /*{global-icon-shadow}*/;
+	-moz-box-shadow: 0 1px 0 transparent /*{global-icon-shadow}*/;
+	-webkit-box-shadow: 0 1px 0 transparent /*{global-icon-shadow}*/;
+	box-shadow: 0 1px 0 transparent /*{global-icon-shadow}*/;
 }
 /* Focus state - set here for specificity (note: these classes are added by JavaScript)
 -----------------------------------------------------------------------------------------------------------*/
