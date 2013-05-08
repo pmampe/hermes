@@ -31,6 +31,8 @@ def phonegapAppId = '219084'
 def phonegapUser = 'utveckling@it.su.se'
 def phonegapPassword = System.getenv('PG_PASS')
 def phonegapKey = System.getenv('PG_KEY')
+def androidCertKeyId = 19331
+def iOSCertKeyId = 68333
 
 def phantomjs = {
   String phantomjsBin = System.getenv('PHANTOMJS')
@@ -225,8 +227,8 @@ task toPhonegap(dependsOn: [buildTar, copySplash]) {
     // Multipart request - one part containing info to unlock keys, one part containing app file
     MultipartEntity mp = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     StringBody stringBody = new StringBody("""{"keys":
-      {"android":{"id":19289, "key_pw": "$phonegapKey", "keystore_pw": "$phonegapKey"},
-      "ios":{"id":68333, "password": "$phonegapKey"}
+      {"android":{"id":$androidCertKeyId, "key_pw": "$phonegapKey", "keystore_pw": "$phonegapKey"},
+      "ios":{"id":$iOSCertKeyId, "password": "$phonegapKey"}
       }
     }""",
             "application/json", Charset.forName("utf-8"))
