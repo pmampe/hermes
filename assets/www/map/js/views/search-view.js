@@ -85,7 +85,7 @@ var SearchView = Backbone.View.extend(
         var $noresults = $('#noresults');
         var results = $("#search-autocomplete").children(':visible').length;
 
-        if (results == 0 && !$noresults.is(':visible')) {
+        if (results === 0 && !$noresults.is(':visible')) {
           $noresults.show();
         }
         else if (results > 0 && $noresults.is(':visible')) {

@@ -30,7 +30,7 @@
  */
 
 if (!("JST" in window) || "JST" === undefined) {
-  window.JST = new Object();
+  window.JST = {};
 }
 
 JST['map/menu/button'] = _.template(" \
