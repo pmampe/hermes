@@ -38,9 +38,6 @@ describe('Default-header', function () {
     $(document).attr('title', testTitle);
     $('#stage').replaceWith('<div data-role="page" id="page" data-header="common/header"></div>');
     this.oldHistory = window.history;
-    window.history.back = function () {
-      this.backWasCalled = true;
-    };
   });
 
   afterEach(function () {
@@ -80,6 +77,8 @@ describe('Default-header', function () {
 
   describe('using common/header with option backbutton', function () {
     it('should render a header with title and add a back button', function () {
+      spyOn(window.history, 'back');
+
       $('[data-role="page"]').data("header-options", "backbutton");
       $.mobile.loadPage('#page', {prefetch: "true"});
 
@@ -92,7 +91,7 @@ describe('Default-header', function () {
       expect($button.data("rel")).toBe("back");
       expect($button.hasClass("ui-btn-left")).toBeTruthy();
       $button.trigger("click");
-      expect(window.history.backWasCalled).toBeTruthy();
+      expect(window.history.back).toHaveBeenCalled();
     });
   });
 
