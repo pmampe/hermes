@@ -47,9 +47,9 @@
     -moz-border-radius-bottomright: 0.6em;
     -webkit-border-bottom-right-radius: 0.6em;
     border-bottom-right-radius: 0.6em;
-    -moz-border-radius-bottomleft: 0.2em;
-    -webkit-border-bottom-left-radius: 0.2em;
-    border-bottom-left-radius: 0.2em;
+    -moz-border-radius-bottomleft: 0.15em;
+    -webkit-border-bottom-left-radius: 0.15em;
+    border-bottom-left-radius: 0.15em;
 
     margin-left: 10px;
     height: 32px;
@@ -80,17 +80,11 @@
     background: linear-gradient(45deg, #364E6F 0%, #638DCA 105%) repeat scroll 0 0 transparent;
 
     -webkit-box-shadow: -1px 0px 0 #4d6d8f,
-    inset 0px 1px 0 rgba(255, 255, 255, 0.2);
+                        inset 0px 2px 0 rgba(255, 255, 255, 0.2);
     box-shadow: -1px 0px 0 #4d6d8f,
-    inset 0px 1px 0 rgba(255, 255, 255, 0.2);
+                inset 0px 2px 0 rgba(255, 255, 255, 0.2);
 
-    border: 1px solid #375075;
-    border-image: none;
-
-    border-radius: 3px 0 2px 2px;
-    border-style: solid;
-    border-width: 0 0 1px 1px;
-
+    border-radius: 3px 0 2px 1px;
     border-left:1px solid #375075;
     border-top:1px solid #375075;
     border-right: none;
