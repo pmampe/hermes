@@ -53,7 +53,7 @@
 .ui-overlay-a {
 	border: 1px solid #b3b3b3 /*{a-body-border}*/;
 	color: #363636 /*{a-body-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #ffffff /*{a-body-shadow-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #ffffff /*{a-body-shadow-color}*/;
 	background: #d7e0eb /*{a-body-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #d4dde8 /*{a-body-background-start}*/), to( #d9e2ed /*{a-body-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #d4dde8 /*{a-body-background-start}*/, #d9e2ed /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
