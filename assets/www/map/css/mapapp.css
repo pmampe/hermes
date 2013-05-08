@@ -21,7 +21,7 @@
 .ui-body-e {
   border: 1px solid #66eedd;
   color: #222222;
-  text-shadow: 0 0px 0 #fff;
+  text-shadow: 0 0 0 #fff;
   background: #c2e4d2;
 }
 
@@ -245,28 +245,18 @@ a {
 **SearchView styling
 **/
 
-div.search-box {
-  margin: 16px 8px;
-}
 
 div.search-box .cancel-filter-button {
   position: absolute;
-  right: 5px;
-  top: 45px;
+  right: 0px;
+  top: 49px;
   display: none;
+  height: 28px;
+  line-height:12px;
 }
 
 div.search-box form.tight {
   margin-right: 80px;
-}
-
-div.search-box ul {
-  margin-top: 16px;
-}
-
-div.search-box ul li.ui-li-divider {
-  font-size: 12px;
-  padding: 0.2em 15px;
 }
 
 input[type="search"]::-webkit-search-cancel-button {
@@ -289,3 +279,4 @@ div.noresults {
 #menupopup-popup.ui-popup-active {
   top: 0 !important;
 }
+
