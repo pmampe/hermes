@@ -35,7 +35,7 @@ if (!("JST" in window) || "JST" === undefined) {
 
 JST['map/menu/button'] = _.template(" \
 <a id='menubutton' data-role='button' \
-   data-icon='grid' data-iconpos='notext' class='ui-btn-right'> \
-  Meny \
+   class='ui-btn-right menubutton' data-iconshadow='false'> \
+   &#9776;\
 </a> \
 ");
