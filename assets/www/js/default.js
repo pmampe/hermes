@@ -103,3 +103,14 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   $externalLinkDialog.trigger('create');
   $externalLinkDialog.popup('open');
 });
+
+
+/*
+ * Preloading svg images
+ */
+
+function preloadSVGImages (url, selector) {
+  var img = document.createElementNS(url,'image');
+  img.setAttributeNS(null,'width','18px');
+  $(selector).append(img);
+};
