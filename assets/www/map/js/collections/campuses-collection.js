@@ -30,35 +30,34 @@
  */
 
 /**
- * Representation of a campus on the map.
+ * Collection of Campuses.
  *
- * @class Backbone model represenbting a campus.
+ * @class Backbone collection of campuses.
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
- * @type {Backbone.Model}
+ * @type {Backbone.Collection}
  */
-var Campus = Backbone.Model.extend(
-    /** @lends Campus */
+var Campuses = Backbone.Collection.extend(
+    /** @lends Campuses */
     {
+      /** The model used for this collection. */
+      model: Campus,
+
       /**
-       * Defaults for this model
+       * Generates the URL to get Campuses.
+       *
+       * @return {string} the URL.
        */
-      defaults: {
-        "id": 0,
-        "name": 'Unknown',
-        "coords": [59.363317, 18.0592], // Default to Frescati campus.
-        "zoom": 15
+      url: function () {
+        return config.map.campuses.url;
       },
 
-      getLat: function () {
-        return this.get('coords')[0];
-      },
-
-      getLng: function () {
-        return this.get('coords')[1];
-      },
-
-      getZoom: function () {
-        return this.get('zoom');
+      /**
+       * This is needed by SearchView.
+       *
+       * @return {Array} an array of filtered Campuses.
+       */
+      bySearchable: function () {
+        return this;
       }
     });
