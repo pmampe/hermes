@@ -100,8 +100,6 @@ var AppView = Backbone.View.extend(
           self.mapView.replacePoints(self.model.locations);
         });
 
-        this.updateLocations();
-
         // Display a menu button
         if (showMenu) {
           this.menuPopupView = new MenuPopupView({
