@@ -222,25 +222,6 @@ var MapView = Backbone.View.extend(
       },
 
       /**
-       * Zoom the map to a new bound.
-       *
-       * @param {Map} bounds containing coordinates for minLat, maxLat, minLng, maxLat.
-       */
-      zoomToBounds: function (bounds) {
-        if (bounds.minLat !== 0 && bounds.maxLat !== 0 && bounds.minLng !== 0 && bounds.maxLng !== 0) {
-          var sw = new google.maps.LatLng(bounds.minLat, bounds.minLng);
-          var ne = new google.maps.LatLng(bounds.maxLat, bounds.maxLng);
-          var latLngBounds = new google.maps.LatLngBounds(sw, ne);
-          this.map.fitBounds(latLngBounds);
-
-          // force max zoom to be less than 17 (google map max is 21)
-          if (this.map.getZoom() > 17) {
-            this.map.setZoom(17);
-          }
-        }
-      },
-
-      /**
        * Replaces points on the map.
        *
        * @param {Location} newPoints the new points to paint on the map.
