@@ -128,8 +128,9 @@ describe('Search view', function () {
     it('should trigger custom filtering for each filter item', function () {
       spyOn(SearchView.prototype, "filterSearch");
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+
       runs(function () {
-        appView.model.locations.fetch();
+        appView.model.locations.fetch({reset: true});
         this.server.respond();
       });
 
@@ -150,7 +151,7 @@ describe('Search view', function () {
     it('should overwrite jquery mobiles filtering', function () {
       var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
       runs(function () {
-        appView.model.locations.fetch();
+        appView.model.locations.fetch({reset: true});
         this.server.respond();
       });
 
