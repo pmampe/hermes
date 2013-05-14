@@ -103,10 +103,8 @@ var MapView = Backbone.View.extend(
           ],
           directionAware: false,
           pin: new google.maps.MarkerImage(
-              'http://maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-              new google.maps.Size(22, 22),
-              new google.maps.Point(0, 18),
-              new google.maps.Point(11, 11))
+              '../img/icons/position.png'
+          )
         });
 
         this.currentPositionPoint = new PointLocationView({
