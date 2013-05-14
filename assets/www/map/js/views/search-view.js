@@ -57,6 +57,7 @@ var SearchView = Backbone.View.extend(
               i18n.t('map.menu.searchfor') + i18n.t(options.placeholderSuffix).toLowerCase()
           );
         }
+        $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
 
         this.collection.on("reset", this.render);
       },
@@ -73,8 +74,6 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function () {
-        $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
-
         this.populateFilter();
         this.delegateEvents();
       },
