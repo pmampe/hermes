@@ -33,6 +33,8 @@
 
 
 
+
+
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -154,8 +156,6 @@ task buildSonarPom(type: Copy) {
 
 task minify() {
   doLast {
-    def files = fileTree(dir: 'assets/www/js/views')
-
     javascript.source.dev.js.files.each { File file ->
       def dest = new File(file.absolutePath.replaceAll(/\.js$/, '.min.js'))
 
