@@ -58,8 +58,6 @@ var AppView = Backbone.View.extend(
 
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
-        $(document).ready( preloadSVGImages('../../css/images/home.svg', '#object-container'));
-
         this.title = options.title;
         this.mapModel = new MapModel();
 
