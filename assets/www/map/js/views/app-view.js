@@ -102,8 +102,6 @@ var AppView = Backbone.View.extend(
           self.mapView.replacePoints(self.model.locations);
         });
 
-        this.updateLocations();
-
         // Display a menu button
         if (showMenu) {
           this.menuPopupView = new MenuPopupView({
@@ -199,7 +197,7 @@ var AppView = Backbone.View.extend(
           '../../../css/images/home.svg'
         ];
 
-        $(preloads).each(function(){
+        $(preloads).each(function () {
           $('<img />')[0].src = this;
         });
       },
