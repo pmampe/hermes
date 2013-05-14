@@ -47,18 +47,9 @@ var SearchView = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
 
-        this.inputField = $("#search-autocomplete").parent().find("form input");
-
-        // This is done to show a search icon or text in the mobile keyboard
-        this.inputField.get(0).type = "search";
-        if (options.placeholderSuffix) {
-          // this.inputField.attr("placeholder", "Sök " + options.placeholderSuffix);
-          this.inputField.attr("placeholder", i18n.t('map.menu.searchfor') + i18n.t(options.placeholderSuffix).toLowerCase());
-        }
-
-        $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
-
         this.collection.on("reset", this.render);
+
+        this.inputField = $("#search-autocomplete").parent().find("form input");
       },
 
       /** Registers events */
@@ -73,6 +64,15 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function () {
+
+        // This is done to show a search icon or text in the mobile keyboard
+        this.inputField.get(0).type = "search";
+        if (options.placeholderSuffix) {
+          // this.inputField.attr("placeholder", "Sök " + options.placeholderSuffix);
+          this.inputField.attr("placeholder", i18n.t('map.menu.searchfor') + i18n.t(options.placeholderSuffix).toLowerCase());
+        }
+
+        $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
         this.populateFilter();
         this.delegateEvents();
       },
