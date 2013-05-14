@@ -47,6 +47,8 @@ var SearchView = Backbone.View.extend(
       initialize: function (options) {
         _.bindAll(this, "render", "populateFilter");
 
+        this.placeholderSuffix = options.placeholderSuffix;
+
         this.collection.on("reset", this.render);
 
         this.inputField = $("#search-autocomplete").parent().find("form input");
@@ -64,12 +66,11 @@ var SearchView = Backbone.View.extend(
        * Render the search view.
        */
       render: function () {
-
         // This is done to show a search icon or text in the mobile keyboard
         this.inputField.get(0).type = "search";
-        if (options.placeholderSuffix) {
+        if (this.placeholderSuffix) {
           // this.inputField.attr("placeholder", "Sök " + options.placeholderSuffix);
-          this.inputField.attr("placeholder", i18n.t('map.menu.searchfor') + i18n.t(options.placeholderSuffix).toLowerCase());
+          this.inputField.attr("placeholder", i18n.t('map.menu.searchfor') + i18n.t(this.placeholderSuffix).toLowerCase());
         }
 
         $("#search-autocomplete").listview("option", "filterCallback", this.filterSearch);
