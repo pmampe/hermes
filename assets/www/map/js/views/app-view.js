@@ -58,8 +58,6 @@ var AppView = Backbone.View.extend(
 
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
-        $(document).ready(this.preLoadImages());
-
         this.title = options.title;
         this.mapModel = new MapModel();
 
@@ -189,20 +187,7 @@ var AppView = Backbone.View.extend(
         this.startGPSPositioning();
       },
 
-      /**
-       * Preloads images. Add flickering icons as you go.
-       */
-      preLoadImages: function () {
-        var preloads = [
-          '../../../css/images/home.svg'
-        ];
-
-        $(preloads).each(function () {
-          $('<img />')[0].src = this;
-        });
-      },
-
-      /**
+       /**
        * Handle changed zoom level.
        *
        * @param zoom the new zoom level.
