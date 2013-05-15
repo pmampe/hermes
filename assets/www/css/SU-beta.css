@@ -73,11 +73,48 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
  ** Header
  ***********/
 
-.menubutton.ui-btn-corner-all > span.ui-btn-inner{
-   padding: 0 6px;
+.menubutton:before {
+    background: none repeat scroll 0 0 white;
+    -webkit-box-shadow: 0 8px 0 0 white, 0 16px 0 0 white,
+                        0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8),
+                        0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8),
+                        0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);
+    box-shadow: 0 8px 0 0 white, 0 16px 0 0 white,
+                0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8),
+                0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8),
+                0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);
+    content: "";
+    height: 2px;
+    left: 5px;
+    position: absolute;
+    top: 8px;
+    width: 20px;
+}
+
+.menubutton.selected,
+.menubutton:hover,
+.menubutton:active {
+    border: 1px solid #a4b2bd;
+    background: #dae2ec;
+    font-weight: bold;
+}
+
+.selected.menubutton:before,
+.menubutton:hover:before,
+.menubutton:active:before {
+    background: none repeat scroll 0 0 #7f98b8;
+    -webkit-box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8,
+                        0 7px 0 0 #646465, 0 15px 0 0 #646465,
+                        0 9px 0 0 #7f98b8, 0 17px 0 0 #7f98b8,
+                        0 1px 0 0 #7f98b8, 0 -1px 0 0 #646465;
+    box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8,
+                0 7px 0 0 #646465, 0 15px 0 0 #646465,
+                0 9px 0 0 #7f98b8, 0 17px 0 0 #7f98b8,
+                0 1px 0 0 #7f98b8, 0 -1px 0 0 #646465;
+}
+
+.menubutton.ui-btn-corner-all > span.ui-btn-inner {
    font-size: 23px;
-   font-weight: bold;
-   text-shadow:  0 -2px 0 rgba(51,61,74, 0.5), 0 -1px 0 rgba(255,255,255, 0.5);
 }
 
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner.backbutton {
@@ -85,7 +122,6 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 }
 
 .ui-header .ui-btn-left.backbutton {
-
     -moz-border-radius-topleft: 0.2em;
     -webkit-border-top-left-radius: 0.2em;
     border-top-left-radius: 0.2em;
@@ -103,10 +139,9 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     height: 32px;
 }
 
-.ui-header .ui-btn-left.backbutton,
 .ui-header .ui-btn-right.menubutton {
     height: 32px;
-
+    width: 30px;
 }
 
 .backbutton .object-container {
@@ -156,7 +191,6 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 
 .backbutton:hover,
 .backbutton:focus,
-.backbutton:visited,
 .backbutton:active {
 
   background: -webkit-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
@@ -168,7 +202,6 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 
 .backbutton:hover:before,
 .backbutton:focus:before,
-.backbutton:visited:before,
 .backbutton:active:before
 {
     background: #dae2ec;
@@ -247,4 +280,27 @@ div.search-box .ui-btn-hover-b,
 div.search-box .ui-btn-hover-b .ui-last-child {
     border: none;
     border-top: 1px solid #A4B2BD;
+}
+
+/*************
+ ** Popup menu/campus menu
+ ***********/
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup:hover,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
+    border: none;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
+    border-top: 1px solid lightgray;
+}
+
+/**jQiery overwrite element style**/
+.menupopup-margin.menupopup {
+    margin-top: 44px !important;
+    max-width: 100% !important;
+    width: 60% !important;
 }
