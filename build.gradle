@@ -31,14 +31,6 @@
 
 
 
-
-
-
-
-
-
-
-
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -100,7 +92,6 @@ def phantomjs = {
 apply plugin: 'saga'
 apply plugin: 'js'
 apply plugin: 'css'
-apply plugin: 'jslint'
 
 /**
  * Wrapper
@@ -123,9 +114,9 @@ javascript.source {
 css.source {
   prod {
     css {
-      srcDir file('assets/www/')
-      include "**/*.css"
-      exclude "**/*.min.css"
+      srcDir file('assets/www')
+      include '**/*.css'
+      exclude '**/*.min.css', '**/spec/*'
     }
   }
 }
@@ -191,15 +182,20 @@ task minify() {
 }
 
 /**
- * JSLint
+ * JSHint
  */
 
-jslint {
-  inputDirs = ['assets/www/']
-  haltOnFailure = false
-  excludes = '**/cordova*.js,*/GAPlugin*.js,**/lib/**/*.js,**/*.min.js,**/*-min.js'
-  options = 'rhino'
-  formatterType = 'xml'
+task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
+  source = javascript.source.prod.js.files
+  dest = "${buildDir}/reports/jshint.xml"
+  reporter = 'checkstyle'
+}
+
+task csslintTask(type: com.eriwen.gradle.css.tasks.CssLintTask) {
+  source = css.source.prod.css.files
+  dest = "${buildDir}/reports/csslint.xml"
+  project.csslint.format = 'lint-xml'
+  project.csslint.errors = []
 }
 
 /**
@@ -382,7 +378,6 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'org.kar:gradle-jslint-plugin:0.2'
     classpath 'org.apache.httpcomponents:httpclient:4.2.1'
     classpath 'org.apache.httpcomponents:httpmime:4.2.1'
     classpath 'com.github.timurstrekalov:gradle-saga-plugin:1.4.1'
