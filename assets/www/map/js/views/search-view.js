@@ -166,6 +166,7 @@ var SearchView = Backbone.View.extend(
         }, "");
 
         var $ul = $('#search-autocomplete');
+        $ul.hide();
         $ul.html(html);
         $ul.listview("refresh");
         $ul.trigger("updatelayout");
@@ -175,6 +176,7 @@ var SearchView = Backbone.View.extend(
         if (!this.inputField.is(":focus")) {
           this.hideFilteredList();
         }
+        $ul.show();
       },
 
       filterSearch: function (text, searchValue) {
