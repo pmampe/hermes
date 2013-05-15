@@ -31,6 +31,8 @@
 
 
 
+
+
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -194,8 +196,10 @@ task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
 task csslintTask(type: com.eriwen.gradle.css.tasks.CssLintTask) {
   source = css.source.prod.css.files
   dest = "${buildDir}/reports/csslint.xml"
-  project.csslint.format = 'lint-xml'
-  project.csslint.errors = []
+  csslint {
+    format = 'lint-xml'
+    errors = []
+  }
 }
 
 /**
