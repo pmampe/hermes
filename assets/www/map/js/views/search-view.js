@@ -160,6 +160,7 @@ var SearchView = Backbone.View.extend(
 
       populateFilter: function () {
         var html = this.collection.bySearchable().reduce(function (memo, location) {
+          //TODO: Use JST
           return memo + '<li id="' + location.get('id') + '" data-icon="false">' +
               '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.get('name') + '</a>' +
               '</li>';
