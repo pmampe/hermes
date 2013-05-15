@@ -160,12 +160,14 @@ var SearchView = Backbone.View.extend(
 
       populateFilter: function () {
         var html = this.collection.bySearchable().reduce(function (memo, location) {
+          //TODO: Use JST
           return memo + '<li id="' + location.get('id') + '" data-icon="false">' +
               '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.get('name') + '</a>' +
               '</li>';
         }, "");
 
         var $ul = $('#search-autocomplete');
+        $ul.hide();
         $ul.html(html);
         $ul.listview("refresh");
         $ul.trigger("updatelayout");
@@ -175,6 +177,7 @@ var SearchView = Backbone.View.extend(
         if (!this.inputField.is(":focus")) {
           this.hideFilteredList();
         }
+        $ul.show();
       },
 
       filterSearch: function (text, searchValue) {
