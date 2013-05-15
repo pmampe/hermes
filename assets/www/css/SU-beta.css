@@ -144,9 +144,21 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     width: 30px;
 }
 
+/** Backbutton **/
+
+.backbutton {
+    background: #4D6E9D;
+    background: -webkit-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: -ms-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+}
+
 .backbutton .object-container {
     width: 18px;
     height: 19px;
+    background: url("images/home.svg") no-repeat;
 }
 
 .backbutton:before {
@@ -211,8 +223,8 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     background: -ms-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
     background: linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
 
-    border-left:1px solid #a4b2bd;
-    border-top:1px solid #a4b2bd;
+    border-left: 1px solid #a4b2bd;
+    border-top: 1px solid #a4b2bd;
 }
 /*************
  ** Search View
