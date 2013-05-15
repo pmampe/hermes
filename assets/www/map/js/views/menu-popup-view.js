@@ -63,8 +63,9 @@ var MenuPopupView = Backbone.View.extend(
         this.campuses.on("reset", this.updateCampuses, this);
 
         // Popup state reflects in button styling
-        this.$el.on( "popupafterclose", this.toggleButtonPress);
-        this.$el.on( "popupafteropen", this.toggleButtonPress);
+        this.$el.on( "popupafteropen", this.buttonPress);
+        this.$el.on( "popupafterclose", this.buttonUnpress);
+
 
       },
 
@@ -81,13 +82,6 @@ var MenuPopupView = Backbone.View.extend(
         $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close");
 
         this.$el.popup("open");
-      },
-
-      /**
-     * Changes button to pressed or unpressed
-     */
-      toggleButtonPress: function () {
-        $(document).find("a#menubutton").toggleClass('selected');
       },
 
       /**
@@ -117,5 +111,16 @@ var MenuPopupView = Backbone.View.extend(
 
         $("#menupopupList").listview();
         $("#menupopupList").listview("refresh"); // jQuery mobile-ify the added elements
+      },
+
+      /**
+       * Changes button to pressed or unpressed
+       */
+      buttonPress: function () {
+        $(document).find("a#menubutton").addClass('selected');
+      },
+
+      buttonUnpress: function () {
+        $(document).find("a#menubutton").removeClass('selected');
       }
     });
