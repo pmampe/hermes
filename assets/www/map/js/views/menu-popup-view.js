@@ -63,8 +63,8 @@ var MenuPopupView = Backbone.View.extend(
         this.campuses.on("reset", this.updateCampuses, this);
 
         // Popup state reflects in button styling
-        this.$el.on( "popupafterclose", this.buttonPress);
-        this.$el.on( "popupafteropen", this.buttonPress);
+        this.$el.on( "popupafterclose", this.toggleButtonPress);
+        this.$el.on( "popupafteropen", this.toggleButtonPress);
 
       },
 
@@ -86,7 +86,7 @@ var MenuPopupView = Backbone.View.extend(
       /**
      * Changes button to pressed or unpressed
      */
-      buttonPress: function () {
+      toggleButtonPress: function () {
         $(document).find("a#menubutton").toggleClass('selected');
       },
 
