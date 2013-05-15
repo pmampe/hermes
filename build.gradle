@@ -37,6 +37,8 @@
 
 
 
+
+
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -195,7 +197,7 @@ task minify() {
 jslint {
   inputDirs = ['assets/www/']
   haltOnFailure = false
-  excludes = '**/cordova*.js,*/GAPlugin*.js,**/lib/**/*.js'
+  excludes = '**/cordova*.js,*/GAPlugin*.js,**/lib/**/*.js,**/*.min.js,**/*-min.js'
   options = 'rhino'
   formatterType = 'xml'
 }
