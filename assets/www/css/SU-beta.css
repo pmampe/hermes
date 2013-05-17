@@ -91,17 +91,13 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     width: 20px;
 }
 
-.menubutton.selected,
-.menubutton:hover,
-.menubutton:active {
+.menubutton.selected {
     border: 1px solid #a4b2bd;
     background: #dae2ec;
     font-weight: bold;
 }
 
-.selected.menubutton:before,
-.menubutton:hover:before,
-.menubutton:active:before {
+.selected.menubutton:before {
     background: none repeat scroll 0 0 #7f98b8;
     -webkit-box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8,
                         0 7px 0 0 #646465, 0 15px 0 0 #646465,
