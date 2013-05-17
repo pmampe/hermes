@@ -89,7 +89,6 @@ var MapView = Backbone.View.extend(
         };
 
         // Add the Google Map to the page
-        //this.map = new google.maps.Map(this.el, myOptions);
         this.$el.gmap(myOptions);
         this.map = this.$el.gmap("get", "map");
 
@@ -134,7 +133,6 @@ var MapView = Backbone.View.extend(
         $('#page-dir table').live("tap", function () {
           $.mobile.changePage($('#page-map'), {});
         });
-        /* ------------------------------------------------------------- */
       },
 
       /**
@@ -322,4 +320,4 @@ var MapView = Backbone.View.extend(
             }
         );
       }
-    }); //-- End of Map view
+    });
