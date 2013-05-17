@@ -79,7 +79,7 @@ var SearchView = Backbone.View.extend(
       },
 
       inputKeyup: function (e) {
-        if (e.which == 13) {
+        if (e.which === 13) {
           $(e.target).trigger("blur");
         }
 
@@ -186,4 +186,4 @@ var SearchView = Backbone.View.extend(
 
         return !pattern.test(text);
       }
-    }); //-- End of Search view
+    });

@@ -131,7 +131,7 @@ var Locations = Backbone.Collection.extend(
       byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
         return _(this.filter(function (location) {
           var res = location.get('buildingId') === building.id;
-          res &= _.contains(types, location.get("type"));
+          res = res && _.contains(types, location.get("type"));
           return res && location.get('handicapAdapted') === adapted;
         }));
       }
