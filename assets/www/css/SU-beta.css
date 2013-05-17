@@ -232,7 +232,6 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     left :0;
     margin: -8px 0 0;
     background: white;
-    z-index:100;
 }
 
 .home:before {
@@ -330,6 +329,11 @@ div.search-box .ui-btn-hover-b,
 div.search-box .ui-btn-hover-b .ui-last-child {
     border: none;
     border-top: 1px solid #A4B2BD;
+}
+
+/** Grey delete icon fix**/
+.search-box .ui-btn-icon-notext .ui-btn-inner .ui-icon.ui-icon-delete {
+    opacity: 0.5;
 }
 
 /*************
