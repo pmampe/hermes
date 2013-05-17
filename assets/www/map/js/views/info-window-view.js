@@ -204,5 +204,5 @@ var InfoWindowView = Backbone.View.extend(
           this.infoWindow.close();
         }
       }
-    }); //-- End of InfoWindow view
+    });
 

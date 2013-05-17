@@ -186,4 +186,4 @@ var SearchView = Backbone.View.extend(
 
         return !pattern.test(text);
       }
-    }); //-- End of Search view
+    });
