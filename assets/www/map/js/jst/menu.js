@@ -30,12 +30,11 @@
  */
 
 if (!("JST" in window) || "JST" === undefined) {
-  window.JST = new Object();
+  window.JST = {};
 }
 
 JST['map/menu/button'] = _.template(" \
-<a id='menubutton' data-role='button' \
-   class='ui-btn-right menubutton' data-iconshadow='false'> \
-   &#9776;\
+<a id='menubutton' data-role='button'\
+   class='ui-btn-right menubutton' data-iconshadow='false' data-theme='c'> \
 </a> \
 ");

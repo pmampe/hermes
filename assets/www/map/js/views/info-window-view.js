@@ -153,11 +153,11 @@ var InfoWindowView = Backbone.View.extend(
         }
 
         var self = this;
-        $(".iw a.showRelated").click(function () {
+        $("a.showRelated", "#info_window" ).click(function () {
           var $this = $(this);
           self.appModel.showNonVisibleForLocationByRelation(model, $this.data("related-by"), $this.data("related-types").split(" "));
         });
-        $(".iw a.hideRelated").click(function () {
+        $("a.hideRelated", "#info_window").click(function () {
           self.appModel.showNonVisibleForLocationByRelation(null);
         });
 
@@ -186,13 +186,13 @@ var InfoWindowView = Backbone.View.extend(
        * @param location
        */
       updateRelatedLinks: function (location) {
-        $('.iw a.showRelated').show();
-        $('.iw a.hideRelated').hide();
+        $('a.showRelated','#info_window').show();
+        $('a.hideRelated', '#info_window').hide();
         var showingNonVisibleForLocation = this.appModel.get("showingNonVisibleForLocation");
         if (showingNonVisibleForLocation && location == showingNonVisibleForLocation.location) {
           var attrQuery = '[data-related-by="' + showingNonVisibleForLocation.relatedBy + '"][data-related-types="' + showingNonVisibleForLocation.types.join(" ") + '"]';
-          $('.iw a.showRelated' + attrQuery).hide();
-          $('.iw a.hideRelated' + attrQuery).show();
+          $('a.showRelated' + attrQuery, '#info_window').hide();
+          $('a.hideRelated' + attrQuery, '#info_window').show();
         }
       },
 

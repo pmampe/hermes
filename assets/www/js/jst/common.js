@@ -39,7 +39,7 @@ JST['common/header'] = _.template(" \
     <% if (backbutton) { %>\
       <a data-role='button' rel='external' data-ajax='false' data-transition='fade' data-rel='back' \
          class='ui-btn-left backbutton'> \
-         <div class='object-container'><img src='../css/images/home.svg' width='18px'/></div>\
+         <div id='object-container' class='object-container'></div>\
       </a> \
     <% } %> \
 \

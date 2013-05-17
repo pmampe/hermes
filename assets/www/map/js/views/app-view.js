@@ -58,8 +58,6 @@ var AppView = Backbone.View.extend(
 
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
-        $(document).ready(this.preLoadImages());
-
         this.title = options.title;
         this.mapModel = new MapModel();
 
@@ -101,8 +99,6 @@ var AppView = Backbone.View.extend(
         this.model.locations.on("reset", function () {
           self.mapView.replacePoints(self.model.locations);
         });
-
-        this.updateLocations();
 
         // Display a menu button
         if (showMenu) {
@@ -192,19 +188,6 @@ var AppView = Backbone.View.extend(
       },
 
       /**
-       * Preloads images. Add flickering icons as you go.
-       */
-      preLoadImages: function () {
-        var preloads = [
-          '../../../css/images/home.svg'
-        ];
-
-        $(preloads).each(function(){
-          $('<img />')[0].src = this;
-        });
-      },
-
-      /**
        * Handle changed zoom level.
        *
        * @param zoom the new zoom level.
@@ -252,7 +235,6 @@ var AppView = Backbone.View.extend(
        */
       startGPSPositioning: function () {
         if (navigator.geolocation) {
-          this.mapView.fadingMsg('Using device geolocation to get current position.');
           var self = this;
 
           // Get the current position or display error message
@@ -261,7 +243,6 @@ var AppView = Backbone.View.extend(
                 self.mapView.trigger('updateCurrentPosition', pos);
               },
               function (error) {
-                self.mapView.fadingMsg('Unable to get location');
               }
           );
 

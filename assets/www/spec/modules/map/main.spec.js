@@ -32,7 +32,7 @@
 describe('Main', function () {
   describe('startingMapModule', function () {
     beforeEach(function () {
-      new MapRouter(); //Construct a MapRouter to get the Backbone.history inited.
+      var mapRouter = new MapRouter(); //Construct a MapRouter to get the Backbone.history inited.
       spyOn(window, 'MapRouter');
       spyOn(Backbone.history, 'start');
     });

@@ -30,7 +30,7 @@
  */
 
 if (!("JST" in window) || "JST" === undefined) {
-  window.JST = new Object();
+  window.JST = {};
 }
 
 JST['map/infoWindow/building'] = _.template(" \
@@ -56,7 +56,7 @@ JST['map/infoWindow/building'] = _.template(" \
 ");
 
 JST['map/infoWindow'] = _.template(" \
-<div class='iw'>\
+<div id='info_window' class='iw'>\
   <h3><%= name %></h3>\
   <% if (itemText != null) { %>\
   <%= itemText  %>\
