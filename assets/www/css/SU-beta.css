@@ -72,7 +72,6 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 /*************
  ** Header
  ***********/
-
 .menubutton:before {
     background: none repeat scroll 0 0 white;
     -webkit-box-shadow: 0 8px 0 0 white, 0 16px 0 0 white,
@@ -141,7 +140,6 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 }
 
 /** Backbutton **/
-
 .backbutton {
     background: #4D6E9D;
     background: -webkit-linear-gradient(90deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent; /**safari degree fix**/
@@ -225,26 +223,7 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     border-top: 1px solid #a4b2bd;
 }
 
-/** Home icon
-.object-container:before {
-    background: none repeat scroll 0 0 transparent;
-    border-color: transparent transparent white;
-    border-style: solid;
-    border-width: 10px 9px;
-    left: -9px;
-    margin-top: -6px;
-}
-.object-container:after {
-    background: none repeat scroll 0 0 transparent;
-    border-color: white white transparent;
-    border-style: solid;
-    border-width: 1px 5px 0;
-    height: 6px;
-    left: -6.5px;
-    margin-top: 14px;
-    width: 3px;
-}**/
-
+/** Home icon**/
 .home:before,
 .home:after {
     content: "";
@@ -276,7 +255,13 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     background: transparent;
 }
 
-
+.home:hover:before, .home:focus:before, .home:active:before {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom-color: white;
+}
+.home:hover:after, .home:focus:after, .home:active:after {
+    border-color: white white transparent;
+}
 
 /*************
  ** Search View
@@ -362,7 +347,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     border-top: 1px solid lightgray;
 }
 
-/**jQiery overwrite element style**/
+/** jQuery overwrite element style**/
 .menupopup-margin.menupopup {
     margin-top: 44px !important;
     max-width: 100% !important;
