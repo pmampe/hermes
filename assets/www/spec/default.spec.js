@@ -37,18 +37,15 @@ describe('Default-header', function () {
     this.origTitle = $(document).attr('title');
     $(document).attr('title', testTitle);
     $('#stage').replaceWith('<div data-role="page" id="page" data-header="common/header"></div>');
-    this.oldHistory = window.history;
   });
 
   afterEach(function () {
     $(document).attr('title', this.origTitle);
     $('#page').replaceWith("<div id='stage'></div>");
     $('div[data-role="popup"]').remove();
-    window.history = this.oldHistory;
   });
 
   describe('when header is created', function () {
-
     it('should be inserted first in the page', function () {
       $('[data-role="page"]').append($('<div data-role="content"></div>'));
       $.mobile.loadPage('#page', {prefetch: "true"});
