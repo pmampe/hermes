@@ -232,6 +232,7 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     left :0;
     margin: -8px 0 0;
     background: white;
+    z-index:100;
 }
 
 .home:before {
