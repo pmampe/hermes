@@ -36,7 +36,6 @@
   <log level="DEBUG"/>
   <preference name="useBrowserHistory" value="false"/>
   <preference name="exit-on-suspend" value="false"/>
-  <preference name="webviewbounce" value="false" />
 
   <plugins>
     <plugin name="App" value="org.apache.cordova.App"/>
