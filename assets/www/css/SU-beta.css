@@ -225,7 +225,13 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 
 /** Home icon**/
 .home:before,
-.home:after {
+.home:after,
+.home:hover:before,
+.home:focus:before,
+.home:active:before,
+.home:hover:after,
+.home:focus:after,
+.home:active:after {
     content: "";
     position: absolute;
     top: 50%;
@@ -234,7 +240,10 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     background: white;
 }
 
-.home:before {
+.home:before,
+.home:hover:before,
+.home:focus:before,
+.home:active:before {
     left: -1px;
     border-style: solid;
     border-color: transparent;
@@ -244,7 +253,10 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     background: transparent;
 }
 
-.home:after {
+.home:after,
+.home:hover:after,
+.home:focus:after,
+.home:active:after {
     left: 2px;
     width: 4px;
     height : 6px;
