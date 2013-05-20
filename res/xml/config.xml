@@ -36,7 +36,8 @@
   <log level="DEBUG"/>
   <preference name="useBrowserHistory" value="false"/>
   <preference name="exit-on-suspend" value="false"/>
-  <preference name="DisallowOverscroll" value="true" />
+  <preference name="webviewbounce" value="false" />
+
   <plugins>
     <plugin name="App" value="org.apache.cordova.App"/>
     <plugin name="Geolocation" value="org.apache.cordova.GeoBroker"/>
