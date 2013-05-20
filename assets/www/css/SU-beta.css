@@ -141,9 +141,11 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
   background: linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
 }
 
-.backbutton .object-container {
+.backbutton .home,
+.backbutton .ui-btn-text {
   width: 18px;
   height: 19px;
+  display: inline-block; /** firefox abs pos fix for css home icon**/
 }
 
 .backbutton:before {
