@@ -89,7 +89,6 @@ var MapView = Backbone.View.extend(
         };
 
         // Add the Google Map to the page
-        //this.map = new google.maps.Map(this.el, myOptions);
         this.$el.gmap(myOptions);
         this.map = this.$el.gmap("get", "map");
 
@@ -134,7 +133,6 @@ var MapView = Backbone.View.extend(
         $('#page-dir table').live("tap", function () {
           $.mobile.changePage($('#page-map'), {});
         });
-        /* ------------------------------------------------------------- */
       },
 
       /**
@@ -256,10 +254,10 @@ var MapView = Backbone.View.extend(
           var point = null;
           var shape = item.get('shape');
 
-          if (shape == "line") {
+          if (shape === "line") {
             point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
-          else if (shape == "polygon") {
+          else if (shape === "polygon") {
             point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
           else {
@@ -267,7 +265,7 @@ var MapView = Backbone.View.extend(
           }
 
           // if the polygon has an icon, draw it
-          if (item.get('hasIcon') && (shape == "line" || shape == "polygon")) {
+          if (item.get('hasIcon') && (shape === "line" || shape === "polygon")) {
             var iconPoint = new PointLocationView({
               model: item,
               gmap: self.map,
@@ -280,7 +278,7 @@ var MapView = Backbone.View.extend(
         });
 
         // If there is only one marker on the map, display the info window.
-        if (_.size(this.pointViews) == 1) {
+        if (_.size(this.pointViews) === 1) {
           var point = _.first(this.pointViews);
           point.openInfoWindow(point.model, point.marker);
         }
@@ -296,13 +294,13 @@ var MapView = Backbone.View.extend(
         var orig = this.currentPositionPoint.getPosition();
         var travMode = null;
 
-        if (travelMode == "walking") {
+        if (travelMode === "walking") {
           travMode = google.maps.DirectionsTravelMode.WALKING;
-        } else if (travelMode == "bicycling") {
+        } else if (travelMode === "bicycling") {
           travMode = google.maps.DirectionsTravelMode.BICYCLING;
-        } else if (travelMode == "driving") {
+        } else if (travelMode === "driving") {
           travMode = google.maps.DirectionsTravelMode.DRIVING;
-        } else if (travelMode == "publicTransp") {
+        } else if (travelMode === "publicTransp") {
           travMode = google.maps.DirectionsTravelMode.TRANSIT;
         }
 
@@ -322,4 +320,4 @@ var MapView = Backbone.View.extend(
             }
         );
       }
-    }); //-- End of Map view
+    });

@@ -29,41 +29,35 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-html,
-body {
-  height: 100%;
-  font-size: 12px;
-  width: 100%;
-}
+/**
+ * Collection of Campuses.
+ *
+ * @class Backbone collection of campuses.
+ * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
+ * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
+ * @type {Backbone.Collection}
+ */
+var Campuses = Backbone.Collection.extend(
+    /** @lends Campuses */
+    {
+      /** The model used for this collection. */
+      model: Campus,
 
-#page-home {
-  background-image: url(/img/su-app-background.png);
-}
+      /**
+       * Generates the URL to get Campuses.
+       *
+       * @return {string} the URL.
+       */
+      url: function () {
+        return config.map.campuses.url;
+      },
 
-.ui-header.nobuttons .ui-title {
-  margin-left: 1em;
-  margin-right: 1em;
-}
-
-#buttongrid {
-  text-align: center;
-}
-
-#buttongrid div {
-  margin-bottom: 20px;
-}
-
-#buttongrid img {
-  width: 64px;
-  height: 64px;
-}
-
-#buttongrid a {
-  color: #FFFFFF;
-  text-decoration: none;
-  font-weight: normal;
-}
-
-.type-home {
-  background-color: #A0A0A0;
-}
+      /**
+       * This is needed by SearchView.
+       *
+       * @return {Array} an array of filtered Campuses.
+       */
+      bySearchable: function () {
+        return this;
+      }
+    });

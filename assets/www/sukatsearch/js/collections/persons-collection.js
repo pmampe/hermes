@@ -29,6 +29,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-h1 {
-  font-weight: normal;
-}
+var Persons = Backbone.Collection.extend({
+  model: Person,
+
+  url: function () {
+    return config.sukat.search.url;
+  }
+});
