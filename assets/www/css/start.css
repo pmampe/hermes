@@ -91,6 +91,10 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002e5f', endColorstr='#003a78',GradientType=0 ); /* IE6-9 */
 }
 
+.button-container:active {
+    background: #11559e;
+}
+
 .button-container .glare {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
