@@ -36,10 +36,6 @@ body {
   width: 100%;
 }
 
-#page-home {
-  background-image: url(/img/su-app-background.png);
-}
-
 .ui-header.nobuttons .ui-title {
   margin-left: 1em;
   margin-right: 1em;
@@ -62,8 +58,4 @@ body {
   color: #FFFFFF;
   text-decoration: none;
   font-weight: normal;
-}
-
-.type-home {
-  background-color: #A0A0A0;
 }
