@@ -116,19 +116,5 @@
     "header": {
       "title": "Tillgänglighet på kartan"
     }
-  },
-
-  "sukat": {
-    "search": "Sök",
-    "placeholder": "Sök på för- & efternamn",
-    "searchpersons": "Sök personal",
-    "searchresult": "Sökresultat",
-    "username": "Användarnamn:",
-    "email": "E-post:",
-    "phone": "Telefon:",
-    "contacts": "Skapa ny kontakt",
-    "call": "Ring",
-    "sms": "SMSa",
-    "sendemail": "Skicka e-post"
   }
 }
