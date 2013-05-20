@@ -50,7 +50,8 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 
   var attrs = {
     "data-theme": "a",
-    "data-role": "header"
+    "data-role": "header",
+    "data-tap-toggle": "false"
   };
   if (optionsArr.indexOf("notfixed") < 0) {
     attrs["data-position"] = "fixed";
