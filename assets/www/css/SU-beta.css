@@ -76,12 +76,44 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 /*************
  ** Header
  ***********/
+.menubutton:before {
+    background: none repeat scroll 0 0 white;
+    -webkit-box-shadow: 0 8px 0 0 white, 0 16px 0 0 white,
+                        0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8),
+                        0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8),
+                        0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);
+    box-shadow: 0 8px 0 0 white, 0 16px 0 0 white,
+                0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8),
+                0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8),
+                0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);
+    content: "";
+    height: 2px;
+    left: 5px;
+    position: absolute;
+    top: 8px;
+    width: 20px;
+}
+
+.menubutton.selected {
+    border: 1px solid #a4b2bd;
+    background: #dae2ec;
+    font-weight: bold;
+}
+
+.selected.menubutton:before {
+    background: none repeat scroll 0 0 #7f98b8;
+    -webkit-box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8,
+                        0 7px 0 0 #646465, 0 15px 0 0 #646465,
+                        0 9px 0 0 #7f98b8, 0 17px 0 0 #7f98b8,
+                        0 1px 0 0 #7f98b8, 0 -1px 0 0 #646465;
+    box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8,
+                0 7px 0 0 #646465, 0 15px 0 0 #646465,
+                0 9px 0 0 #7f98b8, 0 17px 0 0 #7f98b8,
+                0 1px 0 0 #7f98b8, 0 -1px 0 0 #646465;
+}
 
 .menubutton.ui-btn-corner-all > span.ui-btn-inner {
-  padding: 0 6px;
-  font-size: 23px;
-  font-weight: bold;
-  text-shadow: 0 -2px 0 rgba(51, 61, 74, 0.5), 0 -1px 0 rgba(255, 255, 255, 0.5);
+   font-size: 23px;
 }
 
 .ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner.backbutton {
@@ -89,33 +121,41 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 }
 
 .ui-header .ui-btn-left.backbutton {
-
-  -moz-border-radius-topleft: 0.2em;
-  -webkit-border-top-left-radius: 0.2em;
-  border-top-left-radius: 0.2em;
-  -moz-border-radius-topright: 0.6em;
-  -webkit-border-top-right-radius: 0.6em;
-  border-top-right-radius: 0.6em;
-  -moz-border-radius-bottomright: 0.6em;
-  -webkit-border-bottom-right-radius: 0.6em;
-  border-bottom-right-radius: 0.6em;
-  -moz-border-radius-bottomleft: 0.15em;
-  -webkit-border-bottom-left-radius: 0.15em;
-  border-bottom-left-radius: 0.15em;
+    -moz-border-radius-topleft: 0.2em;
+    -webkit-border-top-left-radius: 0.2em;
+    border-top-left-radius: 0.2em;
+    -moz-border-radius-topright: 0.6em;
+    -webkit-border-top-right-radius: 0.6em;
+    border-top-right-radius: 0.6em;
+    -moz-border-radius-bottomright: 0.6em;
+    -webkit-border-bottom-right-radius: 0.6em;
+    border-bottom-right-radius: 0.6em;
+    -moz-border-radius-bottomleft: 0.15em;
+    -webkit-border-bottom-left-radius: 0.15em;
+    border-bottom-left-radius: 0.15em;
 
   margin-left: 10px;
   height: 32px;
 }
 
-.ui-header .ui-btn-left.backbutton,
 .ui-header .ui-btn-right.menubutton {
-  height: 32px;
+    height: 32px;
+    width: 30px;
+}
 
+/** Backbutton **/
+.backbutton {
+    background: #4D6E9D;
+    background: -webkit-linear-gradient(90deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent; /**safari degree fix**/
+    background: -moz-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: -ms-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+    background: linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
 }
 
 .backbutton .object-container {
-  width: 18px;
-  height: 19px;
+    width: 18px;
+    height: 19px;
 }
 
 .backbutton:before {
@@ -158,9 +198,8 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 
 .backbutton:hover,
 .backbutton:focus,
-.backbutton:visited,
 .backbutton:active {
-
+  background: #dae2ec;
   background: -webkit-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
   background: -moz-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
   background: -o-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
@@ -170,17 +209,70 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 
 .backbutton:hover:before,
 .backbutton:focus:before,
-.backbutton:visited:before,
-.backbutton:active:before {
-  background: #dae2ec;
-  background: -webkit-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
-  background: -moz-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
-  background: -o-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
-  background: -ms-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
-  background: linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+.backbutton:active:before
+{
+    background: #dae2ec;
+    background: -webkit-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+    background: -ms-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+    background: linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
 
-  border-left: 1px solid #a4b2bd;
-  border-top: 1px solid #a4b2bd;
+    border-bottom: 0px solid transparent;
+    border-left: 1px solid #a4b2bd;
+    border-top: 1px solid #a4b2bd;
+}
+
+/** Home icon**/
+.home:before,
+.home:after,
+.home:hover:before,
+.home:focus:before,
+.home:active:before,
+.home:hover:after,
+.home:focus:after,
+.home:active:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left :0;
+    margin: -8px 0 0;
+    background: white;
+}
+
+.home:before,
+.home:hover:before,
+.home:focus:before,
+.home:active:before {
+    left: -1px;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 12px 10px;
+    border-bottom-color: white;
+    margin-top: -24px;
+    background: transparent;
+}
+
+.home:after,
+.home:hover:after,
+.home:focus:after,
+.home:active:after {
+    left: 2px;
+    width: 4px;
+    height : 6px;
+    border-style: solid;
+    border-color: white white transparent;
+    border-width: 2px 5px 0;
+    margin-top: -1px;
+    background: transparent;
+}
+
+.home:hover:before, .home:focus:before, .home:active:before {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom-color: white;
+}
+.home:hover:after, .home:focus:after, .home:active:after {
+    border-color: white white transparent;
 }
 
 /*************
@@ -239,6 +331,34 @@ div.search-box .ui-btn-up-b {
 
 div.search-box .ui-btn-hover-b,
 div.search-box .ui-btn-hover-b .ui-last-child {
-  border: none;
-  border-top: 1px solid #A4B2BD;
+    border: none;
+    border-top: 1px solid #A4B2BD;
+}
+
+/** Grey delete icon fix**/
+.search-box .ui-btn-icon-notext .ui-btn-inner .ui-icon.ui-icon-delete {
+    opacity: 0.5;
+}
+
+/*************
+ ** Popup menu/campus menu
+ ***********/
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup:hover,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
+    border: none;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
+    border-top: 1px solid lightgray;
+}
+
+/** jQuery overwrite element style**/
+.menupopup-margin.menupopup {
+    margin-top: 44px !important;
+    max-width: 100% !important;
+    width: 60% !important;
 }
