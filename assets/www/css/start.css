@@ -103,18 +103,6 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 
-/*
-.svg-container {
-    margin: 0 auto 0 auto;
-    height: 80%;
-}
-
-.button-grid .button-container svg {
-    height: 100%;
-    width: 100%;
-    margin-top: 2%;
-} */
-
 .button-grid .button-container img {
     width: 80% !important;
     height: auto !important;
