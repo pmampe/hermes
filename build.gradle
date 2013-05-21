@@ -307,8 +307,10 @@ buildTar.doFirst {
 }
 
 task copySplash(type: Copy) {
-  from 'assets/www/splash/ios/splash_320x480.png'
-  into 'assets/splash.png'
+  from ('assets/www/splash/ios/splash_320x480.png') {
+    rename 'splash_320x480.png', 'splash.png'
+  }
+  into 'assets'
 }
 
 task toPhonegap(dependsOn: [buildTar, copySplash]) {
