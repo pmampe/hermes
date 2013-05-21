@@ -58,4 +58,4 @@ var config = (function (pgBrokerBaseURL) {
       }
     }
   };
-})("http://pgbroker-dev.it.su.se");
+})("http://mobileapp-dev.it.su.se");
