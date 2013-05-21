@@ -48,8 +48,15 @@
 /*************
  ** General
  ***********/
+@font-face {
+    font-family: TheSansB-W5Plain;
+    src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W5Plain.otf") format("opentype");
+}
+
 h1 {
   font-weight: normal;
+  font-family: TheSansB-W5Plain;
+  font-size: 28px;
 }
 
 .ui-btn-text {
@@ -139,6 +146,11 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
   background: -o-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
   background: -ms-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
   background: linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+}
+
+.backbutton .ui-btn-inner {
+padding-left: 5px;
+padding-right: 10px;
 }
 
 .backbutton .home,
