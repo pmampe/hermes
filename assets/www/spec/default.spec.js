@@ -67,7 +67,6 @@ describe('Default-header', function () {
       var $header = $('[data-role=header]');
       expect($header.hasClass("nobuttons")).toBeTruthy();
       expect($header.data("theme")).toBe("a");
-      expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
     });
   });
@@ -81,7 +80,6 @@ describe('Default-header', function () {
 
       var $header = $('[data-role=header]');
       expect($header.data("theme")).toBe("a");
-      expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
       var $button = $header.find("a");
       expect($button.data("role")).toBe("button");
@@ -99,23 +97,12 @@ describe('Default-header', function () {
 
       var $header = $('[data-role=header]');
       expect($header.data("theme")).toBe("a");
-      expect($header.data("position")).toBe("fixed");
       expect($header.find("h1").text()).toBe(testTitle);
       var $button = $header.find("a");
       expect($button.data("role")).toBe("button");
       expect($button.data("icon")).toBe("home");
       expect($button.hasClass("ui-btn-right")).toBeTruthy();
       expect($button.attr("href")).toBe("../index.html");
-    });
-  });
-
-  describe('using common/header with option notfixed', function () {
-    it('should render a header without fixed position', function () {
-      $('[data-role="page"]').data("header-options", "notfixed");
-      $.mobile.loadPage('#page', {prefetch: "true"});
-
-      var $header = $('[data-role=header]');
-      expect($header.hasClass("ui-header-fixed")).toBeFalsy();
     });
   });
 

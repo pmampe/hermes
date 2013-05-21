@@ -52,9 +52,6 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
     "data-theme": "a",
     "data-role": "header"
   };
-  if (optionsArr.indexOf("notfixed") < 0) {
-    attrs["data-position"] = "fixed";
-  }
 
   var templateData = _.inject(optionsArr, function (memo, option) {
     memo[option] = true;
