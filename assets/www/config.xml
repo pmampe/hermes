@@ -68,6 +68,7 @@
   <!-- splash screen -->
   <gap:splash src="splash.png"/>
 
+  <gap:splash src="splash.png" gap:platform="ios" width="640" height="960" />
   <gap:splash src="splash/ios/splash_320x480.png" gap:platform="ios" width="320" height="480" />
   <gap:splash src="splash/ios/splash_320x528.png" gap:platform="ios" width="320" height="528" />
   <gap:splash src="splash/ios/splash_480x800.png" gap:platform="ios" width="480" height="800" />
