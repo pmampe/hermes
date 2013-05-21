@@ -117,19 +117,5 @@
     "header": {
       "title": "Accessibility"
     }
-  },
-
-  "sukat": {
-    "search": "Search",
-    "placeholder": "Enter name",
-    "searchpersons": "Search staff",
-    "searchresult": "Search results",
-    "username": "User name:",
-    "email": "Email:",
-    "phone": "Phone:",
-    "contacts": "Add to contacts",
-    "call": "Call",
-    "sms": "SMS",
-    "sendemail": "Send email"
   }
 }

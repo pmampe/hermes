@@ -156,6 +156,7 @@ describe('External-link-dialog', function () {
     });
 
     it('pressing "yes" should close the popup', function () {
+      spyOn(window, 'open');
       $("#page").find("a").trigger("click");
 
       var popup = $("#external-link-dialog");
