@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2013, IT Services, Stockholm University
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice, this
+  ~ list of conditions and the following disclaimer.
+  ~
+  ~ Redistributions in binary form must reproduce the above copyright notice,
+  ~ this list of conditions and the following disclaimer in the documentation
+  ~ and/or other materials provided with the distribution.
+  ~
+  ~ Neither the name of Stockholm University nor the names of its contributors
+  ~ may be used to endorse or promote products derived from this software
+  ~ without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  ~ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  ~ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ~ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+  ~ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  ~ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  ~ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  ~ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  ~ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ~ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  ~ POSSIBILITY OF SUCH DAMAGE.
+  -->
+
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="@id@"
@@ -47,7 +78,7 @@
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
-  <preference name="webviewbounce" value="false" />
+  <preference name="webviewbounce" value="false"/>
 
   <!-- Android specific -->
 
@@ -68,21 +99,21 @@
   <!-- splash screen -->
   <gap:splash src="splash.png"/>
 
-  <gap:splash src="splash.png" gap:platform="ios" width="640" height="960" />
-  <gap:splash src="splash/ios/splash_320x480.png" gap:platform="ios" width="320" height="480" />
-  <gap:splash src="splash/ios/splash_320x528.png" gap:platform="ios" width="320" height="528" />
-  <gap:splash src="splash/ios/splash_480x800.png" gap:platform="ios" width="480" height="800" />
-  <gap:splash src="splash/ios/splash_640x1136.png" gap:platform="ios" width="640" height="1136" />
-  <gap:splash src="splash/ios/splash_720x1280.png" gap:platform="ios" width="720" height="1280" />
-  <gap:splash src="splash/ios/splash_768x1024.png" gap:platform="ios" width="768" height="1024" />
+  <gap:splash src="splash.png" gap:platform="ios" width="640" height="960"/>
+  <gap:splash src="splash/ios/splash_320x480.png" gap:platform="ios" width="320" height="480"/>
+  <gap:splash src="splash/ios/splash_320x528.png" gap:platform="ios" width="320" height="528"/>
+  <gap:splash src="splash/ios/splash_480x800.png" gap:platform="ios" width="480" height="800"/>
+  <gap:splash src="splash/ios/splash_640x1136.png" gap:platform="ios" width="640" height="1136"/>
+  <gap:splash src="splash/ios/splash_720x1280.png" gap:platform="ios" width="720" height="1280"/>
+  <gap:splash src="splash/ios/splash_768x1024.png" gap:platform="ios" width="768" height="1024"/>
 
-  <gap:splash src="splash/android/ldpi.9.png" gap:platform="android" gap:density="ldpi" />
-  <gap:splash src="splash/android/mdpi.9.png" gap:platform="android" gap:density="mdpi" />
-  <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi" />
-  <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi" />
+  <gap:splash src="splash/android/ldpi.9.png" gap:platform="android" gap:density="ldpi"/>
+  <gap:splash src="splash/android/mdpi.9.png" gap:platform="android" gap:density="mdpi"/>
+  <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
+  <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
 
   <access origin="http://su.se" subdomains="true"/>
-  <access origin="http://pgbroker-dev.it.su.se" subdomains="true"/>
+  <access origin="http://mobileapp-dev.it.su.se" subdomains="true"/>
   <access origin="http://*su.se"/>
   <access origin="http://google.com" subdomains="true"/>
   <access origin="http://gstatic.com" subdomains="true"/>
