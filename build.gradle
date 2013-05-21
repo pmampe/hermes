@@ -33,6 +33,8 @@
 
 
 
+
+
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -305,8 +307,8 @@ buildTar.doFirst {
 }
 
 task copySplash(type: Copy) {
-  from 'res/drawable/splash.png'
-  into 'assets'
+  from 'assets/www/splash/ios/splash_320x480.png'
+  into 'assets/splash.png'
 }
 
 task toPhonegap(dependsOn: [buildTar, copySplash]) {
