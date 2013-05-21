@@ -53,10 +53,11 @@
     src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W5Plain.otf") format("opentype");
 }
 
-h1 {
+.ui-header h1.ui-title {
   font-weight: normal;
   font-family: TheSansB-W5Plain;
-  font-size: 28px;
+  font-size: 17px;
+    margin: 9px 0 12px;
 }
 
 .ui-btn-text {
