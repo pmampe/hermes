@@ -157,24 +157,74 @@ describe('Info window view', function () {
       expect(google.maps.InfoWindow.prototype.close).toHaveBeenCalled();
     });
 
-    it('should call JST with correct values', function () {
-
-      spyOn(JST, 'map/infoWindow').andReturn('');
+    it('should call model (Location) getI18n method (fetching the text attribute)', function () {
+      spyOn(Location.prototype, "getI18n");
 
       this.infoWindow = new InfoWindowView({
         appModel: new AppModel()
       });
 
-      this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
+      var location = new Location({
+        name: 'testName',
+        directionAware: false
+        });
+      this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
-      // TODO Check arguments for template
-      expect(JST['map/infoWindow']).toHaveBeenCalledWith(123);
-      /*
-      name: itemName,
-      displayDirections: model.get('directionAware'),
-      model: model,
-      itemText: model.getI18n('text')
-      */
+      expect(Location.prototype.getI18n).toHaveBeenCalledWith('text');
+    });
+
+    it('should call JST with correct values', function () {
+      spyOn(JST, 'map/infoWindow').andReturn('');
+
+      i18n.init({
+        lng: 'sv-SE'
+      });
+
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      var location = new Location({
+        name: 'testName',
+        directionAware: false
+      });
+      
+      location.get = function(args) {
+        var ret = '';
+        if (args === 'name') {
+          ret = 'testName';
+        } else if (args === 'buildingName') {
+          ret = 'testBuilding';
+        } else if (args === 'text') {
+          ret = 'testText';
+        } else if (args === 'directionAware') {
+          ret = false;
+        } else if (args === 'type') {
+          ret = 'building';
+        } else {
+          ret = args;
+        }
+        return ret;
+      }
+
+      // Don't know how to mock these methods..
+//      Location.prototype.appModel = {
+//        locations : {
+//          byBuildingAndTypeAndHandicapAdapted : new Locations(location)
+//        }
+//      }
+      
+      this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      expect(JST['map/infoWindow']).toHaveBeenCalledWith({
+        name: 'testName, testBuilding',
+        displayDirections: false,
+        model: location,
+        itemText: 'testText',
+        hasElevators: false,
+        hasEntrances: false,
+        tFloors: ''
+      });
     });
 
   });

@@ -99,3 +99,4 @@ var Location = Backbone.Model.extend(
     });
 
 _.extend(Location.prototype, ModelMixins.i18nMixin);
+
