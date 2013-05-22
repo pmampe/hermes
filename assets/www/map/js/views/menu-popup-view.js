@@ -63,10 +63,8 @@ var MenuPopupView = Backbone.View.extend(
         this.campuses.on("reset", this.updateCampuses, this);
 
         // Popup state reflects in button styling
-        this.$el.on( "popupafteropen", this.buttonPress);
-        this.$el.on( "popupafterclose", this.buttonUnpress);
-
-
+        this.$el.on("popupafteropen", this.buttonPress);
+        this.$el.on("popupafterclose", this.buttonUnpress);
       },
 
       /** Registers events */
@@ -79,7 +77,9 @@ var MenuPopupView = Backbone.View.extend(
        */
       render: function () {
         // close any other open popup (only one popup can be open at the same time.)
-        $(document).find("[data-role='popup']:not([id='menupopup'])").popup("close");
+        $(document).find("[data-role='popup']:not([id='menupopup'])").each(function () {
+          $(this).popup("close");
+        });
 
         this.$el.popup("open");
       },
