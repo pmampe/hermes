@@ -146,12 +146,41 @@ describe('Info window view', function () {
   describe('when opening the infowindow', function () {
 
     it('should close previous infowindow', function () {
+      spyOn(google.maps.InfoWindow.prototype, "close");
 
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      expect(google.maps.InfoWindow.prototype.close).toHaveBeenCalled();
     });
+
+    it('should call JST with correct values', function () {
+
+      spyOn(JST, 'map/infoWindow').andReturn('');
+
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      // TODO Check arguments for template
+      expect(JST['map/infoWindow']).toHaveBeenCalledWith(123);
+      /*
+      name: itemName,
+      displayDirections: model.get('directionAware'),
+      model: model,
+      itemText: model.getI18n('text')
+      */
+    });
+
   });
 
   describe('Info-window template', function () {
-    it('should set hearing_loop for auditoriums when handicapAdpted', function () {
+    it('should set hearing_loop for auditoriums when handicapAdapted', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
 

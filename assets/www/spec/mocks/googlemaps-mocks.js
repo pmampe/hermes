@@ -70,6 +70,8 @@ google.maps.MarkerImage = function (image) {
 google.maps.Marker = function (options) {
   this.setMap = function (map) {
   };
+  this.getMap = function () {
+  };
   this.setVisible = function (visibility) {
   };
   this.setPosition = function (position) {
@@ -120,6 +122,12 @@ google.maps.Point = function (x, y) {
 };
 
 google.maps.InfoWindow = function () {
+  this.setContent = function () {
+  };
+  this.setPosition = function () {
+  };
+  this.open = function () {
+  };
   this.close = function () {
   };
 };

@@ -42,7 +42,7 @@ var Location = Backbone.Model.extend(
       defaults: {
         id: 0,
         name: 'unknown',
-        nameEn: 'unknown',
+        nameEn: null,
         campus: 'unknown',
         type: 'unknown',
         shape: "point",
@@ -89,38 +89,6 @@ var Location = Backbone.Model.extend(
       },
 
       /**
-       * The name for this model.
-       *
-       * @returns the name.
-       */
-      getName: function (lang) {
-        var name = this.get('name');
-        if (lang === 'en' && this.get('nameEn') !== null && this.get('nameEn') !== 'unknown') {
-          name = this.get('nameEn');
-        }
-
-        if (this.has('buildingName')) {
-          name += ", " + this.get('buildingName');
-        }
-
-        return name;
-      },
-
-      /**
-       * The text for this model.
-       *
-       * @returns the text.
-       */
-      getText: function (lang) {
-        var text = this.get('text');
-        if (lang === 'en' && this.get('textEn') !== null && this.get('textEn') !== 'unknown') {
-          text = this.get('textEn');
-        }
-        
-        return text;
-      },
-
-      /**
        * Checks if the location is visible on the map.
        *
        * @return true if visible, false if not.
@@ -129,3 +97,5 @@ var Location = Backbone.Model.extend(
         return this.get('visible');
       }
     });
+
+_.extend(Location.prototype, ModelMixins.i18nMixin);

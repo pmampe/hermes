@@ -101,13 +101,12 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        var lang = i18n.options.lng.substring(0,2);
-
+        var itemName = model.getI18n('name') + (model.has('buildingName') ? (", " + model.get('buildingName')) : '');
         var tOptions = {
-          name: model.getName(lang),
+          name: itemName,
           displayDirections: model.get('directionAware'),
           model: model,
-          itemText: model.getText(lang)
+          itemText: model.getI18n('text')
         };
 
         if (model.get('type') === 'building') {

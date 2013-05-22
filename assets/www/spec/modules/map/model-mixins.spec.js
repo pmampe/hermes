@@ -29,38 +29,47 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**
- * Representation of a campus on the map.
- *
- * @class Backbone model represenbting a campus.
- * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
- * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
- * @type {Backbone.Model}
- */
-var Campus = Backbone.Model.extend(
-    /** @lends Campus */
-    {
-      /**
-       * Defaults for this model
-       */
-      defaults: {
-        "id": 0,
-        "name": 'Unknown',
-        "coords": [59.363317, 18.0592], // Default to Frescati campus.
-        "zoom": 15
-      },
+describe('Model mixin i18nMixin', function () {
 
-      getLat: function () {
-        return this.get('coords')[0];
-      },
-
-      getLng: function () {
-        return this.get('coords')[1];
-      },
-
-      getZoom: function () {
-        return this.get('zoom');
+  beforeEach(function () {
+    this.mixin = {
+      get: function (attribute) {
+        return {
+          name: 'valueSE',
+          nameEn: 'valueEN',
+          test: 'TestSE'
+        }[attribute]
       }
-    });
+    };
+    _.extend(this.mixin, ModelMixins.i18nMixin);
+  });
 
-_.extend(Campus.prototype, ModelMixins.i18nMixin);
+  it('Should get swedish attribute', function () {
+    i18n.init({
+      lng: 'sv-SE'
+    });
+    expect(this.mixin.getI18n('name')).toBe('valueSE');
+  });
+
+  it('Should get english attribute', function () {
+    i18n.init({
+      lng: 'en-GB'
+    });
+    expect(this.mixin.getI18n('name')).toBe('valueEN');
+  });
+
+  it('Should get english attribute when language is french', function () {
+    i18n.init({
+      lng: 'fr-FR'
+    });
+    expect(this.mixin.getI18n('name')).toBe('valueEN');
+  });
+
+  it('Should fall back to swedish if no english translation is found', function () {
+    i18n.init({
+      lng: 'en-GB'
+    });
+    expect(this.mixin.getI18n('test')).toBe('TestSE');
+  });
+
+});

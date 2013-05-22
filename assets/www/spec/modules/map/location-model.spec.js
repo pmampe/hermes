@@ -101,23 +101,6 @@ describe('Location model', function () {
     });
   });
 
-  describe('getName', function () {
-    it('should return name for locations without buildingName"', function () {
-      var location = new Location({
-        name: "The Name",
-        buildingName: null
-      });
-      expect(location.getName()).toEqual("The Name");
-    });
-
-    it('should return "Name, Building Name" for locations with building name', function () {
-      var location = new Location({
-        name: "The Name",
-        buildingName: "Building Name"
-      });
-      expect(location.getName()).toEqual("The Name, Building Name");
-    });
-  });
 });
 
 describe('Locations collection', function () {
