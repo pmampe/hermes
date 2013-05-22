@@ -36,61 +36,61 @@
         version="@version@"
         versionCode="1">
 
-    <name>Stockholm University</name>
+  <name>Stockholm University</name>
 
-    <description>
-        @description@
-    </description>
+  <description>
+    @description@
+  </description>
 
-    <author href="http://www.su.se" email="utveckling@it.su.se">
-        Team utveckling at Stockholm University
-    </author>
+  <author href="http://www.su.se" email="utveckling@it.su.se">
+    Team utveckling at Stockholm University
+  </author>
 
-    <feature name="http://api.phonegap.com/1.0/device"/>
+  <feature name="http://api.phonegap.com/1.0/device"/>
 
-    <preference name="phonegap-version" value="2.5.0"/>
-    <preference name="orientation" value="default"/>
-    <preference name="target-device" value="universal"/>
-    <preference name="fullscreen" value="false"/>
-    <preference name="webviewbounce" value="false"/>
+  <preference name="phonegap-version" value="2.5.0"/>
+  <preference name="orientation" value="default"/>
+  <preference name="target-device" value="universal"/>
+  <preference name="fullscreen" value="false"/>
+  <preference name="webviewbounce" value="false"/>
 
-    <!-- Android specific -->
+  <!-- Android specific -->
 
-    <preference name="android-minSdkVersion" value="8"/>
-    <preference name="auto-hide-splash-screen" value="false"/>
-    <preference name="splash-screen-duration" value="30000"/>
+  <preference name="android-minSdkVersion" value="8"/>
+  <preference name="auto-hide-splash-screen" value="false"/>
+  <preference name="splash-screen-duration" value="30000"/>
 
-    <icon src="icon.png"/>
+  <icon src="icon.png"/>
 
-    <feature name="http://api.phonegap.com/1.0/contacts"/>
-    <feature name="http://api.phonegap.com/1.0/geolocation"/>
-    <feature name="http://api.phonegap.com/1.0/file"/>
-    <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
+  <feature name="http://api.phonegap.com/1.0/contacts"/>
+  <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <feature name="http://api.phonegap.com/1.0/file"/>
+  <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
-    <gap:plugin name="InAppBrowser"/>
-    <gap:plugin name="GAPlugin"/>
+  <gap:plugin name="InAppBrowser"/>
+  <gap:plugin name="GAPlugin"/>
 
-    <!-- splash screen -->
-    <gap:splash src="splash.png"/>
+  <!-- splash screen -->
+  <gap:splash src="splash.png"/>
 
-    <gap:splash src="splash/ios/splash_640x960.png" gap:platform="ios" width="640" height="960" />
-    <gap:splash src="splash/ios/splash_320x480.png" gap:platform="ios" width="320" height="480" />
-    <gap:splash src="splash/ios/splash_640x1136.png" gap:platform="ios" width="640" height="1136" />
-    <gap:splash src="splash/ios/splash_768x1024.png" gap:platform="ios" width="768" height="1024" />
+  <gap:splash src="splash/ios/splash_640x960.png" gap:platform="ios" width="640" height="960" />
+  <gap:splash src="splash/ios/splash_320x480.png" gap:platform="ios" width="320" height="480" />
+  <gap:splash src="splash/ios/splash_640x1136.png" gap:platform="ios" width="640" height="1136" />
+  <gap:splash src="splash/ios/splash_768x1024.png" gap:platform="ios" width="768" height="1024" />
 
-    <!-- Splash screens for iPad retina displays -->
-    <gap:splash src="splash/ios/splash_2048x1496.png" gap:platform="ios" width="2048" height="1496" />
-    <gap:splash src="splash/ios/splash_1536x2008.png" gap:platform="ios" width="1536" height="2008" />
+  <!-- Splash screens for iPad retina displays -->
+  <gap:splash src="splash/ios/splash_2048x1496.png" gap:platform="ios" width="2048" height="1496" />
+  <gap:splash src="splash/ios/splash_1536x2008.png" gap:platform="ios" width="1536" height="2008" />
 
-    <gap:splash src="splash/android/ldpi.9.png" gap:platform="android" gap:density="ldpi"/>
-    <gap:splash src="splash/android/mdpi.9.png" gap:platform="android" gap:density="mdpi"/>
-    <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
-    <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
+  <gap:splash src="splash/android/ldpi.9.png" gap:platform="android" gap:density="ldpi"/>
+  <gap:splash src="splash/android/mdpi.9.png" gap:platform="android" gap:density="mdpi"/>
+  <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
+  <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
 
-    <access origin="http://su.se" subdomains="true"/>
-    <access origin="http://mobileapp-dev.it.su.se" subdomains="true"/>
-    <access origin="http://*su.se"/>
-    <access origin="http://google.com" subdomains="true"/>
-    <access origin="http://gstatic.com" subdomains="true"/>
-    <access origin="http://googleapis.com" subdomains="true"/>
+  <access origin="http://su.se" subdomains="true"/>
+  <access origin="http://mobileapp-dev.it.su.se" subdomains="true"/>
+  <access origin="http://*su.se"/>
+  <access origin="http://google.com" subdomains="true"/>
+  <access origin="http://gstatic.com" subdomains="true"/>
+  <access origin="http://googleapis.com" subdomains="true"/>
 </widget>
