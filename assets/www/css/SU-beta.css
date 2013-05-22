@@ -76,6 +76,38 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 /*************
  ** Header
  ***********/
+.ui-header.nobuttons .ui-title {
+    font-size: 25px;
+    margin: 1px 0 4px 1px;
+    font-family: TheSansB-W5Plain;
+    font-size: 28px;
+}
+
+.ui-header.nobuttons {
+    border-bottom: 1px solid #000;
+}
+
+.ui-header.ui-bar-a {
+    height: 40px;
+}
+
+.ui-header.ui-bar-a h1 {
+    font-size: 24px;
+    margin-top: 0.15em;
+}
+
+.studentservice-page .ui-header.ui-bar-a h1,
+.info-page .ui-header.ui-bar-a h1{
+    font-size: 16px;
+    margin-top: 0.6em;
+}
+
+.info-page .ui-header.ui-bar-a h1{
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 10%;
+}
+
 .menubutton:before {
   background: none repeat scroll 0 0 white;
   -webkit-box-shadow: 0 8px 0 0 white, 0 16px 0 0 white, 0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8), 0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8), 0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);

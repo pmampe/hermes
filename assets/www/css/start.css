@@ -61,17 +61,6 @@ body {
   src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W6SemiBold.otf") format("opentype");
 }
 
-.ui-header.nobuttons .ui-title {
-  font-size: 25px;
-  margin: 1px 0 4px 1px;
-  font-family: TheSansB-W5Plain;
-  font-size: 28px;
-}
-
-.ui-header.nobuttons {
-  border-bottom: 1px solid #000;
-}
-
 .ui-body-c {
   background: #d7e0eb;
 }
@@ -137,8 +126,9 @@ body {
 .button-grid span {
   color: #363636;
   font-family: TheSansB-W6SemiBold;
-  font-size: 13px;
+  font-size: 1.1em;
   display: block;
-  margin-bottom: 15px;
+  margin: 0 0 15px 0;
   font-weight: normal;
+  max-width: 99%;
 }
