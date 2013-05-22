@@ -359,6 +359,33 @@ div.search-box .ui-btn-hover-b .ui-last-child {
   border-top: 1px solid lightgray;
 }
 
+/*************
+ ** Infobubble in map
+ ***********/
+.iw h3 {
+    margin: 5px 0px !important;
+    font-weight: normal;
+    font-family: TheSansB-W5Plain;
+    font-size: 17px;
+    color: #363636;
+}
+
+.iw, .iw span {
+    font-weight: normal;
+    font-family: TheSansB-W5Plain;
+    font-size: 14px;
+    color: #363636;
+}
+
+
+.iw a {
+    font-family: TheSansB-W5Plain;
+    color: #002e5f;
+    text-decoration: none;
+    border-bottom: 1px solid #91a0b4;
+}
+
+
 /** jQuery overwrite element style**/
 .menupopup-margin.menupopup {
   margin-top: 44px !important;

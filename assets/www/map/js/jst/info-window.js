@@ -35,7 +35,7 @@ if (!("JST" in window) || "JST" === undefined) {
 
 JST['map/infoWindow/building'] = _.template(" \
 <% if (hasElevators === true) { %> \
-<i class='elevator'></i> <%= i18n.t('map.infoWindow.elevator.exists') %> \
+<div class='elevator'> <img src='../img/icons/icon-hearing-loop.svg'/> </div> <%= i18n.t('map.infoWindow.elevator.exists') %> \
 <% } else { %> \
 <%= i18n.t('map.infoWindow.elevator.noexists') %> \
 <% } %> \
@@ -58,6 +58,7 @@ JST['map/infoWindow/building'] = _.template(" \
 JST['map/infoWindow'] = _.template(" \
 <div id='info_window' class='iw'>\
   <h3><%= name %></h3>\
+  <span>\
   <% if (itemText != null) { %>\
   <%= itemText  %>\
   <% } %> \
@@ -70,7 +71,8 @@ JST['map/infoWindow'] = _.template(" \
   <%= i18n.t('map.infoWindow.hearing_loop.noexists') %> \
   <% } %> \
   <% if (displayDirections === true) { %> \
-  <div id='directions' style='display: inline'> \
+  </span>\
+  <div id='directions' class='directions' style='display: inline;'> \
     <div data-i18n='map.infoWindow.directions'><%= i18n.t('map.infoWindow.directions') %>:</div> \
     <div id='travel_modes_div' class='dir-tm kd-buttonbar kd-button'> \
       <a class='kd-button kd-button-left dir-button' href='javascript:void(0)' id='walking' \
