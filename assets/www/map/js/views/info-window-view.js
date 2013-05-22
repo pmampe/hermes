@@ -101,7 +101,7 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        var lang = this.getRootLanguage();
+        var lang = i18n.options.lng.substring(0,2);
 
         var tOptions = {
           name: model.getName(lang),
@@ -161,12 +161,6 @@ var InfoWindowView = Backbone.View.extend(
         });
 
         this.updateRelatedLinks(model);
-      },
-
-      getRootLanguage: function () {
-        language = navigator.language.split("-");
-        rootLanguage = (language[0]);
-        return rootLanguage;
       },
 
       /**

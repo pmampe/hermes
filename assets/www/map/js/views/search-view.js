@@ -162,7 +162,7 @@ var SearchView = Backbone.View.extend(
         var html = this.collection.bySearchable().reduce(function (memo, location) {
           //TODO: Use JST
           return memo + '<li id="' + location.get('id') + '" data-icon="false">' +
-              '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.get('name') + '</a>' +
+              '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.getName(i18n.options.lng.substring(0,2)) + '</a>' +
               '</li>';
         }, "");
 
