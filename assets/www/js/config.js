@@ -50,12 +50,9 @@ var config = (function (pgBrokerBaseURL) {
       "location": {
         "url": pgBrokerBaseURL + "/geo/poi"
       },
-      "icon": {
-        "urlPrefix": pgBrokerBaseURL + "/image/view"
-      },
       "zoom": {
         "threshold": 16
       }
     }
   };
-})("http://mobileapp-dev.it.su.se");
+})("http://lucien.it.su.se:8080/hermes-broker");
