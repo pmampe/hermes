@@ -146,12 +146,105 @@ describe('Info window view', function () {
   describe('when opening the infowindow', function () {
 
     it('should close previous infowindow', function () {
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
 
+      spyOn(this.infoWindow.infoWindow, "close");
+      this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
+      expect(this.infoWindow.infoWindow.close).toHaveBeenCalled();
     });
+
+    it('should call model (Location) getI18n method (fetching the text attribute)', function () {
+      spyOn(Location.prototype, "getI18n");
+
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      var location = new Location({
+        name: 'testName',
+        directionAware: false
+        });
+      this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      expect(Location.prototype.getI18n).toHaveBeenCalledWith('text');
+    });
+
+    it('should call JST with correct values', function () {
+      spyOn(JST, 'map/infoWindow').andReturn('');
+
+      i18n.init({
+        lng: 'sv-SE'
+      });
+
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      var location = new Location({
+        name: 'testName',
+        directionAware: false,
+        buildingName: 'testBuilding',
+        text: 'testText',
+        type: 'building'
+      });
+
+      this.infoWindow.appModel.locations = {
+        byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
+          return _([ new Location({
+            floor: '1'
+          }) ])
+        }
+      }
+
+      this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      expect(JST['map/infoWindow']).toHaveBeenCalledWith({
+        name: 'testName, testBuilding',
+        displayDirections: false,
+        model: location,
+        itemText: 'testText',
+        hasElevators: true,
+        hasEntrances: true,
+        tFloors: '1'
+      });
+    });
+
+    it('should call JST with correct values when other language than swedish', function () {
+      spyOn(JST, 'map/infoWindow').andReturn('');
+
+      i18n.init({
+        lng: 'fr-FR'
+      });
+
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      var location = new Location({
+        name: 'testName',
+        nameEn: 'testName (en)',
+        directionAware: false,
+        text: 'testText',
+        textEn: 'testText (en)',
+        type: 'department'
+      });
+
+      this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      expect(JST['map/infoWindow']).toHaveBeenCalledWith({
+        name: 'testName (en)',
+        displayDirections: false,
+        model: location,
+        itemText: 'testText (en)'
+      });
+    });
+
   });
 
   describe('Info-window template', function () {
-    it('should set hearing_loop for auditoriums when handicapAdpted', function () {
+    it('should set hearing_loop for auditoriums when handicapAdapted', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
 
