@@ -67,10 +67,6 @@ describe('Location model', function () {
       expect(this.location.get('directionAware')).toBeTruthy();
     });
 
-    it('should have a pin', function () {
-      expect(this.location.get('pin')).toBeDefined();
-    });
-
     it('should have handicapAdapted=false', function () {
       expect(this.location.get('handicapAdapted')).toBeFalsy();
     });
@@ -101,6 +97,50 @@ describe('Location model', function () {
     });
   });
 
+  describe('when getting a pin', function () {
+    beforeEach(function () {
+      JST['map/icons/default'] = "default";
+      JST['map/icons/parking'] = "parking";
+      JST['map/icons/handicap_parking'] = "handicap_parking";
+      JST['map/icons/entrance'] = "entrance";
+    });
+
+    it('should return default for auditoriums', function () {
+      expect(new Location({type: 'auditorium'}).getPin()).toEqual('default');
+    });
+
+    it('should return default for organization', function () {
+      expect(new Location({type: 'organization'}).getPin()).toEqual('default');
+    });
+
+    it('should return default for restaurant', function () {
+      expect(new Location({type: 'restaurant'}).getPin()).toEqual('default');
+    });
+
+    it('should return default for building', function () {
+      expect(new Location({type: 'building'}).getPin()).toEqual('default');
+    });
+
+    it('should return default for toilet', function () {
+      expect(new Location({type: 'toilet'}).getPin()).toEqual('default');
+    });
+
+    it('should return default for elevator', function () {
+      expect(new Location({type: 'elevator'}).getPin()).toEqual('default');
+    });
+
+    it('should return default for parking', function () {
+      expect(new Location({type: 'parking'}).getPin()).toEqual('parking');
+    });
+
+    it('should return default for handicap_parking', function () {
+      expect(new Location({type: 'handicap_parking'}).getPin()).toEqual('handicap_parking');
+    });
+
+    it('should return default for entrance', function () {
+      expect(new Location({type: 'entrance'}).getPin()).toEqual('entrance');
+    });
+  });
 });
 
 describe('Locations collection', function () {

@@ -54,20 +54,9 @@ describe('Line location view', function () {
         position: this.view.getPosition(),
         poiType: this.view.model.getPoiType(),
         visible: true,
-        icon: this.view.model.get('pin'),
+        icon: this.view.model.getPin(),
         map: null
       });
-    });
-
-    it('should create pin from image if hasIcon=true', function () {
-      spyOn(google.maps, 'MarkerImage');
-      config.map.icon.urlPrefix = 'foo';
-
-      this.view = new PointLocationView({
-        model: new Location({ id: 0, hasIcon: true })
-      });
-
-      expect(google.maps.MarkerImage).toHaveBeenCalledWith("foo/0", new google.maps.Size(22, 22));
     });
   });
 
