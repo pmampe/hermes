@@ -67,10 +67,6 @@ describe('Location model', function () {
       expect(this.location.get('directionAware')).toBeTruthy();
     });
 
-    it('should have a pin', function () {
-      expect(this.location.get('pin')).toBeDefined();
-    });
-
     it('should have handicapAdapted=false', function () {
       expect(this.location.get('handicapAdapted')).toBeFalsy();
     });

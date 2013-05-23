@@ -58,17 +58,6 @@ describe('Line location view', function () {
         map: null
       });
     });
-
-    it('should create pin from image if hasIcon=true', function () {
-      spyOn(google.maps, 'MarkerImage');
-      config.map.icon.urlPrefix = 'foo';
-
-      this.view = new PointLocationView({
-        model: new Location({ id: 0, hasIcon: true })
-      });
-
-      expect(google.maps.MarkerImage).toHaveBeenCalledWith("foo/0", new google.maps.Size(22, 22));
-    });
   });
 
   describe('updatePosition', function () {
