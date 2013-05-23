@@ -74,16 +74,19 @@
 
   <feature name="http://api.phonegap.com/1.0/device"/>
 
-  <preference name="phonegap-version" value="2.5.0"/>
+  <preference name="phonegap-version" value="2.7.0"/>
   <preference name="orientation" value="portrait"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
   <preference name="webviewbounce" value="false"/>
 
+  <!-- iOS specific -->
+  <preference name="show-splash-screen-spinner" value="false"/>
+  <preference name="auto-hide-splash-screen" value="false"/>
+
   <!-- Android specific -->
 
   <preference name="android-minSdkVersion" value="8"/>
-  <preference name="auto-hide-splash-screen" value="false"/>
   <preference name="splash-screen-duration" value="30000"/>
 
   <icon src="icon.png"/>
