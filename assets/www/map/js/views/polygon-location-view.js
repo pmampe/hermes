@@ -50,10 +50,10 @@ var PolygonLocationView = GenericLocationView.extend(
         this.points = options.model.getGPoints();
 
         this.marker = new google.maps.Polygon({
-          strokeColor: "#000000",
+          strokeColor: "#002F5F",
           strokeOpacity: 0.8,
-          strokeWeight: 3,
-          fillColor: "#00ff00",
+          strokeWeight: 2,
+          fillColor: "#A1D8E0",
           fillOpacity: 0.35,
           visible: true,
           poiType: options.model.getPoiType(),

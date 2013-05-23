@@ -47,10 +47,10 @@ var LineLocationView = GenericLocationView.extend(
       initialize: function (options) {
 
         this.marker = new google.maps.Polyline({
-          strokeColor: "#000000",
+          strokeColor: "#002F5F",
           strokeOpacity: 0.8,
-          strokeWeight: 3,
-          fillColor: "#00ff00",
+          strokeWeight: 2,
+          fillColor: "#A1D8E0",
           fillOpacity: 0.35,
           visible: true,
           poiType: options.model.getPoiType(),
