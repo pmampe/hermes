@@ -80,10 +80,13 @@
   <preference name="fullscreen" value="false"/>
   <preference name="webviewbounce" value="false"/>
 
+  <!-- iOS specific -->
+  <preference name="show-splash-screen-spinner" value="false"/>
+  <preference name="auto-hide-splash-screen" value="false"/>
+
   <!-- Android specific -->
 
   <preference name="android-minSdkVersion" value="8"/>
-  <preference name="auto-hide-splash-screen" value="false"/>
   <preference name="splash-screen-duration" value="30000"/>
 
   <icon src="icon.png"/>
