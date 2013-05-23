@@ -88,7 +88,6 @@ var Location = Backbone.Model.extend(
         )
       },
 
-
       /**
        * Get google points for this location.
        *
