@@ -47,4 +47,15 @@ describe('Info view', function () {
       expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "accessibility/index.html");
     });
   });
+
+  describe('on off event', function(){
+    it('should remove handler for the view', function(){
+      spyOn(Backbone.View.prototype, 'remove');
+
+      $(document).trigger('deviceready');
+
+      this.view.remove();
+      expect(Backbone.View.prototype.remove).toHaveBeenCalled();
+    });
+  })
 });
