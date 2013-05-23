@@ -146,15 +146,13 @@ describe('Info window view', function () {
   describe('when opening the infowindow', function () {
 
     it('should close previous infowindow', function () {
-      spyOn(google.maps.InfoWindow.prototype, "close");
-
       this.infoWindow = new InfoWindowView({
         appModel: new AppModel()
       });
 
+      spyOn(this.infoWindow.infoWindow, "close");
       this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
-
-      expect(google.maps.InfoWindow.prototype.close).toHaveBeenCalled();
+      expect(this.infoWindow.infoWindow.close).toHaveBeenCalled();
     });
 
     it('should call model (Location) getI18n method (fetching the text attribute)', function () {
@@ -186,34 +184,20 @@ describe('Info window view', function () {
 
       var location = new Location({
         name: 'testName',
-        directionAware: false
+        directionAware: false,
+        buildingName: 'testBuilding',
+        text: 'testText',
+        type: 'building'
       });
-      
-      location.get = function(args) {
-        var ret = '';
-        if (args === 'name') {
-          ret = 'testName';
-        } else if (args === 'buildingName') {
-          ret = 'testBuilding';
-        } else if (args === 'text') {
-          ret = 'testText';
-        } else if (args === 'directionAware') {
-          ret = false;
-        } else if (args === 'type') {
-          ret = 'building';
-        } else {
-          ret = args;
+
+      this.infoWindow.appModel.locations = {
+        byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
+          return _([ new Location({
+            floor: '1'
+          }) ])
         }
-        return ret;
       }
 
-      // Don't know how to mock these methods..
-//      Location.prototype.appModel = {
-//        locations : {
-//          byBuildingAndTypeAndHandicapAdapted : new Locations(location)
-//        }
-//      }
-      
       this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
       expect(JST['map/infoWindow']).toHaveBeenCalledWith({
@@ -221,9 +205,39 @@ describe('Info window view', function () {
         displayDirections: false,
         model: location,
         itemText: 'testText',
-        hasElevators: false,
-        hasEntrances: false,
-        tFloors: ''
+        hasElevators: true,
+        hasEntrances: true,
+        tFloors: '1'
+      });
+    });
+
+    it('should call JST with correct values when other language than swedish', function () {
+      spyOn(JST, 'map/infoWindow').andReturn('');
+
+      i18n.init({
+        lng: 'fr-FR'
+      });
+
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      var location = new Location({
+        name: 'testName',
+        nameEn: 'testName (en)',
+        directionAware: false,
+        text: 'testText',
+        textEn: 'testText (en)',
+        type: 'department'
+      });
+
+      this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
+
+      expect(JST['map/infoWindow']).toHaveBeenCalledWith({
+        name: 'testName (en)',
+        displayDirections: false,
+        model: location,
+        itemText: 'testText (en)'
       });
     });
 
