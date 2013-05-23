@@ -385,35 +385,39 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     border-bottom: 1px solid #91a0b4;
 }
 
-.info-window-pg {
+.iw .info-window-pg {
     display: block;
     position: relative;
     width: 100%;
     min-height: 35px;
-    margin: 0 0 1px 0;
 }
 
-.info-window-icon {
+.iw .info-window-pg:last-child {
+    margin: 0 0 20px 0;
+}
+
+.iw .info-window-icon {
     display: block;
     float: left;
     vertical-align: middle;
     width: 35px;
     height: 35px;
     position: absolute;
-    bottom: 9px;
+    bottom: 0;
     left: 0;
 }
 
-.info-window-icon img {
+.iw .info-window-icon img {
     width: 100%;
     height: auto;
 }
 
-.info-window-text {
+.iw .info-window-text {
     display: block;
     float: left;
     position: absolute;
     left: 40px;
+    top: 25%;
 }
 
 /** jQuery overwrite element style**/
