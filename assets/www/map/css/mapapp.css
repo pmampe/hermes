@@ -83,42 +83,6 @@
   min-width: 110px;
 }
 
-.iw, .gm-iw {
-  /* direction text style */
-  font: 12px/1.5 Verdana, sans-serif;
-  color: #2A3333;
-  text-shadow: none;
-}
-
-.iw i.elevator:before,
-.iw i.toilet:before,
-.iw i.hearing_loop:before,
-.iw i.entrance:before {
-  content: "";
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-size: 16px;
-  vertical-align: top;
-  margin-right: 5px;
-}
-
-.iw i.elevator:before {
-  background-image: url("../../img/icons/Handikapphiss.png");
-}
-
-.iw i.toilet:before {
-  background-image: url("../../img/icons/HandikappWC.png");
-}
-
-.iw i.hearing_loop:before {
-  background-image: url("../../img/icons/hearing_loop.png");
-}
-
-.iw i.entrance:before {
-  background-image: url("../../img/icons/Handikappentre.png");
-}
-
 .iw a.hideRelated {
   display: none;
 }
