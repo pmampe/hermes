@@ -101,14 +101,12 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        //translate info window body by altering var text
-        var text = this.getLanguageKey();
-
+        var itemName = model.getI18n('name') + (model.has('buildingName') ? (", " + model.get('buildingName')) : '');
         var tOptions = {
-          name: model.getName(),
+          name: itemName,
           displayDirections: model.get('directionAware'),
           model: model,
-          itemText: model.get(text)
+          itemText: model.getI18n('text')
         };
 
         if (model.get('type') === 'building') {
@@ -162,23 +160,6 @@ var InfoWindowView = Backbone.View.extend(
         });
 
         this.updateRelatedLinks(model);
-
-      },
-
-      getLanguageKey: function () {
-        var text = "textEn";
-        if (this.getRootLanguage() === 'sv') {
-          text = 'text';
-        } else {
-          text = 'textEn';
-        }
-        return text;
-      },
-
-      getRootLanguage: function () {
-        language = navigator.language.split("-");
-        rootLanguage = (language[0]);
-        return rootLanguage;
       },
 
       /**

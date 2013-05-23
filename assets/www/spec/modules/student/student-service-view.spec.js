@@ -78,5 +78,16 @@ describe('Student view', function () {
     });
   });
 
+  describe('on off event', function(){
+    it('should remove handler for the view', function(){
+      spyOn(Backbone.View.prototype, 'remove');
+
+      $(document).trigger('deviceready');
+
+      this.view.remove();
+      expect(Backbone.View.prototype.remove).toHaveBeenCalled();
+    });
+  });
+
 });
 
