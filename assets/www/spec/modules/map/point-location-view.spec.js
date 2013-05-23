@@ -54,7 +54,7 @@ describe('Line location view', function () {
         position: this.view.getPosition(),
         poiType: this.view.model.getPoiType(),
         visible: true,
-        icon: this.view.model.get('pin'),
+        icon: this.view.model.getPin(),
         map: null
       });
     });
