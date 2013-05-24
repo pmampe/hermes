@@ -78,11 +78,11 @@
   <preference name="orientation" value="portrait"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
-  <preference name="webviewbounce" value="false"/>
 
   <!-- iOS specific -->
   <preference name="show-splash-screen-spinner" value="false"/>
   <preference name="auto-hide-splash-screen" value="false"/>
+  <preference name="webviewbounce" value="false"/>
 
   <!-- Android specific -->
 
