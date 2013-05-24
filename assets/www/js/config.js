@@ -50,9 +50,6 @@ var config = (function (pgBrokerBaseURL) {
       "location": {
         "url": pgBrokerBaseURL + "/geo/poi"
       },
-      "icon": {
-        "urlPrefix": pgBrokerBaseURL + "/image/view"
-      },
       "zoom": {
         "threshold": 16
       }
