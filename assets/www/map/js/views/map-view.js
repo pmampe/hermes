@@ -147,15 +147,13 @@ var MapView = Backbone.View.extend(
         var currentPosition = new Location({
           id: -100,
           campus: null,
-          type: 'CurrentPosition',
-          name: 'You are here!',
+          type: 'current_position',
+          name: i18n.t("map.current_position.name", { lng: "sv" }),
+          nameEn: i18n.t("map.current_position.name", { lng: "en" }),
           coords: [
             [this.model.get('location').lat(), this.model.get('location').lng()]
           ],
-          directionAware: false,
-          pin: new google.maps.MarkerImage(
-              '../img/icons/position.png'
-          )
+          directionAware: false
         });
 
         this.currentPositionPoint = new PointLocationView({
@@ -265,7 +263,7 @@ var MapView = Backbone.View.extend(
           }
 
           // if the polygon has an icon, draw it
-          if (item.get('hasIcon') && (shape === "line" || shape === "polygon")) {
+          if (item.getPin() != null && (shape === "line" || shape === "polygon")) {
             var iconPoint = new PointLocationView({
               model: item,
               gmap: self.map,

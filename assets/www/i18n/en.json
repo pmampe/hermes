@@ -58,6 +58,10 @@
       }
     },
 
+    "current_position": {
+      "name": "You are here!"
+    },
+
     "search": {
       "noresults": "No results"
     }
