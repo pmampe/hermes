@@ -57,6 +57,10 @@
       }
     },
 
+    "current_position": {
+      "name": "Du är här!"
+    },
+
     "search": {
       "noresults": "Inga resultat"
     }

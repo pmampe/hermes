@@ -147,15 +147,13 @@ var MapView = Backbone.View.extend(
         var currentPosition = new Location({
           id: -100,
           campus: null,
-          type: 'CurrentPosition',
-          name: 'You are here!',
+          type: 'current_position',
+          name: i18n.t("map.current_position.name", { lng: "sv" }),
+          nameEn: i18n.t("map.current_position.name", { lng: "en" }),
           coords: [
             [this.model.get('location').lat(), this.model.get('location').lng()]
           ],
-          directionAware: false,
-          pin: new google.maps.MarkerImage(
-              '../img/icons/position.png'
-          )
+          directionAware: false
         });
 
         this.currentPositionPoint = new PointLocationView({
