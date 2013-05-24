@@ -138,3 +138,17 @@ google.maps.DirectionsTravelMode = {
   DRIVING: 'D',
   TRANSIT: 'T'
 };
+
+google.maps.DirectionsService = function () {
+  this.route = function () {
+  };
+};
+
+google.maps.DirectionsRenderer = function () {
+  this.setMap = function (map) {
+  };
+  this.setPanel = function (panel) {
+  };
+  this.setDirections = function (result) {
+  };
+};
