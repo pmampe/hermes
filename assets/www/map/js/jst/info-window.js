@@ -34,6 +34,7 @@ if (!("JST" in window) || "JST" === undefined) {
 }
 
 JST['map/infoWindow/building'] = _.template(" \
+<br/>\
 <% if (hasElevators === true) { %> \
 <i class='elevator'></i> <%= i18n.t('map.infoWindow.elevator.exists') %> \
 <% } else { %> \
