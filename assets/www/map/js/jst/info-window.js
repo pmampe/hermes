@@ -35,31 +35,29 @@ if (!("JST" in window) || "JST" === undefined) {
 
 JST['map/infoWindow/building'] = _.template(" \
 <% if (hasElevators === true) { %> \
-<div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.elevator.exists') %> </div></div>\
+<div class='info-window-pg'><div class='info-window-icon'> </div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.elevator.exists') %> </div></div>\
 <% } else { %> \
-<div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.elevator.noexists') %> </div></div> \
+<div class='info-window-pg'><div class='info-window-icon'> </div> <div class='info-window-text'><%= i18n.t('map.infoWindow.elevator.noexists') %> </div></div> \
 <% } %> \
-<br/>\
 <% if (tFloors != '') { %> \
-<div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.toilet.exists') + ' ' + tFloors %></div></div> \
+<div class='info-window-pg'><div class='info-window-icon'> </div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.toilet.exists') + ' ' + tFloors %></div></div> \
 <% } else { %> \
-<div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.toilet.noexists') %> </div></div>\
+<div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.toilet.noexists') %> </div></div>\
 <% } %> \
-<br/>\
 <% if (hasEntrances === true) { %> \
-<div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'>\
+<div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'>\
 <a class='showRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.show') %></a> \
 <a class='hideRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.hide') %></a> \
 </div></div>\
 <% } else { %> \
-<div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.entrance.noexists') %> </div></div> \
+<div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.entrance.noexists') %> </div></div> \
 <% } %> \
 ");
 
 JST['map/infoWindow'] = _.template(" \
 <div id='info_window' class='iw'>\
   <h3><%= name %></h3>\
-  <span>\
+  <div class='info-container'>\
   <% if (itemText != null) { %>\
   <%= itemText  %>\
   <% } %> \
@@ -67,9 +65,9 @@ JST['map/infoWindow'] = _.template(" \
   <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \
   <% } %>\
   <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %> \
-  <div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.exists') %> </div></div>\
+  <div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.exists') %> </div></div>\
   <% } else if (model.get('type') === 'auditorium') { %> \
-  <div class='info-window-pg'><div class='info-window-icon'> <img src='../img/icons/blue-placeholder.svg'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.noexists') %> </div></div>\
+  <div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.noexists') %> </div></div>\
   <% } %> \
   <% if (displayDirections === true) { %> \
   </span>\

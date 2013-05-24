@@ -53,6 +53,11 @@
     src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W5Plain.otf") format("opentype");
 }
 
+@font-face {
+    font-family: TheSansB-W7Bold;
+    src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W7Bold.otf") format("opentype");
+}
+
 .ui-header h1.ui-title {
   font-weight: normal;
   font-family: TheSansB-W5Plain;
@@ -395,19 +400,21 @@ div.search-box .ui-btn-hover-b .ui-last-child {
  ** Infobubble in map
  ***********/
 .iw h3 {
-    margin: 0px 0 19px 0 !important;
+   /* margin: 0px 0 19px 0 !important;*/
     font-weight: normal;
-    font-family: TheSansB-W5Plain;
-    font-size: 17px;
+    font-family: TheSansB-W7Bold;
+    font-size: 18px;
     color: #363636;
 }
 
-.iw, .iw span {
+.iw, .iw .info-container {
     font-weight: normal;
     font-family: TheSansB-W5Plain;
     font-size: 13px;
     color: #363636;
     height: 100%;
+    width: 100%;
+    margin-top: -15px;
 }
 
 .iw a {
@@ -422,6 +429,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     position: relative;
     width: 100%;
     min-height: 35px;
+    margin-bottom: 5px;
 }
 
 .iw .info-window-pg:last-child {
@@ -429,14 +437,12 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .iw .info-window-icon {
-    display: block;
     float: left;
-    vertical-align: middle;
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background: #1B325D;
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.4) inset;
 }
 
 .iw .info-window-icon img {
@@ -445,11 +451,8 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .iw .info-window-text {
-    display: block;
     float: left;
-    position: absolute;
-    left: 40px;
-    top: 25%;
+    margin: 10px 0 0 5px;
 }
 
 /** jQuery overwrite element style**/
