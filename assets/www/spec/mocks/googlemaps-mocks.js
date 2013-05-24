@@ -64,7 +64,7 @@ google.maps.MapTypeId = function () {
 google.maps.MVCObject = function () {
 };
 
-google.maps.MarkerImage = function (image) {
+google.maps.Icon = function (image) {
 };
 
 google.maps.Marker = function (options) {
