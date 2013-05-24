@@ -55,4 +55,5 @@ var config = (function (pgBrokerBaseURL) {
       }
     }
   };
-})("http://mobileapp-dev.it.su.se");
+})("http://lucien.it.su.se:8080/hermes-broker");
+/**})("http://mobileapp-dev.it.su.se");**/
