@@ -241,6 +241,35 @@ describe('Info window view', function () {
       });
     });
 
+    it('should use anchor for position when no latlng is passed', function () {
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      spyOn(this.infoWindow.infoWindow, "open");
+
+      var marker = new google.maps.Marker()
+      this.infoWindow.open(new Location(), marker);
+
+      expect(this.infoWindow.infoWindow.open).toHaveBeenCalledWith(marker.getMap(), marker);
+    });
+
+    it('should use passed latlng for position', function () {
+      this.infoWindow = new InfoWindowView({
+        appModel: new AppModel()
+      });
+
+      spyOn(this.infoWindow.infoWindow, "open");
+      spyOn(this.infoWindow.infoWindow, "setPosition");
+
+      var marker = new google.maps.Marker();
+      var latlng = new google.maps.LatLng(0, 0);
+      this.infoWindow.open(new Location(), marker, latlng);
+
+      expect(this.infoWindow.infoWindow.setPosition).toHaveBeenCalledWith(latlng);
+      expect(this.infoWindow.infoWindow.open).toHaveBeenCalledWith(marker.getMap());
+    });
+
   });
 
   describe('Info-window template', function () {
