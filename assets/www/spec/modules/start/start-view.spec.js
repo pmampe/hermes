@@ -41,11 +41,23 @@ describe('Start view', function () {
 
   describe('on deviceready event', function () {
     it('should hide splash screen', function () {
-      spyOn(navigator.splashscreen, 'hide');
+      runs(function () {
+        spyOn(navigator.splashscreen, 'hide');
+        config.core.splashscreen.timeout = 1;
+        $(document).trigger('deviceready');
+      });
 
-      $(document).trigger('deviceready');
+      var done = false;
+      window.setTimeout(function () {
+        done = true
+      }, 10);
+      waitsFor(function () {
+        return done
+      });
 
-      expect(navigator.splashscreen.hide).toHaveBeenCalled();
+      runs(function () {
+        expect(navigator.splashscreen.hide).toHaveBeenCalled();
+      });
     });
   });
 
@@ -59,8 +71,8 @@ describe('Start view', function () {
     });
   });
 
-  describe('on off event', function(){
-    it('should remove handler for the view', function(){
+  describe('on off event', function () {
+    it('should remove handler for the view', function () {
       spyOn(Backbone.View.prototype, 'remove');
 
       $(document).trigger('deviceready');
