@@ -36,22 +36,22 @@ if (!("JST" in window) || "JST" === undefined) {
 JST['map/infoWindow/building'] = _.template(" \
 <br/>\
 <% if (hasElevators === true) { %> \
-<div class='info-window-pg'><div class='info-window-icon'> </div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.elevator.exists') %> </div></div>\
+<div class='info-window-pg'><div class='info-window-icon entrance'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.elevator.exists') %> </div></div>\
 <% } else { %> \
-<div class='info-window-pg'><div class='info-window-icon'> </div> <div class='info-window-text'><%= i18n.t('map.infoWindow.elevator.noexists') %> </div></div> \
+<div class='info-window-pg'><div class='info-window-icon entrance not-available'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.elevator.noexists') %> </div></div> \
 <% } %> \
 <% if (tFloors != '') { %> \
-<div class='info-window-pg'><div class='info-window-icon'> </div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.toilet.exists') + ' ' + tFloors %></div></div> \
+<div class='info-window-pg'><div class='info-window-icon toilet'> </div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.toilet.exists') + ' ' + tFloors %></div></div> \
 <% } else { %> \
-<div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.toilet.noexists') %> </div></div>\
+<div class='info-window-pg'><div class='info-window-icon toilet not-available'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.toilet.noexists') %> </div></div>\
 <% } %> \
 <% if (hasEntrances === true) { %> \
-<div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'>\
+<div class='info-window-pg'><div class='info-window-icon entrance'></div> <div class='info-window-text'>\
 <a class='showRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.show') %></a> \
 <a class='hideRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.hide') %></a> \
 </div></div>\
 <% } else { %> \
-<div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.entrance.noexists') %> </div></div> \
+<div class='info-window-pg'><div class='info-window-icon entrance not-available'></div> <div class='info-window-text'><%= i18n.t('map.infoWindow.entrance.noexists') %> </div></div> \
 <% } %> \
 ");
 
@@ -66,9 +66,9 @@ JST['map/infoWindow'] = _.template(" \
   <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \
   <% } %>\
   <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %> \
-  <div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.exists') %> </div></div>\
+  <div class='info-window-pg'><div class='info-window-icon hearing_loop'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.exists') %> </div></div>\
   <% } else if (model.get('type') === 'auditorium') { %> \
-  <div class='info-window-pg'><div class='info-window-icon'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.noexists') %> </div></div>\
+  <div class='info-window-pg'><div class='info-window-icon hearing_loop not-available'></div> <div class='info-window-text'> <%= i18n.t('map.infoWindow.hearing_loop.noexists') %> </div></div>\
   <% } %> \
   <% if (displayDirections === true) { %> \
   </span>\
