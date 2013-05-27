@@ -55,7 +55,7 @@ var StartView = Backbone.View.extend({
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
-    navigator.splashscreen.hide();
+    window.setTimeout(navigator.splashscreen.hide, 500);
     gaPlugin.trackPage(null, null, "index.html");
   },
 
