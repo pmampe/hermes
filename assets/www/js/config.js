@@ -34,6 +34,9 @@ var config = (function (pgBrokerBaseURL) {
     "core": {
       "ga": {
         "account": "UA-39850755-1"
+      },
+      "splashscreen": {
+        "timeout": 500
       }
     },
 
