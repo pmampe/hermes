@@ -55,3 +55,16 @@ var InfoView = Backbone.View.extend({
     gaPlugin.trackPage(null, null, "accessibility/index.html");
   }
 });
+
+$(document).ready(function () {
+    resizeIcons();
+    $(window).resize(function() {
+        resizeIcons();
+    });
+});
+
+function resizeIcons() {
+    var $iconContainers = $('.icon-description');
+    var containerWidth = $iconContainers.width();
+    $iconContainers.css('height', containerWidth);
+}
