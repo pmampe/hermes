@@ -103,7 +103,6 @@ var InfoWindowView = Backbone.View.extend(
 
         var tOptions = {
           name: model.getI18n('name'),
-          buildingName: model.get('buildingName'),
           displayDirections: model.get('directionAware'),
           model: model,
           itemText: model.getI18n('text')
