@@ -58,6 +58,9 @@ JST['map/infoWindow'] = _.template(" \
 <div id='info_window' class='iw'>\
   <h3><%= name %></h3>\
   <div class='info-container'>\
+  <% if (buildingName != null) { %>\
+  <%= buildingName  %><br>\
+  <% } %>\
   <% if (itemText != null) { %>\
   <%= itemText  %>\
   <% } %> \
