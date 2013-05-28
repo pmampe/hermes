@@ -34,45 +34,74 @@ if (!("JST" in window) || "JST" === undefined) {
 }
 
 JST['map/infoWindow/building'] = _.template(" \
-<br/>\
 <% if (hasElevators === true) { %> \
-<i class='elevator'></i> <%= i18n.t('map.infoWindow.elevator.exists') %> \
+  <div class='info-window-pg'>\
+    <div class='info-window-icon handicap-lift'></div>\
+    <div class='info-window-text'><%= i18n.t('map.infoWindow.elevator.exists') %></div>\
+  </div>\
 <% } else { %> \
-<%= i18n.t('map.infoWindow.elevator.noexists') %> \
+  <div class='info-window-pg'>\
+    <div class='info-window-icon handicap-lift not-available'></div>\
+    <div class='info-window-text'><%= i18n.t('map.infoWindow.elevator.noexists') %></div>\
+  </div> \
 <% } %> \
-<br/>\
 <% if (tFloors != '') { %> \
-<i class='toilet'></i> <%= i18n.t('map.infoWindow.toilet.exists') + ' ' + tFloors %> \
+  <div class='info-window-pg'>\
+    <div class='info-window-icon handicap-toilet'></div>\
+    <div class='info-window-text'><%= i18n.t('map.infoWindow.toilet.exists') + ' ' + tFloors %></div>\
+  </div> \
 <% } else { %> \
-<%= i18n.t('map.infoWindow.toilet.noexists') %> \
+  <div class='info-window-pg'>\
+    <div class='info-window-icon handicap-toilet not-available'></div>\
+    <div class='info-window-text'><%= i18n.t('map.infoWindow.toilet.noexists') %></div>\
+  </div>\
 <% } %> \
-<br/>\
 <% if (hasEntrances === true) { %> \
-<i class='entrance'></i> \
-<a class='showRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.show') %></a> \
-<a class='hideRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.hide') %></a> \
+  <div class='info-window-pg'>\
+    <div class='info-window-icon handicap-entrance'></div>\
+    <div class='info-window-text'>\
+      <a class='showRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.show') %></a> \
+      <a class='hideRelated' data-related-by='building' data-related-types='entrance' href='javascript:;'><%= i18n.t('map.infoWindow.entrance.hide') %></a> \
+    </div>\
+  </div>\
 <% } else { %> \
-<%= i18n.t('map.infoWindow.entrance.noexists') %> \
+  <div class='info-window-pg'>\
+    <div class='info-window-icon handicap-entrance not-available'></div>\
+    <div class='info-window-text'><%= i18n.t('map.infoWindow.entrance.noexists') %></div>\
+  </div> \
 <% } %> \
 ");
 
 JST['map/infoWindow'] = _.template(" \
 <div id='info_window' class='iw'>\
   <h3><%= name %></h3>\
+  <div class='info-container'>\
+  <% if (model.has('buildingName')) { %>\
+    <%= model.get('buildingName') %><br>\
+  <% } %>\
   <% if (itemText != null) { %>\
-  <%= itemText  %>\
+    <%= itemText  %>\
   <% } %> \
+  \
+  <div class='info-window-icons'>\
   <% if (model.get('type') === 'building'){ %> \
-  <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \
+    <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \
   <% } %>\
   <% if (model.get('type') === 'auditorium' && model.get('handicapAdapted') === true) { %> \
-  <i class='hearing_loop'></i> <%= i18n.t('map.infoWindow.hearing_loop.exists') %> \
+    <div class='info-window-pg'>\
+      <div class='info-window-icon hearing_loop'></div>\
+      <div class='info-window-text'><%= i18n.t('map.infoWindow.hearing_loop.exists') %></div>\
+    </div>\
   <% } else if (model.get('type') === 'auditorium') { %> \
-  <%= i18n.t('map.infoWindow.hearing_loop.noexists') %> \
+    <div class='info-window-pg'>\
+      <div class='info-window-icon hearing_loop not-available'></div>\
+      <div class='info-window-text'><%= i18n.t('map.infoWindow.hearing_loop.noexists') %></div>\
+    </div>\
   <% } %> \
+  </div>\
+  \
   <% if (displayDirections === true) { %> \
-  <div id='directions' style='display: inline'> \
-    <div data-i18n='map.infoWindow.directions'><%= i18n.t('map.infoWindow.directions') %>:</div> \
+  <div id='directions' class='directions' style='display: inline;'> \
     <div id='travel_modes_div' class='dir-tm kd-buttonbar kd-button'> \
       <a class='kd-button kd-button-left dir-button' href='javascript:void(0)' id='walking' \
          title='<%= i18n.t('map.infoWindow.walking') %>'> \

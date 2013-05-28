@@ -101,9 +101,8 @@ var InfoWindowView = Backbone.View.extend(
       open: function (model, anchor, latlng) {
         this.close(); // close previous infowindow
 
-        var itemName = model.getI18n('name') + (model.has('buildingName') ? (", " + model.get('buildingName')) : '');
         var tOptions = {
-          name: itemName,
+          name: model.getI18n('name'),
           displayDirections: model.get('directionAware'),
           model: model,
           itemText: model.getI18n('text')

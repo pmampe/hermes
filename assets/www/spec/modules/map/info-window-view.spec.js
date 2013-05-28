@@ -201,7 +201,7 @@ describe('Info window view', function () {
       this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
       expect(JST['map/infoWindow']).toHaveBeenCalledWith({
-        name: 'testName, testBuilding',
+        name: 'testName',
         displayDirections: false,
         model: location,
         itemText: 'testText',
@@ -275,7 +275,7 @@ describe('Info window view', function () {
   describe('Info-window template', function () {
     it('should set hearing_loop for auditoriums when handicapAdapted', function () {
       // First expect to find no hearing loops
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div.hearing_loop').size()).toEqual(0);
 
       var location = new Location({
         type: 'auditorium',
@@ -289,12 +289,13 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(1);
+      expect($('#page-map').find('div.hearing_loop').size()).toEqual(1);
+      expect($('#page-map').find('div.hearing_loop').hasClass('not-available')).toEqual(false);
     });
 
-    it('should set hearing_loop for auditoriums when handicapAdpted', function () {
+    it('should set hearing_loop for auditoriums when not handicapAdapted', function () {
       // First expect to find no hearing loops
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div.hearing_loop.not-available').size()).toEqual(0);
 
       var location = new Location({
         type: 'auditorium',
@@ -308,7 +309,7 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div.hearing_loop.not-available').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.hearing_loop.noexists.*/);
     });
 
@@ -328,13 +329,13 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="elevator"]').size()).toEqual(0);
+      expect($('#page-map').find('div.handicap-lift.not-available').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.elevator.noexists.*/);
 
-      expect($('#page-map').find('i[class="toilet"]').size()).toEqual(0);
+      expect($('#page-map').find('div.handicap-toilet.not-available').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.toilet.noexists.*/);
 
-      expect($('#page-map').find('i[class="entrance"]').size()).toEqual(0);
+      expect($('#page-map').find('div.handicap-entrance.not-available').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.noexists.*/);
     });
 
@@ -354,13 +355,16 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="elevator"]').size()).toEqual(1);
+      expect($('#page-map').find('div.handicap-lift').size()).toEqual(1);
+      expect($('#page-map').find('div.handicap-lift').hasClass('not-available')).toEqual(false);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.elevator.exists.*/);
 
-      expect($('#page-map').find('i[class="toilet"]').size()).toEqual(1);
+      expect($('#page-map').find('div.handicap-toilet').size()).toEqual(1);
+      expect($('#page-map').find('div.handicap-toilet').hasClass('not-available')).toEqual(false);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.toilet.exists.*/);
 
-      expect($('#page-map').find('i[class="entrance"]').size()).toEqual(1);
+      expect($('#page-map').find('div.handicap-entrance').size()).toEqual(1);
+      expect($('#page-map').find('div.handicap-entrance').hasClass('not-available')).toEqual(false);
 
       expect($('#page-map').find('a[class="showRelated"]').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.show.*/);
