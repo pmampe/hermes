@@ -201,7 +201,7 @@ describe('Info window view', function () {
       this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
       expect(JST['map/infoWindow']).toHaveBeenCalledWith({
-        name: 'testName, testBuilding',
+        name: 'testName',
         displayDirections: false,
         model: location,
         itemText: 'testText',
@@ -246,7 +246,7 @@ describe('Info window view', function () {
   describe('Info-window template', function () {
     it('should set hearing_loop for auditoriums when handicapAdapted', function () {
       // First expect to find no hearing loops
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div.hearing_loop').size()).toEqual(0);
 
       var location = new Location({
         type: 'auditorium',
@@ -260,10 +260,10 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(1);
+      expect($('#page-map').find('div.hearing_loop').size()).toEqual(1);
     });
 
-    it('should set hearing_loop for auditoriums when handicapAdpted', function () {
+    it('should set hearing_loop for auditoriums when handicapAdapted', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
 
@@ -279,7 +279,7 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div[class="hearing_loop"]').size()).toEqual(0);
       expect($('#page-map').text()).toMatch(/.*Hearing loop not available.*/);
     });
 
@@ -299,13 +299,13 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="elevator"]').size()).toEqual(0);
+      expect($('#page-map').find('div[class="handicap-lift"]').size()).toEqual(0);
       expect($('#page-map').text()).toMatch(/.*Accessible lift not available.*/);
 
-      expect($('#page-map').find('i[class="toilet"]').size()).toEqual(0);
+      expect($('#page-map').find('div[class="handicap-toilet"]').size()).toEqual(0);
       expect($('#page-map').text()).toMatch(/.*Accessible toilet not available.*/);
 
-      expect($('#page-map').find('i[class="entrance"]').size()).toEqual(0);
+      expect($('#page-map').find('div[class="handicap-entrance"]').size()).toEqual(0);
       expect($('#page-map').text()).toMatch(/.*Accessible entrance not available.*/);
     });
 
@@ -325,13 +325,13 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('i[class="elevator"]').size()).toEqual(1);
+      expect($('#page-map').find('div[class="handicap-lift"]').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*Accessible lift available.*/);
 
-      expect($('#page-map').find('i[class="toilet"]').size()).toEqual(1);
+      expect($('#page-map').find('div[class="handicap-toilet"]').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*Accessible toilet available.*/);
 
-      expect($('#page-map').find('i[class="entrance"]').size()).toEqual(1);
+      expect($('#page-map').find('div[class="handicap-entrance"]').size()).toEqual(1);
 
       expect($('#page-map').find('a[class="showRelated"]').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*Show accessible entrances.*/);
