@@ -263,9 +263,9 @@ describe('Info window view', function () {
       expect($('#page-map').find('div.hearing_loop').size()).toEqual(1);
     });
 
-    it('should set hearing_loop for auditoriums when handicapAdapted', function () {
+    it('should set hearing_loop for auditoriums when not handicapAdapted', function () {
       // First expect to find no hearing loops
-      expect($('#page-map').find('i[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div.hearing_loop.not-available').size()).toEqual(0);
 
       var location = new Location({
         type: 'auditorium',
@@ -279,7 +279,7 @@ describe('Info window view', function () {
         displayDirections: false
       }));
 
-      expect($('#page-map').find('div[class="hearing_loop"]').size()).toEqual(0);
+      expect($('#page-map').find('div.hearing_loop.not-available').size()).toEqual(1);
       expect($('#page-map').text()).toMatch(/.*Hearing loop not available.*/);
     });
 
