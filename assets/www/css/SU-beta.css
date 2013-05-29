@@ -506,30 +506,6 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     margin-top: 6px;
 }
 
-.app-accessibility .icon-description.hearing-loop:before {
-    background-image: url("../img/icons/icon-hearing-loop.svg");
-    background-size: 70%;
-}
-
-.app-accessibility .icon-description.handicap-entrance:before {
-    background-image: url("../img/icons/icon-handicap-entrance.svg");
-    background-size: 65%;
-}
-
-.app-accessibility .icon-description.handicap-lift:before {
-    background-image: url("../img/icons/icon-handicap-lift.svg");
-    background-size: 50%;
-}
-
-.app-accessibility .icon-description.handicap-toilet:before {
-    background-image: url("../img/icons/icon-handicap-toilet.svg");
-    background-size: 70%;
-}
-
-.app-accessibility .icon-description.handicap-parking:before {
-    background-image: url("../img/icons/icon-handicap-parking.svg");
-    background-size: 55%;
-}
 .scale-container {
     width: 100%;
     float:left;
@@ -538,21 +514,42 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .scale-container .icon-description {
-    width: 14%;
-    float:left;
-}
-
-.scale-container .icon-description:before {
-    content: " ";
     float: left;
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 14%;
     border-radius: 50%;
     background: #002F5F;
     box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.4) inset;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.scale-container .icon-description img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 15% auto 0 auto;
+}
+
+.scale-container .icon-description.handicap-entrance img {
+    width: 65%;
+}
+
+.scale-container .icon-description.handicap-entrance img {
+    width: 60%;
+    margin-top: 20%;
+}
+
+.scale-container .icon-description.handicap-lift img {
+    width: 50%;
+}
+
+.scale-container .icon-description.handicap-toilet img {
+    margin-top: 22%;
+}
+
+.scale-container .icon-description.handicap-parking img {
+    width: 55%;
 }
 
 .scale-container span {
