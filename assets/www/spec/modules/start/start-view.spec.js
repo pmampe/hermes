@@ -47,15 +47,7 @@ describe('Start view', function () {
         $(document).trigger('deviceready');
       });
 
-      var done = false;
-      window.setTimeout(function () {
-        done = true
-      }, 10);
-      waitsFor(function () {
-        return done
-      });
-
-      runs(function () {
+      helper.delay(10, function () {
         expect(navigator.splashscreen.hide).toHaveBeenCalled();
       });
     });
