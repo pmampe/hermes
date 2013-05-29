@@ -159,7 +159,9 @@ var SearchView = Backbone.View.extend(
       },
 
       populateFilter: function () {
-        var html = this.collection.bySearchable().reduce(function (memo, location) {
+        var html = this.collection.bySearchable().sortBy(function(location){
+          return location.getI18n('name');
+        }).reduce(function (memo, location) {
           //TODO: Use JST
           return memo + '<li id="' + location.get('id') + '" data-icon="false">' +
               '<a data-modelid="' + location.get('id') + '" class="autocomplete-link">' + location.getI18n('name') + '</a>' +

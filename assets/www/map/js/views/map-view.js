@@ -89,11 +89,10 @@ var MapView = Backbone.View.extend(
         };
 
         // Add the Google Map to the page
-        this.$el.gmap(myOptions);
-        this.map = this.$el.gmap("get", "map");
+        this.map = new google.maps.Map(this.el, myOptions);
 
         var self = this;
-        $(this.map).addEventListener('zoom_changed', function () {
+        google.maps.event.addListener(this.map, 'zoom_changed', function () {
           self.trigger('zoom_changed', self.map.getZoom());
         });
         this.on('updateCurrentPosition', this.updateCurrentPosition);
@@ -302,20 +301,23 @@ var MapView = Backbone.View.extend(
           travMode = google.maps.DirectionsTravelMode.TRANSIT;
         }
 
-        this.$el.gmap('displayDirections', {
-              'origin': orig,
-              'destination': destination,
-              'travelMode': travMode },
-            { 'panel': document.getElementById('dir_panel') },
-            function (result, status) {
-              if (status === 'OK') {
-                var center = result.routes[0].bounds.getCenter();
-                $('#map_canvas').gmap('option', 'center', center);
-                $('#map_canvas').gmap('refresh');
-              } else {
-                alert('Unable to get route');
-              }
-            }
-        );
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(this.map);
+
+        if (directionsDisplay) {
+          directionsDisplay.setPanel(document.getElementById("dir_panel"));
+        }
+
+        var request = {
+          origin: orig,
+          destination: destination,
+          travelMode: travMode
+        };
+        directionsService.route(request, function (result, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(result);
+          }
+        });
       }
     });

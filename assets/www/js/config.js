@@ -34,6 +34,9 @@ var config = (function (pgBrokerBaseURL) {
     "core": {
       "ga": {
         "account": "UA-39850755-1"
+      },
+      "splashscreen": {
+        "timeout": 500
       }
     },
 
@@ -55,5 +58,4 @@ var config = (function (pgBrokerBaseURL) {
       }
     }
   };
-})("http://lucien.it.su.se:8080/hermes-broker");
-/**})("http://mobileapp-dev.it.su.se");**/
+})("http://mobileapp-dev.it.su.se");

@@ -64,7 +64,7 @@ google.maps.MapTypeId = function () {
 google.maps.MVCObject = function () {
 };
 
-google.maps.MarkerImage = function (image) {
+google.maps.Icon = function (image) {
 };
 
 google.maps.Marker = function (options) {
@@ -137,4 +137,18 @@ google.maps.DirectionsTravelMode = {
   BICYCLING: 'B',
   DRIVING: 'D',
   TRANSIT: 'T'
+};
+
+google.maps.DirectionsService = function () {
+  this.route = function () {
+  };
+};
+
+google.maps.DirectionsRenderer = function () {
+  this.setMap = function (map) {
+  };
+  this.setPanel = function (panel) {
+  };
+  this.setDirections = function (result) {
+  };
 };
