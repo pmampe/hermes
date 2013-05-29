@@ -121,7 +121,7 @@ describe('Map view', function () {
       expect(this.view.keyboardVisible).toBeTruthy();
     });
 
-    it('showkeyboard should set keyboardvisible variable == true', function () {
+    it('hidekeyboard should set keyboardvisible variable == false', function () {
       this.view.keyboardVisible = true;
       $(document).trigger('hidekeyboard');
 
