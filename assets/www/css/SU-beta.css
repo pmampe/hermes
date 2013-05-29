@@ -446,6 +446,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     width: 100%;
     float:left;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .scale-container .icon-description {
@@ -467,12 +468,10 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .scale-container span {
-    display: table-cell;
-    float: left;
-    margin: 5% 0 0 15px;
-    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    margin: -9px 0 0 15px;
     color: #002F5F;
     font-family: TheSansB-W5Plain;
     font-size: 18px;
-    line-height: 1;
 }

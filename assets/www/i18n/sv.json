@@ -108,6 +108,7 @@
   },
   "accessibility": {
     "info": {
+      "title": "Symbolförklaringar",
       "desc": "Information om tillgänglighet (hörslinga, tillgänglig toalett, hiss, entré och parkering) på Stockholms universitet när du söker fram en sal, ett hus eller parkeringar på kartan."
     },
     "icon": {
