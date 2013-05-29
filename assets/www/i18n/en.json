@@ -109,6 +109,7 @@
   },
   "accessibility": {
     "info": {
+      "title": "Symbol explanations",
       "desc": "Information about accessibility (hearing loops, accessible toilets, lifts entrances and parking spaces) at Stockholm University, searching for lecture halls, buildings or parking spaces on the map"
     },
     "icon": {

@@ -490,3 +490,76 @@ div.search-box .ui-btn-hover-b .ui-last-child {
   max-width: 100% !important;
   width: 60% !important;
 }
+
+/*************
+ ** Accessibility styles
+ ***********/
+.app-accessibility h3 {
+    font-family: TheSansB-W7Bold;
+    font-size: 18px;
+    margin: 2px 0 0 0;
+}
+
+.app-accessibility .top-text {
+    font-family: TheSansB-W5Plain;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.app-accessibility .icon-description.hearing-loop:before {
+    background-image: url("../img/icons/icon-hearing-loop.svg");
+    background-size: 70%;
+}
+
+.app-accessibility .icon-description.handicap-entrance:before {
+    background-image: url("../img/icons/icon-handicap-entrance.svg");
+    background-size: 65%;
+}
+
+.app-accessibility .icon-description.handicap-lift:before {
+    background-image: url("../img/icons/icon-handicap-lift.svg");
+    background-size: 50%;
+}
+
+.app-accessibility .icon-description.handicap-toilet:before {
+    background-image: url("../img/icons/icon-handicap-toilet.svg");
+    background-size: 70%;
+}
+
+.app-accessibility .icon-description.handicap-parking:before {
+    background-image: url("../img/icons/icon-handicap-parking.svg");
+    background-size: 55%;
+}
+.scale-container {
+    width: 100%;
+    float:left;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.scale-container .icon-description {
+    width: 14%;
+    float:left;
+}
+
+.scale-container .icon-description:before {
+    content: " ";
+    float: left;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #002F5F;
+    box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.4) inset;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.scale-container span {
+    position: absolute;
+    top: 50%;
+    margin: -9px 0 0 15px;
+    color: #002F5F;
+    font-family: TheSansB-W5Plain;
+    font-size: 18px;
+}
