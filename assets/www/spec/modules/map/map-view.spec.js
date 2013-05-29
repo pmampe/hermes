@@ -109,4 +109,26 @@ describe('Map view', function () {
       this.view.getDirections("walking", 'destination');
     });
   });
+
+  describe('keyboard', function () {
+    it('keyboardvisible should be false by default', function () {
+      expect(this.view.keyboardVisible).toBeFalsy();
+    });
+
+    it('showkeyboard should set keyboardvisible variable == true', function () {
+      $(document).trigger('showkeyboard');
+
+      expect(this.view.keyboardVisible).toBeTruthy();
+    });
+
+    it('hidekeyboard should set keyboardvisible variable == false', function () {
+      this.view.keyboardVisible = true;
+      $(document).trigger('hidekeyboard');
+
+      var self = this;
+      helper.delay(200, function () {
+        expect(self.view.keyboardVisible).toBeFalsy();
+      });
+    });
+  });
 });
