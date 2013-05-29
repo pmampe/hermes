@@ -50,5 +50,21 @@ var helper = {
     var e = document.createEvent('Event');
     e.initEvent(name, true, true);
     obj.dispatchEvent(e);
+  },
+
+  delay: function (delay, callback) {
+    var done = false;
+
+    window.setTimeout(function () {
+      done = true
+    }, delay);
+
+    waitsFor(function () {
+      return done
+    });
+
+    runs(function () {
+      callback();
+    });
   }
 };
