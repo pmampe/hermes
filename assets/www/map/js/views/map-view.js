@@ -102,9 +102,13 @@ var MapView = Backbone.View.extend(
         this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.model.on('change:zoom', this.updateMapZoom, this);
         $(window).on("resize.mapview", _.bind(this.resize, this));
+
+        // Handle keyboard up event
         $(document).on('showkeyboard.mapview', function () {
           self.keyboardVisible = true;
         });
+
+        // Handle keyboard down event
         $(document).on('hidekeyboard.mapview', function () {
           window.setTimeout(function () {
             self.keyboardVisible = false;
