@@ -49,6 +49,9 @@ var MapView = Backbone.View.extend(
 
       searchHiddenFromToolbar: false,
 
+      keyboardVisible: false,
+      resizeTimeout: false,
+
       /**
        * @constructs
        */
@@ -99,6 +102,15 @@ var MapView = Backbone.View.extend(
         this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.model.on('change:zoom', this.updateMapZoom, this);
         $(window).on("resize.mapview", _.bind(this.resize, this));
+        $(document).on('showkeyboard.mapview', function () {
+          self.keyboardVisible = true;
+        });
+        $(document).on('hidekeyboard.mapview', function () {
+          window.setTimeout(function () {
+            self.keyboardVisible = false;
+            self.resize();
+          }, 150);
+        });
       },
 
       /**
@@ -106,6 +118,7 @@ var MapView = Backbone.View.extend(
        */
       remove: function () {
         $(window).off(".mapview");
+        $(document).off(".mapview");
 
         this.infoWindowView.remove();
         Backbone.View.prototype.remove.call(this);
@@ -138,8 +151,17 @@ var MapView = Backbone.View.extend(
        * Handler for window resizing.
        */
       resize: function () {
-        // Force the height of the map to fit the window
-        $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
+        var self = this;
+
+        clearTimeout(this.resizeTimeout);
+
+        this.resizeTimeout = setTimeout(function () {
+          if (!self.keyboardVisible) {
+            // Force the height of the map to fit the window
+            $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
+            google.maps.event.trigger(self.map, 'resize');
+          }
+        }, 150);
       },
 
       createPositionMarker: function () {
