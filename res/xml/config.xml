@@ -28,7 +28,7 @@
   <access origin="http://mobileapp-dev.it.su.se" subdomains="true"/>
   <access origin="http://*su.se"/>
   <access origin="http://gstatic.com" subdomains="true"/>
-  <access origin="https://googleapis.com" subdomains="true"/>
+  <access origin="http://googleapis.com" subdomains="true"/>
   <!-- allow local pages -->
 
   <!-- <access origin="https://example.com" /> allow any secure requests to example.com -->
