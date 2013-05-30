@@ -38,7 +38,12 @@ var StudentView = Backbone.View.extend({
     $('div[data-role="header"] > h1').attr('data-i18n', 'studentService.header.title');
     this.$el.i18n();
     i18n.init({ fallbackLng: false });
+  },
 
+  /**
+   * Render the student service view.
+   */
+  render: function () {
       var menu = _.map(config.studentService.menu, function(obj) {
           obj.title = i18n.t(obj.title, { defaultValue: " " });
           obj.url = i18n.t(obj.url, { defaultValue: " " });
@@ -46,7 +51,7 @@ var StudentView = Backbone.View.extend({
       });
 
       menu = _.sortBy(menu, function(obj){
-         return obj.title;
+          return obj.title;
       });
 
       _.each(menu, function(obj) {
