@@ -89,14 +89,42 @@
   },
   "studentService": {
     "menu": {
-      "applicationAndAdmission": "Admission",
-      "degreeAndCertificate": "Degrees",
-      "guidanceCounseling": "Study Counselling",
-      "infoCentre": "Information Centre",
-      "healthService": "Student Health",
-      "studentDisabilityService": "Student Disability Service",
-      "studyAbroad": "Study abroad",
-      "equality": "Equal treatment"
+      "applicationAndAdmission": {
+        "title": "How to Apply",
+          "url": "http://www.su.se/english/study/application-admissions"
+      },
+      "degreeAndCertificate": {
+        "title": "Qualifications & Degrees",
+        "url": "http://www.su.se/english/study/student-services/qualifications-degrees"
+      },
+      "guidanceCounseling": {
+        "title": "Study & Career Counselling",
+        "url": "http://www.su.se/english/study/student-services"
+      },
+      "infoCentre": {
+          "title": "Information Centre",
+          "url": "http://www.su.se/english/study/student-services"
+      },
+      "healthService": {
+          "title": "Student Health Service",
+          "url": "http://www.su.se/english/study/student-services/student-health-service"
+      },
+      "studentDisabilityService": {
+          "title": "Support for Students with Disabilities",
+          "url": "http://www.su.se/english/study/student-services/studying-with-a-disability"
+      },
+      "academicWritingService": {
+          "title": "Academic Writing Service",
+          "url": "http://www.su.se/english/study/student-services/academic-writing-service"
+      },
+      "equality": {
+          "title": "Equal treatment",
+          "url": "http://www.su.se/english/study/student-services/equal-treatment"
+      },
+      "orientation": {
+          "title": "Orientation Week",
+          "url": "http://www.su.se/english/study/student-services/admitted-students/orientation-week"
+      }
     },
     "header": {
       "title": "Student Service"

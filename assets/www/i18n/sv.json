@@ -87,16 +87,44 @@
     }
   },
   "studentService": {
-    "menu": {
-      "applicationAndAdmission": "Anmälan & antagning",
-      "degreeAndCertificate": "Examen",
-      "guidanceCounseling": "Studievägledning",
-      "infoCentre": "Infocenter",
-      "healthService": "Studenthälsan",
-      "studentDisabilityService": "Studentstöd",
-      "studyAbroad": "Studera utomlands",
-      "equality": "Jämlikhet & likabehandling"
-    },
+      "menu": {
+          "applicationAndAdmission": {
+              "title": "Anmälan & antagning",
+              "url": "http://www.su.se/utbildning/anmalan-antagning"
+          },
+          "degreeAndCertificate": {
+              "title": "Examen & högtid",
+              "url": "http://www.su.se/utbildning/examen-hogtid"
+          },
+          "guidanceCounseling": {
+              "title": "Studie- och karriärvägledning",
+              "url": "http://www.su.se/utbildning/studievaglednings"
+          },
+          "infoCentre": {
+              "title": "Infocenter",
+              "url": "http://www.su.se/utbildning/studentservice"
+          },
+          "healthService": {
+              "title": "Studenthälsan",
+              "url": "http://www.su.se/utbildning/studentservice/studenthalsovard"
+          },
+          "studentDisabilityService": {
+              "title": "Studera med funktionsnedsättning",
+              "url": "http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning"
+          },
+          "academicWritingService": {
+              "title": "Studie-och språkverkstaden",
+              "url": "http://www.su.se/utbildning/studentservice/studie-och-sprakverkstaden"
+          },
+          "equality": {
+              "title": "Jämlikhet & likabehandling",
+              "url": "http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling"
+          },
+          "studyAbroad": {
+              "title": "Studier utomlands",
+              "url": "http://www.su.se/utbildning/studentservice/studera-utomlands"
+          }
+      },
     "header": {
       "title": "Studentservice"
     }

@@ -56,6 +56,49 @@ var config = (function (pgBrokerBaseURL) {
       "zoom": {
         "threshold": 16
       }
-    }
+    },
+      "studentService": {
+          "menu": [ {
+              title: "studentService.menu.applicationAndAdmission.title",
+              url: "studentService.menu.applicationAndAdmission.url"
+          },
+          {
+              title: "studentService.menu.degreeAndCertificate.title",
+              url: "studentService.menu.degreeAndCertificate.url"
+          },
+          {
+              title: "studentService.menu.guidanceCounseling.title",
+              url: "studentService.menu.guidanceCounseling.url"
+          },
+          {
+              title: "studentService.menu.infoCentre.title",
+              url: "studentService.menu.infoCentre.url"
+          },
+          {
+              title: "studentService.menu.healthService.title",
+              url: "studentService.menu.healthService.url"
+          },
+          {
+              title: "studentService.menu.studentDisabilityService.title",
+              url: "studentService.menu.studentDisabilityService.url"
+          },
+          {
+              title: "studentService.menu.academicWritingService.title",
+              url: "studentService.menu.academicWritingService.url"
+          },
+          {
+              title: "studentService.menu.equality.title",
+              url: "studentService.menu.equality.url"
+          },
+          {
+              title: "studentService.menu.orientation.title",
+              url: "studentService.menu.orientation.url"
+          },
+          {
+              title: "studentService.menu.studyAbroad.title",
+              url: "studentService.menu.studyAbroad.url"
+          }
+        ]
+      }
   };
 })("http://mobileapp-dev.it.su.se");

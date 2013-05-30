@@ -612,7 +612,8 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 
 .studentservice-page .studentservice-list .ui-btn-text span {
     display: block;
-    margin-top: 5.5%;
+    white-space: normal;
+    margin-top: 5%;
     float: left;
     width:90%;
 }
