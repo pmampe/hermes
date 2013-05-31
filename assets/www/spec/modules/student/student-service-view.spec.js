@@ -37,12 +37,7 @@ describe('Student view', function () {
   beforeEach(function () {
     var html = "<div data-role='page' id='studentservice_page' style='width:200px; height:200px'>" +
         "<div id='studentservice_view' data-role='content'>" +
-        "<ul data-role='listview' data-inset='true'>" +
-        "<li>" +
-        "<a href='http://www.su.se/utbildning/anmalan-antagning' target='_blank' class='servicelink'>" +
-        "<span data-i18n='studentService.menu.applicationAndAdmission'>Admission</span>" +
-        "</a>" +
-        "</li>" +
+        "<ul data-role='listview' data-inset='true' class='studentservice-list' id='studentservice-menu'>" +
         "</ul>" +
         "</div>";
 
@@ -50,10 +45,17 @@ describe('Student view', function () {
     $.mobile.loadPage("#studentservice_page", {prefetch: "true"});
 
     this.view = new StudentView({ el: $('#studentservice_page') });
+    this.view.render();
   });
 
   afterEach(function () {
     $('#studentservice_page').replaceWith("<div id='stage'></div>");
+  });
+
+  describe('render', function() {
+    it('Menu should be populated with 9 list items', function() {
+      expect($('#studentservice-menu').children().size()).toEqual(9);
+    });
   });
 
   describe('on deviceready', function () {
@@ -71,7 +73,7 @@ describe('Student view', function () {
     it('should call trackPage on GAPlugin for link target', function () {
       spyOn(window.plugins.gaPlugin, 'trackPage');
 
-      var target = $('a.servicelink');
+      var target = $('.servicelink');
       $(target).trigger('click');
 
       expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, target.attr('href'));

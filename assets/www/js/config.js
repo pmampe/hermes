@@ -59,79 +59,79 @@ var config = (function (pgBrokerBaseURL) {
     },
       "studentServiceEng": {
           "menu": [ {
-              title: "studentService.menu.applicationAndAdmission.title",
-              url: "studentService.menu.applicationAndAdmission.url"
+            title: "studentService.menu.applicationAndAdmission.title",
+            url: "http://www.su.se/english/study/application-admissions"
           },
           {
-              title: "studentService.menu.degreeAndCertificate.title",
-              url: "studentService.menu.degreeAndCertificate.url"
+            title: "studentService.menu.degreeAndCertificate.title",
+            url: "http://www.su.se/english/study/student-services/qualifications-degrees"
           },
           {
-              title: "studentService.menu.guidanceCounseling.title",
-              url: "studentService.menu.guidanceCounseling.url"
+            title: "studentService.menu.guidanceCounseling.title",
+            url: "http://www.su.se/english/study/student-services"
           },
           {
-              title: "studentService.menu.infoCentre.title",
-              url: "studentService.menu.infoCentre.url"
+            title: "studentService.menu.infoCentre.title",
+            url: "http://www.su.se/english/study/student-services"
           },
           {
-              title: "studentService.menu.healthService.title",
-              url: "studentService.menu.healthService.url"
+            title: "studentService.menu.healthService.title",
+            url: "http://www.su.se/english/study/student-services/student-health-service"
           },
           {
-              title: "studentService.menu.studentDisabilityService.title",
-              url: "studentService.menu.studentDisabilityService.url"
+            title: "studentService.menu.studentDisabilityService.title",
+            url: "http://www.su.se/english/study/student-services/studying-with-a-disability"
           },
           {
-              title: "studentService.menu.academicWritingService.title",
-              url: "studentService.menu.academicWritingService.url"
+            title: "studentService.menu.academicWritingService.title",
+            url: "http://www.su.se/english/study/student-services/academic-writing-service"
           },
           {
-              title: "studentService.menu.equality.title",
-              url: "studentService.menu.equality.url"
+            title: "studentService.menu.equality.title",
+            url: "http://www.su.se/english/study/student-services/equal-treatment"
           },
           {
-              title: "studentService.menu.orientation.title",
-              url: "studentService.menu.orientation.url"
+            title: "studentService.menu.orientation.title",
+            url: "http://www.su.se/english/study/student-services/admitted-students/orientation-week"
           }
         ]
       },
     "studentServiceSwe": {
       "menu": [ {
         title: "studentService.menu.applicationAndAdmission.title",
-        url: "studentService.menu.applicationAndAdmission.url"
+        url: "http://www.su.se/utbildning/anmalan-antagning"
       },
         {
           title: "studentService.menu.degreeAndCertificate.title",
-          url: "studentService.menu.degreeAndCertificate.url"
+          url: "http://www.su.se/utbildning/examen-hogtid"
         },
         {
           title: "studentService.menu.guidanceCounseling.title",
-          url: "studentService.menu.guidanceCounseling.url"
+          url: "http://www.su.se/utbildning/studievaglednings"
         },
         {
           title: "studentService.menu.infoCentre.title",
-          url: "studentService.menu.infoCentre.url"
+          url: "http://www.su.se/utbildning/studentservice"
         },
         {
           title: "studentService.menu.healthService.title",
-          url: "studentService.menu.healthService.url"
+          url: "http://www.su.se/utbildning/studentservice/studenthalsovard"
         },
         {
           title: "studentService.menu.studentDisabilityService.title",
-          url: "studentService.menu.studentDisabilityService.url"
+          url: "http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning"
         },
         {
           title: "studentService.menu.academicWritingService.title",
-          url: "studentService.menu.academicWritingService.url"
+          url: "http://www.su.se/utbildning/studentservice/studie-och-sprakverkstaden"
         },
         {
           title: "studentService.menu.equality.title",
-          url: "studentService.menu.equality.url"
+          url: "http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling"
         },
         {
           title: "studentService.menu.studyAbroad.title",
-          url: "studentService.menu.studyAbroad.url"
+          url: "http://www.su.se/utbildning/studentservice/studera-utomlands"
         }
       ]
     }
