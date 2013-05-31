@@ -309,6 +309,17 @@ describe('Search view', function () {
         expect(result).toMatch(/.*Axel Baxel/i);
       });
 
+      it('should blur on hide filtered list', function(){
+        spyOn(appView.searchView, 'hideFilteredList');
+        spyOn(appView.searchView, 'resetLocations');
+
+        spyOn(appView.searchView.inputField, 'blur');
+
+        $('#cancelFilter').trigger('click');
+        expect(appView.searchView.inputField.blur).toHaveBeenCalled();
+
+      });
+
       it('should show cancel button on focus on input field', function () {
         expect($("#cancelFilter").is(":visible")).toBeFalsy();
         $('#search-box input').trigger('focus');

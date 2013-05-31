@@ -121,6 +121,7 @@ var SearchView = Backbone.View.extend(
         if (this.inputField.val() === "") {
           this.resetLocations();
         }
+        this.inputField.blur();
       },
 
       /**
