@@ -59,6 +59,40 @@ describe('Student view', function () {
   });
 
   describe('on deviceready', function () {
+
+    it('Should initiate i18n and return the swedish list depending when swedish is the language', function() {
+      spyOn(i18n, 'detectLanguage').andReturn('sv-SE');
+      this.view = new StudentView({ el: $('#studentservice_page')});
+
+      expect(this.view.menu.length).toEqual(config.studentServiceSwe.menu.length);
+
+      for(var i=0; i < this.view.menu.length; i++) {
+       expect(config.studentServiceSwe.menu).toContain(this.view.menu[i]);
+      }
+    });
+
+    it('Should initiate i18n and return the english list when english is the default language', function() {
+      spyOn(i18n, 'detectLanguage').andReturn('en');
+      this.view = new StudentView({ el: $('#studentservice_page')});
+
+      expect(this.view.menu.length).toEqual(config.studentServiceEng.menu.length);
+
+      for(var i=0; i < this.view.menu.length; i++) {
+        expect(config.studentServiceEng.menu).toContain(this.view.menu[i]);
+      }
+    });
+
+    it('Should initiate i18n and return the english list when neither english nor swedish is the default language', function() {
+      spyOn(i18n, 'detectLanguage').andReturn('fr-FR');
+      this.view = new StudentView({ el: $('#studentservice_page')});
+
+      expect(this.view.menu.length).toEqual(config.studentServiceEng.menu.length);
+
+      for(var i=0; i < this.view.menu.length; i++) {
+        expect(config.studentServiceEng.menu).toContain(this.view.menu[i]);
+      }
+    });
+
     it('should call trackPage on GAPlugin for correct page', function () {
 
       spyOn(window.plugins.gaPlugin, 'trackPage');
