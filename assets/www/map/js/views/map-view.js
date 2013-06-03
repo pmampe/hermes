@@ -162,7 +162,9 @@ var MapView = Backbone.View.extend(
         this.resizeTimeout = setTimeout(function () {
           if (!self.keyboardVisible) {
             // Force the height of the map to fit the window
-            $("#map-content").height($(window).height() - $("[data-role='header']").outerHeight() - $("div#search-box").outerHeight() - 2);
+            var headerHeight = $("[data-role='header']").outerHeight() + $("div#search-box").outerHeight();
+            $("#map-content").offset({ top: headerHeight, left: 0 });
+            $("#map-content").height($(window).height() - headerHeight - 2);
             google.maps.event.trigger(self.map, 'resize');
           }
         }, 150);
