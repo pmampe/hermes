@@ -48,21 +48,29 @@
 /*************
  ** General
  ***********/
-@font-face {
-    font-family: TheSansB-W5Plain;
-    src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W5Plain.otf") format("opentype");
+div[data-role='page'] {
+  z-index: 1;
+}
+
+div[data-role='content'] {
+  z-index: 2;
 }
 
 @font-face {
-    font-family: TheSansB-W7Bold;
-    src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W7Bold.otf") format("opentype");
+  font-family: TheSansB-W5Plain;
+  src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W5Plain.otf") format("opentype");
+}
+
+@font-face {
+  font-family: TheSansB-W7Bold;
+  src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W7Bold.otf") format("opentype");
 }
 
 .ui-header h1.ui-title {
   font-weight: normal;
   font-family: TheSansB-W5Plain;
   font-size: 17px;
-    margin: 9px 0 12px;
+  margin: 9px 0 12px;
 }
 
 .ui-btn-text {
@@ -90,35 +98,35 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
  ** Header
  ***********/
 .ui-header.nobuttons .ui-title {
-    font-size: 25px;
-    margin: 1px 0 4px 1px;
-    font-family: TheSansB-W5Plain;
-    font-size: 28px;
+  font-size: 25px;
+  margin: 1px 0 4px 1px;
+  font-family: TheSansB-W5Plain;
+  font-size: 28px;
 }
 
 .ui-header.nobuttons {
-    border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 .ui-header.ui-bar-a {
-    height: 40px;
+  height: 40px;
 }
 
 .ui-header.ui-bar-a h1 {
-    font-size: 24px;
-    margin-top: 0.15em;
+  font-size: 24px;
+  margin-top: 0.15em;
 }
 
 .studentservice-page .ui-header.ui-bar-a h1,
-.info-page .ui-header.ui-bar-a h1{
-    font-size: 16px;
-    margin-top: 0.6em;
+.info-page .ui-header.ui-bar-a h1 {
+  font-size: 16px;
+  margin-top: 0.6em;
 }
 
-.info-page .ui-header.ui-bar-a h1{
-    text-align: center;
-    margin-left: 15%;
-    margin-right: 10%;
+.info-page .ui-header.ui-bar-a h1 {
+  text-align: center;
+  margin-left: 15%;
+  margin-right: 10%;
 }
 
 .menubutton:before {
@@ -187,8 +195,8 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
 }
 
 .backbutton .ui-btn-inner {
-padding-left: 5px;
-padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 10px;
 }
 
 .backbutton .home,
@@ -495,70 +503,70 @@ div.search-box .ui-btn-hover-b .ui-last-child {
  ** Accessibility styles
  ***********/
 .app-accessibility h3 {
-    font-family: TheSansB-W7Bold;
-    font-size: 18px;
-    margin: 2px 0 0 0;
+  font-family: TheSansB-W7Bold;
+  font-size: 18px;
+  margin: 2px 0 0 0;
 }
 
 .app-accessibility .top-text {
-    font-family: TheSansB-W5Plain;
-    font-size: 13px;
-    margin-top: 6px;
+  font-family: TheSansB-W5Plain;
+  font-size: 13px;
+  margin-top: 6px;
 }
 
 .scale-container {
-    width: 100%;
-    float:left;
-    margin-bottom: 10px;
-    position: relative;
+  width: 100%;
+  float: left;
+  margin-bottom: 10px;
+  position: relative;
 }
 
 .scale-container .icon-description {
-    float: left;
-    display: block;
-    width: 14%;
-    border-radius: 50%;
-    background: #002F5F;
-    box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.4) inset;
-    background-repeat: no-repeat;
-    background-position: center;
+  float: left;
+  display: block;
+  width: 14%;
+  border-radius: 50%;
+  background: #002F5F;
+  box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.4) inset;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .scale-container .icon-description img {
-    width: 70%;
-    height: auto;
-    display: block;
-    margin: 15% auto 0 auto;
+  width: 70%;
+  height: auto;
+  display: block;
+  margin: 15% auto 0 auto;
 }
 
 .scale-container .icon-description.handicap-entrance img {
-    width: 65%;
+  width: 65%;
 }
 
 .scale-container .icon-description.handicap-entrance img {
-    width: 60%;
-    margin-top: 20%;
+  width: 60%;
+  margin-top: 20%;
 }
 
 .scale-container .icon-description.handicap-lift img {
-    width: 50%;
+  width: 50%;
 }
 
 .scale-container .icon-description.handicap-toilet img {
-    margin-top: 22%;
+  margin-top: 22%;
 }
 
 .scale-container .icon-description.handicap-parking img {
-    width: 55%;
+  width: 55%;
 }
 
 .scale-container span {
-    position: absolute;
-    top: 50%;
-    margin: -9px 0 0 15px;
-    color: #002F5F;
-    font-family: TheSansB-W5Plain;
-    font-size: 18px;
+  position: absolute;
+  top: 50%;
+  margin: -9px 0 0 15px;
+  color: #002F5F;
+  font-family: TheSansB-W5Plain;
+  font-size: 18px;
 }
 
 /*************
