@@ -104,12 +104,12 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
     height: 40px;
 }
 
-.ui-header.ui-bar-a h1 {
+.ui-header.ui-bar-a h1,
+.studentservice-page .ui-header.ui-bar-a h1 {
     font-size: 24px;
     margin-top: 0.15em;
 }
 
-.studentservice-page .ui-header.ui-bar-a h1,
 .info-page .ui-header.ui-bar-a h1{
     font-size: 16px;
     margin-top: 0.6em;
@@ -582,6 +582,11 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     border: 1px solid #ababab;
     font-size: 17px;
 }
+
+.studentservice-page .ui-btn-hover-c:active {
+    background: rgba(0, 47, 95, 0.1) !important;
+}
+
 .studentservice-page .studentservice-list .ui-btn-up-c:visited,
 .studentservice-page .studentservice-list .ui-btn-up-c a.ui-link-inherit {
     font-family: TheSansB-W7Bold;
