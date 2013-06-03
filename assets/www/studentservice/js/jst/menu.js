@@ -29,65 +29,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var StudentView = Backbone.View.extend({
-  initialize: function () {
+if (!("JST" in window) || "JST" === undefined) {
+    window.JST = {};
+}
 
-    $(document).on('deviceready.appview', this.handleDeviceReady);
-
-    initLocale({ resGetPath: '../i18n/__lng__.json' });
-    $('div[data-role="header"] > h1').attr('data-i18n', 'studentService.header.title');
-    this.$el.i18n();
-
-    if(i18n.detectLanguage().indexOf("sv-") >= 0) {
-      var listLanguage = config.studentServiceSwe.menu;
-    } else {
-      var listLanguage = config.studentServiceEng.menu;
-    }
-
-    this.menu = _.map(listLanguage, function(obj) {
-      obj.title = i18n.t(obj.title);
-      return obj;
-    });
-
-    this.menu = _.sortBy(this.menu, function(obj){
-      return obj.title;
-    });
-  },
-
-  /**
-   * Render the student service view.
-   */
-  render: function () {
-    _.each(this.menu, function(obj) {
-      $('#studentservice-menu').append(JST["studentservice/menu"](obj));
-    });
-    $("#studentservice-menu").listview('refresh');
-  },
-
-  events: {
-    'click a.servicelink': 'handleServiceLinkClick'
-  },
-
-  /**
-   * Remove handler for the view.
-   */
-  remove: function () {
-    $(document).off('.appview');
-
-    Backbone.View.prototype.remove.call(this);
-  },
-
-  /**
-   * Handles the device ready event.
-   */
-  handleDeviceReady: function () {
-    gaPlugin.trackPage(null, null, "studentservice/index.html");
-  },
-
-  /**
-   * Handles the device ready event.
-   */
-  handleServiceLinkClick: function (event) {
-    gaPlugin.trackPage(null, null, $(event.target).attr("href"));
-  }
-});
+JST['studentservice/menu'] = _.template(" \
+  <li> \
+    <a href='<%= url %>' target='_blank' class='servicelink'> \
+        <span><%= title %></span> \
+        <div class='img-container'> \
+            <img src='../img/icons/icon-external-link.svg' /> \
+        </div> \
+    </a> \
+</li> \
+");

@@ -87,16 +87,35 @@
     }
   },
   "studentService": {
-    "menu": {
-      "applicationAndAdmission": "Anmälan & antagning",
-      "degreeAndCertificate": "Examen",
-      "guidanceCounseling": "Studievägledning",
-      "infoCentre": "Infocenter",
-      "healthService": "Studenthälsan",
-      "studentDisabilityService": "Studentstöd",
-      "studyAbroad": "Studera utomlands",
-      "equality": "Jämlikhet & likabehandling"
-    },
+      "menu": {
+          "applicationAndAdmission": {
+              "title": "Anmälan & antagning"
+          },
+          "degreeAndCertificate": {
+              "title": "Examen & högtid"
+          },
+          "guidanceCounseling": {
+              "title": "Studie- och karriärvägledning"
+          },
+          "infoCentre": {
+              "title": "Infocenter"
+          },
+          "healthService": {
+              "title": "Studenthälsan"
+          },
+          "studentDisabilityService": {
+              "title": "Studera med funktionsnedsättning"
+          },
+          "academicWritingService": {
+              "title": "Studie-och språkverkstaden"
+          },
+          "equality": {
+              "title": "Jämlikhet & likabehandling"
+          },
+          "studyAbroad": {
+              "title": "Studier utomlands"
+          }
+      },
     "header": {
       "title": "Studentservice"
     }

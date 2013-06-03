@@ -560,3 +560,76 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     font-family: TheSansB-W5Plain;
     font-size: 18px;
 }
+
+/*************
+ ** Student service styles
+ ***********/
+
+.studentservice-page h3 {
+    font-family: TheSansB-W7Bold;
+    font-size: 17px;
+    color: #4c566c;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+    margin: 0 0 0 11px;
+}
+
+.studentservice-page .studentservice-list {
+    margin-top: 5px;
+}
+
+.studentservice-page .ui-btn-up-c {
+    background: #f7f7f7;
+    border: 1px solid #ababab;
+    font-size: 17px;
+}
+.studentservice-page .studentservice-list .ui-btn-up-c:visited,
+.studentservice-page .studentservice-list .ui-btn-up-c a.ui-link-inherit {
+    font-family: TheSansB-W7Bold;
+    color: #002e5f;
+}
+
+.studentservice-page .studentservice-list .ui-btn-up-c,
+.studentservice-page .studentservice-list .ui-btn-hover-c {
+    padding-bottom: 1%;
+}
+
+.studentservice-page .ui-icon-arrow-r,
+.studentservice-page .ui-icon{
+    display: none;
+}
+
+.studentservice-page .studentservice-list .ui-li-has-arrow .ui-btn-inner a.ui-link-inherit {
+    padding: 0 10px;
+}
+
+.studentservice-page .studentservice-list .ui-btn-hover-c {
+    border: 1px solid #ababab;
+    background: #f7f7f7;
+    font-weight: normal;
+    font-family: TheSansB-W7Bold;
+    color: #002e5f;
+}
+
+.studentservice-page .studentservice-list .ui-btn-text span {
+    display: block;
+    white-space: normal;
+    margin-top: 5%;
+    float: left;
+    width:90%;
+}
+
+.studentservice-page .studentservice-list .img-container {
+    float:left;
+    width: 10%;
+    margin-top: 3%;
+}
+
+.studentservice-page .studentservice-list .img-container img {
+    width: 100%;
+    height: auto;
+}
+
+.studentservice-page .studentservice-list .ui-btn-hover-c span {
+    color: #002e5f;
+    text-shadow: none !important;
+}

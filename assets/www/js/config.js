@@ -56,6 +56,84 @@ var config = (function (pgBrokerBaseURL) {
       "zoom": {
         "threshold": 16
       }
+    },
+      "studentServiceEng": {
+          "menu": [ {
+            title: "studentService.menu.applicationAndAdmission.title",
+            url: "http://www.su.se/english/study/application-admissions"
+          },
+          {
+            title: "studentService.menu.degreeAndCertificate.title",
+            url: "http://www.su.se/english/study/student-services/qualifications-degrees"
+          },
+          {
+            title: "studentService.menu.guidanceCounseling.title",
+            url: "http://www.su.se/english/study/student-services"
+          },
+          {
+            title: "studentService.menu.infoCentre.title",
+            url: "http://www.su.se/english/study/student-services"
+          },
+          {
+            title: "studentService.menu.healthService.title",
+            url: "http://www.su.se/english/study/student-services/student-health-service"
+          },
+          {
+            title: "studentService.menu.studentDisabilityService.title",
+            url: "http://www.su.se/english/study/student-services/studying-with-a-disability"
+          },
+          {
+            title: "studentService.menu.academicWritingService.title",
+            url: "http://www.su.se/english/study/student-services/academic-writing-service"
+          },
+          {
+            title: "studentService.menu.equality.title",
+            url: "http://www.su.se/english/study/student-services/equal-treatment"
+          },
+          {
+            title: "studentService.menu.orientation.title",
+            url: "http://www.su.se/english/study/student-services/admitted-students/orientation-week"
+          }
+        ]
+      },
+    "studentServiceSwe": {
+      "menu": [ {
+        title: "studentService.menu.applicationAndAdmission.title",
+        url: "http://www.su.se/utbildning/anmalan-antagning"
+      },
+        {
+          title: "studentService.menu.degreeAndCertificate.title",
+          url: "http://www.su.se/utbildning/examen-hogtid"
+        },
+        {
+          title: "studentService.menu.guidanceCounseling.title",
+          url: "http://www.su.se/utbildning/studievaglednings"
+        },
+        {
+          title: "studentService.menu.infoCentre.title",
+          url: "http://www.su.se/utbildning/studentservice"
+        },
+        {
+          title: "studentService.menu.healthService.title",
+          url: "http://www.su.se/utbildning/studentservice/studenthalsovard"
+        },
+        {
+          title: "studentService.menu.studentDisabilityService.title",
+          url: "http://www.su.se/utbildning/studentservice/studera-med-funktionsnedsattning"
+        },
+        {
+          title: "studentService.menu.academicWritingService.title",
+          url: "http://www.su.se/utbildning/studentservice/studie-och-sprakverkstaden"
+        },
+        {
+          title: "studentService.menu.equality.title",
+          url: "http://www.su.se/utbildning/studentservice/jamlikhet-likabehandling"
+        },
+        {
+          title: "studentService.menu.studyAbroad.title",
+          url: "http://www.su.se/utbildning/studentservice/studera-utomlands"
+        }
+      ]
     }
   };
 })("http://mobileapp-dev.it.su.se");
