@@ -574,7 +574,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .studentservice-page .studentservice-list {
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .studentservice-page .ui-btn-up-c {
@@ -583,7 +583,10 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     font-size: 17px;
 }
 
-.studentservice-page .ui-btn-hover-c:active {
+.studentservice-page .ui-btn-hover-c:active,
+.studentservice-page .ui-btn-up-c:active,
+.studentservice-page .ui-btn-hover-c:hover,
+.studentservice-page .ui-btn-up-c:hover {
     background: rgba(0, 47, 95, 0.1) !important;
 }
 
@@ -591,11 +594,6 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 .studentservice-page .studentservice-list .ui-btn-up-c a.ui-link-inherit {
     font-family: TheSansB-W7Bold;
     color: #002e5f;
-}
-
-.studentservice-page .studentservice-list .ui-btn-up-c,
-.studentservice-page .studentservice-list .ui-btn-hover-c {
-    padding-bottom: 1%;
 }
 
 .studentservice-page .ui-icon-arrow-r,
@@ -618,7 +616,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 .studentservice-page .studentservice-list .ui-btn-text span {
     display: block;
     white-space: normal;
-    margin-top: 5%;
+    margin-top: 4%;
     float: left;
     width:90%;
 }
@@ -626,7 +624,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 .studentservice-page .studentservice-list .img-container {
     float:left;
     width: 10%;
-    margin-top: 3%;
+    margin-top: 2%;
 }
 
 .studentservice-page .studentservice-list .img-container img {
