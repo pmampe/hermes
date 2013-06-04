@@ -248,8 +248,8 @@ a {
 
 div.search-box .cancel-filter-button {
   position: absolute;
-  right: 0px;
-  top: 49px;
+  right: 0;
+  top: -10px;
   display: none;
   height: 28px;
   line-height: 12px;
