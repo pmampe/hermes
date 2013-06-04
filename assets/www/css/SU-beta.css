@@ -584,9 +584,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .studentservice-page .ui-btn-hover-c:active,
-.studentservice-page .ui-btn-up-c:active,
-.studentservice-page .ui-btn-hover-c:hover,
-.studentservice-page .ui-btn-up-c:hover {
+.studentservice-page .ui-btn-up-c:active {
     background: rgba(0, 47, 95, 0.1) !important;
 }
 
