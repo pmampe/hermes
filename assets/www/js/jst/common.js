@@ -68,3 +68,10 @@ JST['common/external-link-dialog'] = _.template(' \
       </fieldset> \
   </div> \
 ');
+
+JST['common/error-dialog'] = _.template(' \
+  <div data-role="content"> \
+      <p><span data-i18n="error.message">	Connection lost – check your internet connection and retry </span></p> \
+      <a href="#" data-rel="back" data-role="button"><span data-i18n="error.button"> Close </span></a> \
+  </div>\
+');
