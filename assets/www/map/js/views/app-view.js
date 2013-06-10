@@ -118,7 +118,8 @@ var AppView = Backbone.View.extend(
        * Registers events.
        */
       events: {
-        "click #menubutton": "showMenu"
+        "click #menubutton": "showMenu",
+        "click #backbutton": "goingBackToTrue"
       },
 
       /**
@@ -219,6 +220,13 @@ var AppView = Backbone.View.extend(
       },
 
       /**
+       * Sets global variable goingBack to true to divert error message (in app-model fetchLocations)
+       */
+      goingBackToTrue: function () {
+        window.goingBack = true;
+      },
+
+/**
        * Moves map to selected campus & resets locations.
        */
       changeCampus: function () {

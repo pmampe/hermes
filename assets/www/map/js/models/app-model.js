@@ -63,6 +63,10 @@ var AppModel = Backbone.Model.extend(
         if (this.get('menu') || this.get('filterByCampus')) {
           this.campuses.fetch({reset: true});
         }
+
+        /* goingBack = true indicates that backbutton is pressed and error message is not needed */
+        window.goingBack = false;
+
       },
 
       /**
@@ -81,12 +85,16 @@ var AppModel = Backbone.Model.extend(
             types: this.get('types')
           },
           error: function () {
-            $errorDialog = $('<div  data-role="popup" id="errorPopup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]).appendTo('body');
 
-            $('#errorPopup').i18n();
-            $errorDialog.popup();
-            $errorDialog.trigger('create');
-            $errorDialog.popup('open');
+            if( window.goingBack == false ){
+
+              $errorDialog = $('<div  data-role="popup" id="errorPopup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]).appendTo('body');
+
+              $('#errorPopup').i18n();
+              $errorDialog.popup();
+              $errorDialog.trigger('create');
+              $errorDialog.popup('open');
+            }
           },
           reset: true
         });
