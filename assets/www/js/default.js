@@ -28,7 +28,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
 $(document).on('deviceready', function () {
   window.gaPlugin = window.plugins.gaPlugin;
   gaPlugin.init(
@@ -104,7 +103,13 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
 /*
  * Handles suppression of 300ms delay on click event
  */
-
 $(document).ready(function () {
   FastClick.attach(document.body);
+
+  $(document).ajaxStart(function() {
+    $.mobile.showPageLoadingMsg();
+  });
+  $(document).ajaxStop(function() {
+    $.mobile.hidePageLoadingMsg();
+  });
 });
