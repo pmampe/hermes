@@ -80,24 +80,31 @@ var AppModel = Backbone.Model.extend(
        * Fetch all locations of a specific type.
        */
       fetchLocations: function () {
+        var self= this;
+
         this.locations.fetch({
           data: {
             types: this.get('types')
           },
           error: function () {
-
-            if( window.goingBack == false ){
-
-              $errorDialog = $('<div  data-role="popup" id="errorPopup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]).appendTo('body');
-
-              $('#errorPopup').i18n();
-              $errorDialog.popup();
-              $errorDialog.trigger('create');
-              $errorDialog.popup('open');
-            }
+            self.showError();
           },
           reset: true
         });
+      },
+
+      /**
+       * Displays error messages
+       */
+      showError: function () {
+        if( window.goingBack == false ){
+          $errorDialog = $('<div  data-role="popup" id="errorPopup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]).appendTo('body');
+
+          $('#errorPopup').i18n();
+          $errorDialog.popup();
+          $errorDialog.trigger('create');
+          $errorDialog.popup('open');
+        }
       },
 
       /**
