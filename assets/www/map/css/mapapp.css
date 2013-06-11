@@ -270,6 +270,6 @@ div.noresults {
 }
 
 #menupopup-popup.ui-popup-active {
-  top: 0 !important;
+  top: -3px !important;
 }
 
