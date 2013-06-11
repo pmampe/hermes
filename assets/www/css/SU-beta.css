@@ -605,7 +605,6 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     font-family: TheSansB-W7Bold;
     color: #002e5f;
 }
-
 .studentservice-page .studentservice-list .ui-btn-text span {
     display: block;
     white-space: normal;
@@ -630,16 +629,16 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     text-shadow: none !important;
 }
 
-.ui-mobile .ui-page-active {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-}
-
-.ui-mobile .ui-page-active > * {
+.ui-mobile .ui-page-active div.search-box ul {
     -webkit-transform: translateZ(0px);
 }
 
-.ui-mobile .ui-page-active > * {
-    -webkit-transform: translate3d(0,0,0);
+.clearfix:before,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden;
 }
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;} /* IE < 8 */
