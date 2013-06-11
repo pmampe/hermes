@@ -531,10 +531,6 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .scale-container .icon-description.handicap-entrance img {
-    width: 65%;
-}
-
-.scale-container .icon-description.handicap-entrance img {
     width: 60%;
     margin-top: 20%;
 }
@@ -635,5 +631,15 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .ui-mobile .ui-page-active {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ui-mobile .ui-page-active > * {
+    -webkit-transform: translateZ(0px);
+}
+
+.ui-mobile .ui-page-active > * {
+    -webkit-transform: translate3d(0,0,0);
 }
