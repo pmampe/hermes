@@ -236,7 +236,6 @@ padding-right: 10px;
   width: 21px;
 }
 
-.backbutton:hover,
 .backbutton:focus,
 .backbutton:active {
   background: #dae2ec;
@@ -247,7 +246,6 @@ padding-right: 10px;
   background: linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
 }
 
-.backbutton:hover:before,
 .backbutton:focus:before,
 .backbutton:active:before {
   background: #dae2ec;
@@ -489,6 +487,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
   margin-top: 44px !important;
   max-width: 100% !important;
   width: 60% !important;
+  overflow: visible;
 }
 
 /*************
@@ -529,10 +528,6 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     height: auto;
     display: block;
     margin: 15% auto 0 auto;
-}
-
-.scale-container .icon-description.handicap-entrance img {
-    width: 65%;
 }
 
 .scale-container .icon-description.handicap-entrance img {
@@ -633,4 +628,18 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 .studentservice-page .studentservice-list .ui-btn-hover-c span {
     color: #002e5f;
     text-shadow: none !important;
+}
+
+.ui-mobile .ui-page-active {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ui-mobile .ui-page-active > * {
+    -webkit-transform: translateZ(0px);
+}
+
+.ui-mobile .ui-page-active > * {
+    -webkit-transform: translate3d(0,0,0);
 }
