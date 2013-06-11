@@ -267,7 +267,6 @@ div.noresults {
 #menupopup-popup {
   right: 0 !important;
   left: auto !important;
-  z-index: 1000;
 }
 
 #menupopup-popup.ui-popup-active {
