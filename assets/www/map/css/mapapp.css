@@ -243,7 +243,7 @@ a {
 div.search-box .cancel-filter-button {
   position: absolute;
   right: 0px;
-  top: 49px;
+  top: 5px;
   display: none;
   height: 28px;
   line-height: 12px;
@@ -270,6 +270,6 @@ div.noresults {
 }
 
 #menupopup-popup.ui-popup-active {
-  top: 0 !important;
+  top: -3px !important;
 }
 
