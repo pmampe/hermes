@@ -531,10 +531,6 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 }
 
 .scale-container .icon-description.handicap-entrance img {
-    width: 65%;
-}
-
-.scale-container .icon-description.handicap-entrance img {
     width: 60%;
     margin-top: 20%;
 }
@@ -634,6 +630,35 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     text-shadow: none !important;
 }
 
-.ui-mobile .ui-page-active {
+.ui-mobile .ui-page-active div.search-box ul {
+    -webkit-transform: translateZ(0px);
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
     overflow: hidden;
+}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;} /* IE < 8 */
+
+.ui-loader-verbose {
+    position: absolute;
+    top: 43px !important;left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: #CCC;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-loader-verbose .ui-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    margin: -65px 0 0 -22px;
+    padding: 0;
 }
