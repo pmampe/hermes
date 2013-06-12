@@ -49,6 +49,7 @@ var MenuPopupView = Backbone.View.extend(
         _.bindAll(this, "render", "selectCampus", "updateCampuses");
 
         this.campuses = options.campuses;
+        this.searchView = options.searchView;
 
         // Calculate header size & position menupopup beneath
         var header = $('div[data-role="header"]');
@@ -69,7 +70,7 @@ var MenuPopupView = Backbone.View.extend(
 
       /** Registers events */
       events: {
-        "click #menupopupList": "selectCampus"
+        "click .campus-link": "selectCampus"
       },
 
       /**
@@ -81,6 +82,7 @@ var MenuPopupView = Backbone.View.extend(
           $(this).popup("close");
         });
 
+        this.searchView.hideFilteredList();
         this.$el.popup("open");
       },
 
@@ -107,9 +109,12 @@ var MenuPopupView = Backbone.View.extend(
         // remove everything from the list
         $("#menupopupList").find("li").remove();
 
+        // append headline
+        $("#menupopupList").append("<li class='no-li-styling' data-theme='y'><p data-i18n='map.hamburger.choosecampus'> Välj&nbsp;universitetsområde:</p></li>");
+
         // append all campuses
         this.campuses.each(function (campus) {
-          $("#menupopupList").append("<li id='campus-" + campus.get('id') + "' data-icon='false' data-theme='b'><a href='javascript://nop' class='needsclick'>" + campus.get('name') + "</a></li>");
+          $("#menupopupList").append("<li class='campus-link' id='campus-" + campus.get('id') + "' data-icon='false' data-theme='b'><a href='javascript://nop'>" + campus.get('name') + "</a></li>");
         });
 
         $("#menupopupList").listview();
