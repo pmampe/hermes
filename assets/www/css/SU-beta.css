@@ -644,6 +644,9 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 .clearfix:after {clear: both;}
 .clearfix {zoom: 1;} /* IE < 8 */
 
+/*************
+ ** Load spinner styles
+ ***********/
 .ui-loader-verbose {
     position: absolute;
     top: 43px !important;left: 0;

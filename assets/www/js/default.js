@@ -125,6 +125,7 @@ $(document).ready(function () {
       html: ""
     });
   });
+
   $(document).ajaxStop(function() {
     $.mobile.hidePageLoadingMsg();
   });
