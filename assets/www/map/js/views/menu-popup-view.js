@@ -97,6 +97,7 @@ var MenuPopupView = Backbone.View.extend(
         this.trigger('selected', this.campuses.get(campusId));
 
         this.$el.popup('close');
+        evt.stopImmediatePropagation();
       },
 
       /**
@@ -108,7 +109,7 @@ var MenuPopupView = Backbone.View.extend(
 
         // append all campuses
         this.campuses.each(function (campus) {
-          $("#menupopupList").append("<li id='campus-" + campus.get('id') + "' data-icon='false' data-theme='b'><a href='javascript://nop'>" + campus.get('name') + "</a></li>");
+          $("#menupopupList").append("<li id='campus-" + campus.get('id') + "' data-icon='false' data-theme='b'><a href='javascript://nop' class='needsclick'>" + campus.get('name') + "</a></li>");
         });
 
         $("#menupopupList").listview();
