@@ -118,8 +118,7 @@ var AppView = Backbone.View.extend(
        * Registers events.
        */
       events: {
-        "click #menubutton": "showMenu",
-        "click #backbutton": "goingBackToTrue"
+        "click #menubutton": "showMenu"
       },
 
       /**
@@ -217,13 +216,6 @@ var AppView = Backbone.View.extend(
       // TODO Why do we need to call updateLocations twice initially?
       updateLocations: function () {
         this.model.fetchLocations();
-      },
-
-      /**
-       * Sets global variable goingBack to true to divert error message (in app-model fetchLocations)
-       */
-      goingBackToTrue: function () {
-        window.goingBack = true;
       },
 
 /**

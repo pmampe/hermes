@@ -108,3 +108,35 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
 $(document).ready(function () {
   FastClick.attach(document.body);
 });
+
+$( document ).on( "pagebeforechange", function () {
+  window.showError.supressErrors();
+});
+
+/**
+* Displays error messages
+**/
+window.showError = function () {
+
+  var supressErrors = false;
+
+  var f = function (msg) {
+    if (!supressErrors) {
+      $errorDialog = $('<div data-role="popup" id="errorPopup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]({
+        errormessage: msg
+      })).appendTo('body');
+
+      $('#errorPopup').i18n();
+
+      $errorDialog.popup();
+      $errorDialog.trigger('create');
+      $errorDialog.popup('open');
+    }
+  };
+
+  f.supressErrors = function () {
+    supressErrors = true;
+  }
+
+  return f;
+}();
