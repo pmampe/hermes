@@ -109,7 +109,7 @@ $(document).ready(function () {
   FastClick.attach(document.body);
 });
 
-$( document ).on( "pagebeforechange", function () {
+$(window).unload(function () {
   window.showError.supressErrors();
 });
 
