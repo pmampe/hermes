@@ -76,8 +76,6 @@ var AppModel = Backbone.Model.extend(
        * Fetch all locations of a specific type.
        */
       fetchLocations: function () {
-        var self= this;
-
         this.locations.fetch({
           data: {
             types: this.get('types')

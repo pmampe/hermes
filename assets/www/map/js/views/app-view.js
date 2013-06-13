@@ -218,7 +218,7 @@ var AppView = Backbone.View.extend(
         this.model.fetchLocations();
       },
 
-/**
+      /**
        * Moves map to selected campus & resets locations.
        */
       changeCampus: function () {
