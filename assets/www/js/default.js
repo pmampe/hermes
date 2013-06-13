@@ -117,7 +117,6 @@ $( document ).on( "pagebeforechange", function () {
 * Displays error messages
 **/
 window.showError = function () {
-
   var supressErrors = false;
 
   var f = function (msg) {
