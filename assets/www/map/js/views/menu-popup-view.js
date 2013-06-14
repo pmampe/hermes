@@ -110,13 +110,14 @@ var MenuPopupView = Backbone.View.extend(
         $("#menupopupList").find("li").remove();
 
         // append headline
-        $("#menupopupList").append("<li class='no-li-styling' data-theme='y'><p data-i18n='map.hamburger.choosecampus'> Välj&nbsp;universitetsområde:</p></li>");
+        $("#menupopupList").append("<li class='no-li-styling' data-theme='y'><p data-i18n='map.campusList.choosecampus'> Choose&nbsp;campus:</p></li>");
 
         // append all campuses
         this.campuses.each(function (campus) {
           $("#menupopupList").append("<li class='campus-link' id='campus-" + campus.get('id') + "' data-icon='false' data-theme='b'><a href='javascript://nop'>" + campus.get('name') + "</a></li>");
         });
 
+        $('#menupopupList').i18n();
         $("#menupopupList").listview();
         $("#menupopupList").listview("refresh"); // jQuery mobile-ify the added elements
       },
