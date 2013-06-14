@@ -402,6 +402,18 @@ div.search-box .ui-btn-hover-b .ui-last-child {
   border-top: 1px solid lightgray;
 }
 
+.menupopup.ui-popup-container.ui-popup-active .ui-popup .no-li-styling {
+    margin: 0;
+    padding: 0;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup .no-li-styling p {
+    line-height: 44px;
+    padding: 0.3em 1em;
+    margin: 0;
+    font-size: 14px;
+}
+
 /*************
  ** Infobubble in map
  ***********/
@@ -492,9 +504,9 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 
 /** jQuery overwrite element style**/
 .menupopup-margin.menupopup {
-  margin-top: 44px !important;
+  margin-top: 41px !important;
   max-width: 100% !important;
-  width: 60% !important;
+  width: 65% !important;
   overflow: visible;
 }
 
