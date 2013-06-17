@@ -92,8 +92,6 @@ var MenuPopupView = Backbone.View.extend(
        * @param evt the event
        */
       selectCampus: function (evt) {
-        evt.preventDefault();
-
         // get the campus id from the parent <li> (format "campus-X", where X is a number)
         var campusId = $(evt.target).closest('li').get(0).id.split("campus-")[1];
         this.trigger('selected', this.campuses.get(campusId));
@@ -110,7 +108,7 @@ var MenuPopupView = Backbone.View.extend(
         $("#menupopupList").find("li").remove();
 
         // append headline
-        $("#menupopupList").append("<li class='no-li-styling' data-theme='y'><p data-i18n='map.campusList.choosecampus'> Choose&nbsp;campus:</p></li>");
+        $("#menupopupList").append("<li class='campus-header no-li-styling' data-theme='y'><p data-i18n='map.campusList.choosecampus'> Choose&nbsp;campus:</p></li>");
 
         // append all campuses
         this.campuses.each(function (campus) {
