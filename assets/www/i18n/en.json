@@ -62,6 +62,10 @@
       "name": "You are here!"
     },
 
+    "campusList": {
+      "choosecampus": "Choose campus:"
+    },
+
     "search": {
       "noresults": "No results"
     }

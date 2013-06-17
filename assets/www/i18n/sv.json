@@ -61,6 +61,10 @@
       "name": "Du är här!"
     },
 
+    "campusList": {
+      "choosecampus": "Välj universitetsområde:"
+    },
+
     "search": {
       "noresults": "Inga resultat"
     }
