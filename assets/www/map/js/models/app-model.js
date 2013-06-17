@@ -92,7 +92,7 @@ var AppModel = Backbone.Model.extend(
       },
 
       /**
-       * Sets no visibility on all locations that is in the list of non visible types
+       * Sets visibility to true on all locations that is not in the list of non visible types
        */
       showVisibleTypes: function () {
         var nonVisibleTypes = this.get("nonVisibleTypes");

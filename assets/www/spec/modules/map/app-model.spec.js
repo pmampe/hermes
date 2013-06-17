@@ -177,4 +177,29 @@ describe('App model', function () {
       expect(this.model.getFilterCollection()).toEqual(this.model.locations);
     });
   });
+
+  describe('when showing visible types', function () {
+    beforeEach(function () {
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          Locations.prototype.url(),
+          this.validResponse(this.fixtures.Locations.valid)
+      );
+      this.model = new AppModel({
+        nonVisibleTypes: []
+      });
+      this.model.fetchLocations();
+      this.server.respond();
+    });
+
+    it('should set visible true for all visible types', function () {
+      this.model.locations.invoke('set', 'visible', false);
+      this.model.showVisibleTypes();
+
+      this.model.locations.each(function (location) {
+        expect(location.get('visible')).toBeTruthy();
+      });
+    });
+  });
 });
