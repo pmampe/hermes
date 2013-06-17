@@ -135,6 +135,13 @@ describe('App model', function () {
       expect(this.model.locations.get(6).isVisible()).toBeTruthy();
     });
 
+    it('should set visible to false on related locations when calling with false', function () {
+      this.model.locations.get(6).attributes.visible = true;
+      expect(this.model.locations.get(6).isVisible()).toBeTruthy();
+      this.model.handleVisibilityForLocationByRelation(this.model.locations.get(5), "building", ["entrance"], false);
+      expect(this.model.locations.get(6).isVisible()).toBeFalsy();
+    });
+
     it('should change showingNonVisibleForLocation and trigger change', function () {
       var wasTriggered = false;
       this.model.on('change:showingNonVisibleForLocation', function () {
