@@ -105,7 +105,8 @@ var AppView = Backbone.View.extend(
           this.menuPopupView = new MenuPopupView({
             el: $('#menupopup'),
             campuses: this.model.campuses,
-            appModel: this.model
+            appModel: this.model,
+            searchView: this.searchView
           });
 
           this.menuPopupView.on('selected', this.menuSelectCallback);

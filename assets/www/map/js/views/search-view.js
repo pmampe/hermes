@@ -150,9 +150,12 @@ var SearchView = Backbone.View.extend(
       },
 
       showClickedLoction: function (event, ui) {
-        this.hideFilteredList();
-        var location = this.getClickedLocation(event.target);
-        this.trigger("selected", location);
+        if(!(event.isDefaultPrevented())){
+          this.hideFilteredList();
+          var location = this.getClickedLocation(event.target);
+          this.trigger("selected", location);
+
+        }
       },
 
       resetLocations: function () {

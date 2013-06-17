@@ -320,6 +320,11 @@ div.search-box {
   margin: 15px 0 0;
   background-color: #d7e0eb;
   border-bottom: 1px solid #a0aeba;
+  position: absolute;
+  top: 27px;
+  right:0;
+  left:0;
+  z-index: 2;
 }
 
 div.search-box form {
@@ -346,7 +351,10 @@ div.search-box  .ui-input-search.ui-shadow-inset {
 
 /*The search view list*/
 div.search-box ul {
-  margin-top: 16px;
+  position: absolute;
+  right:0;
+  left:0;
+  z-index: 2;
 }
 
 .ui-listview-inset .ui-li {
@@ -392,6 +400,18 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 .menupopup.ui-popup-container.ui-popup-active .ui-popup li,
 .menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
   border-top: 1px solid lightgray;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup .no-li-styling {
+    margin: 0;
+    padding: 0;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup .no-li-styling p {
+    line-height: 44px;
+    padding: 0.3em 1em;
+    margin: 0;
+    font-size: 14px;
 }
 
 /*************
@@ -484,9 +504,9 @@ div.search-box .ui-btn-hover-b .ui-last-child {
 
 /** jQuery overwrite element style**/
 .menupopup-margin.menupopup {
-  margin-top: 44px !important;
+  margin-top: 41px !important;
   max-width: 100% !important;
-  width: 60% !important;
+  width: 65% !important;
   overflow: visible;
 }
 
@@ -605,6 +625,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     font-family: TheSansB-W7Bold;
     color: #002e5f;
 }
+
 .studentservice-page .studentservice-list .ui-btn-text span {
     display: block;
     white-space: normal;
@@ -641,4 +662,24 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     overflow: hidden;
 }
 .clearfix:after {clear: both;}
-.clearfix {zoom: 1;} /* IE < 8 */
+.clearfix {zoom: 1;} /* IE < 8 *//*************
+ ** Load spinner styles
+ ***********/
+.ui-loader-verbose {
+    position: absolute;
+    top: 43px !important;left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: #CCC;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-loader-verbose .ui-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    margin: -65px 0 0 -22px;
+    padding: 0;
+}
