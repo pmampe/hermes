@@ -108,7 +108,10 @@ describe('App model', function () {
       this.model = new AppModel();
       this.model.fetchLocations();
 
-      expect(window.alert).toHaveBeenCalled();
+      var $errorDialog = $("#errorPopup");
+
+      expect($errorDialog).toBeDefined();
+      expect($errorDialog.attr('data-role')).toBe("popup");
       this.xhr.restore();
     });
   });
