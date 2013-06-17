@@ -121,16 +121,23 @@ window.showError = function () {
 
   var f = function (msg) {
     if (!supressErrors) {
-      $errorDialog = $('<div data-role="popup" id="errorPopup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]({
+      var dialogMarkup = $('<div id="errorPopup" data-role="popup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]({
         errormessage: msg
-      })).appendTo('body');
+      }));
 
-      $('#errorPopup').i18n();
+      $errorDialog = dialogMarkup.appendTo('body');
 
+      $errorDialog.i18n();
       $errorDialog.popup();
       $errorDialog.trigger('create');
       $errorDialog.popup('open');
-    }
+      }
+
+    $('#closeErrorDialog').bind( 'click', function(evt){
+      evt.preventDefault();
+      $errorDialog.popup('close');
+      $errorDialog.remove();
+    });
   };
 
   f.supressErrors = function () {

@@ -72,6 +72,6 @@ JST['common/external-link-dialog'] = _.template(' \
 JST['common/error-dialog'] = _.template(' \
   <div data-role="content"> \
       <p><span>	<%= errormessage%></span></p> \
-      <a href="#" data-rel="back" data-role="button"><span data-i18n="error.button"> Close </span></a> \
+      <a id="closeErrorDialog" data-role="button"><span data-i18n="error.button"> Close </span></a> \
   </div>\
 ');
