@@ -131,7 +131,7 @@ describe('App model', function () {
 
     it('should set visible to true on related locations', function () {
       expect(this.model.locations.get(6).isVisible()).toBeFalsy();
-      this.model.showNonVisibleForLocationByRelation(this.model.locations.get(5), "building", ["entrance"]);
+      this.model.handleVisibilityForLocationByRelation(this.model.locations.get(5), "building", ["entrance"], true);
       expect(this.model.locations.get(6).isVisible()).toBeTruthy();
     });
 
@@ -145,7 +145,7 @@ describe('App model', function () {
         relatedBy: "building",
         types: ["entrance"]
       };
-      this.model.showNonVisibleForLocationByRelation(obj.location, obj.relatedBy, obj.types);
+      this.model.handleVisibilityForLocationByRelation(obj.location, obj.relatedBy, obj.types, true);
       expect(wasTriggered).toBeTruthy();
       expect(_.isEqual(this.model.get('showingNonVisibleForLocation'), obj)).toBeTruthy();
     });

@@ -152,10 +152,11 @@ var InfoWindowView = Backbone.View.extend(
         var self = this;
         $("a.showRelated", "#info_window").click(function () {
           var $this = $(this);
-          self.appModel.showNonVisibleForLocationByRelation(model, $this.data("related-by"), $this.data("related-types").split(" "));
+          self.appModel.handleVisibilityForLocationByRelation(model, $this.data("related-by"), $this.data("related-types").split(" "), true);
         });
         $("a.hideRelated", "#info_window").click(function () {
-          self.appModel.showNonVisibleForLocationByRelation(null);
+          var $this = $(this);
+          self.appModel.handleVisibilityForLocationByRelation(model, $this.data("related-by"), $this.data("related-types").split(" "), false);
         });
 
         this.updateRelatedLinks(model);

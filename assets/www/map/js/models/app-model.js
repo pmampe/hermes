@@ -51,7 +51,7 @@ var AppModel = Backbone.Model.extend(
       },
 
       initialize: function () {
-        _.bindAll(this, "hideAllNonVisibleTypes", "showNonVisibleForLocationByRelation");
+        _.bindAll(this, "hideAllNonVisibleTypes", "handleVisibilityForLocationByRelation");
         this.campuses = new Campuses();
         this.locations = new Locations(null, {
           searchableTypes: _.difference(this.get('types'), this.get('nonVisibleTypes'))
@@ -121,8 +121,7 @@ var AppModel = Backbone.Model.extend(
       /**
        * Sets visibility on locations that is related for specified types
        */
-      showNonVisibleForLocationByRelation: function (location, relatedBy, types) {
-        this.hideAllNonVisibleTypes();
+      handleVisibilityForLocationByRelation: function (location, relatedBy, types, visibility) {
         // TODO Find some other way of doing string capitalization, maybe https://github.com/epeli/underscore.string#readme
         var byFunction = relatedBy ? this.locations["by" + relatedBy.charAt(0).toUpperCase() + relatedBy.slice(1)] : null;
 
@@ -132,13 +131,15 @@ var AppModel = Backbone.Model.extend(
             return _.contains(types, location.get('type'));
           });
 
-          _.invoke(relatedWithType, "set", "visible", true);
+          _.invoke(relatedWithType, "set", "visible", visibility);
 
-          showingNonVisibleForLocation = {
-            location: location,
-            relatedBy: relatedBy,
-            types: types
-          };
+          if (visibility) {
+            showingNonVisibleForLocation = {
+              location: location,
+              relatedBy: relatedBy,
+              types: types
+            };
+          }
         }
 
         this.set("showingNonVisibleForLocation", showingNonVisibleForLocation);
