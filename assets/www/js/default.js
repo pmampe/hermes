@@ -107,7 +107,7 @@ $(document).on("click", ".button-grid a", function (event) {
     complete: function(){
       window.location.href = $targetLink;
     }
-  })
+  });
   return false;
 });
 
