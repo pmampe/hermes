@@ -62,6 +62,10 @@
       "name": "You are here!"
     },
 
+    "campusList": {
+      "choosecampus": "Choose campus:"
+    },
+
     "search": {
       "noresults": "No results"
     }
@@ -99,7 +103,7 @@
         "title": "Study & Career Counselling"
       },
       "infoCentre": {
-          "title": "Information Centre"
+          "title": "Infocentre"
       },
       "healthService": {
           "title": "Student Health Service"
@@ -111,7 +115,7 @@
           "title": "Academic Writing Service"
       },
       "equality": {
-          "title": "Equal treatment"
+          "title": "Equal Treatment"
       },
       "orientation": {
           "title": "Orientation Week"

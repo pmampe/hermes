@@ -61,6 +61,10 @@
       "name": "Du är här!"
     },
 
+    "campusList": {
+      "choosecampus": "Välj universitetsområde:"
+    },
+
     "search": {
       "noresults": "Inga resultat"
     }
@@ -107,7 +111,7 @@
               "title": "Studera med funktionsnedsättning"
           },
           "academicWritingService": {
-              "title": "Studie-och språkverkstaden"
+              "title": "Studie- och språkverkstaden"
           },
           "equality": {
               "title": "Jämlikhet & likabehandling"

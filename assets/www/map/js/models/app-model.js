@@ -51,14 +51,18 @@ var AppModel = Backbone.Model.extend(
       },
 
       initialize: function () {
-        _.bindAll(this, "hideAllNonVisibleTypes", "showNonVisibleForLocationByRelation");
+        _.bindAll(this,
+            "showVisibleTypes",
+            "hideAllNonVisibleTypes",
+            "handleLocationsReset",
+            "handleVisibilityForLocationByRelation");
         this.campuses = new Campuses();
         this.locations = new Locations(null, {
           searchableTypes: _.difference(this.get('types'), this.get('nonVisibleTypes'))
         });
 
         // Hide nonVisibleTypes when locations is fetched
-        this.locations.on("reset", this.hideAllNonVisibleTypes);
+        this.locations.on("reset", this.handleLocationsReset);
 
         if (this.get('menu') || this.get('filterByCampus')) {
           this.campuses.fetch({reset: true});
@@ -88,6 +92,19 @@ var AppModel = Backbone.Model.extend(
       },
 
       /**
+       * Sets visibility to true on all locations that is not in the list of non visible types
+       */
+      showVisibleTypes: function () {
+        var nonVisibleTypes = this.get("nonVisibleTypes");
+
+        this.locations.each(function (location) {
+          if (!_.contains(nonVisibleTypes, location.get('type'))) {
+            location.set('visible', true);
+          }
+        });
+      },
+
+      /**
        * Sets no visibility on all locations that is in the list of non visible types
        */
       hideAllNonVisibleTypes: function () {
@@ -96,9 +113,6 @@ var AppModel = Backbone.Model.extend(
         this.locations.each(function (location) {
           if (_.contains(nonVisibleTypes, location.get('type'))) {
             location.set('visible', false);
-          }
-          else {
-            location.set('visible', true);
           }
         });
       },
@@ -118,10 +132,15 @@ var AppModel = Backbone.Model.extend(
         visibleModel.set('visible', true);
       },
 
+      handleLocationsReset: function () {
+        this.hideAllNonVisibleTypes();
+        this.showVisibleTypes();
+      },
+
       /**
        * Sets visibility on locations that is related for specified types
        */
-      showNonVisibleForLocationByRelation: function (location, relatedBy, types) {
+      handleVisibilityForLocationByRelation: function (location, relatedBy, types, visibility) {
         this.hideAllNonVisibleTypes();
         // TODO Find some other way of doing string capitalization, maybe https://github.com/epeli/underscore.string#readme
         var byFunction = relatedBy ? this.locations["by" + relatedBy.charAt(0).toUpperCase() + relatedBy.slice(1)] : null;
@@ -132,13 +151,15 @@ var AppModel = Backbone.Model.extend(
             return _.contains(types, location.get('type'));
           });
 
-          _.invoke(relatedWithType, "set", "visible", true);
+          _.invoke(relatedWithType, "set", "visible", visibility);
 
-          showingNonVisibleForLocation = {
-            location: location,
-            relatedBy: relatedBy,
-            types: types
-          };
+          if (visibility) {
+            showingNonVisibleForLocation = {
+              location: location,
+              relatedBy: relatedBy,
+              types: types
+            };
+          }
         }
 
         this.set("showingNonVisibleForLocation", showingNonVisibleForLocation);

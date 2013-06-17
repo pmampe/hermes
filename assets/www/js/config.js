@@ -107,7 +107,7 @@ var config = (function (pgBrokerBaseURL) {
         },
         {
           title: "studentService.menu.guidanceCounseling.title",
-          url: "http://www.su.se/utbildning/studievaglednings"
+          url: "http://www.su.se/utbildning/studievagledning"
         },
         {
           title: "studentService.menu.infoCentre.title",

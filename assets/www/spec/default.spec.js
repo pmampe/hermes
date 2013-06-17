@@ -162,7 +162,9 @@ describe('External-link-dialog', function () {
       var popup = $("#external-link-dialog");
       popup.find("a[target=_system]").trigger('click');
 
-      expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy();
+      helper.delay(2, function(){ expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy(); })
+
+
     });
   });
 });

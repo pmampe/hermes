@@ -45,8 +45,7 @@
 
   <script type="text/javascript" charset="utf-8" src="../cordova-2.7.0.js"></script>
   <script type="text/javascript" charset="utf-8" src="../GAPlugin.js"></script>
-  <script type="text/javascript"
-          src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDj0Ddh5c4FOvG3NgxFFBwuOZB-8E1pNbo&sensor=true"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDj0Ddh5c4FOvG3NgxFFBwuOZB-8E1pNbo&sensor=true"></script>
   <script src="../js/lib/jquery-1.8.2.min.js"></script>
   <script src="../js/locale.js"></script>
   <script src="../js/lib/i18next-1.6.2.min.js"></script>
@@ -105,7 +104,7 @@
   });
 </script>
 
-<div data-role="page" data-theme="a" data-fullscreen="true" id="page-map"
+<div data-role="page" data-theme="a" data-fullscreen="true" id="page-map" class="clearfix"
      data-header="common/header" data-header-options="backbutton notfixed" data-prefetch>
 
   <div id="search-box" class="ui-mini search-box">
@@ -131,14 +130,13 @@
     </div>
   </div>
 
-  <div data-role="content" id="map-content">
+  <div data-role="content" id="map-content" class="map-content-container">
 
     <!-- Campus popup, used when search is returning hits in more than one campus -->
     <div data-role="popup" id="menupopup" data-corners="false">
       <ul id="menupopupList" data-role="listview" data-inset="true" data-corners="false">
       </ul>
     </div>
-
 
     <div id="map_canvas"></div>
   </div>

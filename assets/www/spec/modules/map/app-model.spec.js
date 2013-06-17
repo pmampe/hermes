@@ -131,8 +131,15 @@ describe('App model', function () {
 
     it('should set visible to true on related locations', function () {
       expect(this.model.locations.get(6).isVisible()).toBeFalsy();
-      this.model.showNonVisibleForLocationByRelation(this.model.locations.get(5), "building", ["entrance"]);
+      this.model.handleVisibilityForLocationByRelation(this.model.locations.get(5), "building", ["entrance"], true);
       expect(this.model.locations.get(6).isVisible()).toBeTruthy();
+    });
+
+    it('should set visible to false on related locations when calling with false', function () {
+      this.model.locations.get(6).attributes.visible = true;
+      expect(this.model.locations.get(6).isVisible()).toBeTruthy();
+      this.model.handleVisibilityForLocationByRelation(this.model.locations.get(5), "building", ["entrance"], false);
+      expect(this.model.locations.get(6).isVisible()).toBeFalsy();
     });
 
     it('should change showingNonVisibleForLocation and trigger change', function () {
@@ -145,7 +152,7 @@ describe('App model', function () {
         relatedBy: "building",
         types: ["entrance"]
       };
-      this.model.showNonVisibleForLocationByRelation(obj.location, obj.relatedBy, obj.types);
+      this.model.handleVisibilityForLocationByRelation(obj.location, obj.relatedBy, obj.types, true);
       expect(wasTriggered).toBeTruthy();
       expect(_.isEqual(this.model.get('showingNonVisibleForLocation'), obj)).toBeTruthy();
     });
@@ -168,6 +175,31 @@ describe('App model', function () {
       this.model.set('filterByCampus', false);
 
       expect(this.model.getFilterCollection()).toEqual(this.model.locations);
+    });
+  });
+
+  describe('when showing visible types', function () {
+    beforeEach(function () {
+      this.server = sinon.fakeServer.create();
+      this.server.respondWith(
+          "GET",
+          Locations.prototype.url(),
+          this.validResponse(this.fixtures.Locations.valid)
+      );
+      this.model = new AppModel({
+        nonVisibleTypes: []
+      });
+      this.model.fetchLocations();
+      this.server.respond();
+    });
+
+    it('should set visible true for all visible types', function () {
+      this.model.locations.invoke('set', 'visible', false);
+      this.model.showVisibleTypes();
+
+      this.model.locations.each(function (location) {
+        expect(location.get('visible')).toBeTruthy();
+      });
     });
   });
 });
