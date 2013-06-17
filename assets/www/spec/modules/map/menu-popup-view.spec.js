@@ -44,10 +44,17 @@ describe('Menu popup view', function () {
     $.mobile.loadPage("#page-map", {prefetch: "true"});
 
     this.campuses = new Campuses();
+    this.searchView = new Object();
+    this.searchView.hideFilteredList = function(){
+      return;
+    };
+
 
     this.view = new MenuPopupView({
       el: $('#menupopup'),
-      campuses: this.campuses
+      campuses: this.campuses,
+      searchView: this.searchView
+
     });
   });
 
@@ -89,7 +96,7 @@ describe('Menu popup view', function () {
 
       $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
 
-      this.view.selectCampus({target: "#link"});
+      $('.campus-link').trigger('click');
 
       expect($('#menupopup').parent().hasClass('ui-popup-hidden')).toBeTruthy();
     });
@@ -102,7 +109,7 @@ describe('Menu popup view', function () {
 
       this.view.updateCampuses();
 
-      expect($('#menupopupList').children().length).toEqual(0);
+      expect($('#menupopupList').children(':not(.campus-header)').length).toEqual(0);
     });
 
     it('adds campuses to the list', function () {
@@ -113,7 +120,7 @@ describe('Menu popup view', function () {
 
       this.view.updateCampuses();
 
-      expect($('#menupopupList').children().length).toEqual(2);
+      expect($('#menupopupList').children(':not(.campus-header)').length).toEqual(2);
       expect($('#campus-0')).toBeDefined();
       expect($('#campus-1')).toBeDefined();
     });
