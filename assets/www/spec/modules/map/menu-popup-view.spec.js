@@ -96,7 +96,7 @@ describe('Menu popup view', function () {
 
       $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
 
-      this.view.selectCampus({target: "#link"});
+      $('.campus-link').trigger('click');
 
       expect($('#menupopup').parent().hasClass('ui-popup-hidden')).toBeTruthy();
     });
