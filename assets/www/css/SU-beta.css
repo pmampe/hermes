@@ -662,9 +662,7 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     overflow: hidden;
 }
 .clearfix:after {clear: both;}
-.clearfix {zoom: 1;} /* IE < 8 */
-
-/*************
+.clearfix {zoom: 1;} /* IE < 8 *//*************
  ** Load spinner styles
  ***********/
 .ui-loader-verbose {
