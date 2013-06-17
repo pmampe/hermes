@@ -220,23 +220,23 @@ describe('Search view', function () {
     it('should match without spaces', function () {
       var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
-      expect(searchView.filterSearch("Södrahusen-HusA", "Södra husen - Hus A")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södrahusen-HusA")).toBeFalsy();
     });
 
     it('should match with spaces in the search words', function () {
       var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
-      expect(searchView.filterSearch("Sö dra husen - Hus A", "Södra husen - Hus A")).toBeFalsy();
-      expect(searchView.filterSearch("Södra hus en - Hus A", "Södra husen - Hus A")).toBeFalsy();
-      expect(searchView.filterSearch("Södra  husen - Hus A", "Södra husen - Hus A")).toBeFalsy();
-      expect(searchView.filterSearch(" Södra husen - Hus A", "Södra husen - Hus A")).toBeFalsy();
-      expect(searchView.filterSearch("Södra husen - Hus A ", "Södra husen - Hus A")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Sö dra husen - Hus A")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra hus en - Hus A")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra  husen - Hus A")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", " Södra husen - Hus A")).toBeFalsy();
+      expect(searchView.filterSearch("Södra husen - Hus A", "Södra husen - Hus A ")).toBeFalsy();
     });
 
-    it('should populate filter with sorted departments', function(){
+    it('should populate filter with sorted departments', function () {
       var appView = new AppView({el: $('#page-map'), model: new AppModel});
 
-      runs(function(){
+      runs(function () {
         appView.model.locations.fetch({reset: true});
         this.server.respond();
       });
@@ -245,16 +245,16 @@ describe('Search view', function () {
         return appView.model.locations.length > 0;
       }, "Waiting for returning call", 1000);
 
-      runs(function(){
+      runs(function () {
         appView.searchView.populateFilter();
 
-        expect($('li:nth-child(1)','#search-autocomplete').text()).toMatch(/.*A/);
-        expect($('li:nth-child(2)','#search-autocomplete').text()).toMatch(/.*Axel/);
-        expect($('li:nth-child(3)','#search-autocomplete').text()).toMatch(/.*B/);
-        expect($('li:nth-child(4)','#search-autocomplete').text()).toMatch(/.*Bar Axel/);
-        expect($('li:nth-child(5)','#search-autocomplete').text()).toMatch(/.*Baxa/);
-        expect($('li:nth-child(6)','#search-autocomplete').text()).toMatch(/.*X/);
-        expect($('li:nth-child(7)','#search-autocomplete').text()).toMatch(/.*xzy/);
+        expect($('li:nth-child(1)', '#search-autocomplete').text()).toMatch(/.*A/);
+        expect($('li:nth-child(2)', '#search-autocomplete').text()).toMatch(/.*Axel/);
+        expect($('li:nth-child(3)', '#search-autocomplete').text()).toMatch(/.*B/);
+        expect($('li:nth-child(4)', '#search-autocomplete').text()).toMatch(/.*Bar Axel/);
+        expect($('li:nth-child(5)', '#search-autocomplete').text()).toMatch(/.*Baxa/);
+        expect($('li:nth-child(6)', '#search-autocomplete').text()).toMatch(/.*X/);
+        expect($('li:nth-child(7)', '#search-autocomplete').text()).toMatch(/.*xzy/);
       });
     });
   });
@@ -325,7 +325,7 @@ describe('Search view', function () {
         expect(result).toMatch(/.*Axel Baxel/i);
       });
 
-      it('should blur on hide filtered list', function(){
+      it('should blur on hide filtered list', function () {
         spyOn(appView.searchView, 'hideFilteredList');
         spyOn(appView.searchView, 'resetLocations');
 
