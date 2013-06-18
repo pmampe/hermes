@@ -147,11 +147,11 @@ window.showError = function () {
 
   var f = function (msg) {
     if (!supressErrors) {
-      var dialogMarkup = $('<div id="errorPopup" data-role="popup" class="ui-content" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/error-dialog"]({
+      var dialogMarkup = JST["common/error-dialog"]({
         errormessage: msg
-      }));
+      });
 
-      $errorDialog = dialogMarkup.appendTo('body');
+      $errorDialog = $(dialogMarkup).appendTo('body');
 
       $errorDialog.i18n();
       $errorDialog.popup();

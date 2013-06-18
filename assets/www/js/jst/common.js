@@ -70,8 +70,10 @@ JST['common/external-link-dialog'] = _.template(' \
 ');
 
 JST['common/error-dialog'] = _.template(' \
-  <div data-role="content"> \
-      <p><span>	<%= errormessage%></span></p> \
-      <a id="closeErrorDialog" data-role="button"><span data-i18n="error.button"> Close </span></a> \
+  <div id="errorPopup" data-role="popup" class="ui-content" data-theme="a" data-overlay-theme="a">\
+    <div data-role="content"> \
+        <p><span>	<%= errormessage%></span></p> \
+        <a id="closeErrorDialog" data-role="button"><span data-i18n="error.button"> Close </span></a> \
+    </div>\
   </div>\
 ');
