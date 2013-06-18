@@ -249,13 +249,14 @@ task buildTar(type: Tar, dependsOn: minify) {
   excludes = [
           'www/spec.html',
           'www/spec',
-          '**/cordova*.js'
+          '**/cordova*.js',
+          '**/GAPlugin.js'
   ]
   exclude({
     def ret = false
     def name = it.file.name
 
-    if (name ==~ /.*\.js/ && !(name ==~ /GAPlugin\.js/ || name ==~ /.*(\.|-)min\.js/)) {
+    if (name ==~ /.*\.js/ && !name ==~ /.*(\.|-)min\.js/) {
       ret = true
     }
 
@@ -307,7 +308,7 @@ buildTar.doFirst {
 }
 
 task copySplash(type: Copy) {
-  from ('assets/www/splash/ios/splash_320x480.png') {
+  from('assets/www/splash/ios/splash_320x480.png') {
     rename 'splash_320x480.png', 'splash.png'
   }
   into 'assets'
