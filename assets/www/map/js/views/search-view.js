@@ -154,12 +154,15 @@ var SearchView = Backbone.View.extend(
           this.hideFilteredList();
           var location = this.getClickedLocation(event.target);
           this.trigger("selected", location);
-
+          this.inputField.blur();
         }
       },
 
       resetLocations: function () {
-        this.collection.trigger("reset");
+        // This is done to show all locations on the map
+        // Earlier we did this.collection.trigger("reset"); which caused the keyboard to not close on android devices
+        // We tracked this down to that replacePoints in MapView was called
+        this.trigger("selected", null);
       },
 
       populateFilter: function () {
