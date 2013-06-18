@@ -29,12 +29,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
-
-
-
-
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -63,9 +57,9 @@ import com.eriwen.gradle.css.CssMinifier
 
 version = "0.0.4"
 group = "se.su.it.handheld.app"
-archivesBaseName = "hermes"
 description = """Stockholm University mobile app (alfa)."""
 
+def archivesBaseName = project.name
 def archiveFile = 'su.tar.gz'
 def phonegapAppId = '219084'
 def phonegapUser = 'utveckling@it.su.se'
@@ -152,7 +146,7 @@ task buildSonarPom(type: Copy) {
   rename(/(.+).dist/, '$1')
   filter(ReplaceTokens, tokens: [
           group: project.group,
-          name: project.archivesBaseName,
+          name: archivesBaseName,
           version: project.version,
           description: project.description
   ])
@@ -288,7 +282,7 @@ task buildTar(type: Tar, dependsOn: minify) {
         }
       } else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
-                id: project.group + '.' + project.archivesBaseName,
+                id: project.group + '.' + project.name,
                 version: project.version,
                 description: project.description
         ])
