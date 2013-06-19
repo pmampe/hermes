@@ -198,12 +198,14 @@ describe('Error-dialog', function () {
       expect(html).toBeUndefined();
     });
 
-    it('should be supressed during unload events', function () {
+    it('error message should be supressed during unload events', function () {
       $(window).trigger('unload');
       showError('fel 1');
 
       var html= $('#errorPopup').html();
       expect(html).toBeUndefined();
+
+      showError.unSupressErrors();
     });
   });
 });

@@ -168,7 +168,11 @@ window.showError = function () {
 
   f.supressErrors = function () {
     supressErrors = true;
-  }
+  };
+
+  f.unSupressErrors = function () {
+    supressErrors = false;
+  };
 
   return f;
 }();
