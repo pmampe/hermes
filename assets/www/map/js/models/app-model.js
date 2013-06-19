@@ -85,7 +85,8 @@ var AppModel = Backbone.Model.extend(
             types: this.get('types')
           },
           error: function () {
-            alert("ERROR! Failed to fetch locations.");
+            var errormsg = i18n.t("error.connectionlost");
+            showError(errormsg);
           },
           reset: true
         });

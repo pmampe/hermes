@@ -107,7 +107,7 @@ $(document).on("click", ".button-grid a", function (event) {
     complete: function(){
       window.location.href = $targetLink;
     }
-  })
+  });
   return false;
 });
 
@@ -130,3 +130,49 @@ $(document).ready(function () {
     $.mobile.hidePageLoadingMsg();
   });
 });
+
+/**
+ * Supresses error messages when redirecting
+ **/
+
+$(window).unload(function () {
+  window.showError.supressErrors();
+});
+
+/**
+ * Displays error messages
+ **/
+window.showError = function () {
+  var supressErrors = false;
+
+  var f = function (msg) {
+    if (!supressErrors) {
+      var dialogMarkup = JST["common/error-dialog"]({
+        errormessage: msg
+      });
+
+      $errorDialog = $(dialogMarkup).appendTo('body');
+
+      $errorDialog.i18n();
+      $errorDialog.popup();
+      $errorDialog.trigger('create');
+      $errorDialog.popup('open');
+
+      $('#closeErrorDialog').bind( 'click', function(evt){
+        evt.preventDefault();
+        $(this).closest('#errorPopup').popup('close').remove();
+      });
+
+    }
+  };
+
+  f.supressErrors = function () {
+    supressErrors = true;
+  };
+
+  f.unSupressErrors = function () {
+    supressErrors = false;
+  };
+
+  return f;
+}();

@@ -145,5 +145,9 @@
     "header": {
       "title": "Accessibility"
     }
+  },
+  "error": {
+    "connectionlost": "Connection lost – check your internet connection and retry",
+    "button": "Close"
   }
 }
