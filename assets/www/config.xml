@@ -34,7 +34,7 @@
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="@id@"
         version="@version@"
-        versionCode="1">
+        versionCode="@versionCode@">
 
   <name>Stockholm University</name>
 
@@ -47,7 +47,7 @@
   </author>
 
   <license>
-    Copyright (c) 2013, IT Services
+    Copyright (c) 2013, IT Services, Stockholm University
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -91,7 +91,6 @@
 
   <icon src="icon.png"/>
 
-  <feature name="http://api.phonegap.com/1.0/contacts"/>
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/file"/>
   <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
