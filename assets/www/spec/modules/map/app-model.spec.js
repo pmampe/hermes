@@ -97,8 +97,8 @@ describe('App model', function () {
       });
     });
 
-    it('should send alert on error', function () {
-      spyOn(window, 'alert');
+    it('should display error message popup on error', function () {
+      spyOn(window, 'showError');
 
       this.xhr = sinon.useFakeXMLHttpRequest();
       this.xhr.onCreate = function (xhr) {
@@ -108,10 +108,7 @@ describe('App model', function () {
       this.model = new AppModel();
       this.model.fetchLocations();
 
-      var $errorDialog = $("#errorPopup");
-
-      expect($errorDialog).toBeDefined();
-      expect($errorDialog.attr('data-role')).toBe("popup");
+      expect(window.showError).toHaveBeenCalled();
       this.xhr.restore();
     });
   });

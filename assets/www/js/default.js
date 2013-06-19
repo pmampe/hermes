@@ -157,13 +157,13 @@ window.showError = function () {
       $errorDialog.popup();
       $errorDialog.trigger('create');
       $errorDialog.popup('open');
-    }
 
-    $('#closeErrorDialog').bind( 'click', function(evt){
-      evt.preventDefault();
-      $errorDialog.popup('close');
-      $errorDialog.remove();
-    });
+      $('#closeErrorDialog').bind( 'click', function(evt){
+        evt.preventDefault();
+        $(this).closest('#errorPopup').popup('close').remove();
+      });
+
+    }
   };
 
   f.supressErrors = function () {

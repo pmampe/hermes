@@ -164,7 +164,46 @@ describe('External-link-dialog', function () {
 
       helper.delay(2, function(){ expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy(); })
 
+    });
+  });
+});
 
+describe('Error-dialog', function () {
+  describe('when error occurs', function () {
+    afterEach(function () {
+      $('.ui-popup-screen').remove();
+      $('.ui-popup-container').remove();
+      $('div[data-role="popup"]').remove();
+    });
+
+    it('should present a popup with error message in case of error', function () {
+      showError('fel 1');
+
+      var html= $('#errorPopup').html();
+      expect(html).toBeDefined();
+
+      var msg=  $("#errorPopup").find('span').html().trim();
+      expect(msg).toEqual('fel 1');
+    });
+
+    it('when pressing "cancel" should close the popup and remove the html', function () {
+      showError('fel 2');
+
+      var html= $('#errorPopup').html();
+      expect(html).toBeDefined();
+
+      $('#closeErrorDialog').trigger('click');
+
+      var html= $('#errorPopup').html();
+      expect(html).toBeUndefined();
+    });
+
+    it('should be supressed during unload events', function () {
+      $(window).trigger('unload');
+      showError('fel 1');
+
+      var html= $('#errorPopup').html();
+      expect(html).toBeUndefined();
     });
   });
 });
