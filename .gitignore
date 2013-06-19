@@ -13,3 +13,17 @@ Manifest.java
 R.java
 /gen
 assets/splash.png
+assets/www/css/*.min.css
+assets/www/map/css/*.min.css
+assets/www/js/*.min.js
+assets/www/js/jst/*.min.js
+assets/www/js/views/*.min.js
+assets/www/info/js/views/*.min.js
+assets/www/map/js/*.min.js
+assets/www/map/js/collections/*.min.js
+assets/www/map/js/jst/*.min.js
+assets/www/map/js/models/*.min.js
+assets/www/map/js/routers/*.min.js
+assets/www/map/js/views/*.min.js
+assets/www/studentservice/js/jst/*.min.js
+assets/www/studentservice/js/views/*.min.js
