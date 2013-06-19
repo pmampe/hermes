@@ -43,6 +43,8 @@ google.maps.event.addListener = function (obj, event, callback) {
 };
 google.maps.event.addListenerOnce = function (obj, event, callback) {
 };
+google.maps.event.trigger = function(obj, event) {
+};
 
 google.maps.Map = function (element, options) {
   this.getBounds = function () {
