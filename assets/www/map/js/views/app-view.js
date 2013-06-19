@@ -158,8 +158,14 @@ var AppView = Backbone.View.extend(
        * @param selectedModel the selected model
        */
       locationCallback: function (selectedModel) {
-        this.model.hideAllModelsExceptOne(selectedModel);
-        selectedModel.trigger('click');
+        if (selectedModel) {
+          this.model.hideAllModelsExceptOne(selectedModel);
+          selectedModel.trigger('click');
+        }
+        else {
+          this.model.handleLocationsReset();
+          this.mapView.infoWindowView.close();
+        }
       },
 
       /**
@@ -168,7 +174,9 @@ var AppView = Backbone.View.extend(
        * @param selectedModel the selected model
        */
       campusCallback: function (selectedModel) {
-        this.model.set('campus', selectedModel);
+        if (selectedModel) {
+          this.model.set('campus', selectedModel);
+        }
       },
 
       /**
