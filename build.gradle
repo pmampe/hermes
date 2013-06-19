@@ -116,6 +116,22 @@ css.source {
 
 task build() {}
 
+task incrementVersionCode() {
+  doLast {
+    def oldCode = versionCode
+    def newCode = oldCode.toInteger() + 1
+
+    project.ant.replace(
+            file: new File('gradle.properties'),
+            token: "versionCode=${oldCode}",
+            value: "versionCode=${newCode}",
+            failOnNoReplacements: true
+    )
+  }
+}
+
+createReleaseTag.dependsOn incrementVersionCode
+
 /**
  * Coverage
  */
@@ -281,6 +297,7 @@ task buildTar(type: Tar, dependsOn: minify) {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
                 id: project.group + '.' + project.name,
                 version: project.version.replaceAll(/SNAPSHOT/, getCurrentRev()),
+                versionCode: versionCode,
                 description: project.description
         ])
       }

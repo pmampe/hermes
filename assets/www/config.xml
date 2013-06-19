@@ -34,7 +34,7 @@
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="@id@"
         version="@version@"
-        versionCode="1">
+        versionCode="@versionCode@">
 
   <name>Stockholm University</name>
 
