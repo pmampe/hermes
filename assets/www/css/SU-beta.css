@@ -320,7 +320,8 @@ http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-bl
  ***********/
 div.search-box {
   margin: 15px 0 0;
-  background-color: #d7e0eb;
+  background-color: #002F5F;
+  border-top: 1px solid #4d6e9d;
   border-bottom: 1px solid #a0aeba;
   position: absolute;
   top: 27px;
@@ -333,16 +334,33 @@ div.search-box form {
   border: none;
 }
 
+div.search-box form.ui-bar-b{
+  background: #002F5F;
+}
+
 div.search-box  .ui-input-search.ui-shadow-inset {
   margin: 8px 10px;
   background-color: white;
-  border-bottom: 1px solid rgba(175, 175, 175, 0.5);
+
   border-radius: 1em 1em 1em 1em;
 
-  -webkit-box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.34), inset 0 1px 0 rgba(99, 99, 99, 0.5), 0 2px 0 rgba(237, 241, 246, 0.4), inset 0 1px 0 rgba(175, 175, 175, 0.4);
-  -moz-box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.34), inset 0 1px 0 rgba(99, 99, 99, 0.5), 0 2px 0 rgba(237, 241, 246, 0.4), inset 0 1px 0 rgba(175, 175, 175, 0.4);
-  box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.34), inset 0 1px 0 rgba(99, 99, 99, 0.5), 0 2px 0 rgba(237, 241, 246, 0.4), inset 0 1px 0 rgba(175, 175, 175, 0.4);
+  border: 1px solid #33597f;
+  border-bottom: 1px solid #66829f;
 
+  -webkit-box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.4),
+                      inset 0 1px 0 rgba(0, 47, 95, 1),
+                      inset 0 1px 0 rgba(128,128,128, 0.9),
+                      0 1px 0 rgba(255, 255, 255, 0.1);
+
+  -moz-box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.4),
+                   inset 0 1px 0 rgba(0, 47, 95, 1),
+                   inset 0 1px 0 rgba(128,128,128, 0.9),
+                   0 1px 0 rgba(255, 255, 255, 0.1);
+
+  box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.4),
+              inset 0 1px 0 rgba(0, 47, 95, 1),
+              inset 0 1px 0 rgba(128,128,128, 0.9),
+              0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 #search-box .ui-input-clear {
