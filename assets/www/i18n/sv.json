@@ -146,7 +146,7 @@
     }
   },
   "error": {
-    "connectionlost": "All information kunde inte hämtas - kontrollera din internetuppkoppling och försök igen",
+    "connectionlost": "All information kunde inte hämtas - kontrollera din internetuppkoppling och försök igen.",
     "button": "Stäng"
   }
 }
