@@ -116,6 +116,7 @@ var SearchView = Backbone.View.extend(
        * @param evt the click event.
        */
       handleCancelClick: function (evt) {
+        evt.preventDefault();
         this.hideFilteredList();
 
         if (this.inputField.val() === "") {
