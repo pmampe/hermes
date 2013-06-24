@@ -200,6 +200,20 @@ task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
   source = javascript.source.prod.js.files
   dest = "${buildDir}/reports/jshint.xml"
   reporter = 'checkstyle'
+  jshint.options = ["undef": true, "unused": true]
+  jshint.predef = [
+          'window': true,
+          'document': true,
+          'navigator': true,
+          '$': true,
+          '_': true,
+          'Backbone': true,
+          'gaPlugin': true,
+          'i18n': true,
+          'google': true,
+          'JST': true,
+          'config': true
+  ]
 }
 
 task csslintTask(type: com.eriwen.gradle.css.tasks.CssLintTask) {
