@@ -32,7 +32,7 @@
 describe('Line location view', function () {
   describe('initializing', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "initialize");
+      spyOn(suApp.view.GenericLocationView.prototype, "initialize");
     });
 
     it('should call GenericLocationView.initialize', function () {
@@ -40,7 +40,7 @@ describe('Line location view', function () {
         model: new suApp.model.Location()
       });
 
-      expect(GenericLocationView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.GenericLocationView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should create a google.Maps.Polyline', function () {
@@ -66,7 +66,7 @@ describe('Line location view', function () {
 
   describe('updatePosition', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "initialize");
+      spyOn(suApp.view.GenericLocationView.prototype, "initialize");
     });
 
     it('should call marker.setPath', function () {

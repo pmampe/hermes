@@ -36,7 +36,7 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.View}
  */
-var PointLocationView = GenericLocationView.extend(
+var PointLocationView = suApp.view.GenericLocationView.extend(
     /** @lends PointLocationView */
     {
 

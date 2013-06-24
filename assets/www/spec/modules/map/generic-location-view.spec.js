@@ -33,9 +33,9 @@ describe('Generic location view', function () {
 
   describe('opening an info window', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "render");
+      spyOn(suApp.view.GenericLocationView.prototype, "render");
 
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new Backbone.Model()
       });
 
@@ -60,9 +60,9 @@ describe('Generic location view', function () {
 
   describe('remove', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "render");
+      spyOn(suApp.view.GenericLocationView.prototype, "render");
 
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new Backbone.Model(),
         infoWindow: new InfoWindowView({
           appModel: new suApp.model.AppModel()
@@ -108,10 +108,10 @@ describe('Generic location view', function () {
 
   describe('updateVisibility', function () {
     beforeEach(function () {
-      GenericLocationView.prototype.render = function () {
+      suApp.view.GenericLocationView.prototype.render = function () {
       };
 
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new suApp.model.Location(),
         infoWindow: new InfoWindowView({
           appModel: new suApp.model.AppModel()
@@ -136,10 +136,10 @@ describe('Generic location view', function () {
 
   describe('handleMarkerClick', function () {
     beforeEach(function () {
-      GenericLocationView.prototype.render = function () {
+      suApp.view.GenericLocationView.prototype.render = function () {
       };
 
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new suApp.model.Location(),
         infoWindow: new InfoWindowView({
           appModel: new suApp.model.AppModel()
@@ -192,12 +192,12 @@ describe('Generic location view', function () {
 
   describe('getCenter', function () {
     beforeEach(function () {
-      GenericLocationView.prototype.render = function () {
+      suApp.view.GenericLocationView.prototype.render = function () {
       };
     });
 
     it('should return correct results for point', function () {
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new suApp.model.Location({ coords: [
           [10, 10]
         ] })
@@ -208,7 +208,7 @@ describe('Generic location view', function () {
     });
 
     it('should return correct results for line', function () {
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new suApp.model.Location({ coords: [
           [10, 10],
           [20, 20]
@@ -220,7 +220,7 @@ describe('Generic location view', function () {
     });
 
     it('should return correct results for polygon', function () {
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new suApp.model.Location({ coords: [
           [10, 10],
           [20, 20],
@@ -234,7 +234,7 @@ describe('Generic location view', function () {
     });
 
     it('should return -1 for no GPoints', function () {
-      this.view = new GenericLocationView({
+      this.view = new suApp.view.GenericLocationView({
         model: new suApp.model.Location({ coords: [] })
       });
 
