@@ -32,7 +32,7 @@
 describe('Map model', function () {
   describe('when creating a new map model', function () {
     beforeEach(function () {
-      this.model = new MapModel();
+      this.model = new suApp.model.MapModel();
     });
 
     it('should not have a currentPosition', function () {
@@ -59,7 +59,7 @@ describe('Map model', function () {
 
   describe('setMapPosition', function () {
     it('should update the mapPosition', function () {
-      this.model = new MapModel({ mapPosition: new google.maps.LatLng(0, 0) });
+      this.model = new suApp.model.MapModel({ mapPosition: new google.maps.LatLng(0, 0) });
       this.model.setMapPosition(10, 20);
 
       expect(this.model.get('mapPosition').lat()).toEqual(10);
@@ -69,7 +69,7 @@ describe('Map model', function () {
 
   describe('setZoom', function () {
     it('should update the zoom', function () {
-      this.model = new MapModel();
+      this.model = new suApp.model.MapModel();
       this.model.setZoom(20);
 
       expect(this.model.get('zoom')).toEqual(20);

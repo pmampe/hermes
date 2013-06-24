@@ -53,7 +53,7 @@ describe('Map view', function () {
 
     this.view = new MapView({
       el: $('#map_canvas'),
-      model: new MapModel(),
+      model: new suApp.model.MapModel(),
       appModel: new suApp.model.AppModel()
     });
   });
@@ -75,7 +75,7 @@ describe('Map view', function () {
       spyOn(MapView.prototype, 'resize');
       this.view = new MapView({
         el: $('#map_canvas'),
-        model: new MapModel(),
+        model: new suApp.model.MapModel(),
         appModel: new suApp.model.AppModel()
       });
     });

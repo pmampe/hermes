@@ -59,7 +59,7 @@ var AppView = Backbone.View.extend(
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
         this.title = options.title;
-        this.mapModel = new MapModel();
+        this.mapModel = new suApp.model.MapModel();
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
