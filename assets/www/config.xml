@@ -115,8 +115,8 @@
   <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
   <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
 
-  <access origin="http://su.se" subdomains="true"/>
-  <access origin="http://mobileapp-dev.it.su.se" subdomains="true"/>
-  <access origin="http://gstatic.com" subdomains="true"/>
-  <access origin="http://googleapis.com" subdomains="true"/>
+  <access origin="su.se" subdomains="true"/>
+  <access origin="mobileapp-dev.it.su.se" subdomains="true"/>
+  <access origin="gstatic.com" subdomains="true"/>
+  <access origin="googleapis.com" subdomains="true"/>
 </widget>
