@@ -78,6 +78,8 @@ var MapView = Backbone.View.extend(
           navigationControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           streetViewControl: false,
+          panControl: false,
+          zoomControl: false,
           styles: [
             {
               featureType: "poi",
