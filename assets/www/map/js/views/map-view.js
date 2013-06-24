@@ -37,7 +37,7 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.View}
  */
-var MapView = Backbone.View.extend(
+suApp.view.MapView = Backbone.View.extend(
     /** @lends MapView */
     {
 

@@ -72,7 +72,7 @@ suApp.view.AppView = Backbone.View.extend(
         });
 
 
-        this.mapView = new MapView({
+        this.mapView = new suApp.view.MapView({
           el: $('#map_canvas'),
           model: this.mapModel,
           appModel: this.model
