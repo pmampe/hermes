@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var MapRouter = Backbone.Router.extend({
+suApp.router.MapRouter = Backbone.Router.extend({
   routes: {
     "restaurants": "restaurants",
     "computerLabs": "computerLabs",

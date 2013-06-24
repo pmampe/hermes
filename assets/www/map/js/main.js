@@ -36,6 +36,6 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  */
 function startMapModule() {
-  var mapRouter = new MapRouter();
+  var mapRouter = new suApp.router.MapRouter();
   Backbone.history.start();
 }

@@ -32,7 +32,7 @@
 describe('MapRouter', function () {
   describe('after initialization', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
       i18n.init({resGetPath: '../../i18n/en.json'});
     });
 
@@ -56,63 +56,63 @@ describe('MapRouter', function () {
     });
 
     it("should call defaultRoute for empty url", function () {
-      spyOn(MapRouter.prototype, "defaultRoute");
-      this.router = new MapRouter();
+      spyOn(suApp.router.MapRouter.prototype, "defaultRoute");
+      this.router = new suApp.router.MapRouter();
 
       Backbone.history.loadUrl("/");
 
-      expect(MapRouter.prototype.defaultRoute).toHaveBeenCalled();
+      expect(suApp.router.MapRouter.prototype.defaultRoute).toHaveBeenCalled();
     });
 
     it("should call auditoriums for /auditoriums", function () {
-      spyOn(MapRouter.prototype, "auditoriums");
-      this.router = new MapRouter();
+      spyOn(suApp.router.MapRouter.prototype, "auditoriums");
+      this.router = new suApp.router.MapRouter();
 
       Backbone.history.loadUrl("auditoriums");
 
-      expect(MapRouter.prototype.auditoriums).toHaveBeenCalled();
+      expect(suApp.router.MapRouter.prototype.auditoriums).toHaveBeenCalled();
     });
 
     it("should call buildings for /buildings", function () {
-      spyOn(MapRouter.prototype, "buildings");
-      this.router = new MapRouter();
+      spyOn(suApp.router.MapRouter.prototype, "buildings");
+      this.router = new suApp.router.MapRouter();
 
       Backbone.history.loadUrl("buildings");
 
-      expect(MapRouter.prototype.buildings).toHaveBeenCalled();
+      expect(suApp.router.MapRouter.prototype.buildings).toHaveBeenCalled();
     });
 
     it("should call buildings for /parkingspaces", function () {
-      spyOn(MapRouter.prototype, "parkingspaces");
-      this.router = new MapRouter();
+      spyOn(suApp.router.MapRouter.prototype, "parkingspaces");
+      this.router = new suApp.router.MapRouter();
 
       Backbone.history.loadUrl("parkingspaces");
 
-      expect(MapRouter.prototype.parkingspaces).toHaveBeenCalled();
+      expect(suApp.router.MapRouter.prototype.parkingspaces).toHaveBeenCalled();
     });
 
     it("should call buildings for /departments", function () {
-      spyOn(MapRouter.prototype, "departments");
-      this.router = new MapRouter();
+      spyOn(suApp.router.MapRouter.prototype, "departments");
+      this.router = new suApp.router.MapRouter();
 
       Backbone.history.loadUrl("departments");
 
-      expect(MapRouter.prototype.departments).toHaveBeenCalled();
+      expect(suApp.router.MapRouter.prototype.departments).toHaveBeenCalled();
     });
 
     it("should call computerLabs for /computerLabs", function () {
-      spyOn(MapRouter.prototype, "computerLabs");
-      this.router = new MapRouter();
+      spyOn(suApp.router.MapRouter.prototype, "computerLabs");
+      this.router = new suApp.router.MapRouter();
 
       Backbone.history.loadUrl("computerLabs");
 
-      expect(MapRouter.prototype.computerLabs).toHaveBeenCalled();
+      expect(suApp.router.MapRouter.prototype.computerLabs).toHaveBeenCalled();
     });
   });
 
   describe('when choosing defaultRoute', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
@@ -128,7 +128,7 @@ describe('MapRouter', function () {
 
   describe('when choosing computer labs', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
@@ -173,7 +173,7 @@ describe('MapRouter', function () {
 
   describe('when choosing auditoriums', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
@@ -218,7 +218,7 @@ describe('MapRouter', function () {
 
   describe('when choosing buildings', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
@@ -272,7 +272,7 @@ describe('MapRouter', function () {
 
   describe('when choosing parkingspaces', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
@@ -335,7 +335,7 @@ describe('MapRouter', function () {
 
   describe('when choosing departments', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
@@ -380,7 +380,7 @@ describe('MapRouter', function () {
 
   describe('when handling parkingspace marker visibility', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
     });
 
     it("should set handicap adapted locations visible", function () {
@@ -416,7 +416,7 @@ describe('MapRouter', function () {
 
   describe('when handling parkingspace locations reset', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
     });
 
     it("should set zoomSensitive=true on the app model", function () {
@@ -460,7 +460,7 @@ describe('MapRouter', function () {
 
   describe('when choosing resturants', function () {
     beforeEach(function () {
-      this.router = new MapRouter();
+      this.router = new suApp.router.MapRouter();
 
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
