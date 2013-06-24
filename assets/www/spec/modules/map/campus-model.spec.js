@@ -79,7 +79,7 @@ describe('Campus model', function () {
 
 describe('Campus collection', function () {
   beforeEach(function () {
-    this.campuses = new Campuses();
+    this.campuses = new suApp.collection.Campuses();
   });
 
   describe('creating an empty collection', function () {

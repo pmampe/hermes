@@ -83,7 +83,7 @@ describe('App view', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Campuses.prototype.url(),
+          suApp.collection.Campuses.prototype.url(),
           this.validResponse(this.fixtures.Campuses.valid)
       );
       this.server.autoRespond = true;

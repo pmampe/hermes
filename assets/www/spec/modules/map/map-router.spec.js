@@ -133,7 +133,7 @@ describe('MapRouter', function () {
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
       spyOn(AppView.prototype, "updateLocations");
-      spyOn(Campuses.prototype, "fetch");
+      spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
@@ -178,7 +178,7 @@ describe('MapRouter', function () {
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
       spyOn(AppView.prototype, "updateLocations");
-      spyOn(Campuses.prototype, "fetch");
+      spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
@@ -223,7 +223,7 @@ describe('MapRouter', function () {
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
       spyOn(AppView.prototype, "updateLocations");
-      spyOn(Campuses.prototype, "fetch");
+      spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
@@ -277,7 +277,7 @@ describe('MapRouter', function () {
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
       spyOn(AppView.prototype, "updateLocations");
-      spyOn(Campuses.prototype, "fetch");
+      spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
@@ -340,7 +340,7 @@ describe('MapRouter', function () {
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
       spyOn(AppView.prototype, "updateLocations");
-      spyOn(Campuses.prototype, "fetch");
+      spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
@@ -465,7 +465,7 @@ describe('MapRouter', function () {
       spyOn(AppView.prototype, "initialize");
       spyOn(AppView.prototype, "render");
       spyOn(AppView.prototype, "updateLocations");
-      spyOn(Campuses.prototype, "fetch");
+      spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {

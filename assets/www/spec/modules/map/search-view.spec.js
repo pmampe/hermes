@@ -99,7 +99,7 @@ describe('Search view', function () {
     it('should populate filter with the correct number of campuses', function () {
       this.server.respondWith(
           "GET",
-          Campuses.prototype.url(),
+          suApp.collection.Campuses.prototype.url(),
           this.validResponse(this.fixtures.FilterItems.valid.locations)
       );
 

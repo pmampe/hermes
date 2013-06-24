@@ -43,9 +43,9 @@ describe('Menu popup view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map", {prefetch: "true"});
 
-    this.campuses = new Campuses();
+    this.campuses = new suApp.collection.Campuses();
     this.searchView = new Object();
-    this.searchView.hideFilteredList = function(){
+    this.searchView.hideFilteredList = function () {
       return;
     };
 

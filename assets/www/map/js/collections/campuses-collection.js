@@ -37,7 +37,7 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.Collection}
  */
-var Campuses = Backbone.Collection.extend(
+suApp.collection.Campuses = Backbone.Collection.extend(
     /** @lends Campuses */
     {
       /** The model used for this collection. */

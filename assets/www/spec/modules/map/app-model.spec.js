@@ -39,7 +39,7 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Campuses.prototype.url(),
+          suApp.collection.Campuses.prototype.url(),
           this.validResponse(this.fixtures.Campuses.valid)
       );
       this.server.autoRespond = true;
@@ -161,7 +161,7 @@ describe('App model', function () {
   describe('when getting filter collection', function () {
     beforeEach(function () {
       this.model = new AppModel();
-      this.model.campuses = new Campuses();
+      this.model.campuses = new suApp.collection.Campuses();
       this.model.locations = new Locations();
     });
 

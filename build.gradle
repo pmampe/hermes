@@ -212,7 +212,7 @@ task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
           'i18n': true,
           'google': true,
           'JST': true,
-          'config': true
+          'suApp': true
   ]
 }
 
