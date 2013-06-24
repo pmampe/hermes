@@ -65,7 +65,7 @@ var MapView = Backbone.View.extend(
         );
 
         this.pointViews = [];
-        this.infoWindowView = new InfoWindowView({
+        this.infoWindowView = new suApp.view.InfoWindowView({
           mapView: this,
           appModel: options.appModel
         });

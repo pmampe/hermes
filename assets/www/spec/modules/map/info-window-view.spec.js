@@ -47,7 +47,7 @@ describe('Info window view', function () {
     it('should add event handler on change of showingNonVisibleForLocation in AppModel ', function () {
       spyOn(suApp.model.AppModel.prototype, "on");
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -57,7 +57,7 @@ describe('Info window view', function () {
     it('should create google.maps.InfoWindow with maxWidth 260', function () {
       spyOn(google.maps, "InfoWindow");
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -68,14 +68,14 @@ describe('Info window view', function () {
   describe('remove', function () {
 
     it('should call close', function () {
-      spyOn(InfoWindowView.prototype, "close");
+      spyOn(suApp.view.InfoWindowView.prototype, "close");
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
       this.infoWindow.remove();
 
-      expect(InfoWindowView.prototype.close).toHaveBeenCalled();
+      expect(suApp.view.InfoWindowView.prototype.close).toHaveBeenCalled();
     });
 
     it('should remove event handler from document for click on directions', function () {
@@ -86,7 +86,7 @@ describe('Info window view', function () {
       };
       spyOn(MapView.prototype, "getDirections");
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel(),
         mapView: new MapView()
       });
@@ -110,9 +110,9 @@ describe('Info window view', function () {
 
     beforeEach(function () {
       spyOn(MapView.prototype, "getDirections");
-      spyOn(InfoWindowView.prototype, "close");
+      spyOn(suApp.view.InfoWindowView.prototype, "close");
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel(),
         mapView: new MapView()
       });
@@ -120,7 +120,7 @@ describe('Info window view', function () {
 
     it('should close the info window', function () {
       $(".dir-button").first().trigger("click");
-      expect(InfoWindowView.prototype.close).toHaveBeenCalled();
+      expect(suApp.view.InfoWindowView.prototype.close).toHaveBeenCalled();
     });
 
     it('should set selected on clicked link and unselect others', function () {
@@ -146,7 +146,7 @@ describe('Info window view', function () {
   describe('when opening the infowindow', function () {
 
     it('should close previous infowindow', function () {
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -158,7 +158,7 @@ describe('Info window view', function () {
     it('should call model (Location) getI18n method (fetching the text attribute)', function () {
       spyOn(suApp.model.Location.prototype, "getI18n");
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -178,7 +178,7 @@ describe('Info window view', function () {
         lng: 'sv-SE'
       });
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -218,7 +218,7 @@ describe('Info window view', function () {
         lng: 'fr-FR'
       });
 
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -242,7 +242,7 @@ describe('Info window view', function () {
     });
 
     it('should use anchor for position when no latlng is passed', function () {
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
@@ -255,7 +255,7 @@ describe('Info window view', function () {
     });
 
     it('should use passed latlng for position', function () {
-      this.infoWindow = new InfoWindowView({
+      this.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
