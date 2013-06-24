@@ -54,7 +54,7 @@ describe('Map view', function () {
     this.view = new MapView({
       el: $('#map_canvas'),
       model: new MapModel(),
-      appModel: new AppModel()
+      appModel: new suApp.model.AppModel()
     });
   });
 
@@ -76,7 +76,7 @@ describe('Map view', function () {
       this.view = new MapView({
         el: $('#map_canvas'),
         model: new MapModel(),
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
     });
 

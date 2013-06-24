@@ -315,14 +315,14 @@ describe('MapRouter', function () {
     });
 
     it("should call handleParkingspaceLocationsReset on locations reset", function () {
-      spyOn(window, 'AppModel');
+      spyOn(suApp.model, 'AppModel');
       spyOn(this.router, 'handleParkingspaceLocationsReset');
 
       var locations = new suApp.collection.Locations();
-      var appModel = new AppModel();
+      var appModel = new suApp.model.AppModel();
       appModel.locations = locations;
 
-      AppModel.andCallFake(function (options) {
+      suApp.model.AppModel.andCallFake(function (options) {
         return appModel;
       });
 
@@ -421,7 +421,7 @@ describe('MapRouter', function () {
 
     it("should set zoomSensitive=true on the app model", function () {
       spyOn(AppView.prototype, "initialize");
-      var appModel = new AppModel();
+      var appModel = new suApp.model.AppModel();
       var appView = new AppView();
 
       this.router.handleParkingspaceLocationsReset(appView, appModel);
@@ -437,7 +437,7 @@ describe('MapRouter', function () {
       var locations = new suApp.collection.Locations();
       locations.add([location]);
 
-      var appModel = new AppModel();
+      var appModel = new suApp.model.AppModel();
       appModel.locations = locations;
       var appView = new AppView();
 

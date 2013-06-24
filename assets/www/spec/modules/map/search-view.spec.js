@@ -70,14 +70,14 @@ describe('Search view', function () {
   describe('instantiation', function () {
     it('should initialize search view on app view initialization', function () {
       spyOn(SearchView.prototype, "initialize");
-      this.view = new AppView({ el: $('#page-map'), model: new AppModel() });
+      this.view = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
       expect(SearchView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should render search view on location refresh', function () {
       spyOn(SearchView.prototype, "render");
 
-      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+      var appView = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
       appView.searchView.collection.trigger('reset');
 
       expect(SearchView.prototype.render).toHaveBeenCalled();
@@ -105,7 +105,7 @@ describe('Search view', function () {
 
       var appView = new AppView({
         el: $('#page-map'),
-        model: new AppModel({
+        model: new suApp.model.AppModel({
           filterByCampus: true
         })
       });
@@ -127,7 +127,7 @@ describe('Search view', function () {
 
     it('should trigger custom filtering for each filter item', function () {
       spyOn(SearchView.prototype, "filterSearch");
-      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+      var appView = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
 
       runs(function () {
         appView.model.locations.fetch({reset: true});
@@ -149,7 +149,7 @@ describe('Search view', function () {
     });
 
     it('should overwrite jquery mobiles filtering', function () {
-      var appView = new AppView({ el: $('#page-map'), model: new AppModel() });
+      var appView = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
       runs(function () {
         appView.model.locations.fetch({reset: true});
         this.server.respond();
@@ -234,7 +234,7 @@ describe('Search view', function () {
     });
 
     it('should populate filter with sorted departments', function () {
-      var appView = new AppView({el: $('#page-map'), model: new AppModel});
+      var appView = new AppView({el: $('#page-map'), model: new suApp.model.AppModel});
 
       runs(function () {
         appView.model.locations.fetch({reset: true});
@@ -262,7 +262,7 @@ describe('Search view', function () {
   describe('mobile keyboard handling', function () {
     beforeEach(function () {
       spyOn(SearchView.prototype, "hideFilteredList");
-      this.view = new AppView({ el: $('#page-map'), model: new AppModel()});
+      this.view = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel()});
     });
 
     it('should set type to search on the search input field', function () {
@@ -295,7 +295,7 @@ describe('Search view', function () {
   describe('Filtered list', function () {
     it('should call showFileredList on focus on input field', function () {
       spyOn(SearchView.prototype, "showFilteredList");
-      this.view = new AppView({ el: $('#page-map'), model: new AppModel() });
+      this.view = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
       $('#search-box input').trigger('focus');
       expect(SearchView.prototype.showFilteredList).toHaveBeenCalled();
     });
@@ -304,7 +304,7 @@ describe('Search view', function () {
       var appView;
 
       beforeEach(function () {
-        appView = new AppView({ el: $('#page-map'), model: new AppModel()});
+        appView = new AppView({ el: $('#page-map'), model: new suApp.model.AppModel()});
         appView.searchView.collection = new suApp.collection.Locations(this.fixtures.FilterItems.valid.locations);
         appView.searchView.populateFilter();
       });

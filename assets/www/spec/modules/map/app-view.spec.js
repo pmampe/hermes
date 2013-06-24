@@ -69,7 +69,7 @@ describe('App view', function () {
         this.validResponse(this.fixtures.Locations.valid)
     );
 
-    this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
+    this.view = new AppView({el: $('#page-map'), title: "foobar", model: new suApp.model.AppModel()});
     this.server.respond();
   });
 

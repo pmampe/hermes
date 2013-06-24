@@ -34,7 +34,7 @@
  *
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  */
-var AppModel = Backbone.Model.extend(
+suApp.model.AppModel = Backbone.Model.extend(
     /** @lends AppMpdel */
     {
       /**

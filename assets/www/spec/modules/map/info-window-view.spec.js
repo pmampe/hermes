@@ -45,20 +45,20 @@ describe('Info window view', function () {
 
   describe('instantiation', function () {
     it('should add event handler on change of showingNonVisibleForLocation in AppModel ', function () {
-      spyOn(AppModel.prototype, "on");
+      spyOn(suApp.model.AppModel.prototype, "on");
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
-      expect(AppModel.prototype.on).toHaveBeenCalledWith("change:showingNonVisibleForLocation", jasmine.any(Function), this.infoWindow);
+      expect(suApp.model.AppModel.prototype.on).toHaveBeenCalledWith("change:showingNonVisibleForLocation", jasmine.any(Function), this.infoWindow);
     });
 
     it('should create google.maps.InfoWindow with maxWidth 260', function () {
       spyOn(google.maps, "InfoWindow");
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       expect(google.maps.InfoWindow).toHaveBeenCalledWith({ maxWidth: 260 });
@@ -71,7 +71,7 @@ describe('Info window view', function () {
       spyOn(InfoWindowView.prototype, "close");
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
       this.infoWindow.remove();
 
@@ -87,7 +87,7 @@ describe('Info window view', function () {
       spyOn(MapView.prototype, "getDirections");
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel(),
+        appModel: new suApp.model.AppModel(),
         mapView: new MapView()
       });
 
@@ -113,7 +113,7 @@ describe('Info window view', function () {
       spyOn(InfoWindowView.prototype, "close");
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel(),
+        appModel: new suApp.model.AppModel(),
         mapView: new MapView()
       });
     });
@@ -147,7 +147,7 @@ describe('Info window view', function () {
 
     it('should close previous infowindow', function () {
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       spyOn(this.infoWindow.infoWindow, "close");
@@ -159,13 +159,13 @@ describe('Info window view', function () {
       spyOn(Location.prototype, "getI18n");
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       var location = new Location({
         name: 'testName',
         directionAware: false
-        });
+      });
       this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
       expect(Location.prototype.getI18n).toHaveBeenCalledWith('text');
@@ -179,7 +179,7 @@ describe('Info window view', function () {
       });
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       var location = new Location({
@@ -219,7 +219,7 @@ describe('Info window view', function () {
       });
 
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       var location = new Location({
@@ -243,7 +243,7 @@ describe('Info window view', function () {
 
     it('should use anchor for position when no latlng is passed', function () {
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       spyOn(this.infoWindow.infoWindow, "open");
@@ -256,7 +256,7 @@ describe('Info window view', function () {
 
     it('should use passed latlng for position', function () {
       this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+        appModel: new suApp.model.AppModel()
       });
 
       spyOn(this.infoWindow.infoWindow, "open");

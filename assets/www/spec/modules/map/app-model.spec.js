@@ -48,7 +48,7 @@ describe('App model', function () {
     it('should fetch campuses when menu==true', function () {
       var self = this;
       runs(function () {
-        this.model = new AppModel({menu: true});
+        this.model = new suApp.model.AppModel({menu: true});
         self.server.respond();
       });
 
@@ -76,7 +76,7 @@ describe('App model', function () {
     it('should set visible to false for nonVisibleTypes', function () {
       var self = this;
       runs(function () {
-        this.model = new AppModel({
+        this.model = new suApp.model.AppModel({
           nonVisibleTypes: ["entrance"]
         });
         this.model.fetchLocations();
@@ -105,7 +105,7 @@ describe('App model', function () {
         throw "ERROR";
       };
 
-      this.model = new AppModel();
+      this.model = new suApp.model.AppModel();
       this.model.fetchLocations();
 
       expect(window.showError).toHaveBeenCalled();
@@ -122,7 +122,7 @@ describe('App model', function () {
           this.validResponse(this.fixtures.Locations.valid)
       );
       //this.server.autoRespond = true;
-      this.model = new AppModel({
+      this.model = new suApp.model.AppModel({
         nonVisibleTypes: ["entrance"]
       });
       this.model.fetchLocations();
@@ -160,7 +160,7 @@ describe('App model', function () {
 
   describe('when getting filter collection', function () {
     beforeEach(function () {
-      this.model = new AppModel();
+      this.model = new suApp.model.AppModel();
       this.model.campuses = new suApp.collection.Campuses();
       this.model.locations = new suApp.collection.Locations();
     });
@@ -186,7 +186,7 @@ describe('App model', function () {
           suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
-      this.model = new AppModel({
+      this.model = new suApp.model.AppModel({
         nonVisibleTypes: []
       });
       this.model.fetchLocations();
