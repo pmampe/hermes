@@ -32,7 +32,7 @@
 describe('Location model', function () {
   describe('when creating an empty location', function () {
     beforeEach(function () {
-      this.location = new Location();
+      this.location = new suApp.model.Location();
     });
 
     it('should have id 0', function () {
@@ -78,7 +78,7 @@ describe('Location model', function () {
 
   describe('when creating a location', function () {
     beforeEach(function () {
-      this.location = new Location({
+      this.location = new suApp.model.Location({
         campus: 'campus',
         type: 'type',
         coords: [
@@ -106,39 +106,39 @@ describe('Location model', function () {
     });
 
     it('should return default for auditoriums', function () {
-      expect(new Location({type: 'auditorium'}).getPin()).toEqual('default');
+      expect(new suApp.model.Location({type: 'auditorium'}).getPin()).toEqual('default');
     });
 
     it('should return default for organization', function () {
-      expect(new Location({type: 'organization'}).getPin()).toEqual('default');
+      expect(new suApp.model.Location({type: 'organization'}).getPin()).toEqual('default');
     });
 
     it('should return default for restaurant', function () {
-      expect(new Location({type: 'restaurant'}).getPin()).toEqual('default');
+      expect(new suApp.model.Location({type: 'restaurant'}).getPin()).toEqual('default');
     });
 
     it('should return default for building', function () {
-      expect(new Location({type: 'building'}).getPin()).toEqual('default');
+      expect(new suApp.model.Location({type: 'building'}).getPin()).toEqual('default');
     });
 
     it('should return default for toilet', function () {
-      expect(new Location({type: 'toilet'}).getPin()).toEqual('default');
+      expect(new suApp.model.Location({type: 'toilet'}).getPin()).toEqual('default');
     });
 
     it('should return default for elevator', function () {
-      expect(new Location({type: 'elevator'}).getPin()).toEqual('default');
+      expect(new suApp.model.Location({type: 'elevator'}).getPin()).toEqual('default');
     });
 
     it('should return default for parking', function () {
-      expect(new Location({type: 'parking'}).getPin()).toEqual('parking');
+      expect(new suApp.model.Location({type: 'parking'}).getPin()).toEqual('parking');
     });
 
     it('should return default for handicap_parking', function () {
-      expect(new Location({type: 'handicap_parking'}).getPin()).toEqual('handicap_parking');
+      expect(new suApp.model.Location({type: 'handicap_parking'}).getPin()).toEqual('handicap_parking');
     });
 
     it('should return default for entrance', function () {
-      expect(new Location({type: 'entrance'}).getPin()).toEqual('entrance');
+      expect(new suApp.model.Location({type: 'entrance'}).getPin()).toEqual('entrance');
     });
   });
 });
@@ -146,11 +146,11 @@ describe('Location model', function () {
 describe('Locations collection', function () {
   describe('creating an empty collection', function () {
     beforeEach(function () {
-      this.locations = new Locations();
+      this.locations = new suApp.collection.Locations();
     });
 
     it('should have Location for model', function () {
-      expect(this.locations.model).toBe(Location);
+      expect(this.locations.model).toBe(suApp.model.Location);
     });
 
     it('should have a url pointing at broker geo api', function () {
@@ -160,7 +160,7 @@ describe('Locations collection', function () {
 
   describe('fetching a collection of locations', function () {
     beforeEach(function () {
-      this.locations = new Locations();
+      this.locations = new suApp.collection.Locations();
       this.fixture = this.fixtures.Locations.valid;
 
       this.server = sinon.fakeServer.create();
@@ -207,7 +207,7 @@ describe('Locations collection', function () {
 
   describe('filtering a Location collection', function () {
     beforeEach(function () {
-      this.locations = new Locations();
+      this.locations = new suApp.collection.Locations();
       this.fixture = this.fixtures.Locations.valid;
 
       this.server = sinon.fakeServer.create();
@@ -223,7 +223,7 @@ describe('Locations collection', function () {
     });
 
     it('bySearchable should return all with types that is in searchable types', function () {
-      this.locations = new Locations(null, {
+      this.locations = new suApp.collection.Locations(null, {
         searchableTypes: ["parking"]
       });
       this.locations.fetch();
@@ -234,7 +234,7 @@ describe('Locations collection', function () {
     });
 
     it('bySearchable should return self for no searchable types', function () {
-      this.locations = new Locations(null, {
+      this.locations = new suApp.collection.Locations(null, {
         searchableTypes: []
       });
       this.locations.fetch();

@@ -39,7 +39,7 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Campuses.prototype.url(),
+          suApp.collection.Campuses.prototype.url(),
           this.validResponse(this.fixtures.Campuses.valid)
       );
       this.server.autoRespond = true;
@@ -48,7 +48,7 @@ describe('App model', function () {
     it('should fetch campuses when menu==true', function () {
       var self = this;
       runs(function () {
-        this.model = new AppModel({menu: true});
+        this.model = new suApp.model.AppModel({menu: true});
         self.server.respond();
       });
 
@@ -68,7 +68,7 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
     });
@@ -76,7 +76,7 @@ describe('App model', function () {
     it('should set visible to false for nonVisibleTypes', function () {
       var self = this;
       runs(function () {
-        this.model = new AppModel({
+        this.model = new suApp.model.AppModel({
           nonVisibleTypes: ["entrance"]
         });
         this.model.fetchLocations();
@@ -105,7 +105,7 @@ describe('App model', function () {
         throw "ERROR";
       };
 
-      this.model = new AppModel();
+      this.model = new suApp.model.AppModel();
       this.model.fetchLocations();
 
       expect(window.showError).toHaveBeenCalled();
@@ -118,11 +118,11 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
       //this.server.autoRespond = true;
-      this.model = new AppModel({
+      this.model = new suApp.model.AppModel({
         nonVisibleTypes: ["entrance"]
       });
       this.model.fetchLocations();
@@ -160,9 +160,9 @@ describe('App model', function () {
 
   describe('when getting filter collection', function () {
     beforeEach(function () {
-      this.model = new AppModel();
-      this.model.campuses = new Campuses();
-      this.model.locations = new Locations();
+      this.model = new suApp.model.AppModel();
+      this.model.campuses = new suApp.collection.Campuses();
+      this.model.locations = new suApp.collection.Locations();
     });
 
     it('should return campuses when filterByCampus === true', function () {
@@ -183,10 +183,10 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
-      this.model = new AppModel({
+      this.model = new suApp.model.AppModel({
         nonVisibleTypes: []
       });
       this.model.fetchLocations();

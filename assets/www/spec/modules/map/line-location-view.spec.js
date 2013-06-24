@@ -32,22 +32,22 @@
 describe('Line location view', function () {
   describe('initializing', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "initialize");
+      spyOn(suApp.view.GenericLocationView.prototype, "initialize");
     });
 
     it('should call GenericLocationView.initialize', function () {
-      this.view = new LineLocationView({
-        model: new Location()
+      this.view = new suApp.view.LineLocationView({
+        model: new suApp.model.Location()
       });
 
-      expect(GenericLocationView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.GenericLocationView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should create a google.Maps.Polyline', function () {
       spyOn(google.maps, 'Polyline');
 
-      this.view = new LineLocationView({
-        model: new Location()
+      this.view = new suApp.view.LineLocationView({
+        model: new suApp.model.Location()
       });
 
       expect(google.maps.Polyline).toHaveBeenCalledWith({
@@ -66,12 +66,12 @@ describe('Line location view', function () {
 
   describe('updatePosition', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "initialize");
+      spyOn(suApp.view.GenericLocationView.prototype, "initialize");
     });
 
     it('should call marker.setPath', function () {
-      this.view = new LineLocationView({
-        model: new Location()
+      this.view = new suApp.view.LineLocationView({
+        model: new suApp.model.Location()
       });
       spyOn(this.view.marker, 'setPath');
 

@@ -38,7 +38,7 @@
  * @author <a href="mailto:bjorn.westlin@su.se">Björn Westlin</a>
  * @type {Backbone.View}
  */
-var AppView = Backbone.View.extend(
+suApp.view.AppView = Backbone.View.extend(
     /** @lends AppView */
     {
 
@@ -59,7 +59,7 @@ var AppView = Backbone.View.extend(
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
         this.title = options.title;
-        this.mapModel = new MapModel();
+        this.mapModel = new suApp.model.MapModel();
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
@@ -72,13 +72,13 @@ var AppView = Backbone.View.extend(
         });
 
 
-        this.mapView = new MapView({
+        this.mapView = new suApp.view.MapView({
           el: $('#map_canvas'),
           model: this.mapModel,
           appModel: this.model
         });
 
-        this.searchView = new SearchView({
+        this.searchView = new suApp.view.SearchView({
           el: $('#search-box'),
           collection: this.model.getFilterCollection(),
           placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
@@ -102,7 +102,7 @@ var AppView = Backbone.View.extend(
 
         // Display a menu button
         if (showMenu) {
-          this.menuPopupView = new MenuPopupView({
+          this.menuPopupView = new suApp.view.MenuPopupView({
             el: $('#menupopup'),
             campuses: this.model.campuses,
             appModel: this.model,
@@ -203,10 +203,10 @@ var AppView = Backbone.View.extend(
        */
       handleZoomChanged: function (zoom) {
         if (this.model.get('zoomSensitive') === true) {
-          if (zoom >= config.map.zoom.threshold) {
+          if (zoom >= suApp.config.map.zoom.threshold) {
             this.trigger('toggleMarkerVisibility', this.model.locations, true);
           }
-          else if (zoom < config.map.zoom.threshold) {
+          else if (zoom < suApp.config.map.zoom.threshold) {
             this.trigger('toggleMarkerVisibility', this.model.locations, false);
           }
         }

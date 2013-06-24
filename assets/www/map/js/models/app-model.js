@@ -34,7 +34,7 @@
  *
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  */
-var AppModel = Backbone.Model.extend(
+suApp.model.AppModel = Backbone.Model.extend(
     /** @lends AppMpdel */
     {
       /**
@@ -43,7 +43,7 @@ var AppModel = Backbone.Model.extend(
       defaults: {
         menu: false,
         filterByCampus: false,
-        campus: new Campus({ name: "Frescati" }),
+        campus: new suApp.model.Campus({ name: "Frescati" }),
         types: [],
         nonVisibleTypes: [],
         zoomSensitive: false,
@@ -56,8 +56,8 @@ var AppModel = Backbone.Model.extend(
             "hideAllNonVisibleTypes",
             "handleLocationsReset",
             "handleVisibilityForLocationByRelation");
-        this.campuses = new Campuses();
-        this.locations = new Locations(null, {
+        this.campuses = new suApp.collection.Campuses();
+        this.locations = new suApp.collection.Locations(null, {
           searchableTypes: _.difference(this.get('types'), this.get('nonVisibleTypes'))
         });
 

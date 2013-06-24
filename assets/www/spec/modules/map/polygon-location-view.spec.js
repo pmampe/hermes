@@ -32,22 +32,22 @@
 describe('Polygon location view', function () {
   describe('initializing', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "initialize");
+      spyOn(suApp.view.GenericLocationView.prototype, "initialize");
     });
 
     it('should call GenericLocationView.initialize', function () {
-      this.view = new PolygonLocationView({
-        model: new Location()
+      this.view = new suApp.view.PolygonLocationView({
+        model: new suApp.model.Location()
       });
 
-      expect(GenericLocationView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.GenericLocationView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should create a google.Maps.Polygon', function () {
       spyOn(google.maps, 'Polygon');
 
-      this.view = new PolygonLocationView({
-        model: new Location()
+      this.view = new suApp.view.PolygonLocationView({
+        model: new suApp.model.Location()
       });
 
       expect(google.maps.Polygon).toHaveBeenCalledWith({
@@ -66,12 +66,12 @@ describe('Polygon location view', function () {
 
   describe('updatePosition', function () {
     beforeEach(function () {
-      spyOn(GenericLocationView.prototype, "initialize");
+      spyOn(suApp.view.GenericLocationView.prototype, "initialize");
     });
 
     it('should call marker.setPath', function () {
-      this.view = new PolygonLocationView({
-        model: new Location()
+      this.view = new suApp.view.PolygonLocationView({
+        model: new suApp.model.Location()
       });
       spyOn(this.view.marker, 'setPath');
 

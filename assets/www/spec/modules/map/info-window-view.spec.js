@@ -33,7 +33,7 @@ describe('Info window view', function () {
   beforeEach(function () {
     $('#stage').replaceWith("<div data-role='page' id='page-map'></div>");
     $('#page-map').append(JST['map/infoWindow']({
-      model: new Location(),
+      model: new suApp.model.Location(),
       itemText: "",
       displayDirections: true
     }));
@@ -45,20 +45,20 @@ describe('Info window view', function () {
 
   describe('instantiation', function () {
     it('should add event handler on change of showingNonVisibleForLocation in AppModel ', function () {
-      spyOn(AppModel.prototype, "on");
+      spyOn(suApp.model.AppModel.prototype, "on");
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
-      expect(AppModel.prototype.on).toHaveBeenCalledWith("change:showingNonVisibleForLocation", jasmine.any(Function), this.infoWindow);
+      expect(suApp.model.AppModel.prototype.on).toHaveBeenCalledWith("change:showingNonVisibleForLocation", jasmine.any(Function), this.infoWindow);
     });
 
     it('should create google.maps.InfoWindow with maxWidth 260', function () {
       spyOn(google.maps, "InfoWindow");
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
       expect(google.maps.InfoWindow).toHaveBeenCalledWith({ maxWidth: 260 });
@@ -68,14 +68,14 @@ describe('Info window view', function () {
   describe('remove', function () {
 
     it('should call close', function () {
-      spyOn(InfoWindowView.prototype, "close");
+      spyOn(suApp.view.InfoWindowView.prototype, "close");
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
       this.infoWindow.remove();
 
-      expect(InfoWindowView.prototype.close).toHaveBeenCalled();
+      expect(suApp.view.InfoWindowView.prototype.close).toHaveBeenCalled();
     });
 
     it('should remove event handler from document for click on directions', function () {
@@ -86,8 +86,8 @@ describe('Info window view', function () {
       };
       spyOn(MapView.prototype, "getDirections");
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel(),
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel(),
         mapView: new MapView()
       });
 
@@ -110,17 +110,17 @@ describe('Info window view', function () {
 
     beforeEach(function () {
       spyOn(MapView.prototype, "getDirections");
-      spyOn(InfoWindowView.prototype, "close");
+      spyOn(suApp.view.InfoWindowView.prototype, "close");
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel(),
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel(),
         mapView: new MapView()
       });
     });
 
     it('should close the info window', function () {
       $(".dir-button").first().trigger("click");
-      expect(InfoWindowView.prototype.close).toHaveBeenCalled();
+      expect(suApp.view.InfoWindowView.prototype.close).toHaveBeenCalled();
     });
 
     it('should set selected on clicked link and unselect others', function () {
@@ -146,29 +146,29 @@ describe('Info window view', function () {
   describe('when opening the infowindow', function () {
 
     it('should close previous infowindow', function () {
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
       spyOn(this.infoWindow.infoWindow, "close");
-      this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
+      this.infoWindow.open(new suApp.model.Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
       expect(this.infoWindow.infoWindow.close).toHaveBeenCalled();
     });
 
     it('should call model (Location) getI18n method (fetching the text attribute)', function () {
-      spyOn(Location.prototype, "getI18n");
+      spyOn(suApp.model.Location.prototype, "getI18n");
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'testName',
         directionAware: false
-        });
+      });
       this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
-      expect(Location.prototype.getI18n).toHaveBeenCalledWith('text');
+      expect(suApp.model.Location.prototype.getI18n).toHaveBeenCalledWith('text');
     });
 
     it('should call JST with correct values', function () {
@@ -178,11 +178,11 @@ describe('Info window view', function () {
         lng: 'sv-SE'
       });
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'testName',
         directionAware: false,
         buildingName: 'testBuilding',
@@ -192,7 +192,7 @@ describe('Info window view', function () {
 
       this.infoWindow.appModel.locations = {
         byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
-          return _([ new Location({
+          return _([ new suApp.model.Location({
             floor: '1'
           }) ])
         }
@@ -218,11 +218,11 @@ describe('Info window view', function () {
         lng: 'fr-FR'
       });
 
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'testName',
         nameEn: 'testName (en)',
         directionAware: false,
@@ -242,21 +242,21 @@ describe('Info window view', function () {
     });
 
     it('should use anchor for position when no latlng is passed', function () {
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
       spyOn(this.infoWindow.infoWindow, "open");
 
       var marker = new google.maps.Marker()
-      this.infoWindow.open(new Location(), marker);
+      this.infoWindow.open(new suApp.model.Location(), marker);
 
       expect(this.infoWindow.infoWindow.open).toHaveBeenCalledWith(marker.getMap(), marker);
     });
 
     it('should use passed latlng for position', function () {
-      this.infoWindow = new InfoWindowView({
-        appModel: new AppModel()
+      this.infoWindow = new suApp.view.InfoWindowView({
+        appModel: new suApp.model.AppModel()
       });
 
       spyOn(this.infoWindow.infoWindow, "open");
@@ -264,7 +264,7 @@ describe('Info window view', function () {
 
       var marker = new google.maps.Marker();
       var latlng = new google.maps.LatLng(0, 0);
-      this.infoWindow.open(new Location(), marker, latlng);
+      this.infoWindow.open(new suApp.model.Location(), marker, latlng);
 
       expect(this.infoWindow.infoWindow.setPosition).toHaveBeenCalledWith(latlng);
       expect(this.infoWindow.infoWindow.open).toHaveBeenCalledWith(marker.getMap());
@@ -277,7 +277,7 @@ describe('Info window view', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('div.hearing_loop').size()).toEqual(0);
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'auditorium',
         handicapAdapted: true
       });
@@ -297,7 +297,7 @@ describe('Info window view', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('div.hearing_loop.not-available').size()).toEqual(0);
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'auditorium',
         handicapAdapted: false
       });
@@ -315,7 +315,7 @@ describe('Info window view', function () {
 
     it('should set correct building information when no accessible elevators, toilets or entrances exist', function () {
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'building',
         nonVisibleTypes: ["entrance", "elevator", "toilet"]
       });
@@ -341,7 +341,7 @@ describe('Info window view', function () {
 
     it('should set correct building information when accessible elevators, toilets or entrances exist', function () {
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'building',
         nonVisibleTypes: ["entrance", "elevator", "toilet"]
       });

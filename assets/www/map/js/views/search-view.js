@@ -36,7 +36,7 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.View}
  */
-var SearchView = Backbone.View.extend(
+suApp.view.SearchView = Backbone.View.extend(
     /** @lends SearchView */
     {
 

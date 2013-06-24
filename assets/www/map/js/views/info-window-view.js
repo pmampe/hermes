@@ -37,7 +37,7 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.View}
  */
-var InfoWindowView = Backbone.View.extend(
+suApp.view.InfoWindowView = Backbone.View.extend(
     /** @lends InfoWindow */
     {
 

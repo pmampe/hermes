@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var StudentView = Backbone.View.extend({
+suApp.view.StudentView = Backbone.View.extend({
   initialize: function () {
 
     $(document).on('deviceready.appview', this.handleDeviceReady);
@@ -40,9 +40,9 @@ var StudentView = Backbone.View.extend({
 
     var listLanguage = [];
     if (i18n.detectLanguage().indexOf("sv-") >= 0) {
-      listLanguage = config.studentServiceSwe.menu;
+      listLanguage = suApp.config.studentServiceSwe.menu;
     } else {
-      listLanguage = config.studentServiceEng.menu;
+      listLanguage = suApp.config.studentServiceEng.menu;
     }
 
     this.menu = _.map(listLanguage, function (obj) {

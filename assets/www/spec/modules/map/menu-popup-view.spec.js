@@ -43,14 +43,14 @@ describe('Menu popup view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map", {prefetch: "true"});
 
-    this.campuses = new Campuses();
+    this.campuses = new suApp.collection.Campuses();
     this.searchView = new Object();
-    this.searchView.hideFilteredList = function(){
+    this.searchView.hideFilteredList = function () {
       return;
     };
 
 
-    this.view = new MenuPopupView({
+    this.view = new suApp.view.MenuPopupView({
       el: $('#menupopup'),
       campuses: this.campuses,
       searchView: this.searchView
@@ -90,7 +90,7 @@ describe('Menu popup view', function () {
 
   describe('selectCampus', function () {
     it('runs callback & closes menu popup', function () {
-      var campus = new Campus({ id: 0, name: 'foo'});
+      var campus = new suApp.model.Campus({ id: 0, name: 'foo'});
 
       this.view.campuses.add([campus]);
 

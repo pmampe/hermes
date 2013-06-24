@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var MapRouter = Backbone.Router.extend({
+suApp.router.MapRouter = Backbone.Router.extend({
   routes: {
     "restaurants": "restaurants",
     "computerLabs": "computerLabs",
@@ -41,9 +41,9 @@ var MapRouter = Backbone.Router.extend({
   },
 
   defaultRoute: function (actions) {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new AppModel()
+      model: new suApp.model.AppModel()
     });
     appView.render();
 
@@ -51,9 +51,9 @@ var MapRouter = Backbone.Router.extend({
   },
 
   restaurants: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new AppModel({
+      model: new suApp.model.AppModel({
         types: ["restaurant"],
         filterByCampus: true
       }),
@@ -64,9 +64,9 @@ var MapRouter = Backbone.Router.extend({
   },
 
   computerLabs: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new AppModel({ types: ["computer_labs"] }),
+      model: new suApp.model.AppModel({ types: ["computer_labs"] }),
       title: 'map.titles.computerlabs'
     });
     appView.render();
@@ -74,9 +74,9 @@ var MapRouter = Backbone.Router.extend({
   },
 
   auditoriums: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new AppModel({ types: ["auditorium"] }),
+      model: new suApp.model.AppModel({ types: ["auditorium"] }),
       title: 'map.titles.auditoriums'
     });
     appView.render();
@@ -84,9 +84,9 @@ var MapRouter = Backbone.Router.extend({
   },
 
   buildings: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new AppModel({
+      model: new suApp.model.AppModel({
         menu: true,
         types: ["building", "entrance", "elevator", "toilet"],
         nonVisibleTypes: ["entrance", "elevator", "toilet"]
@@ -98,14 +98,14 @@ var MapRouter = Backbone.Router.extend({
   },
 
   parkingspaces: function () {
-    var appModel = new AppModel({
+    var appModel = new suApp.model.AppModel({
       filterByCampus: true,
       types: ["parking", "handicap_parking", 'entrance'],
       nonVisibleTypes: ["entrance"],
       zoomSensitive: true
     });
 
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: appModel,
       title: "map.titles.parking"
@@ -120,9 +120,9 @@ var MapRouter = Backbone.Router.extend({
   },
 
   departments: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new AppModel({
+      model: new suApp.model.AppModel({
         types: ["organization"]
       }),
       title: 'map.titles.departments'

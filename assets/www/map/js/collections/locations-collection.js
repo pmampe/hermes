@@ -36,11 +36,11 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.Collection}
  */
-var Locations = Backbone.Collection.extend(
+suApp.collection.Locations = Backbone.Collection.extend(
     /** @lends Locations */
     {
       /** The model used for this Location. */
-      model: Location,
+      model: suApp.model.Location,
 
       initialize: function (models, options) {
         this.searchableTypes = options ? options.searchableTypes : [];
@@ -52,7 +52,7 @@ var Locations = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return config.map.location.url;
+        return suApp.config.map.location.url;
       },
 
       /**

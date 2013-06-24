@@ -36,7 +36,7 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.Model}
  */
-var Location = Backbone.Model.extend(
+suApp.model.Location = Backbone.Model.extend(
     /** @lends Location */
     {
       defaults: {
@@ -96,5 +96,5 @@ var Location = Backbone.Model.extend(
       }
     });
 
-_.extend(Location.prototype, ModelMixins.i18nMixin);
+_.extend(suApp.model.Location.prototype, ModelMixins.i18nMixin);
 

@@ -65,11 +65,11 @@ describe('App view', function () {
     this.server = sinon.fakeServer.create();
     this.server.respondWith(
         "GET",
-        new Locations().url(),
+        new suApp.collection.Locations().url(),
         this.validResponse(this.fixtures.Locations.valid)
     );
 
-    this.view = new AppView({el: $('#page-map'), title: "foobar", model: new AppModel()});
+    this.view = new suApp.view.AppView({el: $('#page-map'), title: "foobar", model: new suApp.model.AppModel()});
     this.server.respond();
   });
 
@@ -83,7 +83,7 @@ describe('App view', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Campuses.prototype.url(),
+          suApp.collection.Campuses.prototype.url(),
           this.validResponse(this.fixtures.Campuses.valid)
       );
       this.server.autoRespond = true;
@@ -147,7 +147,7 @@ describe('App view', function () {
 
       this.view.mapView.replacePoints = function (foo) {
       };
-      var campus = new Campus(this.fixtures.Campuses.valid[0]);
+      var campus = new suApp.model.Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();
@@ -158,7 +158,7 @@ describe('App view', function () {
 
     it('updates locations', function () {
       spyOn(this.view.mapView, "replacePoints");
-      var campus = new Campus(this.fixtures.Campuses.valid[0]);
+      var campus = new suApp.model.Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();
@@ -181,7 +181,7 @@ describe('App view', function () {
   describe('click callbacks', function () {
     it('locationCallback should replace points for supplied location', function () {
 
-      var location = new Location({id: 0});
+      var location = new suApp.model.Location({id: 0});
 
       this.view.mapView.replacePoints = function (collection) {
         expect(collection.size()).toEqual(1);
@@ -192,7 +192,7 @@ describe('App view', function () {
     });
 
     it('campusCallback should replace points for supplied campus', function () {
-      var campus = new Location({id: 0, name: 'Frescati'});
+      var campus = new suApp.model.Location({id: 0, name: 'Frescati'});
 
       this.view.model.set = function (key, val) {
         expect(key).toEqual('campus');
@@ -210,7 +210,7 @@ describe('App view', function () {
         res = visible;
       });
       this.view.model.set('zoomSensitive', true);
-      config.map.zoom.threshold = 17;
+      suApp.config.map.zoom.threshold = 17;
 
       this.view.handleZoomChanged(18);
       expect(res).toBeTruthy();

@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var StartView = Backbone.View.extend({
+suApp.view.StartView = Backbone.View.extend({
   initialize: function () {
     $(document).on('deviceready.appview', this.handleDeviceReady);
 
@@ -55,7 +55,7 @@ var StartView = Backbone.View.extend({
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
-    window.setTimeout(navigator.splashscreen.hide, config.core.splashscreen.timeout);
+    window.setTimeout(navigator.splashscreen.hide, suApp.config.core.splashscreen.timeout);
     gaPlugin.trackPage(null, null, "index.html");
   },
 

@@ -36,14 +36,14 @@
 describe('Start view', function () {
   beforeEach(function () {
     $('#stage').append("<a id='sisulink' href='http://sisu.it.su.se'>sisu</a>");
-    this.view = new StartView({el: $('#stage')});
+    this.view = new suApp.view.StartView({el: $('#stage')});
   });
 
   describe('on deviceready event', function () {
     it('should hide splash screen', function () {
       runs(function () {
         spyOn(navigator.splashscreen, 'hide');
-        config.core.splashscreen.timeout = 1;
+        suApp.config.core.splashscreen.timeout = 1;
         $(document).trigger('deviceready');
       });
 

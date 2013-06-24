@@ -37,11 +37,11 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.Collection}
  */
-var Campuses = Backbone.Collection.extend(
+suApp.collection.Campuses = Backbone.Collection.extend(
     /** @lends Campuses */
     {
       /** The model used for this collection. */
-      model: Campus,
+      model: suApp.model.Campus,
 
       /**
        * Generates the URL to get Campuses.
@@ -49,7 +49,7 @@ var Campuses = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return config.map.campuses.url;
+        return suApp.config.map.campuses.url;
       },
 
       /**

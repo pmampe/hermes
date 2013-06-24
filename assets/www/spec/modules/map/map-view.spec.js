@@ -51,10 +51,10 @@ describe('Map view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map", {prefetch: "true"});
 
-    this.view = new MapView({
+    this.view = new suApp.view.MapView({
       el: $('#map_canvas'),
-      model: new MapModel(),
-      appModel: new AppModel()
+      model: new suApp.model.MapModel(),
+      appModel: new suApp.model.AppModel()
     });
   });
 
@@ -72,23 +72,23 @@ describe('Map view', function () {
   describe('resize', function () {
     beforeEach(function () {
       // We need to create a new view since we need to attach the spy first
-      spyOn(MapView.prototype, 'resize');
-      this.view = new MapView({
+      spyOn(suApp.view.MapView.prototype, 'resize');
+      this.view = new suApp.view.MapView({
         el: $('#map_canvas'),
-        model: new MapModel(),
-        appModel: new AppModel()
+        model: new suApp.model.MapModel(),
+        appModel: new suApp.model.AppModel()
       });
     });
 
     it('should react to window resize events', function () {
       $(document).trigger('resize');
-      expect(MapView.prototype.resize.calls.length).toBe(1);
+      expect(suApp.view.MapView.prototype.resize.calls.length).toBe(1);
     });
 
     it('should remove the event handler from document.resize when the view is removed', function () {
       this.view.remove();
       $(document).trigger('resize');
-      expect(MapView.prototype.resize.calls.length).toBe(0);
+      expect(suApp.view.MapView.prototype.resize.calls.length).toBe(0);
     });
   });
 

@@ -37,7 +37,7 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.View}
  */
-var MapView = Backbone.View.extend(
+suApp.view.MapView = Backbone.View.extend(
     /** @lends MapView */
     {
 
@@ -65,7 +65,7 @@ var MapView = Backbone.View.extend(
         );
 
         this.pointViews = [];
-        this.infoWindowView = new InfoWindowView({
+        this.infoWindowView = new suApp.view.InfoWindowView({
           mapView: this,
           appModel: options.appModel
         });
@@ -171,7 +171,7 @@ var MapView = Backbone.View.extend(
       },
 
       createPositionMarker: function () {
-        var currentPosition = new Location({
+        var currentPosition = new suApp.model.Location({
           id: -100,
           campus: null,
           type: 'current_position',
@@ -183,7 +183,7 @@ var MapView = Backbone.View.extend(
           directionAware: false
         });
 
-        this.currentPositionPoint = new PointLocationView({
+        this.currentPositionPoint = new suApp.view.PointLocationView({
           model: currentPosition,
           gmap: this.map,
           infoWindow: this.infoWindowView
@@ -280,18 +280,18 @@ var MapView = Backbone.View.extend(
           var shape = item.get('shape');
 
           if (shape === "line") {
-            point = new LineLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
+            point = new suApp.view.LineLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
           else if (shape === "polygon") {
-            point = new PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
+            point = new suApp.view.PolygonLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
           else {
-            point = new PointLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
+            point = new suApp.view.PointLocationView({ model: item, gmap: self.map, infoWindow: self.infoWindowView });
           }
 
           // if the polygon has an icon, draw it
           if (item.getPin() !== null && (shape === "line" || shape === "polygon")) {
-            var iconPoint = new PointLocationView({
+            var iconPoint = new suApp.view.PointLocationView({
               model: item,
               gmap: self.map,
               infoWindow: self.infoWindowView,

@@ -32,7 +32,7 @@
 describe('Campus model', function () {
   describe('when creating an empty Campus', function () {
     beforeEach(function () {
-      this.campus = new Campus();
+      this.campus = new suApp.model.Campus();
     });
 
     it('should have id 0', function () {
@@ -54,7 +54,7 @@ describe('Campus model', function () {
 
   describe('getLat', function () {
     it('should return latitude from coords', function () {
-      this.campus = new Campus({ coords: [10, 20] });
+      this.campus = new suApp.model.Campus({ coords: [10, 20] });
 
       expect(this.campus.getLat()).toEqual(10);
     });
@@ -62,7 +62,7 @@ describe('Campus model', function () {
 
   describe('getLng', function () {
     it('should return longitude from coords', function () {
-      this.campus = new Campus({ coords: [10, 20] });
+      this.campus = new suApp.model.Campus({ coords: [10, 20] });
 
       expect(this.campus.getLng()).toEqual(20);
     });
@@ -70,7 +70,7 @@ describe('Campus model', function () {
 
   describe('getZoom', function () {
     it('should return the zoom', function () {
-      this.campus = new Campus({ zoom: 10 });
+      this.campus = new suApp.model.Campus({ zoom: 10 });
 
       expect(this.campus.getZoom()).toEqual(10);
     });
@@ -79,16 +79,16 @@ describe('Campus model', function () {
 
 describe('Campus collection', function () {
   beforeEach(function () {
-    this.campuses = new Campuses();
+    this.campuses = new suApp.collection.Campuses();
   });
 
   describe('creating an empty collection', function () {
     it('should have Campus for model', function () {
-      expect(this.campuses.model).toBe(Campus);
+      expect(this.campuses.model).toBe(suApp.model.Campus);
     });
 
     it('should have a url from config', function () {
-      expect(this.campuses.url()).toMatch(config.map.campuses.url);
+      expect(this.campuses.url()).toMatch(suApp.config.map.campuses.url);
     });
   });
 

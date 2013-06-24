@@ -32,14 +32,14 @@
 describe('Main', function () {
   describe('startingMapModule', function () {
     beforeEach(function () {
-      var mapRouter = new MapRouter(); //Construct a MapRouter to get the Backbone.history inited.
-      spyOn(window, 'MapRouter');
+      var mapRouter = new suApp.router.MapRouter(); //Construct a MapRouter to get the Backbone.history inited.
+      spyOn(suApp.router, 'MapRouter');
       spyOn(Backbone.history, 'start');
     });
 
     it('should create a MapRouter', function () {
       startMapModule();
-      expect(window.MapRouter).toHaveBeenCalled();
+      expect(suApp.router.MapRouter).toHaveBeenCalled();
     });
 
     it('should start Backbone history', function () {

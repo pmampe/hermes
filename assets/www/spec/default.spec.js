@@ -162,7 +162,9 @@ describe('External-link-dialog', function () {
       var popup = $("#external-link-dialog");
       popup.find("a[target=_system]").trigger('click');
 
-      helper.delay(2, function(){ expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy(); })
+      helper.delay(2, function () {
+        expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy();
+      })
 
     });
   });
@@ -179,22 +181,22 @@ describe('Error-dialog', function () {
     it('should present a popup with error message in case of error', function () {
       showError('fel 1');
 
-      var html= $('#errorPopup').html();
+      var html = $('#errorPopup').html();
       expect(html).toBeDefined();
 
-      var msg=  $("#errorPopup").find('span').html().trim();
+      var msg = $("#errorPopup").find('span').html().trim();
       expect(msg).toEqual('fel 1');
     });
 
     it('when pressing "cancel" should close the popup and remove the html', function () {
       showError('fel 2');
 
-      var html= $('#errorPopup').html();
+      var html = $('#errorPopup').html();
       expect(html).toBeDefined();
 
       $('#closeErrorDialog').trigger('click');
 
-      var html= $('#errorPopup').html();
+      var html = $('#errorPopup').html();
       expect(html).toBeUndefined();
     });
 
@@ -202,7 +204,7 @@ describe('Error-dialog', function () {
       $(window).trigger('unload');
       showError('fel 1');
 
-      var html= $('#errorPopup').html();
+      var html = $('#errorPopup').html();
       expect(html).toBeUndefined();
 
       showError.unSupressErrors();
@@ -228,7 +230,7 @@ describe('GAPlugin', function () {
       expect(window.plugins.gaPlugin.init).toHaveBeenCalledWith(
           null,
           null,
-          config.core.ga.account,
+          suApp.config.core.ga.account,
           jasmine.any(Number)
       );
     });
