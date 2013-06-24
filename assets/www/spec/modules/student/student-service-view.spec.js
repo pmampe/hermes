@@ -52,44 +52,44 @@ describe('Student view', function () {
     $('#studentservice_page').replaceWith("<div id='stage'></div>");
   });
 
-  describe('render', function() {
-    it('Menu should be populated with 9 list items', function() {
+  describe('render', function () {
+    it('Menu should be populated with 9 list items', function () {
       expect($('#studentservice-menu').children().size()).toEqual(9);
     });
   });
 
   describe('on deviceready', function () {
 
-    it('Should initiate i18n and return the swedish list depending when swedish is the language', function() {
+    it('Should initiate i18n and return the swedish list depending when swedish is the language', function () {
       spyOn(i18n, 'detectLanguage').andReturn('sv-SE');
       this.view = new StudentView({ el: $('#studentservice_page')});
 
-      expect(this.view.menu.length).toEqual(config.studentServiceSwe.menu.length);
+      expect(this.view.menu.length).toEqual(suApp.config.studentServiceSwe.menu.length);
 
-      for(var i=0; i < this.view.menu.length; i++) {
-       expect(config.studentServiceSwe.menu).toContain(this.view.menu[i]);
+      for (var i = 0; i < this.view.menu.length; i++) {
+        expect(suApp.config.studentServiceSwe.menu).toContain(this.view.menu[i]);
       }
     });
 
-    it('Should initiate i18n and return the english list when english is the default language', function() {
+    it('Should initiate i18n and return the english list when english is the default language', function () {
       spyOn(i18n, 'detectLanguage').andReturn('en');
       this.view = new StudentView({ el: $('#studentservice_page')});
 
-      expect(this.view.menu.length).toEqual(config.studentServiceEng.menu.length);
+      expect(this.view.menu.length).toEqual(suApp.config.studentServiceEng.menu.length);
 
-      for(var i=0; i < this.view.menu.length; i++) {
-        expect(config.studentServiceEng.menu).toContain(this.view.menu[i]);
+      for (var i = 0; i < this.view.menu.length; i++) {
+        expect(suApp.config.studentServiceEng.menu).toContain(this.view.menu[i]);
       }
     });
 
-    it('Should initiate i18n and return the english list when neither english nor swedish is the default language', function() {
+    it('Should initiate i18n and return the english list when neither english nor swedish is the default language', function () {
       spyOn(i18n, 'detectLanguage').andReturn('fr-FR');
       this.view = new StudentView({ el: $('#studentservice_page')});
 
-      expect(this.view.menu.length).toEqual(config.studentServiceEng.menu.length);
+      expect(this.view.menu.length).toEqual(suApp.config.studentServiceEng.menu.length);
 
-      for(var i=0; i < this.view.menu.length; i++) {
-        expect(config.studentServiceEng.menu).toContain(this.view.menu[i]);
+      for (var i = 0; i < this.view.menu.length; i++) {
+        expect(suApp.config.studentServiceEng.menu).toContain(this.view.menu[i]);
       }
     });
 
@@ -114,8 +114,8 @@ describe('Student view', function () {
     });
   });
 
-  describe('on off event', function(){
-    it('should remove handler for the view', function(){
+  describe('on off event', function () {
+    it('should remove handler for the view', function () {
       spyOn(Backbone.View.prototype, 'remove');
 
       $(document).trigger('deviceready');

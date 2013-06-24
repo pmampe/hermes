@@ -52,7 +52,7 @@ var Locations = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return config.map.location.url;
+        return suApp.config.map.location.url;
       },
 
       /**

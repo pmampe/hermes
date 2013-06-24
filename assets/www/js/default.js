@@ -33,7 +33,7 @@ $(document).on('deviceready', function () {
   gaPlugin.init(
       null, /* suppress success */
       null, /* suppress errors */
-      config.core.ga.account,
+      suApp.config.core.ga.account,
       10 // Seconds between sending stats.
   );
 });
@@ -104,7 +104,7 @@ $(document).on("click", ".button-grid a", function (event) {
   var $targetLink = $(this).attr('href');
 
   $.ajax({
-    complete: function(){
+    complete: function () {
       window.location.href = $targetLink;
     }
   });
@@ -117,8 +117,8 @@ $(document).on("click", ".button-grid a", function (event) {
 $(document).ready(function () {
   FastClick.attach(document.body);
 
-  $(document).ajaxStart(function() {
-    $.mobile.loading( 'show', {
+  $(document).ajaxStart(function () {
+    $.mobile.loading('show', {
       text: '',
       textVisible: true,
       theme: 'b',
@@ -126,7 +126,7 @@ $(document).ready(function () {
     });
   });
 
-  $(document).ajaxStop(function() {
+  $(document).ajaxStop(function () {
     $.mobile.hidePageLoadingMsg();
   });
 });
@@ -158,7 +158,7 @@ window.showError = function () {
       $errorDialog.trigger('create');
       $errorDialog.popup('open');
 
-      $('#closeErrorDialog').bind( 'click', function(evt){
+      $('#closeErrorDialog').bind('click', function (evt) {
         evt.preventDefault();
         $(this).closest('#errorPopup').popup('close').remove();
       });

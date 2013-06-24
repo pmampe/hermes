@@ -203,10 +203,10 @@ var AppView = Backbone.View.extend(
        */
       handleZoomChanged: function (zoom) {
         if (this.model.get('zoomSensitive') === true) {
-          if (zoom >= config.map.zoom.threshold) {
+          if (zoom >= suApp.config.map.zoom.threshold) {
             this.trigger('toggleMarkerVisibility', this.model.locations, true);
           }
-          else if (zoom < config.map.zoom.threshold) {
+          else if (zoom < suApp.config.map.zoom.threshold) {
             this.trigger('toggleMarkerVisibility', this.model.locations, false);
           }
         }

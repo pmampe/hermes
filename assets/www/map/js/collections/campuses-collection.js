@@ -49,7 +49,7 @@ var Campuses = Backbone.Collection.extend(
        * @return {string} the URL.
        */
       url: function () {
-        return config.map.campuses.url;
+        return suApp.config.map.campuses.url;
       },
 
       /**

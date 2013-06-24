@@ -43,7 +43,7 @@ describe('Start view', function () {
     it('should hide splash screen', function () {
       runs(function () {
         spyOn(navigator.splashscreen, 'hide');
-        config.core.splashscreen.timeout = 1;
+        suApp.config.core.splashscreen.timeout = 1;
         $(document).trigger('deviceready');
       });
 

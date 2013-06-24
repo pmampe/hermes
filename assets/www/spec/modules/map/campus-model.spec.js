@@ -88,7 +88,7 @@ describe('Campus collection', function () {
     });
 
     it('should have a url from config', function () {
-      expect(this.campuses.url()).toMatch(config.map.campuses.url);
+      expect(this.campuses.url()).toMatch(suApp.config.map.campuses.url);
     });
   });
 

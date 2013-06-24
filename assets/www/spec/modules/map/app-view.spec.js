@@ -210,7 +210,7 @@ describe('App view', function () {
         res = visible;
       });
       this.view.model.set('zoomSensitive', true);
-      config.map.zoom.threshold = 17;
+      suApp.config.map.zoom.threshold = 17;
 
       this.view.handleZoomChanged(18);
       expect(res).toBeTruthy();
