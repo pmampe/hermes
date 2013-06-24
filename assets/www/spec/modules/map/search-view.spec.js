@@ -69,18 +69,18 @@ describe('Search view', function () {
 
   describe('instantiation', function () {
     it('should initialize search view on app view initialization', function () {
-      spyOn(SearchView.prototype, "initialize");
+      spyOn(suApp.view.SearchView.prototype, "initialize");
       this.view = new suApp.view.AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
-      expect(SearchView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.SearchView.prototype.initialize).toHaveBeenCalled();
     });
 
     it('should render search view on location refresh', function () {
-      spyOn(SearchView.prototype, "render");
+      spyOn(suApp.view.SearchView.prototype, "render");
 
       var appView = new suApp.view.AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
       appView.searchView.collection.trigger('reset');
 
-      expect(SearchView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.SearchView.prototype.render).toHaveBeenCalled();
     });
   });
 
@@ -93,7 +93,7 @@ describe('Search view', function () {
           this.validResponse(this.fixtures.FilterItems.valid.locations)
       );
 
-      spyOn(SearchView.prototype, "render");
+      spyOn(suApp.view.SearchView.prototype, "render");
     });
 
     it('should populate filter with the correct number of campuses', function () {
@@ -126,7 +126,7 @@ describe('Search view', function () {
     });
 
     it('should trigger custom filtering for each filter item', function () {
-      spyOn(SearchView.prototype, "filterSearch");
+      spyOn(suApp.view.SearchView.prototype, "filterSearch");
       var appView = new suApp.view.AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
 
       runs(function () {
@@ -139,12 +139,12 @@ describe('Search view', function () {
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(SearchView.prototype.render).toHaveBeenCalled();
+        expect(suApp.view.SearchView.prototype.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
         appView.searchView.populateFilter();
         expect($("#search-autocomplete li.ui-btn").length).toEqual(4);
         $(".ui-input-search input").focus().val("A").change();
-        expect(SearchView.prototype.filterSearch.calls.length).toEqual(4);
+        expect(suApp.view.SearchView.prototype.filterSearch.calls.length).toEqual(4);
       });
     });
 
@@ -160,7 +160,7 @@ describe('Search view', function () {
       }, "Waiting for returning call", 1000);
 
       runs(function () {
-        expect(SearchView.prototype.render).toHaveBeenCalled();
+        expect(suApp.view.SearchView.prototype.render).toHaveBeenCalled();
         expect($("#search-autocomplete li").length).toEqual(0);
         appView.searchView.populateFilter();
         expect($("#search-autocomplete li.ui-btn.ui-screen-hidden").length).toEqual(4);
@@ -171,7 +171,7 @@ describe('Search view', function () {
     });
 
     it('should match beginning of line', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "S")).toBeFalsy();
       expect(searchView.filterSearch("Södra husen - Hus A", "Söd")).toBeFalsy();
@@ -179,7 +179,7 @@ describe('Search view', function () {
     });
 
     it('should match beginning of words', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "h")).toBeFalsy();
       expect(searchView.filterSearch("Södra husen - Hus A", "husen")).toBeFalsy();
@@ -189,7 +189,7 @@ describe('Search view', function () {
     });
 
     it('should not match inside words', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "ö")).toBeTruthy();
       expect(searchView.filterSearch("Södra husen - Hus A", "ödra")).toBeTruthy();
@@ -198,13 +198,13 @@ describe('Search view', function () {
     });
 
     it('should match whole string', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "Södra husen - Hus A")).toBeFalsy();
     });
 
     it('should match case insensitive', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "S")).toBeFalsy();
       expect(searchView.filterSearch("Södra husen - Hus A", "s")).toBeFalsy();
@@ -218,13 +218,13 @@ describe('Search view', function () {
     });
 
     it('should match without spaces', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "Södrahusen-HusA")).toBeFalsy();
     });
 
     it('should match with spaces in the search words', function () {
-      var searchView = new SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
+      var searchView = new suApp.view.SearchView({ collection: new Backbone.Collection(), placeholderSuffix: "" });
 
       expect(searchView.filterSearch("Södra husen - Hus A", "Sö dra husen - Hus A")).toBeFalsy();
       expect(searchView.filterSearch("Södra husen - Hus A", "Södra hus en - Hus A")).toBeFalsy();
@@ -261,7 +261,7 @@ describe('Search view', function () {
 
   describe('mobile keyboard handling', function () {
     beforeEach(function () {
-      spyOn(SearchView.prototype, "hideFilteredList");
+      spyOn(suApp.view.SearchView.prototype, "hideFilteredList");
       this.view = new suApp.view.AppView({ el: $('#page-map'), model: new suApp.model.AppModel()});
     });
 
@@ -271,7 +271,7 @@ describe('Search view', function () {
 
     it('should prevent form submit to trigger blur event in search input field', function () {
       $('#search-box form').submit();
-      expect(SearchView.prototype.hideFilteredList.calls.length).toBe(0);
+      expect(suApp.view.SearchView.prototype.hideFilteredList.calls.length).toBe(0);
     });
 
     it('should blur input field on enter key but not hide the filter list', function () {
@@ -294,10 +294,10 @@ describe('Search view', function () {
 
   describe('Filtered list', function () {
     it('should call showFileredList on focus on input field', function () {
-      spyOn(SearchView.prototype, "showFilteredList");
+      spyOn(suApp.view.SearchView.prototype, "showFilteredList");
       this.view = new suApp.view.AppView({ el: $('#page-map'), model: new suApp.model.AppModel() });
       $('#search-box input').trigger('focus');
-      expect(SearchView.prototype.showFilteredList).toHaveBeenCalled();
+      expect(suApp.view.SearchView.prototype.showFilteredList).toHaveBeenCalled();
     });
 
     describe('hide/show filtered list', function () {
@@ -311,10 +311,10 @@ describe('Search view', function () {
 
       it('should show placeholder text in search field according to page title', function () {
         var category = "Axel Baxel";
-        spyOn(SearchView.prototype, "render");
-        spyOn(SearchView.prototype, "populateFilter");
+        spyOn(suApp.view.SearchView.prototype, "render");
+        spyOn(suApp.view.SearchView.prototype, "populateFilter");
 
-        var searchView = new SearchView({
+        var searchView = new suApp.view.SearchView({
           el: "#search-box",
           collection: new suApp.collection.Locations(),
           placeholderSuffix: category
@@ -374,17 +374,17 @@ describe('Search view', function () {
         $("#search-autocomplete li.ui-btn:nth-child(2) a").trigger("click");
         expect(selected).toBeTruthy();
 
-        spyOn(SearchView.prototype, "resetLocations");
+        spyOn(suApp.view.SearchView.prototype, "resetLocations");
         $("#cancelFilter").trigger("click");
-        expect(SearchView.prototype.resetLocations).toHaveBeenCalled();
+        expect(suApp.view.SearchView.prototype.resetLocations).toHaveBeenCalled();
       });
 
       it('should hide filtered list and cancelButton  and keep locations in mapView when clicking cancel button and filtered text is NOT empty', function () {
-        spyOn(SearchView.prototype, "resetLocations");
+        spyOn(suApp.view.SearchView.prototype, "resetLocations");
 
         $('#search-box input').val('Ax');
         $("#cancelFilter").trigger("click");
-        expect(SearchView.prototype.resetLocations).not.toHaveBeenCalled();
+        expect(suApp.view.SearchView.prototype.resetLocations).not.toHaveBeenCalled();
       });
 
       it('should hide filtered list and cancelButton on click list item', function () {

@@ -78,7 +78,7 @@ suApp.view.AppView = Backbone.View.extend(
           appModel: this.model
         });
 
-        this.searchView = new SearchView({
+        this.searchView = new suApp.view.SearchView({
           el: $('#search-box'),
           collection: this.model.getFilterCollection(),
           placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
