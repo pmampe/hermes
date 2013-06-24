@@ -38,7 +38,7 @@
  * @author <a href="mailto:bjorn.westlin@su.se">Björn Westlin</a>
  * @type {Backbone.View}
  */
-var AppView = Backbone.View.extend(
+suApp.view.AppView = Backbone.View.extend(
     /** @lends AppView */
     {
 

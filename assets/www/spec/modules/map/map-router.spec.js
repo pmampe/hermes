@@ -114,15 +114,15 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
     });
 
     it("should initialize an AppView", function () {
       this.router.defaultRoute('foo');
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
   });
 
@@ -130,32 +130,32 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
-      spyOn(AppView.prototype, "updateLocations");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "updateLocations");
       spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
       this.router.computerLabs();
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
     });
 
     it("should render an AppView", function () {
       this.router.computerLabs();
 
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
 
     it("should update locations", function () {
       this.router.computerLabs();
 
-      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
     it("should initialize an AppView with types 'computerLabs'", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('types')).toEqual(["computer_labs"]);
       });
 
@@ -163,7 +163,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with correct title", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(i18n.t(options.title)).toEqual("map.titles.computerlabs");
       });
 
@@ -175,32 +175,32 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
-      spyOn(AppView.prototype, "updateLocations");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "updateLocations");
       spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
       this.router.auditoriums();
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
     });
 
     it("should render an AppView", function () {
       this.router.auditoriums();
 
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
 
     it("should update locations", function () {
       this.router.auditoriums();
 
-      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
     it("should initialize an AppView with types 'auditorium'", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('types')).toEqual(["auditorium"]);
       });
 
@@ -208,7 +208,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with correct title", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.title).toEqual("map.titles.auditoriums");
       });
 
@@ -220,32 +220,32 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
-      spyOn(AppView.prototype, "updateLocations");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "updateLocations");
       spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
       this.router.buildings();
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
     });
 
     it("should render an AppView", function () {
       this.router.buildings();
 
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
 
     it("should update locations", function () {
       this.router.buildings();
 
-      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
     it("should initialize an AppView with types ['building', 'entrance', 'elevator', 'toilet'] and nonVisibleTypes ['entrance', 'elevator', 'toilet']", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('types')).toEqual(["building", "entrance", "elevator", "toilet"]);
         expect(options.model.get('nonVisibleTypes')).toEqual(["entrance", "elevator", "toilet"]);
       });
@@ -254,7 +254,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with correct title", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.title).toEqual("map.titles.buildings");
       });
 
@@ -262,7 +262,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with menu=true", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('menu')).toBeTruthy();
       });
 
@@ -274,32 +274,32 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
-      spyOn(AppView.prototype, "updateLocations");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "updateLocations");
       spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
       this.router.parkingspaces();
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
     });
 
     it("should render an AppView", function () {
       this.router.parkingspaces();
 
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
 
     it("should update locations", function () {
       this.router.parkingspaces();
 
-      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
     it("should initialize an AppView with types 'auditorium'", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('types')).toEqual(["parking", "handicap_parking", 'entrance']);
       });
 
@@ -307,7 +307,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with correct title", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.title).toEqual("map.titles.parking");
       });
 
@@ -337,32 +337,32 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
-      spyOn(AppView.prototype, "updateLocations");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "updateLocations");
       spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
       this.router.departments();
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
     });
 
     it("should render an AppView", function () {
       this.router.departments();
 
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
 
     it("should update locations", function () {
       this.router.departments();
 
-      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
     it("should initialize an AppView with types 'auditorium'", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('types')).toEqual(["organization"]);
       });
 
@@ -370,7 +370,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with correct title", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.title).toEqual("map.titles.departments");
       });
 
@@ -420,9 +420,9 @@ describe('MapRouter', function () {
     });
 
     it("should set zoomSensitive=true on the app model", function () {
-      spyOn(AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "initialize");
       var appModel = new suApp.model.AppModel();
-      var appView = new AppView();
+      var appView = new suApp.view.AppView();
 
       this.router.handleParkingspaceLocationsReset(appView, appModel);
 
@@ -430,7 +430,7 @@ describe('MapRouter', function () {
     });
 
     it("should attach a event trigger on the 'clicked' event on parking & handicap_parking models", function () {
-      spyOn(AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "initialize");
       var location = new suApp.model.Location({
         type: 'parking'
       });
@@ -439,7 +439,7 @@ describe('MapRouter', function () {
 
       var appModel = new suApp.model.AppModel();
       appModel.locations = locations;
-      var appView = new AppView();
+      var appView = new suApp.view.AppView();
 
       var checkCollection = false;
       var checkVisible = false;
@@ -462,32 +462,32 @@ describe('MapRouter', function () {
     beforeEach(function () {
       this.router = new suApp.router.MapRouter();
 
-      spyOn(AppView.prototype, "initialize");
-      spyOn(AppView.prototype, "render");
-      spyOn(AppView.prototype, "updateLocations");
+      spyOn(suApp.view.AppView.prototype, "initialize");
+      spyOn(suApp.view.AppView.prototype, "render");
+      spyOn(suApp.view.AppView.prototype, "updateLocations");
       spyOn(suApp.collection.Campuses.prototype, "fetch");
     });
 
     it("should initialize an AppView", function () {
       this.router.restaurants();
 
-      expect(AppView.prototype.initialize).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.initialize).toHaveBeenCalled();
     });
 
     it("should render an AppView", function () {
       this.router.restaurants();
 
-      expect(AppView.prototype.render).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.render).toHaveBeenCalled();
     });
 
     it("should update locations", function () {
       this.router.restaurants();
 
-      expect(AppView.prototype.updateLocations).toHaveBeenCalled();
+      expect(suApp.view.AppView.prototype.updateLocations).toHaveBeenCalled();
     });
 
     it("should initialize an AppView with types 'resturant'", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('types')).toEqual(["restaurant"]);
       });
 
@@ -495,7 +495,7 @@ describe('MapRouter', function () {
     });
 
     it("should initialize an AppView with correct title", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.title).toEqual("map.titles.restaurants");
       });
 
@@ -503,7 +503,7 @@ describe('MapRouter', function () {
     });
 
     it("should set filterByCampus in app model", function () {
-      AppView.prototype.initialize.andCallFake(function (options) {
+      suApp.view.AppView.prototype.initialize.andCallFake(function (options) {
         expect(options.model.get('filterByCampus')).toBeTruthy();
       });
 

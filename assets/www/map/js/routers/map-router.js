@@ -41,7 +41,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   },
 
   defaultRoute: function (actions) {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: new suApp.model.AppModel()
     });
@@ -51,7 +51,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   },
 
   restaurants: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: new suApp.model.AppModel({
         types: ["restaurant"],
@@ -64,7 +64,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   },
 
   computerLabs: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: new suApp.model.AppModel({ types: ["computer_labs"] }),
       title: 'map.titles.computerlabs'
@@ -74,7 +74,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   },
 
   auditoriums: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: new suApp.model.AppModel({ types: ["auditorium"] }),
       title: 'map.titles.auditoriums'
@@ -84,7 +84,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   },
 
   buildings: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: new suApp.model.AppModel({
         menu: true,
@@ -105,7 +105,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
       zoomSensitive: true
     });
 
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: appModel,
       title: "map.titles.parking"
@@ -120,7 +120,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   },
 
   departments: function () {
-    var appView = new AppView({
+    var appView = new suApp.view.AppView({
       el: $('#page-map'),
       model: new suApp.model.AppModel({
         types: ["organization"]
