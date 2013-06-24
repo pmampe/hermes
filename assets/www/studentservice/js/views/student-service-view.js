@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var StudentView = Backbone.View.extend({
+suApp.view.StudentView = Backbone.View.extend({
   initialize: function () {
 
     $(document).on('deviceready.appview', this.handleDeviceReady);
