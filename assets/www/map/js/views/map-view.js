@@ -169,7 +169,7 @@ var MapView = Backbone.View.extend(
       },
 
       createPositionMarker: function () {
-        var currentPosition = new Location({
+        var currentPosition = new suApp.model.Location({
           id: -100,
           campus: null,
           type: 'current_position',

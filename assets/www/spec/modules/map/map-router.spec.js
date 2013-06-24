@@ -385,7 +385,7 @@ describe('MapRouter', function () {
 
     it("should set handicap adapted locations visible", function () {
       var locations = new suApp.collection.Locations(this.fixtures.Locations.valid);
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'Entre 1',
         type: 'entrance',
         handicapAdapted: true,
@@ -400,7 +400,7 @@ describe('MapRouter', function () {
 
     it("should set handicap adapted locations invisible", function () {
       var locations = new suApp.collection.Locations(this.fixtures.Locations.valid);
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'Entre 1',
         type: 'entrance',
         handicapAdapted: true,
@@ -431,7 +431,7 @@ describe('MapRouter', function () {
 
     it("should attach a event trigger on the 'clicked' event on parking & handicap_parking models", function () {
       spyOn(AppView.prototype, "initialize");
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'parking'
       });
       var locations = new suApp.collection.Locations();

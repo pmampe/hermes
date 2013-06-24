@@ -112,7 +112,7 @@ describe('Generic location view', function () {
       };
 
       this.view = new GenericLocationView({
-        model: new Location(),
+        model: new suApp.model.Location(),
         infoWindow: new InfoWindowView({
           appModel: new suApp.model.AppModel()
         })
@@ -140,7 +140,7 @@ describe('Generic location view', function () {
       };
 
       this.view = new GenericLocationView({
-        model: new Location(),
+        model: new suApp.model.Location(),
         infoWindow: new InfoWindowView({
           appModel: new suApp.model.AppModel()
         })
@@ -198,7 +198,7 @@ describe('Generic location view', function () {
 
     it('should return correct results for point', function () {
       this.view = new GenericLocationView({
-        model: new Location({ coords: [
+        model: new suApp.model.Location({ coords: [
           [10, 10]
         ] })
       });
@@ -209,7 +209,7 @@ describe('Generic location view', function () {
 
     it('should return correct results for line', function () {
       this.view = new GenericLocationView({
-        model: new Location({ coords: [
+        model: new suApp.model.Location({ coords: [
           [10, 10],
           [20, 20]
         ] })
@@ -221,7 +221,7 @@ describe('Generic location view', function () {
 
     it('should return correct results for polygon', function () {
       this.view = new GenericLocationView({
-        model: new Location({ coords: [
+        model: new suApp.model.Location({ coords: [
           [10, 10],
           [20, 20],
           [10, 20],
@@ -235,7 +235,7 @@ describe('Generic location view', function () {
 
     it('should return -1 for no GPoints', function () {
       this.view = new GenericLocationView({
-        model: new Location({ coords: [] })
+        model: new suApp.model.Location({ coords: [] })
       });
 
       expect(this.view.getCenter()).toEqual(-1);

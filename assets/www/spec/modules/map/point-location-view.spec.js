@@ -37,7 +37,7 @@ describe('Line location view', function () {
 
     it('should call GenericLocationView.initialize', function () {
       this.view = new PointLocationView({
-        model: new Location()
+        model: new suApp.model.Location()
       });
 
       expect(GenericLocationView.prototype.initialize).toHaveBeenCalled();
@@ -47,7 +47,7 @@ describe('Line location view', function () {
       spyOn(google.maps, 'Marker');
 
       this.view = new PointLocationView({
-        model: new Location()
+        model: new suApp.model.Location()
       });
 
       expect(google.maps.Marker).toHaveBeenCalledWith({
@@ -67,7 +67,7 @@ describe('Line location view', function () {
 
     it('should call marker.setPosition', function () {
       this.view = new PointLocationView({
-        model: new Location()
+        model: new suApp.model.Location()
       });
       spyOn(this.view.marker, 'setPosition');
 
@@ -84,7 +84,7 @@ describe('Line location view', function () {
 
     it('should return value of options.customizedPosition if supplied', function () {
       this.view = new PointLocationView({
-        model: new Location()
+        model: new suApp.model.Location()
       });
 
       var pos = this.view.getPosition({ customizedPosition: 'foo' });
@@ -94,7 +94,7 @@ describe('Line location view', function () {
 
     it('should return value of getGPoints if no customizedPosition is supplied', function () {
       this.view = new PointLocationView({
-        model: new Location()
+        model: new suApp.model.Location()
       });
 
       var pos = this.view.getPosition();

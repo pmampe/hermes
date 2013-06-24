@@ -181,7 +181,7 @@ describe('App view', function () {
   describe('click callbacks', function () {
     it('locationCallback should replace points for supplied location', function () {
 
-      var location = new Location({id: 0});
+      var location = new suApp.model.Location({id: 0});
 
       this.view.mapView.replacePoints = function (collection) {
         expect(collection.size()).toEqual(1);
@@ -192,7 +192,7 @@ describe('App view', function () {
     });
 
     it('campusCallback should replace points for supplied campus', function () {
-      var campus = new Location({id: 0, name: 'Frescati'});
+      var campus = new suApp.model.Location({id: 0, name: 'Frescati'});
 
       this.view.model.set = function (key, val) {
         expect(key).toEqual('campus');

@@ -33,7 +33,7 @@ describe('Info window view', function () {
   beforeEach(function () {
     $('#stage').replaceWith("<div data-role='page' id='page-map'></div>");
     $('#page-map').append(JST['map/infoWindow']({
-      model: new Location(),
+      model: new suApp.model.Location(),
       itemText: "",
       displayDirections: true
     }));
@@ -151,24 +151,24 @@ describe('Info window view', function () {
       });
 
       spyOn(this.infoWindow.infoWindow, "close");
-      this.infoWindow.open(new Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
+      this.infoWindow.open(new suApp.model.Location(), new google.maps.Marker(), new google.maps.LatLng(0, 0));
       expect(this.infoWindow.infoWindow.close).toHaveBeenCalled();
     });
 
     it('should call model (Location) getI18n method (fetching the text attribute)', function () {
-      spyOn(Location.prototype, "getI18n");
+      spyOn(suApp.model.Location.prototype, "getI18n");
 
       this.infoWindow = new InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'testName',
         directionAware: false
       });
       this.infoWindow.open(location, new google.maps.Marker(), new google.maps.LatLng(0, 0));
 
-      expect(Location.prototype.getI18n).toHaveBeenCalledWith('text');
+      expect(suApp.model.Location.prototype.getI18n).toHaveBeenCalledWith('text');
     });
 
     it('should call JST with correct values', function () {
@@ -182,7 +182,7 @@ describe('Info window view', function () {
         appModel: new suApp.model.AppModel()
       });
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'testName',
         directionAware: false,
         buildingName: 'testBuilding',
@@ -192,7 +192,7 @@ describe('Info window view', function () {
 
       this.infoWindow.appModel.locations = {
         byBuildingAndTypeAndHandicapAdapted: function (building, types, adapted) {
-          return _([ new Location({
+          return _([ new suApp.model.Location({
             floor: '1'
           }) ])
         }
@@ -222,7 +222,7 @@ describe('Info window view', function () {
         appModel: new suApp.model.AppModel()
       });
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         name: 'testName',
         nameEn: 'testName (en)',
         directionAware: false,
@@ -249,7 +249,7 @@ describe('Info window view', function () {
       spyOn(this.infoWindow.infoWindow, "open");
 
       var marker = new google.maps.Marker()
-      this.infoWindow.open(new Location(), marker);
+      this.infoWindow.open(new suApp.model.Location(), marker);
 
       expect(this.infoWindow.infoWindow.open).toHaveBeenCalledWith(marker.getMap(), marker);
     });
@@ -264,7 +264,7 @@ describe('Info window view', function () {
 
       var marker = new google.maps.Marker();
       var latlng = new google.maps.LatLng(0, 0);
-      this.infoWindow.open(new Location(), marker, latlng);
+      this.infoWindow.open(new suApp.model.Location(), marker, latlng);
 
       expect(this.infoWindow.infoWindow.setPosition).toHaveBeenCalledWith(latlng);
       expect(this.infoWindow.infoWindow.open).toHaveBeenCalledWith(marker.getMap());
@@ -277,7 +277,7 @@ describe('Info window view', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('div.hearing_loop').size()).toEqual(0);
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'auditorium',
         handicapAdapted: true
       });
@@ -297,7 +297,7 @@ describe('Info window view', function () {
       // First expect to find no hearing loops
       expect($('#page-map').find('div.hearing_loop.not-available').size()).toEqual(0);
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'auditorium',
         handicapAdapted: false
       });
@@ -315,7 +315,7 @@ describe('Info window view', function () {
 
     it('should set correct building information when no accessible elevators, toilets or entrances exist', function () {
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'building',
         nonVisibleTypes: ["entrance", "elevator", "toilet"]
       });
@@ -341,7 +341,7 @@ describe('Info window view', function () {
 
     it('should set correct building information when accessible elevators, toilets or entrances exist', function () {
 
-      var location = new Location({
+      var location = new suApp.model.Location({
         type: 'building',
         nonVisibleTypes: ["entrance", "elevator", "toilet"]
       });

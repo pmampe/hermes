@@ -40,7 +40,7 @@ suApp.collection.Locations = Backbone.Collection.extend(
     /** @lends Locations */
     {
       /** The model used for this Location. */
-      model: Location,
+      model: suApp.model.Location,
 
       initialize: function (models, options) {
         this.searchableTypes = options ? options.searchableTypes : [];
