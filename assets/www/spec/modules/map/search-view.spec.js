@@ -57,7 +57,7 @@ describe('Search view', function () {
     this.server = sinon.fakeServer.create();
     this.server.respondWith(
         "GET",
-        Locations.prototype.url(),
+        suApp.collection.Locations.prototype.url(),
         this.validResponse(this.fixtures.Locations.valid)
     );
   });
@@ -89,7 +89,7 @@ describe('Search view', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.FilterItems.valid.locations)
       );
 
@@ -305,7 +305,7 @@ describe('Search view', function () {
 
       beforeEach(function () {
         appView = new AppView({ el: $('#page-map'), model: new AppModel()});
-        appView.searchView.collection = new Locations(this.fixtures.FilterItems.valid.locations);
+        appView.searchView.collection = new suApp.collection.Locations(this.fixtures.FilterItems.valid.locations);
         appView.searchView.populateFilter();
       });
 
@@ -316,7 +316,7 @@ describe('Search view', function () {
 
         var searchView = new SearchView({
           el: "#search-box",
-          collection: new Locations(),
+          collection: new suApp.collection.Locations(),
           placeholderSuffix: category
         });
 

@@ -68,7 +68,7 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
     });
@@ -118,7 +118,7 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
       //this.server.autoRespond = true;
@@ -162,7 +162,7 @@ describe('App model', function () {
     beforeEach(function () {
       this.model = new AppModel();
       this.model.campuses = new suApp.collection.Campuses();
-      this.model.locations = new Locations();
+      this.model.locations = new suApp.collection.Locations();
     });
 
     it('should return campuses when filterByCampus === true', function () {
@@ -183,7 +183,7 @@ describe('App model', function () {
       this.server = sinon.fakeServer.create();
       this.server.respondWith(
           "GET",
-          Locations.prototype.url(),
+          suApp.collection.Locations.prototype.url(),
           this.validResponse(this.fixtures.Locations.valid)
       );
       this.model = new AppModel({

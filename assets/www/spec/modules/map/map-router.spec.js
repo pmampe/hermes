@@ -318,7 +318,7 @@ describe('MapRouter', function () {
       spyOn(window, 'AppModel');
       spyOn(this.router, 'handleParkingspaceLocationsReset');
 
-      var locations = new Locations();
+      var locations = new suApp.collection.Locations();
       var appModel = new AppModel();
       appModel.locations = locations;
 
@@ -384,7 +384,7 @@ describe('MapRouter', function () {
     });
 
     it("should set handicap adapted locations visible", function () {
-      var locations = new Locations(this.fixtures.Locations.valid);
+      var locations = new suApp.collection.Locations(this.fixtures.Locations.valid);
       var location = new Location({
         name: 'Entre 1',
         type: 'entrance',
@@ -399,7 +399,7 @@ describe('MapRouter', function () {
     });
 
     it("should set handicap adapted locations invisible", function () {
-      var locations = new Locations(this.fixtures.Locations.valid);
+      var locations = new suApp.collection.Locations(this.fixtures.Locations.valid);
       var location = new Location({
         name: 'Entre 1',
         type: 'entrance',
@@ -434,7 +434,7 @@ describe('MapRouter', function () {
       var location = new Location({
         type: 'parking'
       });
-      var locations = new Locations();
+      var locations = new suApp.collection.Locations();
       locations.add([location]);
 
       var appModel = new AppModel();

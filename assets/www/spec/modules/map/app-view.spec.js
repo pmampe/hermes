@@ -65,7 +65,7 @@ describe('App view', function () {
     this.server = sinon.fakeServer.create();
     this.server.respondWith(
         "GET",
-        new Locations().url(),
+        new suApp.collection.Locations().url(),
         this.validResponse(this.fixtures.Locations.valid)
     );
 

@@ -57,7 +57,7 @@ var AppModel = Backbone.Model.extend(
             "handleLocationsReset",
             "handleVisibilityForLocationByRelation");
         this.campuses = new suApp.collection.Campuses();
-        this.locations = new Locations(null, {
+        this.locations = new suApp.collection.Locations(null, {
           searchableTypes: _.difference(this.get('types'), this.get('nonVisibleTypes'))
         });
 

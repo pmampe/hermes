@@ -36,7 +36,7 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.Collection}
  */
-var Locations = Backbone.Collection.extend(
+suApp.collection.Locations = Backbone.Collection.extend(
     /** @lends Locations */
     {
       /** The model used for this Location. */

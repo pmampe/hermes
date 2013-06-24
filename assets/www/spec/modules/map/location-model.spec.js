@@ -146,7 +146,7 @@ describe('Location model', function () {
 describe('Locations collection', function () {
   describe('creating an empty collection', function () {
     beforeEach(function () {
-      this.locations = new Locations();
+      this.locations = new suApp.collection.Locations();
     });
 
     it('should have Location for model', function () {
@@ -160,7 +160,7 @@ describe('Locations collection', function () {
 
   describe('fetching a collection of locations', function () {
     beforeEach(function () {
-      this.locations = new Locations();
+      this.locations = new suApp.collection.Locations();
       this.fixture = this.fixtures.Locations.valid;
 
       this.server = sinon.fakeServer.create();
@@ -207,7 +207,7 @@ describe('Locations collection', function () {
 
   describe('filtering a Location collection', function () {
     beforeEach(function () {
-      this.locations = new Locations();
+      this.locations = new suApp.collection.Locations();
       this.fixture = this.fixtures.Locations.valid;
 
       this.server = sinon.fakeServer.create();
@@ -223,7 +223,7 @@ describe('Locations collection', function () {
     });
 
     it('bySearchable should return all with types that is in searchable types', function () {
-      this.locations = new Locations(null, {
+      this.locations = new suApp.collection.Locations(null, {
         searchableTypes: ["parking"]
       });
       this.locations.fetch();
@@ -234,7 +234,7 @@ describe('Locations collection', function () {
     });
 
     it('bySearchable should return self for no searchable types', function () {
-      this.locations = new Locations(null, {
+      this.locations = new suApp.collection.Locations(null, {
         searchableTypes: []
       });
       this.locations.fetch();
