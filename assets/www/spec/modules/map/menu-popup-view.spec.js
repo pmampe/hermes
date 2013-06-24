@@ -50,7 +50,7 @@ describe('Menu popup view', function () {
     };
 
 
-    this.view = new MenuPopupView({
+    this.view = new suApp.view.MenuPopupView({
       el: $('#menupopup'),
       campuses: this.campuses,
       searchView: this.searchView

@@ -102,7 +102,7 @@ suApp.view.AppView = Backbone.View.extend(
 
         // Display a menu button
         if (showMenu) {
-          this.menuPopupView = new MenuPopupView({
+          this.menuPopupView = new suApp.view.MenuPopupView({
             el: $('#menupopup'),
             campuses: this.model.campuses,
             appModel: this.model,

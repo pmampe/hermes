@@ -37,7 +37,7 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.View}
  */
-var MenuPopupView = Backbone.View.extend(
+suApp.view.MenuPopupView = Backbone.View.extend(
     /** @lends MenuPopupView */
     {
 
