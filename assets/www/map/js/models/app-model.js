@@ -43,7 +43,7 @@ suApp.model.AppModel = Backbone.Model.extend(
       defaults: {
         menu: false,
         filterByCampus: false,
-        campus: new Campus({ name: "Frescati" }),
+        campus: new suApp.model.Campus({ name: "Frescati" }),
         types: [],
         nonVisibleTypes: [],
         zoomSensitive: false,

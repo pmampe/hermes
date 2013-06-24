@@ -147,7 +147,7 @@ describe('App view', function () {
 
       this.view.mapView.replacePoints = function (foo) {
       };
-      var campus = new Campus(this.fixtures.Campuses.valid[0]);
+      var campus = new suApp.model.Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();
@@ -158,7 +158,7 @@ describe('App view', function () {
 
     it('updates locations', function () {
       spyOn(this.view.mapView, "replacePoints");
-      var campus = new Campus(this.fixtures.Campuses.valid[0]);
+      var campus = new suApp.model.Campus(this.fixtures.Campuses.valid[0]);
       this.view.model.set('campus', campus);
 
       this.view.changeCampus();

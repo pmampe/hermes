@@ -41,7 +41,7 @@ suApp.collection.Campuses = Backbone.Collection.extend(
     /** @lends Campuses */
     {
       /** The model used for this collection. */
-      model: Campus,
+      model: suApp.model.Campus,
 
       /**
        * Generates the URL to get Campuses.

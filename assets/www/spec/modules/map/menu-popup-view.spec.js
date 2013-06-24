@@ -90,7 +90,7 @@ describe('Menu popup view', function () {
 
   describe('selectCampus', function () {
     it('runs callback & closes menu popup', function () {
-      var campus = new Campus({ id: 0, name: 'foo'});
+      var campus = new suApp.model.Campus({ id: 0, name: 'foo'});
 
       this.view.campuses.add([campus]);
 

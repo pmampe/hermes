@@ -37,7 +37,7 @@
  * @author <a href="mailto:lucien.bokouka@su.se">Lucien Bokouka</a>
  * @type {Backbone.Model}
  */
-var Campus = Backbone.Model.extend(
+suApp.model.Campus = Backbone.Model.extend(
     /** @lends Campus */
     {
       /**
@@ -63,4 +63,4 @@ var Campus = Backbone.Model.extend(
       }
     });
 
-_.extend(Campus.prototype, ModelMixins.i18nMixin);
+_.extend(suApp.model.Campus.prototype, ModelMixins.i18nMixin);
