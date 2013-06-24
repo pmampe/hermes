@@ -38,18 +38,19 @@ var StudentView = Backbone.View.extend({
     $('div[data-role="header"] > h1').attr('data-i18n', 'studentService.header.title');
     this.$el.i18n();
 
-    if(i18n.detectLanguage().indexOf("sv-") >= 0) {
-      var listLanguage = config.studentServiceSwe.menu;
+    var listLanguage = [];
+    if (i18n.detectLanguage().indexOf("sv-") >= 0) {
+      listLanguage = config.studentServiceSwe.menu;
     } else {
-      var listLanguage = config.studentServiceEng.menu;
+      listLanguage = config.studentServiceEng.menu;
     }
 
-    this.menu = _.map(listLanguage, function(obj) {
+    this.menu = _.map(listLanguage, function (obj) {
       obj.title = i18n.t(obj.title);
       return obj;
     });
 
-    this.menu = _.sortBy(this.menu, function(obj){
+    this.menu = _.sortBy(this.menu, function (obj) {
       return obj.title;
     });
   },
@@ -58,7 +59,7 @@ var StudentView = Backbone.View.extend({
    * Render the student service view.
    */
   render: function () {
-    _.each(this.menu, function(obj) {
+    _.each(this.menu, function (obj) {
       $('#studentservice-menu').append(JST["studentservice/menu"](obj));
     });
     $("#studentservice-menu").listview('refresh');

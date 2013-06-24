@@ -290,7 +290,7 @@ var MapView = Backbone.View.extend(
           }
 
           // if the polygon has an icon, draw it
-          if (item.getPin() != null && (shape === "line" || shape === "polygon")) {
+          if (item.getPin() !== null && (shape === "line" || shape === "polygon")) {
             var iconPoint = new PointLocationView({
               model: item,
               gmap: self.map,
