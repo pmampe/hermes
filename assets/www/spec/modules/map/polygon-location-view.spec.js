@@ -36,7 +36,7 @@ describe('Polygon location view', function () {
     });
 
     it('should call GenericLocationView.initialize', function () {
-      this.view = new PolygonLocationView({
+      this.view = new suApp.view.PolygonLocationView({
         model: new suApp.model.Location()
       });
 
@@ -46,7 +46,7 @@ describe('Polygon location view', function () {
     it('should create a google.Maps.Polygon', function () {
       spyOn(google.maps, 'Polygon');
 
-      this.view = new PolygonLocationView({
+      this.view = new suApp.view.PolygonLocationView({
         model: new suApp.model.Location()
       });
 
@@ -70,7 +70,7 @@ describe('Polygon location view', function () {
     });
 
     it('should call marker.setPath', function () {
-      this.view = new PolygonLocationView({
+      this.view = new suApp.view.PolygonLocationView({
         model: new suApp.model.Location()
       });
       spyOn(this.view.marker, 'setPath');

@@ -36,7 +36,7 @@
  * @author <a href="mailto:joakim.lundin@su.se">Joakim Lundin</a>
  * @type {Backbone.View}
  */
-var PolygonLocationView = suApp.view.GenericLocationView.extend(
+suApp.view.PolygonLocationView = suApp.view.GenericLocationView.extend(
     /** @lends PolygonLocationView */
     {
 

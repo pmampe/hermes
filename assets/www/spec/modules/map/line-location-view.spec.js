@@ -36,7 +36,7 @@ describe('Line location view', function () {
     });
 
     it('should call GenericLocationView.initialize', function () {
-      this.view = new LineLocationView({
+      this.view = new suApp.view.LineLocationView({
         model: new suApp.model.Location()
       });
 
@@ -46,7 +46,7 @@ describe('Line location view', function () {
     it('should create a google.Maps.Polyline', function () {
       spyOn(google.maps, 'Polyline');
 
-      this.view = new LineLocationView({
+      this.view = new suApp.view.LineLocationView({
         model: new suApp.model.Location()
       });
 
@@ -70,7 +70,7 @@ describe('Line location view', function () {
     });
 
     it('should call marker.setPath', function () {
-      this.view = new LineLocationView({
+      this.view = new suApp.view.LineLocationView({
         model: new suApp.model.Location()
       });
       spyOn(this.view.marker, 'setPath');
