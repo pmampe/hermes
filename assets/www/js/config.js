@@ -31,6 +31,10 @@
 
 // Define the app namespace
 var suApp = suApp || {};
+suApp.model = suApp.model || {};
+suApp.router = suApp.router || {};
+suApp.view = suApp.view || {};
+suApp.collection = suApp.collection || {};
 
 suApp.config = (function (pgBrokerBaseURL) {
   return {

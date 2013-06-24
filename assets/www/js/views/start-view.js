@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var StartView = Backbone.View.extend({
+suApp.view.StartView = Backbone.View.extend({
   initialize: function () {
     $(document).on('deviceready.appview', this.handleDeviceReady);
 

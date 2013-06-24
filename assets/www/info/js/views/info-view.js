@@ -29,7 +29,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-var InfoView = Backbone.View.extend({
+suApp.view.InfoView = Backbone.View.extend({
   initialize: function () {
 
     $(document).on('deviceready.appview', this.handleDeviceReady);
@@ -57,14 +57,14 @@ var InfoView = Backbone.View.extend({
 });
 
 $(document).ready(function () {
+  resizeIcons();
+  $(window).resize(function () {
     resizeIcons();
-    $(window).resize(function() {
-        resizeIcons();
-    });
+  });
 });
 
 function resizeIcons() {
-    var $iconContainers = $('.icon-description');
-    var containerWidth = $iconContainers.width();
-    $iconContainers.css('height', containerWidth);
+  var $iconContainers = $('.icon-description');
+  var containerWidth = $iconContainers.width();
+  $iconContainers.css('height', containerWidth);
 }

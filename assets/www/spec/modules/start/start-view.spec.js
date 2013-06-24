@@ -36,7 +36,7 @@
 describe('Start view', function () {
   beforeEach(function () {
     $('#stage').append("<a id='sisulink' href='http://sisu.it.su.se'>sisu</a>");
-    this.view = new StartView({el: $('#stage')});
+    this.view = new suApp.view.StartView({el: $('#stage')});
   });
 
   describe('on deviceready event', function () {
