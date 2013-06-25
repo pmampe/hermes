@@ -132,7 +132,7 @@
   },
   "accessibility": {
     "info": {
-      "desc": "You may see the following symbols when searching for auditoriums, buildings or parking spaces. These symbols are used to indicate accessibility information for a specific area."
+      "desc": "You may see the following symbols when searching for auditoriums, buildings or parking spaces. These symbols are used to indicate accessibility options for a specific area."
     },
     "icon": {
       "handicapEntrance": "Accessible entrances",
