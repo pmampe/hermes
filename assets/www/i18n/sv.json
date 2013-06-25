@@ -80,7 +80,7 @@
       "sukatSearch": "Personal",
       "courses": "Kurser & Program",
       "studentService": "Studentservice",
-      "accessibility": "Tillgänglighet på kartan"
+      "accessibility": "Symboler"
     },
     "header": {
       "title": "Stockholms universitet"
@@ -131,8 +131,7 @@
   },
   "accessibility": {
     "info": {
-      "title": "Symbolförklaringar",
-      "desc": "Information om tillgänglighet (hörslinga, tillgänglig toalett, hiss, entré och parkering) på Stockholms universitet när du söker fram en sal, ett hus eller parkeringar på kartan."
+      "desc": "När du söker salar, hus eller parkeringar på kartan kan följande symboler visas. De beskriver hur platsen är tillgänglighetsanpassad."
     },
     "icon": {
       "handicapEntrance": "Tillgänglig entré",
@@ -142,7 +141,7 @@
       "hearingLoop": "Hörslinga"
     },
     "header": {
-      "title": "Tillgänglighet på kartan"
+      "title": "Symboler"
     }
   },
   "error": {
