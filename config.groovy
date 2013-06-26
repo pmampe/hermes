@@ -42,6 +42,6 @@ environments {
   }
 
   prod {
-    geoUrl = 'http://api-test.su.se/geo/1'
+    geoUrl = 'http://api.su.se/geo/1'
   }
 }
