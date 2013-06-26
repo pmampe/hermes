@@ -29,6 +29,28 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+phonegapPassword = System.getenv('PG_PASS')
+phonegapKey = System.getenv('PG_KEY')
+
+phantomjs = {
+  String phantomjsBin = System.getenv('PHANTOMJS')
+  if (!phantomjsBin) {
+    phantomjsBin = System.getenv('PHANTOMJS_HOME')
+    if (phantomjsBin) phantomjsBin += "/bin/phantomjs"
+  }
+
+  if (!phantomjsBin)
+    phantomjsBin = "which phantomjs".execute().text.trim()
+
+  if (!phantomjsBin)
+    throw new IllegalArgumentException("No phantomjs found! Specify phantomjs path using \$PHANTOMJS or \$PHANTOMJS_HOME")
+
+  if ("${phantomjsBin} -v".execute().text.trim() < "1.7.0")
+    throw new IllegalArgumentException("Too old version of phantomjs found! Please use version 1.7.0 or later.")
+
+  phantomjsBin
+}
+
 /**
  * Environment specific conf
  */
