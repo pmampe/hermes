@@ -151,7 +151,7 @@ window.showError = function () {
         errormessage: msg
       });
 
-      $errorDialog = $(dialogMarkup).appendTo('body');
+      var $errorDialog = $(dialogMarkup).appendTo('body');
 
       $errorDialog.i18n();
       $errorDialog.popup();
