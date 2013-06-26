@@ -81,7 +81,7 @@
       "sukatSearch": "Staff",
       "courses": "Courses",
       "studentService": "Student Service",
-      "accessibility": "Accessibility"
+      "accessibility": "Legend"
     },
     "header": {
       "title": "Stockholm University"
@@ -132,8 +132,7 @@
   },
   "accessibility": {
     "info": {
-      "title": "Symbol explanations",
-      "desc": "Information about accessibility (hearing loops, accessible toilets, lifts entrances and parking spaces) at Stockholm University, searching for lecture halls, buildings or parking spaces on the map"
+      "desc": "You may see the following symbols when searching for auditoriums, buildings or parking spaces. These symbols are used to indicate accessibility options for a specific area."
     },
     "icon": {
       "handicapEntrance": "Accessible entrances",
@@ -143,7 +142,7 @@
       "hearingLoop": "Hearing loop"
     },
     "header": {
-      "title": "Accessibility"
+      "title": "Legend"
     }
   },
   "error": {
