@@ -41,7 +41,7 @@ describe('Model mixin i18nMixin', function () {
         }[attribute]
       }
     };
-    _.extend(this.mixin, ModelMixins.i18nMixin);
+    _.extend(this.mixin, suApp.model.ModelMixins.i18nMixin);
   });
 
   it('Should get swedish attribute', function () {

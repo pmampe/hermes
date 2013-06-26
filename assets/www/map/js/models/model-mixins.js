@@ -29,9 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-window.ModelMixins = {};
+suApp.model.ModelMixins = {};
 
-ModelMixins.i18nMixin = {
+suApp.model.ModelMixins.i18nMixin = {
 
   /**
    * Gets the translated attribute value given the current locale
@@ -41,8 +41,8 @@ ModelMixins.i18nMixin = {
    * @returns translated value for the attribute.
    */
   getI18n: function (attribute) {
-    var lang = i18n.options.lng.substring(0,2);
-    var value = this.get(attribute + (lang !== 'sv' ? 'En' : ''))
-    return (value && value !== '') ? value : this.get(attribute)
+    var lang = i18n.options.lng.substring(0, 2);
+    var value = this.get(attribute + (lang !== 'sv' ? 'En' : ''));
+    return (value && value !== '') ? value : this.get(attribute);
   }
-}
+};

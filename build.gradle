@@ -216,6 +216,7 @@ task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
           'gaPlugin': true,
           'i18n': true,
           'google': true,
+          'FastClick': true,
           'JST': true,
           'suApp': true
   ]

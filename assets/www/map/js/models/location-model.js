@@ -96,5 +96,5 @@ suApp.model.Location = Backbone.Model.extend(
       }
     });
 
-_.extend(suApp.model.Location.prototype, ModelMixins.i18nMixin);
+_.extend(suApp.model.Location.prototype, suApp.model.ModelMixins.i18nMixin);
 
