@@ -29,9 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-window.ModelMixins = {};
+suApp.model.ModelMixins = {};
 
-ModelMixins.i18nMixin = {
+suApp.model.ModelMixins.i18nMixin = {
 
   /**
    * Gets the translated attribute value given the current locale

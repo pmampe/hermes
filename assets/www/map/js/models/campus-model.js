@@ -63,4 +63,4 @@ suApp.model.Campus = Backbone.Model.extend(
       }
     });
 
-_.extend(suApp.model.Campus.prototype, ModelMixins.i18nMixin);
+_.extend(suApp.model.Campus.prototype, suApp.model.ModelMixins.i18nMixin);
