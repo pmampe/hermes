@@ -397,7 +397,7 @@ task incrementVersionCode() {
 }
 
 // Release plugin depends on incrementing version code & sending build to phonegap.
-createReleaseTag.dependsOn incrementVersionCode, toPhonegap
+createReleaseTag.dependsOn incrementVersionCode, test
 
 def getCurrentRev() {
   FileRepositoryBuilder builder = new FileRepositoryBuilder();
