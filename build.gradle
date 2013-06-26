@@ -118,8 +118,9 @@ css.source {
   }
 }
 
-task build() {}
-
+/**
+ * Increment android versionCode
+ */
 task incrementVersionCode() {
   doLast {
     def oldCode = versionCode
@@ -133,8 +134,6 @@ task incrementVersionCode() {
     )
   }
 }
-
-createReleaseTag.dependsOn incrementVersionCode
 
 /**
  * Coverage
@@ -198,9 +197,8 @@ task minify() {
 }
 
 /**
- * JSHint
+ * Run JSHint
  */
-
 task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
   source = javascript.source.prod.js.files
   dest = "${buildDir}/reports/jshint.xml"
@@ -222,6 +220,9 @@ task jshintTask(type: com.eriwen.gradle.js.tasks.JsHintTask) {
   ]
 }
 
+/**
+ * Run csslint
+ */
 task csslintTask(type: com.eriwen.gradle.css.tasks.CssLintTask) {
   source = css.source.prod.css.files
   dest = "${buildDir}/reports/csslint.xml"
@@ -263,9 +264,19 @@ task jsdocjs(type: com.eriwen.gradle.js.tasks.JsDocTask) {
 }
 
 /**
+ * Copy ios 320x480 splash to default splash
+ */
+task copySplash(type: Copy) {
+  from('assets/www/splash/ios/splash_320x480.png') {
+    rename 'splash_320x480.png', 'splash.png'
+  }
+  into 'assets'
+}
+
+/**
  * Build a phonegap tar
  */
-task buildTar(type: Tar, dependsOn: minify) {
+task build(type: Tar, dependsOn: [minify, copySplash]) {
   archiveName archiveFile
   compression Compression.GZIP
   includes = [
@@ -328,28 +339,25 @@ task buildTar(type: Tar, dependsOn: minify) {
   }
 }
 
-buildTar {
+build {
   // Always rebuild tar.
   outputs.upToDateWhen { false }
 }
 
-buildTar.doFirst {
+build.doFirst {
   // Remove old zip file
   def zipFile = new File(archiveFile)
   zipFile.delete()
 }
 
-task copySplash(type: Copy) {
-  from('assets/www/splash/ios/splash_320x480.png') {
-    rename 'splash_320x480.png', 'splash.png'
-  }
-  into 'assets'
+build.doLast {
+  println "Archive created at '$archiveName'"
 }
 
 /**
  * Send app to Phonegap Build
  */
-task toPhonegap(dependsOn: [buildTar, copySplash]) {
+task toPhonegap(dependsOn: build) {
   doLast {
 
     if (!phonegapPassword) {
@@ -409,6 +417,9 @@ task toPhonegap(dependsOn: [buildTar, copySplash]) {
     }
   }
 }
+
+// Release plugin depends on incrementing version code & sending build to phonegap.
+createReleaseTag.dependsOn incrementVersionCode, toPhonegap
 
 def getCurrentRev() {
   FileRepositoryBuilder builder = new FileRepositoryBuilder();
