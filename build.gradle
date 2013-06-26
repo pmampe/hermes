@@ -93,7 +93,6 @@ def phantomjs = {
 /**
  * Wrapper
  */
-
 task wrapper(type: Wrapper) {
   gradleVersion = '1.5'
 }
@@ -115,23 +114,6 @@ css.source {
       include '**/*.css'
       exclude '**/*.min.css', '**/spec/*'
     }
-  }
-}
-
-/**
- * Increment android versionCode
- */
-task incrementVersionCode() {
-  doLast {
-    def oldCode = versionCode
-    def newCode = oldCode.toInteger() + 1
-
-    project.ant.replace(
-            file: new File('gradle.properties'),
-            token: "versionCode=${oldCode}",
-            value: "versionCode=${newCode}",
-            failOnNoReplacements: true
-    )
   }
 }
 
@@ -233,9 +215,8 @@ task csslintTask(type: com.eriwen.gradle.css.tasks.CssLintTask) {
 }
 
 /**
- * Test
+ * Run tests
  */
-
 task test(type: Exec) {
   def testExecScript = file('assets/www/spec/lib/phantom-jasmine/run_jasmine_test.coffee')
   def testRunner = file('assets/www/spec.html')
@@ -243,6 +224,9 @@ task test(type: Exec) {
   commandLine phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
 }
 
+/**
+ * Generate test reports
+ */
 task testReports(type: Exec) {
   def testExecScript = file('assets/www/spec/lib/jasmine-reporters/phantomjs-testrunner.js')
   def testRunner = file('assets/www/spec.html')
@@ -253,7 +237,6 @@ task testReports(type: Exec) {
 /**
  * JSDoc
  */
-
 task jsdocjs(type: com.eriwen.gradle.js.tasks.JsDocTask) {
   source = fileTree(
           dir: "${projectDir}/assets/www/",
@@ -276,7 +259,7 @@ task copySplash(type: Copy) {
 /**
  * Build a phonegap tar
  */
-task build(type: Tar, dependsOn: [minify, copySplash]) {
+task build(type: Tar, dependsOn: [test, minify, copySplash]) {
   archiveName archiveFile
   compression Compression.GZIP
   includes = [
@@ -342,16 +325,16 @@ task build(type: Tar, dependsOn: [minify, copySplash]) {
 build {
   // Always rebuild tar.
   outputs.upToDateWhen { false }
-}
 
-build.doFirst {
-  // Remove old zip file
-  def zipFile = new File(archiveFile)
-  zipFile.delete()
-}
+  doFirst {
+    // Remove old zip file
+    def zipFile = new File(archiveFile)
+    zipFile.delete()
+  }
 
-build.doLast {
-  println "Archive created at '$archiveName'"
+  doLast {
+    println "Archive created at '$archiveName'"
+  }
 }
 
 /**
@@ -415,6 +398,23 @@ task toPhonegap(dependsOn: build) {
     } else {
       println "Successfully published app '${json.title}' v${json.version} build nr ${json.build_count} to phonegap."
     }
+  }
+}
+
+/**
+ * Increment android versionCode
+ */
+task incrementVersionCode() {
+  doLast {
+    def oldCode = versionCode
+    def newCode = oldCode.toInteger() + 1
+
+    project.ant.replace(
+            file: new File('gradle.properties'),
+            token: "versionCode=${oldCode}",
+            value: "versionCode=${newCode}",
+            failOnNoReplacements: true
+    )
   }
 }
 
