@@ -68,25 +68,6 @@ println "Building $name v$version."
 
 loadConfiguration()
 
-def phantomjs = {
-  String phantomjsBin = System.getenv('PHANTOMJS')
-  if (!phantomjsBin) {
-    phantomjsBin = System.getenv('PHANTOMJS_HOME')
-    if (phantomjsBin) phantomjsBin += "/bin/phantomjs"
-  }
-
-  if (!phantomjsBin)
-    phantomjsBin = "which phantomjs".execute().text.trim()
-
-  if (!phantomjsBin)
-    throw new IllegalArgumentException("No phantomjs found! Specify phantomjs path using \$PHANTOMJS or \$PHANTOMJS_HOME")
-
-  if ("${phantomjsBin} -v".execute().text.trim() < "1.7.0")
-    throw new IllegalArgumentException("Too old version of phantomjs found! Please use version 1.7.0 or later.")
-
-  phantomjsBin
-}
-
 /**
  * Wrapper
  */
@@ -218,7 +199,7 @@ task test(type: Exec) {
   def testExecScript = file('assets/www/spec/lib/phantom-jasmine/run_jasmine_test.coffee')
   def testRunner = file('assets/www/spec.html')
 
-  commandLine phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
+  commandLine config.phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
 }
 
 /**
@@ -228,7 +209,7 @@ task testReports(type: Exec) {
   def testExecScript = file('assets/www/spec/lib/jasmine-reporters/phantomjs-testrunner.js')
   def testRunner = file('assets/www/spec.html')
 
-  commandLine phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
+  commandLine config.phantomjs(), testExecScript.absolutePath, testRunner.absolutePath
 }
 
 /**
