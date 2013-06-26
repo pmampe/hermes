@@ -59,6 +59,13 @@ import org.eclipse.jgit.revwalk.RevWalk
 import com.eriwen.gradle.js.JsMinifier
 import com.eriwen.gradle.css.CssMinifier
 
+apply plugin: 'saga'
+apply plugin: 'js'
+apply plugin: 'css'
+apply plugin: 'release'
+
+loadConfiguration()
+
 def phonegapPassword = System.getenv('PG_PASS')
 def phonegapKey = System.getenv('PG_KEY')
 
@@ -80,11 +87,6 @@ def phantomjs = {
 
   phantomjsBin
 }
-
-apply plugin: 'saga'
-apply plugin: 'js'
-apply plugin: 'css'
-apply plugin: 'release'
 
 /**
  * Wrapper
@@ -135,7 +137,6 @@ createReleaseTag.dependsOn incrementVersionCode
 /**
  * Coverage
  */
-
 saga {
   baseDir = file('assets/www/')
   outputDir = file('build/reports/coverage')
@@ -151,7 +152,6 @@ coverage.doLast {
 /**
  * Sonar integration
  */
-
 task buildSonarPom(type: Copy) {
   from 'pom.xml.dist'
   into '.'
@@ -165,6 +165,9 @@ task buildSonarPom(type: Copy) {
   ])
 }
 
+/**
+ * Minify js & css
+ */
 task minify() {
   doLast {
     javascript.source.prod.js.files.each { File file ->
@@ -257,9 +260,8 @@ task jsdocjs(type: com.eriwen.gradle.js.tasks.JsDocTask) {
 }
 
 /**
- * Phonegap integration
+ * Build a phonegap tar
  */
-
 task buildTar(type: Tar, dependsOn: minify) {
   archiveName archiveFile
   compression Compression.GZIP
@@ -314,12 +316,17 @@ task buildTar(type: Tar, dependsOn: minify) {
                 versionCode: versionCode,
                 description: project.description
         ])
+      } else if (fileCopyDetails.relativePath.pathString == "www${File.separator}js${File.separator}config.js") {
+        fileCopyDetails.filter { String line ->
+          line.replaceAll(/http:\/\/mobileapp-dev.it.su.se\/geo/, config.geoUrl)
+        }
       }
     }
   }
 }
 
 buildTar {
+  // Always rebuild tar.
   outputs.upToDateWhen { false }
 }
 
@@ -336,6 +343,9 @@ task copySplash(type: Copy) {
   into 'assets'
 }
 
+/**
+ * Send app to Phonegap Build
+ */
 task toPhonegap(dependsOn: [buildTar, copySplash]) {
   doLast {
 
@@ -411,9 +421,19 @@ def getCurrentRev() {
 }
 
 /**
+ * Load environment aware config
+ */
+def loadConfiguration() {
+  ext.environment = hasProperty('env') ? env : 'dev'
+  println "Environment is set to $environment"
+
+  def configFile = file('config.groovy')
+  ext.config = new ConfigSlurper(environment).parse(configFile.toURL())
+}
+
+/**
  * Config
  */
-
 buildscript {
   repositories {
     maven {
