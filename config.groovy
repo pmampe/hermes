@@ -29,6 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+phonegapPassword = System.getenv('PG_PASS')
+phonegapKey = System.getenv('PG_KEY')
+
 /**
  * Environment specific conf
  */

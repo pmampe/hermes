@@ -68,9 +68,6 @@ println "Building $name v$version."
 
 loadConfiguration()
 
-def phonegapPassword = System.getenv('PG_PASS')
-def phonegapKey = System.getenv('PG_KEY')
-
 def phantomjs = {
   String phantomjsBin = System.getenv('PHANTOMJS')
   if (!phantomjsBin) {
@@ -343,10 +340,10 @@ build {
 task toPhonegap(dependsOn: build) {
   doLast {
 
-    if (!phonegapPassword) {
+    if (!config.phonegapPassword) {
       def console = System.console()
       if (console) {
-        phonegapPassword = console.readPassword("\n> Password for ${phonegapUser}: ").toString()
+        config.phonegapPassword = console.readPassword("\n> Password for ${phonegapUser}: ").toString()
       }
     }
 
@@ -358,7 +355,7 @@ task toPhonegap(dependsOn: build) {
     // -- AUTHENTICATION --
     AuthScope authScope = new AuthScope(host, 443);
     UsernamePasswordCredentials upc = new UsernamePasswordCredentials(
-            phonegapUser, phonegapPassword);
+            phonegapUser, config.phonegapPassword);
     ((AbstractHttpClient) httpclient).getCredentialsProvider()
             .setCredentials(authScope, upc);
     BasicHttpContext localContext = new BasicHttpContext();
@@ -376,8 +373,8 @@ task toPhonegap(dependsOn: build) {
     // Multipart request - one part containing info to unlock keys, one part containing app file
     MultipartEntity mp = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     StringBody stringBody = new StringBody("""{"keys":
-      {"android":{"id":$androidCertKeyId, "key_pw": "$phonegapKey", "keystore_pw": "$phonegapKey"},
-      "ios":{"id":$iOSCertKeyId, "password": "$phonegapKey"}
+      {"android":{"id":$androidCertKeyId, "key_pw": "$config.phonegapKey", "keystore_pw": "$config.phonegapKey"},
+      "ios":{"id":$iOSCertKeyId, "password": "$config.phonegapKey"}
       }
     }""",
             "application/json", Charset.forName("utf-8"))
