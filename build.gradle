@@ -64,6 +64,8 @@ apply plugin: 'js'
 apply plugin: 'css'
 apply plugin: 'release'
 
+println "Building $name v$version."
+
 loadConfiguration()
 
 def phonegapPassword = System.getenv('PG_PASS')
