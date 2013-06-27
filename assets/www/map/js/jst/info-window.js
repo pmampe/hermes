@@ -82,7 +82,17 @@ JST['map/infoWindow'] = _.template(" \
   <% if (itemText != null) { %>\
     <%= itemText  %>\
   <% } %> \
-  \
+  <% if(model.get('type') === 'organization') { %> \
+    <% if (telephoneNumber != '') { %>\
+      <span><%= i18n.t('map.infoWindow.organization.telephoneNumber') %></span> <br> \
+    <% } %> \
+    <% if (webAddress != '') { %>\
+      <span><%= i18n.t('map.infoWindow.organization.webAddress') %></span> <br> \
+    <% } %> \
+    <% if (mailAddresses != null) { %>\
+      <span><%= i18n.t('map.infoWindow.organization.mailAddresses') %></span> <br> \
+      <% } %> \
+  \<% } %>\
   <div class='info-window-icons'>\
   <% if (model.get('type') === 'building'){ %> \
     <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \
