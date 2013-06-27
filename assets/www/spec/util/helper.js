@@ -32,6 +32,10 @@
 afterEach(function () {
   document.getElementById('stage').innerHTML = '';
   $('body > :not([id=HTMLReporter])').hide();
+
+  // Override the i18n method to make sure we don't get i18n in our tests.
+  $.fn.i18n = function () {
+  };
 });
 
 beforeEach(function () {

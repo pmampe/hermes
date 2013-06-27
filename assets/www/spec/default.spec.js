@@ -73,8 +73,6 @@ describe('Default-header', function () {
 
   describe('using common/header with option backbutton', function () {
     it('should render a header with title and add a back button', function () {
-      spyOn(window.history, 'back');
-
       $('[data-role="page"]').data("header-options", "backbutton");
       $.mobile.loadPage('#page', {prefetch: "true"});
 
@@ -85,8 +83,6 @@ describe('Default-header', function () {
       expect($button.data("role")).toBe("button");
       expect($button.data("rel")).toBe("back");
       expect($button.hasClass("ui-btn-left")).toBeTruthy();
-      $button.trigger("click");
-      expect(window.history.back).toHaveBeenCalled();
     });
   });
 
@@ -124,7 +120,6 @@ describe('External-link-dialog', function () {
       var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
       $('#stage').replaceWith(html);
       $.mobile.loadPage("#page", {prefetch: "true"});
-      i18n.init(i18n.options);
     });
 
     afterEach(function () {
