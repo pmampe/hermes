@@ -117,9 +117,10 @@ describe('Default-header', function () {
 describe('External-link-dialog', function () {
   describe('when document contains links with target _blank', function () {
     beforeEach(function () {
-      var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
+      var html = '<div data-role="page" id="page"><div data-role="content"><a href="testing.html" target="_blank">test</a></div></div>';
       $('#stage').replaceWith(html);
       $.mobile.loadPage("#page", {prefetch: "true"});
+      $.mobile.activePage = $('#page');
     });
 
     afterEach(function () {
