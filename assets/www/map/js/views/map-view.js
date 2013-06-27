@@ -134,23 +134,7 @@ suApp.view.MapView = Backbone.View.extend(
        * Render the map view.
        */
       render: function () {
-
         this.resize();
-
-        var self = this;
-
-        /* Using the two blocks below istead of creating a new view for
-         * page-dir, which holds the direction details. This because
-         * it's of the small amount of functionality.
-         */
-        // Briefly show hint on using instruction tap/zoom
-        $('#page-dir').live("pageshow", function () {
-          self.fadingMsg("Tap any instruction<br/>to see details on map");
-        });
-
-        $('#page-dir table').live("tap", function () {
-          $.mobile.changePage($('#page-map'), {});
-        });
       },
 
       /**
