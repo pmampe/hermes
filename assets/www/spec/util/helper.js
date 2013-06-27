@@ -36,6 +36,10 @@ afterEach(function () {
   // Override the i18n method to make sure we don't get i18n in our tests.
   $.fn.i18n = function () {
   };
+
+  // Override jqm loader to disable display of ajax loader in tests.
+  $.mobile.loading = function () {
+  };
 });
 
 beforeEach(function () {
