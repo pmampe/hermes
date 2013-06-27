@@ -245,3 +245,22 @@ describe('GAPlugin', function () {
     });
   });
 });
+
+describe('Click on a .button-grid link', function () {
+  beforeEach(function () {
+    var html = '<div class="button-grid"><a id="link" href="testing.html">test</a></div>';
+    $('#stage').append(html);
+  });
+
+  afterEach(function () {
+    $('#stage').replaceWith("<div id='stage'></div>");
+  });
+
+  it('should make an ajax call', function () {
+    spyOn($, 'ajax').andCallFake(function (obj) {
+      expect(obj.complete).toBeDefined();
+    });
+
+    $("#link").trigger('click');
+  });
+});
