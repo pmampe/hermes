@@ -59,7 +59,6 @@ suApp.view.MapView = Backbone.View.extend(
         _.bindAll(this,
             'render',
             'updateCurrentPosition',
-            'handleZoomChanged',
             'removeAllMarkers',
             'addMarkers'
         );
@@ -172,10 +171,6 @@ suApp.view.MapView = Backbone.View.extend(
           gmap: this.map,
           infoWindow: this.infoWindowView
         });
-      },
-
-      handleZoomChanged: function () {
-        this.trigger('selected', this.map.getZoom());
       },
 
       /**
