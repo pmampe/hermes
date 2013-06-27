@@ -64,7 +64,7 @@ apply plugin: 'js'
 apply plugin: 'css'
 apply plugin: 'release'
 
-println "Building $name v$version."
+println "Building ${artifact.capitalize()} v${version}."
 
 loadConfiguration()
 
@@ -120,7 +120,7 @@ task buildSonarPom(type: Copy) {
   rename(/(.+).dist/, '$1')
   filter(ReplaceTokens, tokens: [
           group: project.group,
-          name: project.name,
+          name: project.artifact,
           version: project.version,
           description: project.description
   ])
