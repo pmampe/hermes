@@ -59,6 +59,7 @@ suApp.view.MapView = Backbone.View.extend(
         _.bindAll(this,
             'render',
             'updateCurrentPosition',
+            'handleMapZoomChange',
             'removeAllMarkers',
             'addMarkers'
         );
@@ -96,9 +97,7 @@ suApp.view.MapView = Backbone.View.extend(
         this.map = new google.maps.Map(this.el, myOptions);
 
         var self = this;
-        google.maps.event.addListener(this.map, 'zoom_changed', function () {
-          self.trigger('zoom_changed', self.map.getZoom());
-        });
+        google.maps.event.addListener(this.map, 'zoom_changed', this.handleMapZoomChange);
         this.on('updateCurrentPosition', this.updateCurrentPosition);
         this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.model.on('change:zoom', this.updateMapZoom, this);
@@ -171,6 +170,10 @@ suApp.view.MapView = Backbone.View.extend(
           gmap: this.map,
           infoWindow: this.infoWindowView
         });
+      },
+
+      handleMapZoomChange: function () {
+        this.trigger('zoom_changed', this.map.getZoom());
       },
 
       /**
