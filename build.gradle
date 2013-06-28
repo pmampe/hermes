@@ -102,7 +102,7 @@ saga {
   baseDir = file('assets/www/')
   outputDir = file('build/reports/coverage')
   includes = '**/*spec.html'
-  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/GAPlugin.*\\.js", ".+\\/lib\\/.*", ".+\\/spec\\/.*"]
+  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/GAPlugin.*\\.js", ".+\\/jst\\/.*.js", ".+\\/lib\\/.*", ".+\\/spec\\/.*"]
   sourcesToPreload = "**/*.js"
 }
 
@@ -287,6 +287,7 @@ task build(type: Tar, dependsOn: [test, minify, copySplash]) {
       } else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
                 id: project.group + '.' + project.name,
+                appName: config.appName,
                 version: project.version.replaceAll(/-SNAPSHOT/, "b" + getCurrentRev()),
                 versionCode: versionCode,
                 description: project.description

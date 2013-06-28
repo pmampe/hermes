@@ -59,7 +59,7 @@ suApp.view.MapView = Backbone.View.extend(
         _.bindAll(this,
             'render',
             'updateCurrentPosition',
-            'handleZoomChanged',
+            'handleMapZoomChange',
             'removeAllMarkers',
             'addMarkers'
         );
@@ -97,9 +97,7 @@ suApp.view.MapView = Backbone.View.extend(
         this.map = new google.maps.Map(this.el, myOptions);
 
         var self = this;
-        google.maps.event.addListener(this.map, 'zoom_changed', function () {
-          self.trigger('zoom_changed', self.map.getZoom());
-        });
+        google.maps.event.addListener(this.map, 'zoom_changed', this.handleMapZoomChange);
         this.on('updateCurrentPosition', this.updateCurrentPosition);
         this.model.on('change:mapPosition', this.updateMapPosition, this);
         this.model.on('change:zoom', this.updateMapZoom, this);
@@ -134,23 +132,7 @@ suApp.view.MapView = Backbone.View.extend(
        * Render the map view.
        */
       render: function () {
-
         this.resize();
-
-        var self = this;
-
-        /* Using the two blocks below istead of creating a new view for
-         * page-dir, which holds the direction details. This because
-         * it's of the small amount of functionality.
-         */
-        // Briefly show hint on using instruction tap/zoom
-        $('#page-dir').live("pageshow", function () {
-          self.fadingMsg("Tap any instruction<br/>to see details on map");
-        });
-
-        $('#page-dir table').live("tap", function () {
-          $.mobile.changePage($('#page-map'), {});
-        });
       },
 
       /**
@@ -190,28 +172,8 @@ suApp.view.MapView = Backbone.View.extend(
         });
       },
 
-      /**
-       * Displays a fading message box on top of the map.
-       *
-       * @param locMsg The message to put in the box.
-       */
-      fadingMsg: function (locMsg) {
-        $("<div style='pointer-events: none;'><div class='ui-overlay-shadow ui-body-e ui-corner-all fading-msg'>" + locMsg + "</div></div>")
-            .css({
-              "position": "fixed",
-              "opacity": 0.9,
-              "top": $(window).scrollTop() + 100,
-              "width": "100%"
-            })
-            .appendTo($.mobile.pageContainer)
-            .delay(2200)
-            .fadeOut(1000, function () {
-              $(this).remove();
-            });
-      },
-
-      handleZoomChanged: function () {
-        this.trigger('selected', this.map.getZoom());
+      handleMapZoomChange: function () {
+        this.trigger('zoom_changed', this.map.getZoom());
       },
 
       /**

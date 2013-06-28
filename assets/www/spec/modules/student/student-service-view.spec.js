@@ -39,6 +39,7 @@ describe('Student view', function () {
         "<div id='studentservice_view' data-role='content'>" +
         "<ul data-role='listview' data-inset='true' class='studentservice-list' id='studentservice-menu'>" +
         "</ul>" +
+        "</div>" +
         "</div>";
 
     $('#stage').replaceWith(html);

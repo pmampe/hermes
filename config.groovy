@@ -51,15 +51,19 @@ phantomjs = {
   phantomjsBin
 }
 
+appName = 'Guide'
+
 /**
  * Environment specific conf
  */
 environments {
   dev {
+    appName += '-dev'
     geoUrl = 'http://mobileapp-dev.it.su.se/geo'
   }
 
   test {
+    appName += '-test'
     geoUrl = 'http://api-test.su.se/geo/1'
   }
 
