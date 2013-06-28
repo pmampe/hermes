@@ -163,4 +163,22 @@ describe('Menu popup view', function () {
       expect($('#campus-1')).toBeDefined();
     });
   });
+
+  describe('buttons', function () {
+    it('buttonPress should set selected class on menubutton', function () {
+      $('#page-map').append('<a id="menubutton">Some campus</a>');
+
+      this.view.buttonPress();
+
+      expect($(document).find("a#menubutton").hasClass('selected')).toBeTruthy();
+    });
+
+    it('buttonUnpress should remove selected class from menubutton', function () {
+      $('#page-map').append('<a id="menubutton" class="selected">Some campus</a>');
+
+      this.view.buttonUnpress();
+
+      expect($(document).find("a#menubutton").hasClass('selected')).toBeFalsy();
+    });
+  });
 });
