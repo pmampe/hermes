@@ -89,14 +89,25 @@
   <preference name="android-minSdkVersion" value="8"/>
   <preference name="splash-screen-duration" value="30000"/>
 
-  <icon src="icon.png"/>
-
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
   <feature name="http://api.phonegap.com/1.0/file"/>
   <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
   <gap:plugin name="InAppBrowser"/>
   <gap:plugin name="GAPlugin"/>
+
+  <!-- icons -->
+  <icon src="icon.png"/>
+
+  <icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57"/>
+  <icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72"/>
+  <icon src="icons/ios/icon@2x.png" gap:platform="ios" width="114" height="114"/>
+  <icon src="icons/ios/icon-144.png" gap:platform="ios" width="144" height="144"/>
+
+  <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi"/>
+  <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi"/>
+  <icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi"/>
+  <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi"/>
 
   <!-- splash screen -->
   <gap:splash src="splash.png"/>
