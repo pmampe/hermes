@@ -89,16 +89,54 @@ describe('Menu popup view', function () {
   });
 
   describe('selectCampus', function () {
+    beforeEach(function () {
+      $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
+    });
+
     it('runs callback & closes menu popup', function () {
       var campus = new suApp.model.Campus({ id: 0, name: 'foo'});
 
       this.view.campuses.add([campus]);
 
-      $('#menupopupList').append('<li id="campus-0"><a id="link">Some campus</a></li>');
-
       $('.campus-link').trigger('click');
 
       expect($('#menupopup').parent().hasClass('ui-popup-hidden')).toBeTruthy();
+    });
+
+    it('triggers selected', function () {
+      var event = jasmine.createSpyObj('event', ['stopImmediatePropagation']);
+      event.target = '#link';
+      spyOn(this.view, 'trigger');
+      spyOn(this.view.$el, 'popup');
+      var campus = new suApp.model.Campus({id: 0});
+      this.view.campuses.push(campus);
+
+      this.view.selectCampus(event);
+
+
+      expect(this.view.trigger).toHaveBeenCalledWith('selected', campus);
+    });
+
+    it('closes popup', function () {
+      var event = jasmine.createSpyObj('event', ['stopImmediatePropagation']);
+      event.target = '#link';
+      spyOn(this.view, 'trigger');
+      spyOn(this.view.$el, 'popup');
+
+      this.view.selectCampus(event);
+
+      expect(this.view.$el.popup).toHaveBeenCalledWith('close');
+    });
+
+    it('calls stopImmediatePropagation', function () {
+      var event = jasmine.createSpyObj('event', ['stopImmediatePropagation']);
+      event.target = '#link';
+      spyOn(this.view, 'trigger');
+      spyOn(this.view.$el, 'popup');
+
+      this.view.selectCampus(event);
+
+      expect(event.stopImmediatePropagation).toHaveBeenCalled();
     });
   });
 
@@ -123,6 +161,24 @@ describe('Menu popup view', function () {
       expect($('#menupopupList').children(':not(.campus-header)').length).toEqual(2);
       expect($('#campus-0')).toBeDefined();
       expect($('#campus-1')).toBeDefined();
+    });
+  });
+
+  describe('buttons', function () {
+    it('buttonPress should set selected class on menubutton', function () {
+      $('#page-map').append('<a id="menubutton">Some campus</a>');
+
+      this.view.buttonPress();
+
+      expect($(document).find("a#menubutton").hasClass('selected')).toBeTruthy();
+    });
+
+    it('buttonUnpress should remove selected class from menubutton', function () {
+      $('#page-map').append('<a id="menubutton" class="selected">Some campus</a>');
+
+      this.view.buttonUnpress();
+
+      expect($(document).find("a#menubutton").hasClass('selected')).toBeFalsy();
     });
   });
 });

@@ -73,8 +73,6 @@ describe('Default-header', function () {
 
   describe('using common/header with option backbutton', function () {
     it('should render a header with title and add a back button', function () {
-      spyOn(window.history, 'back');
-
       $('[data-role="page"]').data("header-options", "backbutton");
       $.mobile.loadPage('#page', {prefetch: "true"});
 
@@ -85,8 +83,6 @@ describe('Default-header', function () {
       expect($button.data("role")).toBe("button");
       expect($button.data("rel")).toBe("back");
       expect($button.hasClass("ui-btn-left")).toBeTruthy();
-      $button.trigger("click");
-      expect(window.history.back).toHaveBeenCalled();
     });
   });
 
@@ -121,10 +117,10 @@ describe('Default-header', function () {
 describe('External-link-dialog', function () {
   describe('when document contains links with target _blank', function () {
     beforeEach(function () {
-      var html = '<div data-role="page" id="page"><a href="testing.html" target="_blank">test</a></div>';
+      var html = '<div data-role="page" id="page"><div data-role="content"><a href="testing.html" target="_blank">test</a></div></div>';
       $('#stage').replaceWith(html);
       $.mobile.loadPage("#page", {prefetch: "true"});
-      i18n.init(i18n.options);
+      $.mobile.activePage = $('#page');
     });
 
     afterEach(function () {
@@ -247,5 +243,24 @@ describe('GAPlugin', function () {
           10
       );
     });
+  });
+});
+
+describe('Click on a .button-grid link', function () {
+  beforeEach(function () {
+    var html = '<div class="button-grid"><a id="link" href="testing.html">test</a></div>';
+    $('#stage').append(html);
+  });
+
+  afterEach(function () {
+    $('#stage').replaceWith("<div id='stage'></div>");
+  });
+
+  it('should make an ajax call', function () {
+    spyOn($, 'ajax').andCallFake(function (obj) {
+      expect(obj.complete).toBeDefined();
+    });
+
+    $("#link").trigger('click');
   });
 });

@@ -67,6 +67,17 @@ describe('Map view', function () {
       expect(this.view.el.nodeName).toEqual("DIV");
       expect(this.view.el.id).toEqual("map_canvas");
     });
+
+    it('should listen for zoom events', function () {
+      spyOn(google.maps.event, 'addListener');
+      var view = new suApp.view.MapView({
+        el: $('#map_canvas'),
+        model: new suApp.model.MapModel(),
+        appModel: new suApp.model.AppModel()
+      });
+
+      expect(google.maps.event.addListener).toHaveBeenCalledWith(view.map, 'zoom_changed', view.handleMapZoomChange);
+    });
   });
 
   describe('resize', function () {
@@ -107,6 +118,9 @@ describe('Map view', function () {
       };
 
       this.view.getDirections("walking", 'destination');
+      this.view.getDirections("bicycling", 'destination');
+      this.view.getDirections("driving", 'destination');
+      this.view.getDirections("publicTransp", 'destination');
     });
   });
 
@@ -128,6 +142,74 @@ describe('Map view', function () {
       var self = this;
       helper.delay(200, function () {
         expect(self.view.keyboardVisible).toBeFalsy();
+      });
+    });
+  });
+
+  describe('zoom', function () {
+    it('updateMapZoom should set zoom on map', function () {
+      spyOn(this.view.map, 'setZoom');
+      this.view.model.attributes.zoom = 1;
+
+      this.view.updateMapZoom();
+
+      expect(this.view.map.setZoom).toHaveBeenCalledWith(1);
+    });
+
+    it('handleMapZoomChange should trigger zoom_changed on MapView', function () {
+      spyOn(this.view, 'trigger');
+      spyOn(this.view.map, 'getZoom').andReturn(1);
+
+      this.view.handleMapZoomChange();
+
+      expect(this.view.trigger).toHaveBeenCalledWith('zoom_changed', 1);
+    });
+  });
+
+  describe('current position', function () {
+    describe('updating current position', function () {
+      it('should create position marker & render it', function () {
+        this.view.currentPositionPoint = undefined;
+        var marker = new suApp.view.PointLocationView({model: new suApp.model.Location({})});
+        var self = this;
+        spyOn(this.view, 'createPositionMarker').andCallFake(function () {
+          self.view.currentPositionPoint = marker;
+        });
+        spyOn(marker, 'render');
+        spyOn(marker.model, 'set');
+
+        this.view.updateCurrentPosition({'coords': {'latitude': 1, 'longitude': 2}});
+
+        expect(this.view.createPositionMarker).toHaveBeenCalled();
+        expect(marker.render).toHaveBeenCalled();
+        expect(marker.model.set).toHaveBeenCalledWith('coords', [
+          [1, 2]
+        ]);
+      });
+    });
+  });
+
+  describe('markers', function () {
+    describe('removeAllMarkers', function () {
+      beforeEach(function () {
+        var self = this;
+        _.each(this.fixtures.Locations.valid, function (fixture) {
+          self.view.pointViews.push(jasmine.createSpyObj(fixture.name, ['remove']));
+        });
+      });
+
+      it('should call "remove" for all markers', function () {
+        this.view.removeAllMarkers();
+
+        _.each(this.view.pointViews, function (view) {
+          expect(view.remove).toHaveBeenCalled();
+        });
+      });
+
+      it('should reset pointViews', function () {
+        this.view.removeAllMarkers();
+
+        expect(this.view.pointViews).toEqual([]);
       });
     });
   });

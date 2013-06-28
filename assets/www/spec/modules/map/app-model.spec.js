@@ -202,4 +202,27 @@ describe('App model', function () {
       });
     });
   });
+
+  describe('when hiding models', function () {
+    describe('function hideAllModelsExceptOne', function () {
+      it('should hide all models except one', function () {
+        var model = new suApp.model.AppModel();
+        _.each(this.fixtures.Locations.valid, function (location) {
+          model.locations.push(new suApp.model.Location(location));
+        });
+        var visibleModel = model.locations.at(0);
+
+        model.hideAllModelsExceptOne(visibleModel);
+
+        model.locations.each(function (location) {
+          if (location == visibleModel) {
+            expect(visibleModel.get('visible')).toBeTruthy();
+          }
+          else {
+            expect(location.get('visible')).toBeFalsy();
+          }
+        });
+      });
+    });
+  });
 });

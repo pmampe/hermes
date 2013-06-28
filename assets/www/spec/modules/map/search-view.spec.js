@@ -403,26 +403,6 @@ describe('Search view', function () {
         expect(selected).toBeTruthy();
       });
 
-      it('should filter on entered text', function () {
-        $('#search-box input').trigger('focus');
-        $('#search-box input').val("Axel");
-        $('#search-box input').trigger('change');
-
-        // list shows 2 elements
-        expect($("#search-autocomplete li:not(.ui-screen-hidden).ui-btn").size()).toBe(2);
-      });
-
-      it('should retain entered text on blur and reshow filter on focus', function () {
-        $('#search-box input').trigger('focus');
-        $('#search-box input').val("Axel");
-        $('#search-box input').trigger('change');
-        $('#search-box input').trigger('blur');
-        $('#search-box input').trigger('focus');
-
-        // list shows 2 elements
-        expect($("#search-autocomplete li:not(.ui-screen-hidden).ui-btn").size()).toBe(2);
-      });
-
       describe('private function - getClickedLocation', function () {
         it('should return a new Location object with the inputed html markup', function () {
           var name = 'Axel';

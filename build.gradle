@@ -102,7 +102,7 @@ saga {
   baseDir = file('assets/www/')
   outputDir = file('build/reports/coverage')
   includes = '**/*spec.html'
-  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/GAPlugin.*\\.js", ".+\\/lib\\/.*", ".+\\/spec\\/.*"]
+  noInstrumentPatterns = [".*/cordova.*\\.js", ".*/GAPlugin.*\\.js", ".+\\/jst\\/.*.js", ".+\\/lib\\/.*", ".+\\/spec\\/.*"]
   sourcesToPreload = "**/*.js"
 }
 
