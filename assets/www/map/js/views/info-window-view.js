@@ -139,6 +139,15 @@ suApp.view.InfoWindowView = Backbone.View.extend(
           tOptions.tFloors = floors;
         }
 
+        if (model.get('type') === 'organization') {
+          tOptions.telephoneNumber = model.get('telephoneNumber');
+          tOptions.webAddress = model.get('webAddress');
+          tOptions.mailAddresses = model.get('mailAddresses');
+          tOptions.address = model.get('address');
+          tOptions.postalCity = model.get('postalCity');
+          tOptions.postalCode = model.get('postalCode');
+        }
+
         var template = JST['map/infoWindow'](tOptions);
 
         this.infoWindow.setContent(template);
