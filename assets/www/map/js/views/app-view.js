@@ -236,7 +236,6 @@ suApp.view.AppView = Backbone.View.extend(
         var lng = campus.getLng();
         this.mapModel.setMapPosition(lat, lng);
         this.mapModel.setZoom(campus.getZoom());
-        this.mapView.replacePoints(this.model.locations);
       },
 
       /**
