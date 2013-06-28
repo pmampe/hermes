@@ -185,4 +185,29 @@ describe('Map view', function () {
       });
     });
   });
+
+  describe('markers', function () {
+    describe('removeAllMarkers', function () {
+      beforeEach(function () {
+        var self = this;
+        _.each(this.fixtures.Locations.valid, function (fixture) {
+          self.view.pointViews.push(jasmine.createSpyObj(fixture.name, ['remove']));
+        });
+      });
+
+      it('should call "remove" for all markers', function () {
+        this.view.removeAllMarkers();
+
+        _.each(this.view.pointViews, function (view) {
+          expect(view.remove).toHaveBeenCalled();
+        });
+      });
+
+      it('should reset pointViews', function () {
+        this.view.removeAllMarkers();
+
+        expect(this.view.pointViews).toEqual([]);
+      });
+    });
+  });
 });
