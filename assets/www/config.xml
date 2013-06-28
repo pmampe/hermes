@@ -36,14 +36,14 @@
         version="@version@"
         versionCode="@versionCode@">
 
-  <name>Stockholm University</name>
+  <name>@appName@</name>
 
   <description>
     @description@
   </description>
 
   <author href="http://www.su.se" email="utveckling@it.su.se">
-    Team utveckling at Stockholm University
+    IT Services at Stockholm University
   </author>
 
   <license>
