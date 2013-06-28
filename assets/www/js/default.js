@@ -100,6 +100,9 @@ $(document).on("click", "a[target=_blank][data-rel!=external]", function (event)
   $externalLinkDialog.popup('open');
 });
 
+/**
+ * This is a hack to make the spinner show.
+ */
 $(document).on("click", ".button-grid a", function (event) {
   var $targetLink = $(this).attr('href');
 

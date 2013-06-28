@@ -131,4 +131,15 @@ describe('Map view', function () {
       });
     });
   });
+
+  describe('zoom', function () {
+    it('updateMapZoom should set zoom on map', function () {
+      spyOn(this.view.map, 'setZoom');
+      this.view.model.attributes.zoom = 1;
+
+      this.view.updateMapZoom();
+
+      expect(this.view.map.setZoom).toHaveBeenCalledWith(1);
+    });
+  });
 });
