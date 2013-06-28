@@ -107,6 +107,9 @@ describe('Map view', function () {
       };
 
       this.view.getDirections("walking", 'destination');
+      this.view.getDirections("bicycling", 'destination');
+      this.view.getDirections("driving", 'destination');
+      this.view.getDirections("publicTransp", 'destination');
     });
   });
 
