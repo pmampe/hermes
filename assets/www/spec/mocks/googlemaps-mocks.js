@@ -53,9 +53,16 @@ google.maps.Map = function (element, options) {
   };
   this.panTo = function (position) {
   };
+  this.panBy = function (position) {
+  };
   this.getZoom = function () {
   };
   this.setZoom = function (zoom) {
+  };
+};
+
+google.maps.Anchor =  function () {
+  this.getPosition = function () {
   };
 };
 
