@@ -89,6 +89,8 @@ suApp.view.GenericLocationView = Backbone.View.extend(
        */
       openInfoWindow: function (model, anchor) {
         this.infoWindow.open(model, anchor, this.getCenter());
+        this.gmap.panTo(anchor.getPosition());
+        this.gmap.panBy(40, -100);
       },
 
       //TODO: written for polygons, should work for markers, but might return bad results for lines
