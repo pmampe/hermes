@@ -41,7 +41,11 @@ describe('Generic location view', function () {
 
     });
 
-    it('should open infoWindow', function () {
+    it('should open infoWindow and pan to marker', function () {
+      this.view.gmap = new google.maps.Map();
+
+      this.anchor = new google.maps.Anchor();
+
       this.view.infoWindow = new suApp.view.InfoWindowView({
         appModel: new suApp.model.AppModel()
       });
@@ -50,10 +54,14 @@ describe('Generic location view', function () {
         return 2;
       });
       spyOn(this.view.infoWindow, "open");
+      spyOn(this.view.gmap, "panTo");
+      spyOn(this.view.gmap, "panBy");
 
-      this.view.openInfoWindow(0, 1);
+      this.view.openInfoWindow(0, this.anchor);
 
-      expect(this.view.infoWindow.open).toHaveBeenCalledWith(0, 1, 2);
+      expect(this.view.gmap.panTo).toHaveBeenCalled();
+      expect(this.view.gmap.panBy).toHaveBeenCalled();
+      expect(this.view.infoWindow.open).toHaveBeenCalledWith(0, this.anchor, 2);
     });
 
   });
