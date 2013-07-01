@@ -140,8 +140,21 @@ suApp.view.InfoWindowView = Backbone.View.extend(
         }
 
         if (model.get('type') === 'organization') {
+          var webAddress = model.get('webAddress');
+
+          /* Removes the prefix of the web address to conserve space in the info window.
+             Double check for instances when web addresses are given with only 'http://' or
+             only with 'www.'.
+           */
+          if(webAddress != null) {
+            var webAddressSubString = webAddress.replace('http://', '').replace('www.', '');
+            tOptions.webAddressShort = webAddressSubString;
+          } else {
+            tOptions.webAddressShort = "";
+          }
+
           tOptions.telephoneNumber = model.get('telephoneNumber');
-          tOptions.webAddress = model.get('webAddress');
+          tOptions.webAddress = webAddress;
           tOptions.mailAddresses = model.get('mailAddresses');
           tOptions.address = model.get('address');
           tOptions.postalCity = model.get('postalCity');
