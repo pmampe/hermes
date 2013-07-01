@@ -48,19 +48,16 @@ suApp.config = {
 
   "sukat": {
     "search": {
-      "url": "http://bjwe-laptop.it.su.se:8080/hermes-broker/sukat/search"
-  //    "url": "http://mobileapp-dev.it.su.se/sukat/search"
+      "url": "http://mobileapp-dev.it.su.se/sukat/search"
     }
   },
 
   "map": {
     "campuses": {
-      "url": "http://bjwe-laptop.it.su.se:8080/hermes-broker/geo/campuses"
-//      "url": "http://mobileapp-dev.it.su.se/geo/campuses"
+      "url": "http://mobileapp-dev.it.su.se/geo/campuses"
     },
     "location": {
-      "url": "http://bjwe-laptop.it.su.se:8080/hermes-broker/geo/poi"
-//      "url": "http://mobileapp-dev.it.su.se/geo/poi"
+      "url": "http://mobileapp-dev.it.su.se/geo/poi"
     },
     "zoom": {
       "threshold": 16
