@@ -417,5 +417,33 @@ describe('Info window view', function () {
       expect($('#department-mail-link').attr('href')).toMatch('mailto:testperson@test.se');
       expect($('#page-map').text()).toMatch('testperson@test.se');
     });
+
+    it('should not display department information if it does not exist', function () {
+
+      var location = new suApp.model.Location({
+        type: 'organization',
+        nonVisibleTypes: ["entrance", "elevator", "toilet"]
+      });
+
+      $('#page-map').append(JST['map/infoWindow']({
+        model: location,
+        itemText: '',
+        telephoneNumber: null,
+        webAddress: null,
+        mailAddresses: '',
+        address: null,
+        postalCity: null,
+        postalCode: null,
+        webAddressShort: '',
+        displayDirections: true
+      }));
+
+      expect($('#page-map').find('#department-address').size()).toEqual(0);
+      expect($('#page-map').find('#department-postal-code').size()).toEqual(0);
+      expect($('#page-map').find('#department-postal-city').size()).toEqual(0);
+      expect($('#page-map').find('#department-phone-link').size()).toEqual(0);
+      expect($('#page-map').find('#department-website-link').size()).toEqual(0);
+      expect($('#page-map').find('#department-mail-link').size()).toEqual(0);
+    });
   });
 });
