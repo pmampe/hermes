@@ -286,7 +286,7 @@ task build(type: Tar, dependsOn: [test, minify, copySplash]) {
         }
       } else if (fileCopyDetails.relativePath.pathString == "www${File.separator}config.xml") {
         fileCopyDetails.filter(ReplaceTokens, tokens: [
-                id: project.group + '.' + project.name,
+                id: project.group + '.' + project.artifact,
                 appName: config.appName,
                 version: project.version.replaceAll(/-SNAPSHOT/, "b" + getCurrentRev()),
                 versionCode: versionCode,
