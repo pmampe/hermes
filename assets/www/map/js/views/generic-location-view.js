@@ -90,6 +90,11 @@ suApp.view.GenericLocationView = Backbone.View.extend(
       openInfoWindow: function (model, anchor) {
         this.infoWindow.open(model, anchor, this.getCenter());
         this.gmap.panTo(anchor.getPosition());
+
+        /*
+          Somewhat arbitrarily chosen values to center the info window on the screen.
+          Tested, and was approved, on available testing devices.
+          */
         this.gmap.panBy(40, -100);
       },
 
