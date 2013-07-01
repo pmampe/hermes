@@ -696,3 +696,18 @@ div.search-box .ui-btn-hover-b .ui-last-child {
     margin: -65px 0 0 -22px;
     padding: 0;
 }
+
+.organization-information div {
+  min-width: 80%;
+  max-width: 95%;
+  margin-bottom: 5px;
+}
+
+.organization-information div a {
+  float: right;
+  clear: right;
+}
+
+.organization-information .top-info {
+  margin-bottom: 20px;
+}

@@ -54,6 +54,11 @@
         "show": "Visa tillgängliga entréer",
         "hide": "Göm tillgängliga entréer",
         "noexists": "Tillgänglig entré finns ej"
+      },
+      "organization": {
+        "telephoneNumber": "Telefonnummer",
+        "webAddress": "Webbsida",
+        "mailAddresses": "E-post"
       }
     },
 

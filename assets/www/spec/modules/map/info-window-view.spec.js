@@ -373,6 +373,49 @@ describe('Info window view', function () {
       expect($('#page-map').text()).toMatch(/.*map.infoWindow.entrance.hide.*/);
     });
 
+    it('should set correct department information when type is organization', function () {
 
+      var location = new suApp.model.Location({
+        type: 'organization',
+        nonVisibleTypes: ["entrance", "elevator", "toilet"]
+      });
+
+      var testAddress = 'http://www.test.se';
+      var webAddressSubString = testAddress.replace('http://', '').replace('www.', '');
+
+      $('#page-map').append(JST['map/infoWindow']({
+        model: location,
+        itemText: '',
+        telephoneNumber: '123 456',
+        webAddress: testAddress,
+        mailAddresses: ['testperson@test.se'],
+        address: 'Testvägen 2',
+        postalCity: 'Stockholm',
+        postalCode: '123 45',
+        webAddressShort: webAddressSubString,
+        displayDirections: true
+      }));
+
+      expect($('#page-map').find('#department-address').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch('Testvägen 2');
+
+      expect($('#page-map').find('#department-postal-code').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch('123 45');
+
+      expect($('#page-map').find('#department-postal-city').size()).toEqual(1);
+      expect($('#page-map').text()).toMatch('Stockholm');
+
+      expect($('#page-map').find('#department-phone-link').size()).toEqual(1);
+      expect($('#department-phone-link').attr('href')).toMatch('tel:123 456');
+      expect($('#page-map').text()).toMatch('123 456');
+
+      expect($('#page-map').find('#department-website-link').size()).toEqual(1);
+      expect($('#department-website-link').attr('href')).toMatch('http://www.test.se');
+      expect($('#page-map').text()).toMatch('test.se');
+
+      expect($('#page-map').find('#department-mail-link').size()).toEqual(1);
+      expect($('#department-mail-link').attr('href')).toMatch('mailto:testperson@test.se');
+      expect($('#page-map').text()).toMatch('testperson@test.se');
+    });
   });
 });
