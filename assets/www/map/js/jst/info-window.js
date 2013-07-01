@@ -72,6 +72,43 @@ JST['map/infoWindow/building'] = _.template(" \
 <% } %> \
 ");
 
+JST['map/infoWindow/organization'] = _.template(" \
+  <div class='organization-information clearfix'>\
+    <% if (address != null) { %> \
+      <div class='top-info'>\
+        <span id='department-address'><%= address %></span> <br />\
+      <% } %> \
+      <% if (postalCode != null) { %> \
+        <span id='department-postal-code'><%= postalCode %></span>  \
+      <% } %> \
+      <% if (postalCity != null) { %> \
+        <span id='department-postal-city'><%= postalCity %></span>\
+      <% } %>\
+    </div>\
+    \
+    <% if (telephoneNumber != null) { %> \
+      <div>\
+        <span><%= i18n.t('map.infoWindow.organization.telephoneNumber') %>: </span> \
+        <a href='tel:<%= telephoneNumber %>' id='department-phone-link'><%= telephoneNumber %></a>\
+      </div> \
+    <% } %> \
+    <% if (webAddress != null) { %> \
+      <div>\
+        <span><%= i18n.t('map.infoWindow.organization.webAddress') %>: </span> \
+        <a href='<%= webAddress %>' id='department-website-link'><%= webAddressShort %></a>\
+      </div>\
+    <% } %> \
+    <% if (mailAddresses != '') { %> \
+      <div>\
+        <span><%= i18n.t('map.infoWindow.organization.mailAddresses') %>: </span> \
+        <% for(var mailAddress in mailAddresses) { %> \
+          <a href='mailto:<%= mailAddresses[mailAddress] %>' id='department-mail-link'><%= mailAddresses[mailAddress] %></a>\
+        <% } %>\
+      </div>\
+    <% } %> \
+  </div>\
+");
+
 JST['map/infoWindow'] = _.template(" \
 <div id='info_window' class='iw'>\
   <h3><%= name %></h3>\
@@ -82,7 +119,9 @@ JST['map/infoWindow'] = _.template(" \
   <% if (itemText != null) { %>\
     <%= itemText  %>\
   <% } %> \
-  \
+  <% if(model.get('type') === 'organization') { %> \
+    <%= JST['map/infoWindow/organization']({telephoneNumber: telephoneNumber, webAddress: webAddress, mailAddresses: mailAddresses, address: address, postalCode: postalCode, postalCity: postalCity, webAddressShort: webAddressShort}) %> \
+  <% } %> \
   <div class='info-window-icons'>\
   <% if (model.get('type') === 'building'){ %> \
     <%= JST['map/infoWindow/building']({hasElevators: hasElevators, tFloors: tFloors, hasEntrances: hasEntrances}) %> \

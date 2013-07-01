@@ -55,6 +55,11 @@
         "show": "Show accessible entrances",
         "hide": "Hide accessible entrances",
         "noexists": "Accessible entrance not available"
+      },
+      "organization": {
+        "telephoneNumber": "Telephone number",
+        "webAddress": "Website",
+        "mailAddresses": "E-mail"
       }
     },
 
