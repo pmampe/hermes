@@ -1,0 +1,4 @@
+/*Dummy localization string. We need this to override the
+* default localization languages Phonegap sets when building the app.
+*/
+"Dummy localization string" = "Dummy localization string";
