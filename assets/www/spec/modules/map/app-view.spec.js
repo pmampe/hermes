@@ -139,6 +139,13 @@ describe('App view', function () {
         this.view.initialize({title: 'foo'});
         expect(window.showError).toHaveBeenCalled();
       });
+
+      it('should show popup for missing network when having no network connection (undefined)', function () {
+        navigator.connection = undefined;
+        spyOn(window, 'showError');
+        this.view.initialize({title: 'foo'});
+        expect(window.showError).toHaveBeenCalled();
+      });
     });
     
   });
