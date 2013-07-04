@@ -58,7 +58,6 @@ suApp.view.AppView = Backbone.View.extend(
 
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
-        
         var self = this;
         i18n.init({resGetPath: '../i18n/__lng__.json'}, function () {
           self.$el.i18n();
@@ -66,7 +65,7 @@ suApp.view.AppView = Backbone.View.extend(
         });
 
         this.displayErrorMessageIfNoNetworkConnection();
-        
+
         this.title = options.title;
         this.mapModel = new suApp.model.MapModel();
 
@@ -117,7 +116,7 @@ suApp.view.AppView = Backbone.View.extend(
       },
       
       displayErrorMessageIfNoNetworkConnection: function() {
-        if (navigator.connection.type == "none" || navigator.connection.type == 0) {
+        if (navigator.connection == undefined || navigator.connection.type == "none" || navigator.connection.type == 0) {
           showError(i18n.t("error.connectionlost"));
         }
       },
