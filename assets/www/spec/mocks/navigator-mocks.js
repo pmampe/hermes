@@ -50,3 +50,5 @@ navigator.geolocation = {
   clearWatch: function () {
   }
 };
+
+navigator.connection = { type: "3g" };

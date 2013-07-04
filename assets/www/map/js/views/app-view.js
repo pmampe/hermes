@@ -58,19 +58,20 @@ suApp.view.AppView = Backbone.View.extend(
 
         $(document).on("deviceready.appview", this.handleDeviceReady);
 
-        this.title = options.title;
-        this.mapModel = new suApp.model.MapModel();
-
-        var filterByCampus = this.model.get('filterByCampus');
-        var showMenu = this.model.get('menu');
-
+        
         var self = this;
-
         i18n.init({resGetPath: '../i18n/__lng__.json'}, function () {
           self.$el.i18n();
           $('#search-box').i18n();
         });
 
+        this.displayErrorMessageIfNoNetworkConnection();
+        
+        this.title = options.title;
+        this.mapModel = new suApp.model.MapModel();
+
+        var filterByCampus = this.model.get('filterByCampus');
+        var showMenu = this.model.get('menu');
 
         this.mapView = new suApp.view.MapView({
           el: $('#map_canvas'),
@@ -112,6 +113,12 @@ suApp.view.AppView = Backbone.View.extend(
           this.menuPopupView.on('selected', this.menuSelectCallback);
 
           this.changeCampus();
+        }
+      },
+      
+      displayErrorMessageIfNoNetworkConnection: function() {
+        if (navigator.connection.type == "none" || navigator.connection.type == 0) {
+          showError(i18n.t("error.connectionlost"));
         }
       },
 
