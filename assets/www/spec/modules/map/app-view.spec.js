@@ -116,7 +116,7 @@ describe('App view', function () {
       this.view.initialize({title: 'foo'});
       expect(this.view.menuPopupView).toBeUndefined();
     });
-    
+
     describe('check network connection', function () {
       it('should show popup for missing network when not having network connection', function () {
         spyOn(window, 'showError');
@@ -126,117 +126,117 @@ describe('App view', function () {
       });
     });
 
-  describe('render', function () {
-    beforeEach(function () {
-      $('#page-map').append("<div data-role='header'><h1><span>foo</span></h1></div>");
-    });
-
-    it('should replace header with this.header', function () {
-      this.view.render();
-      expect($('div[data-role="header"] > h1 > span').attr('data-i18n')).toEqual("foobar");
-    });
-
-    it('should call mapview render', function () {
-      spyOn(this.view.mapView, 'render');
-      this.view.render();
-      expect(this.view.mapView.render).toHaveBeenCalled();
-    });
-  });
-
-  describe('call to change campus', function () {
-    beforeEach(function () {
-      this.view.updateLocations = function () {
-      };
-    });
-
-    it('sets map position to selected campus', function () {
-      spyOn(this.view.mapView.model, "setMapPosition");
-      spyOn(this.view.mapView.model, "setZoom");
-
-      this.view.mapView.replacePoints = function (foo) {
-      };
-      var campus = new suApp.model.Campus(this.fixtures.Campuses.valid[0]);
-      this.view.model.set('campus', campus);
-
-      this.view.changeCampus();
-
-      expect(this.view.mapView.model.setMapPosition).toHaveBeenCalledWith(campus.getLat(), campus.getLng());
-      expect(this.view.mapView.model.setZoom).toHaveBeenCalledWith(campus.getZoom());
-    });
-  });
-
-  describe('menu', function () {
-    it('callback function should set campus', function () {
-      this.view.model.set = function (key, val) {
-        expect(key).toEqual('campus');
-        expect(val).toEqual('foo');
-      };
-
-      this.view.menuSelectCallback('foo');
-    });
-  });
-
-  describe('click callbacks', function () {
-    it('locationCallback should replace points for supplied location', function () {
-
-      var location = new suApp.model.Location({id: 0});
-
-      this.view.mapView.replacePoints = function (collection) {
-        expect(collection.size()).toEqual(1);
-        expect(collection.get(0)).toEqual(location);
-      };
-
-      this.view.locationCallback(location);
-    });
-
-    it('campusCallback should replace points for supplied campus', function () {
-      var campus = new suApp.model.Location({id: 0, name: 'Frescati'});
-
-      this.view.model.set = function (key, val) {
-        expect(key).toEqual('campus');
-        expect(val).toEqual(campus);
-      };
-
-      this.view.campusCallback(campus);
-    });
-  });
-
-  describe('zoom change', function () {
-    it('should call toggleMarkerVisibility with true on zoom > threshold', function () {
-      var res = false;
-      this.view.on('toggleMarkerVisibility', function (collection, visible) {
-        res = visible;
+    describe('render', function () {
+      beforeEach(function () {
+        $('#page-map').append("<div data-role='header'><h1><span>foo</span></h1></div>");
       });
-      this.view.model.set('zoomSensitive', true);
-      suApp.config.map.zoom.threshold = 17;
 
-      this.view.handleZoomChanged(18);
-      expect(res).toBeTruthy();
+      it('should replace header with this.header', function () {
+        this.view.render();
+        expect($('div[data-role="header"] > h1 > span').attr('data-i18n')).toEqual("foobar");
+      });
 
-      this.view.handleZoomChanged(16);
-      expect(res).toBeFalsy();
-    });
-  });
-
-  describe('on deviceready', function () {
-    it('should call trackPage on GAPlugin', function () {
-      spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
-      spyOn(window.plugins.gaPlugin, 'trackPage');
-
-      $(document).trigger('deviceready');
-
-      expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalled();
+      it('should call mapview render', function () {
+        spyOn(this.view.mapView, 'render');
+        this.view.render();
+        expect(this.view.mapView.render).toHaveBeenCalled();
+      });
     });
 
-    it('should put fragment on url when calling trackPage on GAPlugin', function () {
-      spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
-      spyOn(window.plugins.gaPlugin, 'trackPage');
-      Backbone.history.fragment = "foo";
+    describe('call to change campus', function () {
+      beforeEach(function () {
+        this.view.updateLocations = function () {
+        };
+      });
 
-      $(document).trigger('deviceready');
+      it('sets map position to selected campus', function () {
+        spyOn(this.view.mapView.model, "setMapPosition");
+        spyOn(this.view.mapView.model, "setZoom");
 
-      expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "map/index.html#foo");
+        this.view.mapView.replacePoints = function (foo) {
+        };
+        var campus = new suApp.model.Campus(this.fixtures.Campuses.valid[0]);
+        this.view.model.set('campus', campus);
+
+        this.view.changeCampus();
+
+        expect(this.view.mapView.model.setMapPosition).toHaveBeenCalledWith(campus.getLat(), campus.getLng());
+        expect(this.view.mapView.model.setZoom).toHaveBeenCalledWith(campus.getZoom());
+      });
     });
-  });
+
+    describe('menu', function () {
+      it('callback function should set campus', function () {
+        this.view.model.set = function (key, val) {
+          expect(key).toEqual('campus');
+          expect(val).toEqual('foo');
+        };
+
+        this.view.menuSelectCallback('foo');
+      });
+    });
+
+    describe('click callbacks', function () {
+      it('locationCallback should replace points for supplied location', function () {
+
+        var location = new suApp.model.Location({id: 0});
+
+        this.view.mapView.replacePoints = function (collection) {
+          expect(collection.size()).toEqual(1);
+          expect(collection.get(0)).toEqual(location);
+        };
+
+        this.view.locationCallback(location);
+      });
+
+      it('campusCallback should replace points for supplied campus', function () {
+        var campus = new suApp.model.Location({id: 0, name: 'Frescati'});
+
+        this.view.model.set = function (key, val) {
+          expect(key).toEqual('campus');
+          expect(val).toEqual(campus);
+        };
+
+        this.view.campusCallback(campus);
+      });
+    });
+
+    describe('zoom change', function () {
+      it('should call toggleMarkerVisibility with true on zoom > threshold', function () {
+        var res = false;
+        this.view.on('toggleMarkerVisibility', function (collection, visible) {
+          res = visible;
+        });
+        this.view.model.set('zoomSensitive', true);
+        suApp.config.map.zoom.threshold = 17;
+
+        this.view.handleZoomChanged(18);
+        expect(res).toBeTruthy();
+
+        this.view.handleZoomChanged(16);
+        expect(res).toBeFalsy();
+      });
+    });
+
+    describe('on deviceready', function () {
+      it('should call trackPage on GAPlugin', function () {
+        spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
+        spyOn(window.plugins.gaPlugin, 'trackPage');
+
+        $(document).trigger('deviceready');
+
+        expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalled();
+      });
+
+      it('should put fragment on url when calling trackPage on GAPlugin', function () {
+        spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
+        spyOn(window.plugins.gaPlugin, 'trackPage');
+        Backbone.history.fragment = "foo";
+
+        $(document).trigger('deviceready');
+
+        expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "map/index.html#foo");
+      });
+    });
   });
 });
