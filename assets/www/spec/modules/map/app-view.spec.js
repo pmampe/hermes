@@ -118,37 +118,13 @@ describe('App view', function () {
     });
     
     describe('check network connection', function () {
-      it('should not show popup for missing network when having network connection', function () {
-        navigator.connection = { type: "3g" };
-    
+      it('should show popup for missing network when not having network connection', function () {
         spyOn(window, 'showError');
         this.view.initialize({title: 'foo'});
-        expect(window.showError).not.toHaveBeenCalled();
-      });
-      
-      it('should show popup for missing network when having no network connection (none)', function () {
-        navigator.connection = { type: "none" };
-        spyOn(window, 'showError');
-        this.view.initialize({title: 'foo'});
-        expect(window.showError).toHaveBeenCalledWith(i18n.t("error.connectionlost"));
-      });
-      
-      it('should show popup for missing network when having no network connection (0)', function () {
-        navigator.connection = { type: 0 };
-        spyOn(window, 'showError');
-        this.view.initialize({title: 'foo'});
-        expect(window.showError).toHaveBeenCalled();
-      });
-
-      it('should show popup for missing network when having no network connection (undefined)', function () {
-        navigator.connection = undefined;
-        spyOn(window, 'showError');
-        this.view.initialize({title: 'foo'});
+        $(document).trigger("offline");
         expect(window.showError).toHaveBeenCalled();
       });
     });
-    
-  });
 
   describe('render', function () {
     beforeEach(function () {
@@ -261,5 +237,6 @@ describe('App view', function () {
 
       expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "map/index.html#foo");
     });
+  });
   });
 });
