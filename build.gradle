@@ -29,6 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+
 import java.nio.charset.Charset;
 
 import groovy.json.JsonSlurper
@@ -254,11 +256,11 @@ task build(type: Tar, dependsOn: [test, minify, copySplash]) {
     def ret = false
     def name = it.file.name
 
-    if (name ==~ /.*\.js/ && !name ==~ /.*(\.|-)min\.js/) {
+    if (name ==~ /.*\.js/ && !(name ==~ /.*(\.|-)min\.js/)) {
       ret = true
     }
 
-    if (name ==~ /.*\.css/ && !name ==~ /.*\.min\.css/) {
+    if (name ==~ /.*\.css/ && !(name ==~ /.*\.min\.css/)) {
       ret = true
     }
 
@@ -292,7 +294,7 @@ task build(type: Tar, dependsOn: [test, minify, copySplash]) {
                 versionCode: versionCode,
                 description: project.description
         ])
-      } else if (fileCopyDetails.relativePath.pathString == "www${File.separator}js${File.separator}config.js") {
+      } else if (fileCopyDetails.relativePath.pathString ==~ /www${File.separator}js${File.separator}config.*\.js/) {
         fileCopyDetails.filter { String line ->
           line.replaceAll(/http:\/\/mobileapp-dev.it.su.se\/geo/, config.geoUrl)
         }
@@ -319,7 +321,7 @@ build {
 /**
  * Send app to Phonegap Build
  */
-task toPhonegap(dependsOn: build) {
+  task toPhonegap(dependsOn: build) {
   doLast {
 
     if (!config.phonegapPassword) {
