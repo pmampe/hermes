@@ -93,8 +93,7 @@
   <feature name="http://api.phonegap.com/1.0/file"/>
   <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
-  <gap:plugin name="InAppBrowser"/>
-  <gap:plugin name="GAPlugin"/>
+  <gap:plugin name="com.adobe.plugins.gaplugin"/>
 
   <!-- icons -->
   <icon src="icon.png"/>
