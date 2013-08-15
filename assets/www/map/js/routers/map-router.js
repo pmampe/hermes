@@ -66,7 +66,7 @@ suApp.router.MapRouter = Backbone.Router.extend({
   computerLabs: function () {
     var appView = new suApp.view.AppView({
       el: $('#page-map'),
-      model: new suApp.model.AppModel({ types: ["computer_labs"] }),
+      model: new suApp.model.AppModel({ types: ["computerlab"] }),
       title: 'map.titles.computerlabs'
     });
     appView.render();
