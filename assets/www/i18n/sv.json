@@ -151,8 +151,8 @@
   },
   "error": {
     "connectionlost": "All information kunde inte hämtas - kontrollera din internetuppkoppling och försök igen.",
-    "noGPSAndroid": "Information om din nuvarande plats kunde inte hämtas – kontrollera att trådlösa nätverk och GPS är påslagna under Platstjänster."
-    "noGPSiOS": "Information om din nuvarande plats kunde inte hämtas – kontrollera att platstjänster är aktiverad under inställningar för integritetsskydd."
+    "noGPSAndroid": "Information om din nuvarande plats kunde inte hämtas – kontrollera att trådlösa nätverk och GPS är påslagna under Platstjänster.",
+    "noGPSiOS": "Information om din nuvarande plats kunde inte hämtas – kontrollera att platstjänster är aktiverad under inställningar för integritetsskydd.",
     "button": "Stäng"
   }
 }
