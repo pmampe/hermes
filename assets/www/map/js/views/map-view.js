@@ -47,6 +47,8 @@ suApp.view.MapView = Backbone.View.extend(
       /** The info window */
       infoWindowView: null,
 
+      appView: null,
+      
       searchHiddenFromToolbar: false,
 
       keyboardVisible: false,
@@ -63,6 +65,8 @@ suApp.view.MapView = Backbone.View.extend(
             'removeAllMarkers',
             'addMarkers'
         );
+        
+        this.appView = options.appView;
 
         this.pointViews = [];
         this.infoWindowView = new suApp.view.InfoWindowView({
@@ -278,6 +282,9 @@ suApp.view.MapView = Backbone.View.extend(
        * @param destination optional parameter, defaults to destination (global variable)
        */
       getDirections: function (travelMode, destination) {
+        // check if we have a position, else show an error message
+        this.appView.getCurrentPosition(100, true);
+
         var orig = this.currentPositionPoint.getPosition();
         var travMode = null;
 

@@ -74,7 +74,8 @@ suApp.view.AppView = Backbone.View.extend(
         this.mapView = new suApp.view.MapView({
           el: $('#map_canvas'),
           model: this.mapModel,
-          appModel: this.model
+          appModel: this.model,
+          appView: this
         });
 
         this.searchView = new suApp.view.SearchView({
@@ -240,6 +241,46 @@ suApp.view.AppView = Backbone.View.extend(
         this.mapModel.setMapPosition(lat, lng);
         this.mapModel.setZoom(campus.getZoom());
       },
+      
+      getCurrentPosition: function(timeout, showErrorMessage) {
+        // setting default value for timeout to 2000 ms
+        var timeout = typeof timeout !== 'undefined'? timeout: 2000;
+        // setting default value for showErrorMessage to false
+        var showErrorMessage = typeof showErrorMessage !== 'undefined'? showErrorMessage: false;
+        
+        this.gpsWatchId = navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              alert("start navigation");
+              alert(pos.coords + ": " + pos.timestamp);
+              self.mapView.trigger('updateCurrentPosition', pos);
+            },
+            function (error) {
+              if (showErrorMessage) {
+                if (device.platform == 'Android') {
+                  showError(i18n.t("error.noGPSAndroid"));
+                } else if (device.platform == 'iOS') {
+                  showError(i18n.t("error.noGPSiOS"));
+                }
+              }
+              alert("getPosition error: (" + error.code + ") " + error.message);
+            },
+            {frequency:500, maximumAge: 0, timeout: timeout, enableHighAccuracy:true}
+        );
+      },
+      
+      watchCurrentPosition: function() {
+        this.gpsWatchId = navigator.geolocation.watchPosition(
+            function (pos) {
+//              alert("update navigation");
+//              alert(pos.coords + ": " + pos.timestamp);
+              self.mapView.trigger('updateCurrentPosition', pos);
+            },
+            function (error) {
+              alert("updatePosition error: (" + error.code + ") " + error.message);
+            },
+            {frequency:500,maximumAge: 0, timeout: 2000, enableHighAccuracy:true}
+        );
+      },
 
       /**
        * Update the position from GPS.
@@ -248,24 +289,11 @@ suApp.view.AppView = Backbone.View.extend(
         if (navigator.geolocation) {
           var self = this;
 
+          alert("inside startGPSPositioning: " + navigator.geolocation);
           // Get the current position or display error message
-          this.gpsWatchId = navigator.geolocation.getCurrentPosition(
-              function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos);
-              },
-              function (error) {
-              }
-          );
-
+          this.gpsWatchId = this.getCurrentPosition();
           // Start watching for GPS position changes
-          this.gpsWatchId = navigator.geolocation.watchPosition(
-              function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos);
-              },
-              function (error) {
-              },
-              1000
-          );
+          this.gpsWatchId = this.watchCurrentPosition();
         }
       }
     });
