@@ -243,11 +243,13 @@ suApp.view.AppView = Backbone.View.extend(
       },
       
       getCurrentPosition: function(timeout, showErrorMessage) {
+        var self = this;
+
         // setting default value for timeout to 2000 ms
         var timeout = typeof timeout !== 'undefined'? timeout: 2000;
         // setting default value for showErrorMessage to false
         var showErrorMessage = typeof showErrorMessage !== 'undefined'? showErrorMessage: false;
-        
+
         this.gpsWatchId = navigator.geolocation.getCurrentPosition(
             function (pos) {
               alert("start navigation");
@@ -269,6 +271,8 @@ suApp.view.AppView = Backbone.View.extend(
       },
       
       watchCurrentPosition: function() {
+        var self = this;
+
         this.gpsWatchId = navigator.geolocation.watchPosition(
             function (pos) {
 //              alert("update navigation");
@@ -287,8 +291,6 @@ suApp.view.AppView = Backbone.View.extend(
        */
       startGPSPositioning: function () {
         if (navigator.geolocation) {
-          var self = this;
-
           alert("inside startGPSPositioning: " + navigator.geolocation);
           // Get the current position or display error message
           this.gpsWatchId = this.getCurrentPosition();
