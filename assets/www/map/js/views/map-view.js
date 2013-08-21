@@ -65,7 +65,7 @@ suApp.view.MapView = Backbone.View.extend(
             'removeAllMarkers',
             'addMarkers'
         );
-        
+
         this.appView = options.appView;
 
         this.pointViews = [];

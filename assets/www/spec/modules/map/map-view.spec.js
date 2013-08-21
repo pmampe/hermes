@@ -51,10 +51,18 @@ describe('Map view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map", {prefetch: "true"});
 
+    this.appView = {
+      getCurrentPosition: function () {
+      }
+    };
+
+    spyOn(this.appView, 'getCurrentPosition');
+
     this.view = new suApp.view.MapView({
       el: $('#map_canvas'),
       model: new suApp.model.MapModel(),
-      appModel: new suApp.model.AppModel()
+      appModel: new suApp.model.AppModel(),
+      appView: this.appView
     });
   });
 
@@ -78,6 +86,11 @@ describe('Map view', function () {
 
       expect(google.maps.event.addListener).toHaveBeenCalledWith(view.map, 'zoom_changed', view.handleMapZoomChange);
     });
+
+    it('should set this.appView from options.appView', function () {
+      expect(this.view.appView).toEqual(this.appView);
+    });
+
   });
 
   describe('resize', function () {
@@ -104,12 +117,19 @@ describe('Map view', function () {
   });
 
   describe('getDirections', function () {
-    it('should use origin from current position', function () {
+    beforeEach(function() {
       this.view.createPositionMarker();
       spyOn(this.view.currentPositionPoint, 'getPosition').andCallFake(function () {
         return 'foobar';
       });
+    });
 
+    it('should get current position from app-view', function() {
+      this.view.getDirections("walking", 'destination');
+      expect(this.appView.getCurrentPosition).toHaveBeenCalledWith(100, true);
+    });
+
+    it('should use origin from current position', function () {
       var origOk = false;
       this.view.$el.gmap = function (command, options) {
         if (options.origin === 'foobar') {

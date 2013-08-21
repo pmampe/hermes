@@ -252,8 +252,6 @@ suApp.view.AppView = Backbone.View.extend(
 
         this.gpsWatchId = navigator.geolocation.getCurrentPosition(
             function (pos) {
-              alert("start navigation");
-              alert(pos.coords + ": " + pos.timestamp);
               self.mapView.trigger('updateCurrentPosition', pos);
             },
             function (error) {
@@ -262,9 +260,10 @@ suApp.view.AppView = Backbone.View.extend(
                   showError(i18n.t("error.noGPSAndroid"));
                 } else if (device.platform == 'iOS') {
                   showError(i18n.t("error.noGPSiOS"));
+                } else {
+                  showError(i18n.t("error.noGPS"));
                 }
               }
-              alert("getPosition error: (" + error.code + ") " + error.message);
             },
             {frequency:500, maximumAge: 0, timeout: timeout, enableHighAccuracy:true}
         );
@@ -275,12 +274,9 @@ suApp.view.AppView = Backbone.View.extend(
 
         this.gpsWatchId = navigator.geolocation.watchPosition(
             function (pos) {
-//              alert("update navigation");
-//              alert(pos.coords + ": " + pos.timestamp);
               self.mapView.trigger('updateCurrentPosition', pos);
             },
             function (error) {
-              alert("updatePosition error: (" + error.code + ") " + error.message);
             },
             {frequency:500,maximumAge: 0, timeout: 2000, enableHighAccuracy:true}
         );
@@ -291,7 +287,6 @@ suApp.view.AppView = Backbone.View.extend(
        */
       startGPSPositioning: function () {
         if (navigator.geolocation) {
-          alert("inside startGPSPositioning: " + navigator.geolocation);
           // Get the current position or display error message
           this.gpsWatchId = this.getCurrentPosition();
           // Start watching for GPS position changes
