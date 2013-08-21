@@ -74,8 +74,7 @@ suApp.view.AppView = Backbone.View.extend(
         this.mapView = new suApp.view.MapView({
           el: $('#map_canvas'),
           model: this.mapModel,
-          appModel: this.model,
-          appView: this
+          appModel: this.model
         });
 
         this.searchView = new suApp.view.SearchView({
@@ -242,30 +241,16 @@ suApp.view.AppView = Backbone.View.extend(
         this.mapModel.setZoom(campus.getZoom());
       },
       
-      getCurrentPosition: function(timeout, showErrorMessage) {
+      getCurrentPosition: function() {
         var self = this;
-
-        // setting default value for timeout to 2000 ms
-        var timeout = typeof timeout !== 'undefined'? timeout: 2000;
-        // setting default value for showErrorMessage to false
-        var showErrorMessage = typeof showErrorMessage !== 'undefined'? showErrorMessage: false;
 
         this.gpsWatchId = navigator.geolocation.getCurrentPosition(
             function (pos) {
               self.mapView.trigger('updateCurrentPosition', pos);
             },
             function (error) {
-              if (showErrorMessage) {
-                if (device.platform == 'Android') {
-                  showError(i18n.t("error.noGPSAndroid"));
-                } else if (device.platform == 'iOS') {
-                  showError(i18n.t("error.noGPSiOS"));
-                } else {
-                  showError(i18n.t("error.noGPS"));
-                }
-              }
             },
-            {frequency:500, maximumAge: 0, timeout: timeout, enableHighAccuracy:true}
+            {frequency:500, maximumAge: 0, timeout: 2000, enableHighAccuracy:true}
         );
       },
       
