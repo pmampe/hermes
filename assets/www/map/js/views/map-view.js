@@ -278,10 +278,10 @@ suApp.view.MapView = Backbone.View.extend(
        * @param destination optional parameter, defaults to destination (global variable)
        */
       getDirections: function (travelMode, destination) {
+        var orig = '';
 
         //Displays error message if point cannot be found
         if(this.currentPositionPoint = 'undefined') {
-          var orig = '';
           if (device.platform == 'Android') {
             showError(i18n.t("error.noGPSAndroid"));
           } else if (device.platform == 'iOS') {
@@ -290,7 +290,7 @@ suApp.view.MapView = Backbone.View.extend(
             showError(i18n.t("error.noGPS"));
           }
         } else {
-          var orig = this.currentPositionPoint.getPosition();
+          orig = this.currentPositionPoint.getPosition();
         }
 
         var travMode = null;
