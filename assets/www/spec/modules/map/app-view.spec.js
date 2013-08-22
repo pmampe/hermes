@@ -264,31 +264,6 @@ describe('App view', function () {
           expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalled();
           expect(window.showError).not.toHaveBeenCalled();
         });
-
-        describe('Testing GPS error message', function () {
-          beforeEach(function () {
-            this.view.getCurrentPosition(0, true);
-            device = {};
-          });
-
-          it('Should display the correct message for Android', function () {
-            device.platform == 'Android';
-          });
-
-          it('Should display the correct message for iOS', function () {
-            device.platform == 'iOS';
-          });
-
-          it('Should display generic message for other devices', function () {
-            device.platform == '';
-          });
-
-          afterEach(function () {
-            var errorFunc = navigator.geolocation.getCurrentPosition.calls[0].args[1];
-            errorFunc('foobar');
-            expect(window.showError).toHaveBeenCalled();
-          })
-        });
       });
 
       describe('Test watch current position', function () {

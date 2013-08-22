@@ -86,11 +86,6 @@ describe('Map view', function () {
 
       expect(google.maps.event.addListener).toHaveBeenCalledWith(view.map, 'zoom_changed', view.handleMapZoomChange);
     });
-
-    it('should set this.appView from options.appView', function () {
-      expect(this.view.appView).toEqual(this.appView);
-    });
-
   });
 
   describe('resize', function () {
@@ -117,19 +112,34 @@ describe('Map view', function () {
   });
 
   describe('getDirections', function () {
-    beforeEach(function() {
-      this.view.createPositionMarker();
-      spyOn(this.view.currentPositionPoint, 'getPosition').andCallFake(function () {
-        return 'foobar';
+    describe('Testing GPS error message', function () {
+      beforeEach(function () {
+        this.view.currentPositionPoint = 'undefined';
+        spyOn(window, 'showError');
+        device = {};
+      });
+
+      it('Should display the correct message for Android', function () {
+        device.platform = 'Android';
+        this.view.getDirections("walking", 'destination');
+        expect(window.showError).toHaveBeenCalledWith(i18n.t("error.noGPSAndroid"));
+      });
+
+      it('Should display the correct message for iOS', function () {
+        device.platform = 'iOS';
+        this.view.getDirections("walking", 'destination');
+        expect(window.showError).toHaveBeenCalledWith(i18n.t("error.noGPSiOS"));
+      });
+
+      it('Should display generic message for other devices', function () {
+        device.platform = '';
+        this.view.getDirections("walking", 'destination');
+        expect(window.showError).toHaveBeenCalledWith(i18n.t("error.noGPS"));
       });
     });
 
-    it('should get current position from app-view', function() {
-      this.view.getDirections("walking", 'destination');
-      expect(this.appView.getCurrentPosition).toHaveBeenCalledWith(100, true);
-    });
-
     it('should use origin from current position', function () {
+      this.view.createPositionMarker();
       var origOk = false;
       this.view.$el.gmap = function (command, options) {
         if (options.origin === 'foobar') {

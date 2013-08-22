@@ -281,6 +281,7 @@ suApp.view.MapView = Backbone.View.extend(
 
         //Displays error message if point cannot be found
         if(this.currentPositionPoint = 'undefined') {
+          var orig = '';
           if (device.platform == 'Android') {
             showError(i18n.t("error.noGPSAndroid"));
           } else if (device.platform == 'iOS') {
