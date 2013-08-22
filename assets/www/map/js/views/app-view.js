@@ -240,32 +240,42 @@ suApp.view.AppView = Backbone.View.extend(
         this.mapModel.setMapPosition(lat, lng);
         this.mapModel.setZoom(campus.getZoom());
       },
+      
+      getCurrentPosition: function() {
+        var self = this;
+
+        this.gpsWatchId = navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              self.mapView.trigger('updateCurrentPosition', pos);
+            },
+            function (error) {
+            },
+            {frequency: suApp.config.positionSettings.frequency, maximumAge: 0, timeout: suApp.config.positionSettings.timeout, enableHighAccuracy: true}
+        );
+      },
+      
+      watchCurrentPosition: function() {
+        var self = this;
+
+        this.gpsWatchId = navigator.geolocation.watchPosition(
+            function (pos) {
+              self.mapView.trigger('updateCurrentPosition', pos);
+            },
+            function (error) {
+            },
+            {frequency: suApp.config.positionSettings.frequency, maximumAge: 0, timeout: suApp.config.positionSettings.timeout, enableHighAccuracy: true}
+        );
+      },
 
       /**
        * Update the position from GPS.
        */
       startGPSPositioning: function () {
         if (navigator.geolocation) {
-          var self = this;
-
           // Get the current position or display error message
-          this.gpsWatchId = navigator.geolocation.getCurrentPosition(
-              function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos);
-              },
-              function (error) {
-              }
-          );
-
+          this.getCurrentPosition();
           // Start watching for GPS position changes
-          this.gpsWatchId = navigator.geolocation.watchPosition(
-              function (pos) {
-                self.mapView.trigger('updateCurrentPosition', pos);
-              },
-              function (error) {
-              },
-              1000
-          );
+          this.watchCurrentPosition();
         }
       }
     });

@@ -152,6 +152,9 @@
   },
   "error": {
     "connectionlost": "Connection lost – check your internet connection and retry.",
+    "noGPSAndroid": "Your current position could not be found – please verify that wireless networks and GPS settings are enabled in Location services.",
+    "noGPSiOS": "Your current position could not be found – please verify that location services is activated under the privacy settings.",
+    "noGPS": "Your current position could not be found – please check your location settings.",
     "button": "Close"
   }
 }

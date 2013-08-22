@@ -219,6 +219,18 @@ describe('App view', function () {
     });
 
     describe('on deviceready', function () {
+      it('should call startGPSPositioning and corresponding subfunctions', function () {
+        spyOn(this.view, 'startGPSPositioning').andCallThrough(); // Supress GPS positioning.
+        spyOn(this.view, 'getCurrentPosition');
+        spyOn(this.view, 'watchCurrentPosition');
+
+        $(document).trigger('deviceready');
+
+        expect(this.view.startGPSPositioning).toHaveBeenCalled();
+        expect(this.view.getCurrentPosition).toHaveBeenCalled();
+        expect(this.view.watchCurrentPosition).toHaveBeenCalled();
+      });
+
       it('should call trackPage on GAPlugin', function () {
         spyOn(this.view, 'startGPSPositioning'); // Supress GPS positioning.
         spyOn(window.plugins.gaPlugin, 'trackPage');
@@ -236,6 +248,32 @@ describe('App view', function () {
         $(document).trigger('deviceready');
 
         expect(window.plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "map/index.html#foo");
+      });
+    });
+
+    describe('Test positioning methods', function() {
+      describe('Test get current position', function () {
+        beforeEach(function () {
+          spyOn(navigator.geolocation, 'getCurrentPosition');
+          spyOn(window, 'showError');
+        });
+
+        it('Should get the users current position', function() {
+          this.view.getCurrentPosition();
+
+          expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalled();
+          expect(window.showError).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('Test watch current position', function () {
+        it('Should try to get the users current position', function() {
+          spyOn(navigator.geolocation, 'watchPosition');
+
+          this.view.watchCurrentPosition();
+
+          expect(navigator.geolocation.watchPosition).toHaveBeenCalled();
+        });
       });
     });
   });
