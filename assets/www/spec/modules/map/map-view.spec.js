@@ -106,7 +106,7 @@ describe('Map view', function () {
   describe('getDirections', function () {
     describe('Testing GPS error message', function () {
       beforeEach(function () {
-        this.view.currentPositionPoint = 'undefined';
+        this.view.currentPositionPoint = undefined;
         spyOn(window, 'showError');
         device = {};
       });

@@ -250,7 +250,7 @@ suApp.view.AppView = Backbone.View.extend(
             },
             function (error) {
             },
-            {frequency:500, maximumAge: 0, timeout: 2000, enableHighAccuracy:true}
+            {frequency: suApp.config.positionSettings.frequency, maximumAge: 0, timeout: suApp.config.positionSettings.timeout, enableHighAccuracy: true}
         );
       },
       
@@ -263,7 +263,7 @@ suApp.view.AppView = Backbone.View.extend(
             },
             function (error) {
             },
-            {frequency:500,maximumAge: 0, timeout: 2000, enableHighAccuracy:true}
+            {frequency: suApp.config.positionSettings.frequency, maximumAge: 0, timeout: suApp.config.positionSettings.timeout, enableHighAccuracy: true}
         );
       },
 
@@ -273,9 +273,9 @@ suApp.view.AppView = Backbone.View.extend(
       startGPSPositioning: function () {
         if (navigator.geolocation) {
           // Get the current position or display error message
-          this.gpsWatchId = this.getCurrentPosition();
+          this.getCurrentPosition();
           // Start watching for GPS position changes
-          this.gpsWatchId = this.watchCurrentPosition();
+          this.watchCurrentPosition();
         }
       }
     });

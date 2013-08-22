@@ -142,5 +142,9 @@ suApp.config = {
         url: "http://www.su.se/utbildning/studentservice/studera-utomlands"
       }
     ]
+  },
+  "positionSettings": {
+    "frequency": 500,
+    "timeout": 2000
   }
 };
