@@ -51,18 +51,10 @@ describe('Map view', function () {
     $('#stage').replaceWith(html);
     $.mobile.loadPage("#page-map", {prefetch: "true"});
 
-    this.appView = {
-      getCurrentPosition: function () {
-      }
-    };
-
-    spyOn(this.appView, 'getCurrentPosition');
-
     this.view = new suApp.view.MapView({
       el: $('#map_canvas'),
       model: new suApp.model.MapModel(),
-      appModel: new suApp.model.AppModel(),
-      appView: this.appView
+      appModel: new suApp.model.AppModel()
     });
   });
 
