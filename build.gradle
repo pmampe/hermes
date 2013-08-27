@@ -357,7 +357,7 @@ build {
     // Multipart request - one part containing info to unlock keys, one part containing app file
     MultipartEntity mp = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     StringBody stringBody = new StringBody("""{"keys":
-      {"android":{"id":$androidCertKeyId, "key_pw": "$config.phonegapKey", "keystore_pw": "$config.phonegapKey"},
+      {"android":{"id":$config.androidCertKeyId, "key_pw": "$config.phonegapKey", "keystore_pw": "$config.phonegapKey"},
       "ios":{"id":$config.iOSCertKeyId, "password": "$config.phonegapKey"}
       }
     }""",
