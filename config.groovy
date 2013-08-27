@@ -61,7 +61,7 @@ environments {
     appName += '-dev'
     geoUrl = 'http://mobileapp-dev.it.su.se/geo'
     iOSCertKeyId = 68333
-    phonegapAppId = 526336
+    phonegapAppId = 219084
   }
 
   test {
@@ -74,6 +74,6 @@ environments {
   prod {
     geoUrl = 'http://api.su.se/geo/1'
     iOSCertKeyId = 79876
-    phonegapAppId = 219084
+    phonegapAppId = 526336
   }
 }
