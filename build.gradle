@@ -332,7 +332,7 @@ build {
     }
 
     def host = "build.phonegap.com"
-    def apiCall = "https://build.phonegap.com/api/v1/apps/${phonegapAppId}"
+    def apiCall = "https://build.phonegap.com/api/v1/apps/${config.phonegapAppId}"
 
     DefaultHttpClient httpclient = new DefaultHttpClient();
 
