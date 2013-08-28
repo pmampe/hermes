@@ -52,6 +52,7 @@ phantomjs = {
 }
 
 appName = 'Guide'
+androidCertKeyId = 19331
 
 /**
  * Environment specific conf
