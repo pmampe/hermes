@@ -86,7 +86,7 @@
 
   <!-- Android specific -->
 
-  <preference name="android-minSdkVersion" value="8"/>
+  <preference name="android-minSdkVersion" value="15"/>
   <preference name="splash-screen-duration" value="30000"/>
 
   <feature name="http://api.phonegap.com/1.0/geolocation"/>
