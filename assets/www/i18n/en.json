@@ -86,7 +86,8 @@
       "sukatSearch": "Staff",
       "courses": "Courses",
       "studentService": "Student Service",
-      "accessibility": "Legend"
+      "accessibility": "Legend",
+      "sisu": "Courses & Programmes"
     },
     "header": {
       "title": "Stockholm University"
