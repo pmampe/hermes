@@ -87,7 +87,8 @@
       "courses": "Courses",
       "studentService": "Student Service",
       "accessibility": "Legend",
-      "sisu": "Courses & Programmes"
+      "sisu": "Courses & Programmes",
+      "schedule": "Schedule"
     },
     "header": {
       "title": "Stockholm University"

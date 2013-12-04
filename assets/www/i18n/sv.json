@@ -86,7 +86,8 @@
       "courses": "Kurser & Program",
       "studentService": "Studentservice",
       "accessibility": "Symboler",
-      "sisu": "Kurser & Program"
+      "sisu": "Kurser & Program",
+      "schedule": "Schema"
     },
     "header": {
       "title": "Stockholms universitet"
