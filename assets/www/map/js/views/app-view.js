@@ -80,7 +80,8 @@ suApp.view.AppView = Backbone.View.extend(
         this.searchView = new suApp.view.SearchView({
           el: $('#search-box'),
           collection: this.model.getFilterCollection(),
-          placeholderSuffix: options.title ? options.title.toLowerCase() : undefined
+          placeholderSuffix: options.title ? options.title.toLowerCase() : undefined,
+          types: options.model.get('types')
         });
 
 

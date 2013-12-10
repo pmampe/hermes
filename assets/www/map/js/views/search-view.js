@@ -76,6 +76,13 @@ suApp.view.SearchView = Backbone.View.extend(
       render: function () {
         this.populateFilter();
         this.delegateEvents();
+
+        /* Types is an array of strings describing the App model.
+           Check to see if auditorium is the type that is shown.
+         */
+        if(this.options.types.indexOf('auditorium') > -1) {
+          this.showFilteredList();
+        }
       },
 
       inputKeyup: function (e) {
