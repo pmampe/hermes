@@ -37,9 +37,6 @@ JST['studentservice/menu'] = _.template(" \
   <li> \
     <a href='<%= url %>' target='_blank' class='servicelink'> \
         <span><%= title %></span> \
-        <div class='img-container'> \
-            <img src='../img/icons/icon-external-link.svg' /> \
-        </div> \
     </a> \
 </li> \
 ");

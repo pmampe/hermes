@@ -83,10 +83,9 @@
       "parkingspaces": "Parkering",
       "restaurants": "Matställen",
       "sukatSearch": "Personal",
-      "courses": "Kurser & Program",
       "studentService": "Studentservice",
       "accessibility": "Symboler",
-      "sisu": "Kurser & Program",
+      "sisu": "Kurser & program",
       "schedule": "Schema"
     },
     "header": {
@@ -103,7 +102,7 @@
               "title": "Anmälan & antagning"
           },
           "degreeAndCertificate": {
-              "title": "Examen & högtid"
+              "title": "Examen"
           },
           "guidanceCounseling": {
               "title": "Studie- och karriärvägledning"
