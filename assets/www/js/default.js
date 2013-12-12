@@ -73,31 +73,20 @@ $(document).on('pagecreate', '[data-role="page"][data-header]', function () {
 });
 
 /*
- * Default handling of external link by target=_blank attribute
+ * Default handling of external link with target=inAppBrowser attribute
+ * which opens in the InAppBrowser
  */
-$(document).on("click", "a[target=_blank][data-rel!=external]", function (event) {
+$(document).on("click", "a[target=inAppBrowser][data-rel!=external]", function (event) {
   event.preventDefault();
+  event.stopImmediatePropagation();
 
   var href = $(this).attr("href");
 
-  var $externalLinkDialog = $('#external-link-dialog');
-  $externalLinkDialog.remove();
+  // Opens inAppBrowser with option to enable pinch-zoom on iphone
+  window.open(href, '_blank', 'enableViewportScale=yes,closebuttoncaption=' + i18n.t("common.header.home"));
+  gaPlugin.trackPage(null, null, href);
 
-  $externalLinkDialog = $('<div id="external-link-dialog" data-role="popup" data-theme="a" data-overlay-theme="a"></div>').html(JST["common/external-link-dialog"]({
-    href: href
-  })).appendTo('body');
-
-  $('#external-link-dialog').i18n();
-
-  $externalLinkDialog.find("a[target=_system]").click(function (event) {
-    event.preventDefault();
-    window.open(href, '_system');
-    $externalLinkDialog.popup('close');
-  });
-
-  $externalLinkDialog.popup();
-  $externalLinkDialog.trigger('create');
-  $externalLinkDialog.popup('open');
+  return false;
 });
 
 /**

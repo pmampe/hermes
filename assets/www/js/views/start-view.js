@@ -36,10 +36,11 @@ suApp.view.StartView = Backbone.View.extend({
     initLocale();
     $('div[data-role="header"] > h1').attr('data-i18n', 'start.header.title');
     this.$el.i18n();
+
+    this.setupSisuLink();
   },
 
   events: {
-    'click a#sisulink': 'handleSISULinkClick'
   },
 
   /**
@@ -51,20 +52,16 @@ suApp.view.StartView = Backbone.View.extend({
     Backbone.View.prototype.remove.call(this);
   },
 
+  setupSisuLink: function () {
+    // Translated url to redirect the user to the SISU page with corresponding language.
+    $('#sisulink').attr('href', i18n.t("start.sisu.link"));
+   },
+
   /**
    * Handles the device ready event.
    */
   handleDeviceReady: function () {
     window.setTimeout(navigator.splashscreen.hide, suApp.config.core.splashscreen.timeout);
     gaPlugin.trackPage(null, null, "index.html");
-  },
-
-  /**
-   * Handle click on sisu link.
-   */
-  handleSISULinkClick: function (event) {
-    // Translated url to redirect the user to the SISU page with corresponding language.
-    $('#sisulink').attr('href', i18n.t("start.sisu.link"));
-    gaPlugin.trackPage(null, null, $(event.currentTarget).attr("href"));
   }
 });

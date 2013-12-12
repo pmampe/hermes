@@ -22,11 +22,12 @@
   access elements control the Android whitelist.
   Domains are assumed blocked unless set otherwise
    -->
-  <access origin="api.su.se"/>
+  <access origin="su.se" subdomains="true"/>
   <access origin="api-test.su.se"/>
   <access origin="mobileapp-dev.it.su.se"/>
   <access origin="gstatic.com" subdomains="true"/>
   <access origin="googleapis.com" subdomains="true"/>
+  <access origin="debug.phonegap.com"/>
   <!-- allow local pages -->
 
   <!-- <access origin="https://example.com" /> allow any secure requests to example.com -->
@@ -59,5 +60,6 @@
     <plugin name="Echo" value="org.apache.cordova.Echo"/>
     <plugin name="Globalization" value="org.apache.cordova.Globalization"/>
     <plugin name="GAPlugin" value="com.adobe.plugins.GAPlugin"/>
+    <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
   </plugins>
 </cordova>

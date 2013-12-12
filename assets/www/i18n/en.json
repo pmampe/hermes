@@ -4,13 +4,6 @@
       "back": "Back",
       "home": "Home",
       "menu": "Menu"
-    },
-
-    "external": {
-      "link": "External link",
-      "question": "The page will be displayed in an external browser, do you wish to continue?",
-      "yes": "Yes",
-      "no": "No"
     }
   },
 
@@ -84,10 +77,9 @@
       "parkingspaces": "Parking spaces",
       "restaurants": "Restaurants",
       "sukatSearch": "Staff",
-      "courses": "Courses",
       "studentService": "Student Service",
       "accessibility": "Legend",
-      "sisu": "Courses & Programmes",
+      "sisu": "Courses & programmes",
       "schedule": "Schedule"
     },
     "header": {

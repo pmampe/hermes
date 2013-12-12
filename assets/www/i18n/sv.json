@@ -4,13 +4,6 @@
       "back": "Tillbaka",
       "home": "Hem",
       "menu": "Meny"
-    },
-
-    "external": {
-      "link": "Extern länk",
-      "question": "Sidan kommer öppnas i en extern webbläsare, vill du fortsätta?",
-      "yes": "Ja",
-      "no": "Nej"
     }
   },
   "map": {
@@ -83,10 +76,9 @@
       "parkingspaces": "Parkering",
       "restaurants": "Matställen",
       "sukatSearch": "Personal",
-      "courses": "Kurser & Program",
       "studentService": "Studentservice",
       "accessibility": "Symboler",
-      "sisu": "Kurser & Program",
+      "sisu": "Kurser & program",
       "schedule": "Schema"
     },
     "header": {
@@ -103,7 +95,7 @@
               "title": "Anmälan & antagning"
           },
           "degreeAndCertificate": {
-              "title": "Examen & högtid"
+              "title": "Examen"
           },
           "guidanceCounseling": {
               "title": "Studie- och karriärvägledning"

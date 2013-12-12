@@ -66,7 +66,6 @@ suApp.view.StudentView = Backbone.View.extend({
   },
 
   events: {
-    'click a.servicelink': 'handleServiceLinkClick'
   },
 
   /**
@@ -83,12 +82,5 @@ suApp.view.StudentView = Backbone.View.extend({
    */
   handleDeviceReady: function () {
     gaPlugin.trackPage(null, null, "studentservice/index.html");
-  },
-
-  /**
-   * Handles the device ready event.
-   */
-  handleServiceLinkClick: function (event) {
-    gaPlugin.trackPage(null, null, $(event.target).attr("href"));
   }
 });

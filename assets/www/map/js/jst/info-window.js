@@ -95,7 +95,7 @@ JST['map/infoWindow/organization'] = _.template(" \
     <% if (webAddress != null) { %> \
       <div>\
         <span><%= i18n.t('map.infoWindow.organization.webAddress') %>: </span> \
-        <a href='<%= webAddress %>' id='department-website-link' target='_blank'><%= webAddressShort %></a>\
+        <a href='<%= webAddress %>' id='department-website-link' target='inAppBrowser'><%= webAddressShort %></a>\
       </div>\
     <% } %> \
     <% if (mailAddresses != '') { %> \

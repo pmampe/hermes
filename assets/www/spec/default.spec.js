@@ -114,54 +114,36 @@ describe('Default-header', function () {
   });
 });
 
-describe('External-link-dialog', function () {
-  describe('when document contains links with target _blank', function () {
+describe('InAppBrowser link', function () {
+
+  describe('when document contains links with target inAppBrowser', function () {
+
     beforeEach(function () {
-      var html = '<div data-role="page" id="page"><div data-role="content"><a href="testing.html" target="_blank">test</a></div></div>';
+      var html = '<div data-role="page" id="page"><div data-role="content"><a href="testing.html" data-title="title" target="inAppBrowser">test</a></div></div>';
       $('#stage').replaceWith(html);
       $.mobile.loadPage("#page", {prefetch: "true"});
       $.mobile.activePage = $('#page');
     });
 
+
     afterEach(function () {
       $('#page').replaceWith("<div id='stage'></div>");
-      $('.ui-popup-screen').remove();
-      $('.ui-popup-container').remove();
-      $('div[data-role="popup"]').remove();
     });
 
-    it('should present a popup with info and possibility to continue or cancel', function () {
+    it('should open link href in the inAppBrowser', function () {
+      spyOn(window, "open");
+
       $("#page").find("a").trigger("click");
 
-      var $externalLinkDialog = $("#external-link-dialog");
-
-      expect($externalLinkDialog).toBeDefined();
-      expect($externalLinkDialog.attr('data-role')).toBe("popup");
-
-      expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("href")).toBe("testing.html");
-      expect($externalLinkDialog.find("a[data-role=button][data-rel=external]").attr("target")).toBe("_system");
+      expect(window.open).toHaveBeenCalledWith("testing.html", "_blank", "enableViewportScale=yes,closebuttoncaption=common.header.home");
     });
 
-    it('pressing "yes" should call window.open with target _system', function () {
-      spyOn(window, 'open');
+    it('should should track url opened in the inAppBrowser', function () {
+      spyOn(plugins.gaPlugin, "trackPage");
 
       $("#page").find("a").trigger("click");
-      $("#external-link-dialog").find("a[target=_system]").trigger('click');
 
-      expect(window.open).toHaveBeenCalledWith('testing.html', '_system');
-    });
-
-    it('pressing "yes" should close the popup', function () {
-      spyOn(window, 'open');
-      $("#page").find("a").trigger("click");
-
-      var popup = $("#external-link-dialog");
-      popup.find("a[target=_system]").trigger('click');
-
-      helper.delay(2, function () {
-        expect(popup.parent().hasClass('ui-popup-hidden')).toBeTruthy();
-      })
-
+      expect(plugins.gaPlugin.trackPage).toHaveBeenCalledWith(null, null, "testing.html");
     });
   });
 });
