@@ -4,13 +4,6 @@
       "back": "Back",
       "home": "Home",
       "menu": "Menu"
-    },
-
-    "external": {
-      "link": "External link",
-      "question": "The page will be displayed in an external browser, do you wish to continue?",
-      "yes": "Yes",
-      "no": "No"
     }
   },
 

@@ -35,7 +35,7 @@ if (!("JST" in window) || "JST" === undefined) {
 
 JST['studentservice/menu'] = _.template(" \
   <li> \
-    <a href='<%= url %>' target='_blank' class='servicelink'> \
+    <a href='<%= url %>' target='inAppBrowser' class='servicelink'> \
         <span><%= title %></span> \
         <div class='img-container'> \
             <img src='../img/icons/icon-external-link.svg' /> \

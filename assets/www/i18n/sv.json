@@ -4,13 +4,6 @@
       "back": "Tillbaka",
       "home": "Hem",
       "menu": "Meny"
-    },
-
-    "external": {
-      "link": "Extern länk",
-      "question": "Sidan kommer öppnas i en extern webbläsare, vill du fortsätta?",
-      "yes": "Ja",
-      "no": "Nej"
     }
   },
   "map": {

@@ -37,3 +37,6 @@ window.plugins = {
     }
   }
 };
+
+window.gaPlugin = window.plugins.gaPlugin;
+

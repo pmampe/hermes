@@ -94,6 +94,7 @@
   <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
   <gap:plugin name="com.adobe.plugins.gaplugin"/>
+  <plugin name="InAppBrowser" value="CDVInAppBrowser" />
 
   <!-- icons -->
   <icon src="icon.png"/>
@@ -125,9 +126,10 @@
   <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
   <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
 
-  <access origin="api.su.se"/>
+  <access origin="su.se" subdomains="true"/>
   <access origin="api-test.su.se"/>
   <access origin="mobileapp-dev.it.su.se"/>
   <access origin="gstatic.com" subdomains="true"/>
   <access origin="googleapis.com" subdomains="true"/>
+  <access origin="debug.phonegap.com"/>
 </widget>

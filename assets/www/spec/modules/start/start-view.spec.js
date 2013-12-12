@@ -35,7 +35,7 @@
 
 describe('Start view', function () {
   beforeEach(function () {
-    $('#stage').append("<a id='sisulink' href='http://sisu.it.su.se'>sisu</a>");
+    $('#stage').append("<a id='sisulink' href='http://sisu.it.su.se' target='inAppBrowser'>sisu</a>");
     this.view = new suApp.view.StartView({el: $('#stage')});
   });
 
