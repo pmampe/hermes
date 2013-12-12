@@ -70,6 +70,7 @@ suApp.view.AppView = Backbone.View.extend(
 
         var filterByCampus = this.model.get('filterByCampus');
         var showMenu = this.model.get('menu');
+        var types = this.model.get('types');
 
         this.mapView = new suApp.view.MapView({
           el: $('#map_canvas'),
@@ -81,7 +82,7 @@ suApp.view.AppView = Backbone.View.extend(
           el: $('#search-box'),
           collection: this.model.getFilterCollection(),
           placeholderSuffix: options.title ? options.title.toLowerCase() : undefined,
-          types: options.model.get('types')
+          types: types
         });
 
 
