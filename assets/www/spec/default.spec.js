@@ -135,7 +135,7 @@ describe('InAppBrowser link', function () {
 
       $("#page").find("a").trigger("click");
 
-      expect(window.open).toHaveBeenCalledWith("testing.html", "_blank", "enableViewportScale=yes");
+      expect(window.open).toHaveBeenCalledWith("testing.html", "_blank", "enableViewportScale=yes,closebuttoncaption=common.header.home");
     });
 
     it('should should track url opened in the inAppBrowser', function () {
