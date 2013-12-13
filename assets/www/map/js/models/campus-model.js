@@ -44,8 +44,8 @@ suApp.model.Campus = Backbone.Model.extend(
        * Defaults for this model
        */
       defaults: {
-        "id": 0,
-        "name": 'Unknown',
+        "id": 1,
+        "name": 'Frescati',
         "coords": [59.363317, 18.0592], // Default to Frescati campus.
         "zoom": 15
       },

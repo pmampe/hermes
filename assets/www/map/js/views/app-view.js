@@ -190,7 +190,7 @@ suApp.view.AppView = Backbone.View.extend(
       menuSelectCallback: function (campus) {
 
         /* Check to see if the chosen campus is the same as the set campus */
-        if(this.model.get('campus') === campus) {
+        if(this.model.get('campus').id === campus.id) {
           var mapPos =  this.mapModel.get('mapPosition');
           var viewPort =  this.mapView.map.getCenter();
 
