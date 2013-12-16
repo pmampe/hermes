@@ -35,12 +35,12 @@ describe('Campus model', function () {
       this.campus = new suApp.model.Campus();
     });
 
-    it('should have id 0', function () {
-      expect(this.campus.get('id')).toEqual(0);
+    it('should have id 1', function () {
+      expect(this.campus.get('id')).toEqual(1);
     });
 
-    it('should have name "Unknown"', function () {
-      expect(this.campus.get('name')).toEqual('Unknown');
+    it('should have name "Frescati"', function () {
+      expect(this.campus.get('name')).toEqual('Frescati');
     });
 
     it('should have coords', function () {
