@@ -194,9 +194,10 @@ suApp.view.AppView = Backbone.View.extend(
           var mapPos =  this.mapModel.get('mapPosition');
           var viewPort =  this.mapView.map.getCenter();
 
-          /* If the viewport has changed, reset the mapPosition */
+          /* If the viewport has changed, reset the mapPosition and zoom */
           if(!viewPort.equals(mapPos)) {
             this.mapModel.setMapPosition(0, 0);
+            this.mapModel.setZoom(0);
           }
           this.changeCampus();
         } else {
