@@ -93,8 +93,15 @@
   <feature name="http://api.phonegap.com/1.0/file"/>
   <!-- TODO: Add globalization to the feature list, as soon as phongap supports it: http://build.phonegap.com/docs/config-xml -->
 
-  <gap:plugin name="com.adobe.plugins.gaplugin"/>
-  <plugin name="InAppBrowser" value="CDVInAppBrowser" />
+  <!-- PhoneGap plugins -->
+  <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+  <gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.4" />
+  <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
+  <gap:plugin name="org.apache.cordova.globalization" version="0.2.6" />
+  <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
+  <!-- 3:rd party plugins -->
+  <gap:plugin name="com.adobe.plugins.gaplugin" version="2.3.1" />
+  
 
   <!-- icons -->
   <icon src="icon.png"/>
