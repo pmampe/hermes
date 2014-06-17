@@ -74,7 +74,7 @@
 
   <feature name="http://api.phonegap.com/1.0/device"/>
 
-  <preference name="phonegap-version" value="2.9.0"/>
+  <preference name="phonegap-version" value="3.0.0"/>
   <preference name="orientation" value="portrait"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
@@ -95,7 +95,7 @@
 
   <!-- PhoneGap plugins -->
   <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
-  <gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.4" />
+  <gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.3" />
   <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
   <gap:plugin name="org.apache.cordova.globalization" version="0.2.6" />
   <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
