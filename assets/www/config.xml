@@ -32,6 +32,7 @@
 
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         id="@id@"
         version="@version@"
         versionCode="@versionCode@">
@@ -74,7 +75,7 @@
 
   <feature name="http://api.phonegap.com/1.0/device"/>
 
-  <preference name="phonegap-version" value="3.0.0"/>
+  <preference name="phonegap-version" value="3.3.0"/>
   <preference name="orientation" value="portrait"/>
   <preference name="target-device" value="universal"/>
   <preference name="fullscreen" value="false"/>
@@ -95,7 +96,7 @@
 
   <!-- PhoneGap plugins -->
   <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
-  <gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.3" />
+  <gap:plugin name="org.apache.cordova.inappbrowser" version="0.3.3" />
   <gap:plugin name="org.apache.cordova.geolocation" version="0.3.7" />
   <gap:plugin name="org.apache.cordova.globalization" version="0.2.6" />
   <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
@@ -136,10 +137,19 @@
   <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
   <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
 
-  <access origin="su.se" subdomains="true"/>
+  <access origin="*.su.se"/>
   <access origin="api-test.su.se"/>
   <access origin="mobileapp-dev.it.su.se"/>
-  <access origin="gstatic.com" subdomains="true"/>
-  <access origin="googleapis.com" subdomains="true"/>
+  <access origin="*.gstatic.com"/>
   <access origin="debug.phonegap.com"/>
+  <access origin="*.googleapis.com"/>
+
+  <!-- Uncomment to enable theadered debugging with chrome (need chrome 30+ and android 4.4.x)
+      xmlns:android="http://schemas.android.com/apk/res/android" must be pressent under widget at the top of this file.-->
+  <!--
+  <gap:config-file platform="android" parent="/manifest">
+    <application android:debuggable="true">
+    </application>
+  </gap:config-file>
+  -->
 </widget>
