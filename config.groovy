@@ -61,14 +61,14 @@ environments {
   dev {
     appName += '-dev'
     geoUrl = 'http://mobileapp-dev.it.su.se/geo'
-    iOSCertKeyId = 68333
+    iOSCertKeyId = 195445
     phonegapAppId = 219084
   }
 
   test {
     appName += '-test'
     geoUrl = 'http://api-test.su.se/geo/1'
-    iOSCertKeyId = 68333
+    iOSCertKeyId = 195445
     phonegapAppId = 526336
   }
 

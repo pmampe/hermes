@@ -62,6 +62,7 @@ suApp.view.StartView = Backbone.View.extend({
    */
   handleDeviceReady: function () {
     window.setTimeout(navigator.splashscreen.hide, suApp.config.core.splashscreen.timeout);
+    StatusBar.overlaysWebView(false);
     gaPlugin.trackPage(null, null, "index.html");
   }
 });

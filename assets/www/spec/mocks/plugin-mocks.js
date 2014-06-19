@@ -35,8 +35,13 @@ window.plugins = {
     },
     trackPage: function () {
     }
+  },
+  StatusBar: {
+  	overlaysWebView: function() {
+  	}
   }
 };
 
 window.gaPlugin = window.plugins.gaPlugin;
 
+window.StatusBar = window.plugins.StatusBar;

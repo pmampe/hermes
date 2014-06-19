@@ -102,6 +102,7 @@
   <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
   <!-- 3:rd party plugins -->
   <gap:plugin name="com.adobe.plugins.gaplugin" version="2.3.1" />
+  <gap:plugin name="com.phonegap.plugin.statusbar" version="1.0.1" />
   
 
   <!-- icons -->
@@ -137,19 +138,20 @@
   <gap:splash src="splash/android/hdpi.9.png" gap:platform="android" gap:density="hdpi"/>
   <gap:splash src="splash/android/xhdpi.9.png" gap:platform="android" gap:density="xhdpi"/>
 
-  <access origin="*.su.se"/>
-  <access origin="api-test.su.se"/>
-  <access origin="mobileapp-dev.it.su.se"/>
-  <access origin="*.gstatic.com"/>
-  <access origin="debug.phonegap.com"/>
-  <access origin="*.googleapis.com"/>
+  <access origin="http://*.su.se"/>
+  <access origin="https://*.su.se"/>
+  <access origin="http://api-test.su.se"/>
+  <access origin="http://mobileapp-dev.it.su.se"/>
+  <access origin="http://*.gstatic.com"/>
+  <access origin="http://debug.phonegap.com"/>
+  <access origin="http://*.googleapis.com"/>
 
   <!-- Uncomment to enable theadered debugging with chrome (need chrome 30+ and android 4.4.x)
       xmlns:android="http://schemas.android.com/apk/res/android" must be pressent under widget at the top of this file.-->
-  <!--
+
   <gap:config-file platform="android" parent="/manifest">
     <application android:debuggable="true">
     </application>
   </gap:config-file>
-  -->
+
 </widget>

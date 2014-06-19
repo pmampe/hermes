@@ -51,6 +51,11 @@ describe('Start view', function () {
         expect(navigator.splashscreen.hide).toHaveBeenCalled();
       });
     });
+    it('Should set StatusBar.overlaysWebView to false', function() {
+      spyOn(window.plugins.StatusBar, 'overlaysWebView');
+      window.plugins.StatusBar.overlaysWebView(false);
+      expect(window.plugins.StatusBar.overlaysWebView).toHaveBeenCalledWith(false);
+    });
   });
 
   describe('on sisu link click event', function () {
