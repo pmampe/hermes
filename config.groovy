@@ -74,7 +74,7 @@ environments {
 
   prod {
     geoUrl = 'http://api.su.se/geo/1'
-    iOSCertKeyId = 194390
+    iOSCertKeyId = 195360
     phonegapAppId = 526336
   }
 }
