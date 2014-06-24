@@ -1,0 +1,694 @@
+/*
+ * Copyright (c) 2013, IT Services, Stockholm University
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * Neither the name of Stockholm University nor the names of its contributors
+ * may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/****************
+ ** Graphic design styling
+ jQuery Mobile
+ ****
+ Font: Verdana, Arial, Helvetica, sans-serif
+ ****
+ Colors:
+ SU blue #002F5F
+ button blue #4d6e9d
+ turquoise #d7e0eb
+*******
+ Guide lines:
+ - Use tag and classes for styling- not IDs
+ - Be specific
+ ***********/
+
+/*************
+ ** General
+ ***********/
+@font-face {
+  font-family: TheSansB-W5Plain;
+  src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W5Plain.otf") format("opentype");
+}
+
+@font-face {
+  font-family: TheSansB-W7Bold;
+  src: url("fonts/LF-TheSansB-CE-1.1/TheSansB-W7Bold.otf") format("opentype");
+}
+
+.ui-header h1.ui-title {
+  font-weight: normal;
+  font-family: TheSansB-W5Plain;
+  font-size: 17px;
+  margin: 9px 0 12px;
+}
+
+.ui-btn-text {
+  font-weight: normal;
+}
+
+/*themeroller bug fix - black icons
+http://stackoverflow.com/questions/12847081/jquery-mobile-icons-white-instead-black-on-android
+*/
+
+.ui-icon-plus, .ui-icon-minus, .ui-icon-delete, .ui-icon-arrow-r,
+.ui-icon-arrow-l, .ui-icon-arrow-u, .ui-icon-arrow-d, .ui-icon-check,
+.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
+.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-bars, .ui-icon-edit,
+.ui-icon-search, .ui-icon-searchfield:after,
+.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
+  background-image: url(images/icons-36-black.png) !important;
+  -moz-background-size: 864px 18px;
+  -o-background-size: 864px 18px;
+  -webkit-background-size: 864px 18px;
+  background-size: 864px 18px;
+}
+
+/*************
+ ** Header
+ ***********/
+.ui-header.nobuttons .ui-title {
+  font-size: 25px;
+  margin: 1px 0 4px 1px;
+  font-family: TheSansB-W5Plain;
+  font-size: 28px;
+}
+
+.ui-header.nobuttons {
+  border-bottom: 1px solid #000;
+}
+
+.ui-header.ui-bar-a {
+  height: 40px;
+}
+
+.ui-header.ui-bar-a h1,
+.studentservice-page .ui-header.ui-bar-a h1 {
+    font-size: 24px;
+    margin-top: 0.15em;
+}
+
+.menubutton:before {
+  background: none repeat scroll 0 0 white;
+  -webkit-box-shadow: 0 8px 0 0 white, 0 16px 0 0 white, 0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8), 0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8), 0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);
+  box-shadow: 0 8px 0 0 white, 0 16px 0 0 white, 0 7px 0 0 rgba(103, 115, 130, 0.8), 0 15px 0 0 rgba(103, 115, 130, 0.8), 0 9px 0 0 rgba(255, 255, 255, 0.8), 0 17px 0 0 rgba(255, 255, 255, 0.8), 0 1px 0 0 rgba(255, 255, 255, 0.8), 0 -1px 0 0 rgba(103, 115, 130, 0.8);
+  content: "";
+  height: 2px;
+  left: 5px;
+  position: absolute;
+  top: 8px;
+  width: 20px;
+}
+
+.menubutton.selected {
+  border: 1px solid #a4b2bd;
+  background: #dae2ec;
+  font-weight: bold;
+}
+
+.selected.menubutton:before {
+  background: none repeat scroll 0 0 #7f98b8;
+  -webkit-box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8, 0 7px 0 0 #646465, 0 15px 0 0 #646465, 0 9px 0 0 #7f98b8, 0 17px 0 0 #7f98b8, 0 1px 0 0 #7f98b8, 0 -1px 0 0 #646465;
+  box-shadow: 0 8px 0 0 #7f98b8, 0 16px 0 0 #7f98b8, 0 7px 0 0 #646465, 0 15px 0 0 #646465, 0 9px 0 0 #7f98b8, 0 17px 0 0 #7f98b8, 0 1px 0 0 #7f98b8, 0 -1px 0 0 #646465;
+}
+
+.menubutton.ui-btn-corner-all > span.ui-btn-inner {
+  font-size: 23px;
+}
+
+.ui-header .ui-btn-inner, .ui-footer .ui-btn-inner, .ui-mini .ui-btn-inner.backbutton {
+  padding: 7px 7px 0.5em 2px;
+}
+
+.ui-header .ui-btn-left.backbutton {
+  -moz-border-radius-topleft: 0.2em;
+  -webkit-border-top-left-radius: 0.2em;
+  border-top-left-radius: 0.2em;
+  -moz-border-radius-topright: 0.6em;
+  -webkit-border-top-right-radius: 0.6em;
+  border-top-right-radius: 0.6em;
+  -moz-border-radius-bottomright: 0.6em;
+  -webkit-border-bottom-right-radius: 0.6em;
+  border-bottom-right-radius: 0.6em;
+  -moz-border-radius-bottomleft: 0.15em;
+  -webkit-border-bottom-left-radius: 0.15em;
+  border-bottom-left-radius: 0.15em;
+
+  margin-left: 10px;
+  height: 32px;
+}
+
+.ui-header .ui-btn-right.menubutton {
+  height: 32px;
+  width: 30px;
+}
+
+/** Backbutton **/
+.backbutton {
+  background: #4D6E9D;
+  background: -webkit-linear-gradient(90deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent; /**safari degree fix**/
+  background: -moz-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+  background: linear-gradient(0deg, #364E6F 0%, #638DCA 100%) repeat scroll 0 0 transparent;
+}
+
+.backbutton .ui-btn-inner {
+  padding-left: 5px;
+  padding-right: 10px;
+}
+
+.backbutton .home,
+.backbutton .ui-btn-text {
+  width: 18px;
+  height: 19px;
+  display: inline-block; /** firefox abs pos fix for css home icon**/
+}
+
+.backbutton:before {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+
+  background: #4D6E9D;
+  background: -webkit-linear-gradient(45deg, #364E6F 0%, #638DCA 105%) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(45deg, #364E6F 0%, #638DCA 105%) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(45deg, #364E6F 0%, #638DCA 105%) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(45deg, #364E6F 0%, #638DCA 105%) repeat scroll 0 0 transparent;
+  background: linear-gradient(45deg, #364E6F 0%, #638DCA 105%) repeat scroll 0 0 transparent;
+
+  -webkit-box-shadow: -1px 0px 0 #4d6d8f, inset 0px 2px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: -1px 0px 0 #4d6d8f, inset 0px 2px 0 rgba(255, 255, 255, 0.2);
+
+  border-radius: 3px 0 2px 1px;
+  border-left: 1px solid #375075;
+  border-top: 1px solid #375075;
+  border-right: none;
+  border-bottom: none;
+
+  content: "";
+  display: block;
+  height: 23px;
+  left: -11px;
+  position: absolute;
+  top: 5px;
+
+  -webkit-transform: rotate(-45deg) scale(0.86) skew(-9deg, -9deg);
+  -moz-transform: rotate(-45deg) scale(0.86) skew(-9deg, -9deg);
+  -ms-transform: rotate(-45deg) scale(0.86) skew(-9deg, -9deg);
+  -o-transform: rotate(-45deg) scale(0.86) skew(-9deg, -9deg);
+  transform: rotate(-45deg) scale(0.86) skew(-9deg, -9deg);
+
+  width: 21px;
+}
+
+.backbutton:hover,
+.backbutton:focus,
+.backbutton:active {
+  background: #dae2ec;
+  background: -webkit-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+}
+
+.backbutton:hover:before,
+.backbutton:focus:before,
+.backbutton:active:before {
+  background: #dae2ec;
+  background: -webkit-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+  background: linear-gradient(0deg, #dae2ec 0%, #dae2ec 0%) repeat scroll 0 0 transparent;
+
+  border-bottom: 0px solid transparent;
+  border-left: 1px solid #a4b2bd;
+  border-top: 1px solid #a4b2bd;
+}
+
+/** Home icon**/
+.home:before,
+.home:after,
+.home:hover:before,
+.home:focus:before,
+.home:active:before,
+.home:hover:after,
+.home:focus:after,
+.home:active:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin: -8px 0 0;
+  background: white;
+}
+
+.home:before,
+.home:hover:before,
+.home:focus:before,
+.home:active:before {
+  left: -1px;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 12px 10px;
+  border-bottom-color: white;
+  margin-top: -24px;
+  background: transparent;
+}
+
+.home:after,
+.home:hover:after,
+.home:focus:after,
+.home:active:after {
+  left: 2px;
+  width: 4px;
+  height: 6px;
+  border-style: solid;
+  border-color: white white transparent;
+  border-width: 2px 5px 0;
+  margin-top: -1px;
+  background: transparent;
+}
+
+.home:hover:before, .home:focus:before, .home:active:before {
+  background: none repeat scroll 0 0 transparent;
+  border-bottom-color: white;
+}
+
+.home:hover:after, .home:focus:after, .home:active:after {
+  border-color: white white transparent;
+}
+
+/*************
+ ** Search View
+ ***********/
+div.search-box {
+  margin: 15px 0 0;
+  background-color: #002F5F;
+  border-top: 1px solid #4d6e9d;
+  border-bottom: 1px solid #a0aeba;
+  position: absolute;
+  top: 27px;
+  right:0;
+  left:0;
+  z-index: 2;
+}
+
+div.search-box form {
+  border: none;
+}
+
+div.search-box form.ui-bar-b{
+  background: #002F5F;
+}
+
+div.search-box  .ui-input-search.ui-shadow-inset {
+  margin: 8px 10px;
+  background-color: white;
+
+  border-radius: 1em 1em 1em 1em;
+
+  border: 1px solid #33597f;
+  border-bottom: 1px solid #66829f;
+
+  -webkit-box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.4),
+                      inset 0 1px 0 rgba(0, 47, 95, 1),
+                      inset 0 1px 0 rgba(128,128,128, 0.9),
+                      0 1px 0 rgba(255, 255, 255, 0.1);
+
+  -moz-box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.4),
+                   inset 0 1px 0 rgba(0, 47, 95, 1),
+                   inset 0 1px 0 rgba(128,128,128, 0.9),
+                   0 1px 0 rgba(255, 255, 255, 0.1);
+
+  box-shadow: inset 0 2px 4px rgba(35, 31, 32, 0.4),
+              inset 0 1px 0 rgba(0, 47, 95, 1),
+              inset 0 1px 0 rgba(128,128,128, 0.9),
+              0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+#search-box .ui-input-clear {
+  border: none;
+  border-radius: 1em;
+  margin-top: -11px;
+}
+
+/*The search view list*/
+div.search-box ul {
+  position: absolute;
+  right:0;
+  left:0;
+  z-index: 2;
+}
+
+.ui-listview-inset .ui-li {
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+div.search-box ul li.ui-li-divider {
+  font-size: 10px;
+  padding: 0.1em 15px;
+  border-bottom: none;
+  color: #A4B2BD;
+}
+
+div.search-box .ui-btn-up-b {
+  border: none;
+  border-top: 1px solid #A4B2BD;
+  background-color: #ffffff;
+}
+
+div.search-box .ui-btn-hover-b,
+div.search-box .ui-btn-hover-b .ui-last-child {
+  border: none;
+  border-top: 1px solid #A4B2BD;
+}
+
+/** Grey delete icon fix**/
+.search-box .ui-btn-icon-notext .ui-btn-inner .ui-icon.ui-icon-delete {
+  opacity: 0.5;
+}
+
+/*************
+ ** Popup menu/campus menu
+ ***********/
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup:hover,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
+  border: none;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li,
+.menupopup.ui-popup-container.ui-popup-active .ui-popup li:hover {
+  border-top: 1px solid lightgray;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup .no-li-styling {
+    margin: 0;
+    padding: 0;
+}
+
+.menupopup.ui-popup-container.ui-popup-active .ui-popup .no-li-styling p {
+    line-height: 44px;
+    padding: 0.3em 1em;
+    margin: 0;
+    font-size: 14px;
+}
+
+/*************
+ ** Infobubble in map
+ ***********/
+.iw h3 {
+  margin: 0px 0 4px 0 !important;
+  font-weight: normal;
+  font-family: TheSansB-W7Bold;
+  font-size: 18px;
+  color: #363636;
+}
+
+.iw, .iw .info-container {
+  font-weight: normal;
+  font-family: TheSansB-W5Plain;
+  font-size: 13px;
+  color: #363636;
+}
+
+.iw a {
+  font-family: TheSansB-W5Plain;
+  color: #002e5f;
+  text-decoration: none;
+  border-bottom: 1px solid #91a0b4;
+}
+
+.iw .info-window-pg {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 35px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.iw .info-window-icons {
+  margin: 10px 0 10px 0;
+}
+
+.iw .info-window-icon {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1B325D;
+  box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.4) inset;
+  vertical-align: middle;
+}
+
+.iw .info-window-icon.not-available {
+  background: #CCCCCC;
+  box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.1) inset;
+}
+
+.iw .info-window-icon:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.iw .info-window-icon.handicap-lift:before {
+  background-image: url("../img/icons/icon-handicap-lift.svg");
+  background-size: 50%;
+}
+
+.iw .info-window-icon.handicap-toilet:before {
+  background-image: url("../img/icons/icon-handicap-toilet.svg");
+  background-size: 70%;
+}
+
+.iw .info-window-icon.handicap-entrance:before {
+  background-image: url("../img/icons/icon-handicap-entrance.svg");
+  background-size: 65%;
+}
+
+.iw .info-window-icon.hearing_loop:before {
+  background-image: url("../img/icons/icon-hearing-loop.svg");
+  background-size: 65%;
+}
+
+.iw .info-window-text {
+  display: inline-block;
+  margin: 0 0 0 5px;
+}
+
+/** jQuery overwrite element style**/
+.menupopup-margin.menupopup {
+  margin-top: 41px !important;
+  max-width: 100% !important;
+  width: 65% !important;
+  overflow: visible;
+}
+
+/*************
+ ** Accessibility styles
+ ***********/
+.app-accessibility h3 {
+  font-family: TheSansB-W7Bold;
+  font-size: 18px;
+  margin: 2px 0 0 0;
+}
+
+.app-accessibility .top-text {
+  font-family: TheSansB-W5Plain;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.scale-container {
+  width: 100%;
+  float: left;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.scale-container .icon-description {
+  float: left;
+  display: block;
+  width: 14%;
+  border-radius: 50%;
+  background: #002F5F;
+  box-shadow: 0px 2px 2px 0 rgba(0, 0, 0, 0.4) inset;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.scale-container .icon-description img {
+  width: 70%;
+  height: auto;
+  display: block;
+  margin: 15% auto 0 auto;
+}
+
+.scale-container .icon-description.handicap-entrance img {
+    width: 60%;
+    margin-top: 20%;
+}
+
+.scale-container .icon-description.handicap-lift img {
+  width: 50%;
+}
+
+.scale-container .icon-description.handicap-toilet img {
+  margin-top: 22%;
+}
+
+.scale-container .icon-description.handicap-parking img {
+  width: 55%;
+}
+
+.scale-container span {
+  position: absolute;
+  top: 50%;
+  margin: -9px 0 0 15px;
+  color: #363636;
+  font-family: TheSansB-W5Plain;
+  font-size: 15px;
+}
+
+/*************
+ ** Student service styles
+ ***********/
+
+.studentservice-page h3 {
+    font-family: TheSansB-W7Bold;
+    font-size: 17px;
+    color: #4c566c;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+    margin: 0 0 0 11px;
+}
+
+.studentservice-page .studentservice-list {
+    margin-top: 0px;
+}
+
+.studentservice-page .ui-btn-up-c {
+    background: #f7f7f7;
+    border: 1px solid #ababab;
+    font-size: 17px;
+}
+
+.studentservice-page .ui-btn-hover-c:active,
+.studentservice-page .ui-btn-up-c:active {
+    background: rgba(0, 47, 95, 0.1) !important;
+}
+
+.studentservice-page .studentservice-list .ui-btn-up-c:visited,
+.studentservice-page .studentservice-list .ui-btn-up-c a.ui-link-inherit {
+    font-family: TheSansB-W7Bold;
+    color: #002e5f;
+}
+
+.studentservice-page .ui-icon-arrow-r,
+.studentservice-page .ui-icon{
+    display: none;
+}
+
+.studentservice-page .studentservice-list .ui-li-has-arrow .ui-btn-inner a.ui-link-inherit {
+    padding: 8px 10px;
+}
+
+.studentservice-page .studentservice-list .ui-btn-hover-c {
+    border: 1px solid #ababab;
+    background: #f7f7f7;
+    font-weight: normal;
+    font-family: TheSansB-W7Bold;
+    color: #002e5f;
+}
+
+.studentservice-page .studentservice-list .ui-btn-hover-c span {
+    color: #002e5f;
+    text-shadow: none !important;
+}
+
+.ui-mobile .ui-page-active div.search-box ul {
+    -webkit-transform: translateZ(0px);
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;} /* IE < 8 */
+
+/*************
+ ** Load spinner styles
+ ***********/
+.ui-loader-verbose {
+    position: absolute;
+    top: 43px !important;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: #CCC;
+    border: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+.ui-loader-verbose .ui-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    margin: -65px 0 0 -22px;
+    padding: 0;
+}
+
+.organization-information div {
+  min-width: 80%;
+  max-width: 95%;
+  margin-bottom: 5px;
+}
+
+.organization-information div a {
+  float: right;
+  clear: right;
+}
+
+.organization-information .top-info {
+  margin-bottom: 20px;
+}

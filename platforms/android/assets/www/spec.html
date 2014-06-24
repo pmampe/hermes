@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2013, IT Services, Stockholm University
+  ~ All rights reserved.
+  ~
+  ~ Redistribution and use in source and binary forms, with or without
+  ~ modification, are permitted provided that the following conditions are met:
+  ~
+  ~ Redistributions of source code must retain the above copyright notice, this
+  ~ list of conditions and the following disclaimer.
+  ~
+  ~ Redistributions in binary form must reproduce the above copyright notice,
+  ~ this list of conditions and the following disclaimer in the documentation
+  ~ and/or other materials provided with the distribution.
+  ~
+  ~ Neither the name of Stockholm University nor the names of its contributors
+  ~ may be used to endorse or promote products derived from this software
+  ~ without specific prior written permission.
+  ~
+  ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  ~ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  ~ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ~ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+  ~ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  ~ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  ~ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  ~ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  ~ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  ~ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  ~ POSSIBILITY OF SUCH DAMAGE.
+  -->
+
+<html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+  <meta charset='utf-8'/>
+
+  <!-- jasmine source -->
+  <link rel="shortcut icon" type="image/png" href="spec/lib/jasmine-1.3.1/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="spec/lib/jasmine-1.3.1/jasmine.css">
+  <link rel="stylesheet" type="text/css" href="map/css/mapapp.css">
+  <script type="text/javascript" src="spec/lib/jasmine-1.3.1/jasmine.js"></script>
+  <script type="text/javascript" src="spec/lib/jasmine-1.3.1/jasmine-html.js"></script>
+
+  <script type="text/javascript" src="spec/lib/phantom-jasmine/console-runner.js"></script>
+
+  <script type="text/javascript" src="spec/lib/jasmine-reporters/jasmine.junit_reporter.js"></script>
+
+  <!-- Dependencies -->
+  <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" src="js/lib/jquery.mobile-1.3.1.min.js"></script>
+  <script type="text/javascript" src="js/lib/underscore-1.4.4-min.js"></script>
+  <script type="text/javascript" src="js/lib/backbone-1.0.0-min.js"></script>
+  <script type="text/javascript" src="spec/lib/sinon-1.7.0.js"></script>
+  <script type="text/javascript" src="spec/mocks/googlemaps-mocks.js"></script>
+  <script type="text/javascript" src="js/lib/i18next-1.6.2.min.js"></script>
+  <script type="text/javascript" src="js/lib/fastclick/fastclick.min.js"></script>
+
+  <!-- Global config file -->
+  <script type="text/javascript" src="js/config.js"></script>
+
+  <!-- Mocks -->
+  <script type="text/javascript" src="spec/mocks/plugin-mocks.js"></script>
+  <script type="text/javascript" src="spec/mocks/navigator-mocks.js"></script>
+
+  <!-- Default javascripts -->
+  <script src="js/locale.js"></script>
+  <script src="js/jst/common.js"></script>
+  <script src="js/default.js"></script>
+  <script src="js/jquery.mobile-config.js"></script>
+
+  <!-- Start -->
+  <script type="text/javascript" src="js/views/start-view.js"></script>
+
+  <!-- Info -->
+  <script type="text/javascript" src="info/js/views/info-view.js"></script>
+
+  <!-- Student Service -->
+  <script type="text/javascript" src="studentservice/js/jst/menu.js"></script>
+  <script type="text/javascript" src="studentservice/js/views/student-service-view.js"></script>
+  <!-- Map -->
+  <script type="text/javascript" src="map/js/jst/info-window.js"></script>
+  <script type="text/javascript" src="map/js/models/model-mixins.js"></script>
+  <script type="text/javascript" src="map/js/models/campus-model.js"></script>
+  <script type="text/javascript" src="map/js/collections/campuses-collection.js"></script>
+  <script type="text/javascript" src="map/js/models/location-model.js"></script>
+  <script type="text/javascript" src="map/js/collections/locations-collection.js"></script>
+  <script type="text/javascript" src="map/js/models/app-model.js"></script>
+  <script type="text/javascript" src="map/js/models/map-model.js"></script>
+  <script src="map/js/views/generic-location-view.js"></script>
+  <script src="map/js/views/point-location-view.js"></script>
+  <script src="map/js/views/polygon-location-view.js"></script>
+  <script src="map/js/views/line-location-view.js"></script>
+  <script src="map/js/views/search-view.js"></script>
+  <script src="map/js/views/menu-popup-view.js"></script>
+  <script src="map/js/views/info-window-view.js"></script>
+  <script type="text/javascript" src="map/js/views/map-view.js"></script>
+  <script type="text/javascript" src="map/js/views/app-view.js"></script>
+  <script type="text/javascript" src="map/js/routers/map-router.js"></script>
+  <script type="text/javascript" src="map/js/main.js"></script>
+
+  <!-- TESTS -->
+  <!-- Test utils -->
+  <script type="text/javascript" src="spec/util/helper.js"></script>
+  <script type="text/javascript" src="spec/util/fixtures.js"></script>
+
+  <!-- Core tests-->
+  <script type="text/javascript" src="spec/default.spec.js"></script>
+  <script type="text/javascript" src="spec/i18n.spec.js"></script>
+  <script type="text/javascript" src="spec/jquery.mobile-config.spec.js"></script>
+
+  <!-- Start tests -->
+  <script type="text/javascript" src="spec/modules/start/start-view.spec.js"></script>
+
+  <!-- Info tests -->
+  <script type="text/javascript" src="spec/modules/info/info-view.spec.js"></script>
+
+  <!-- Student service tests -->
+  <script type="text/javascript" src="spec/modules/student/student-service-view.spec.js"></script>
+
+  <!-- Map tests -->
+  <script type="text/javascript" src="spec/modules/map/main.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/map-router.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/app-model.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/map-model.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/location-model.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/campus-model.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/model-mixins.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/app-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/map-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/search-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/generic-location-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/point-location-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/line-location-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/polygon-location-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/menu-popup-view.spec.js"></script>
+  <script type="text/javascript" src="spec/modules/map/info-window-view.spec.js"></script>
+
+  <script type="text/javascript">
+    (function () {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+      var console_reporter = new jasmine.ConsoleReporter();
+
+      window.console_reporter = console_reporter;
+
+      jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.addReporter(console_reporter);
+      jasmineEnv.addReporter(new jasmine.JUnitXmlReporter("build/reports/tests/"));
+
+      jasmineEnv.specFilter = function (spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      var currentWindowOnload = window.onload;
+
+      window.onload = function () {
+        if (currentWindowOnload) {
+          currentWindowOnload();
+        }
+        execJasmine();
+      };
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+    })();
+  </script>
+</head>
+<body>
+<div id='stage' data-role="page"></div>
+</body>
+</html>
