@@ -27,4 +27,5 @@ www/map/js/routers/*.min.js
 www/map/js/views/*.min.js
 www/studentservice/js/jst/*.min.js
 www/studentservice/js/views/*.min.js
-/ant-build
+platforms/android/ant-build
+platforms/ios/ant-build
