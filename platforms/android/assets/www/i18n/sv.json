@@ -1,0 +1,153 @@
+{
+  "common": {
+    "header": {
+      "back": "Tillbaka",
+      "home": "Hem",
+      "menu": "Meny"
+    }
+  },
+  "map": {
+    "menu": {
+      "home": "Hem",
+      "search": "Sök",
+      "searchfor": "Sök ",
+      "directions": "Vägbeskrivning",
+      "cancel": "Avbryt"
+    },
+
+    "titles": {
+      "buildings": "Hus",
+      "departments": "Institutioner",
+      "computerlabs": "Datorsalar",
+      "auditoriums": "Hörsalar",
+      "parking": "Parkering",
+      "restaurants": "Matställen"
+    },
+
+    "infoWindow": {
+      "directions": "Vägbeskrivning",
+      "walking": "Gående",
+      "bicycling": "Med cykel",
+      "publicTransit": "Med kollektivtrafik",
+      "car": "Med bil",
+      "hearing_loop": {
+        "exists": "Hörslinga finns",
+        "noexists": "Hörslinga finns ej"
+      },
+      "elevator": {
+        "exists": "Tillgänglig hiss finns",
+        "noexists": "Tillgänglig hiss finns ej"
+      },
+      "toilet": {
+        "exists": "Tillgänglig toalett finns, plan",
+        "noexists": "Tillgänglig toalett finns ej"
+      },
+      "entrance": {
+        "exists": "Tillgänglig entré finns",
+        "show": "Visa tillgängliga entréer",
+        "hide": "Göm tillgängliga entréer",
+        "noexists": "Tillgänglig entré finns ej"
+      },
+      "organization": {
+        "telephoneNumber": "Telefonnummer",
+        "webAddress": "Webbsida",
+        "mailAddresses": "E-post"
+      }
+    },
+
+    "current_position": {
+      "name": "Du är här!"
+    },
+
+    "campusList": {
+      "choosecampus": "Välj universitetsområde:"
+    },
+
+    "search": {
+      "noresults": "Inga resultat"
+    }
+  },
+  "start": {
+    "menuItem": {
+      "buildings": "Hus",
+      "departments": "Institutioner",
+      "auditoriums": "Hör- & skrivsalar",
+      "computerLabs": "Datorsalar",
+      "parkingspaces": "Parkering",
+      "restaurants": "Matställen",
+      "sukatSearch": "Personal",
+      "studentService": "Studentservice",
+      "accessibility": "Symboler",
+      "sisu": "Kurser & program",
+      "schedule": "Schema"
+    },
+    "header": {
+      "title": "Stockholms universitet"
+    },
+
+    "sisu": {
+      "link": "http://sisu.it.su.se"
+    }
+  },
+  "studentService": {
+      "menu": {
+          "applicationAndAdmission": {
+              "title": "Anmälan & antagning"
+          },
+          "degreeAndCertificate": {
+              "title": "Examen"
+          },
+          "guidanceCounseling": {
+              "title": "Studie- och karriärvägledning"
+          },
+          "infoCentre": {
+              "title": "Infocenter"
+          },
+          "healthService": {
+              "title": "Studenthälsan"
+          },
+          "studentDisabilityService": {
+              "title": "Studera med funktionsnedsättning"
+          },
+          "academicWritingService": {
+              "title": "Studie- och språkverkstaden"
+          },
+          "equality": {
+              "title": "Jämlikhet & likabehandling"
+          },
+          "studyAbroad": {
+              "title": "Studier utomlands"
+          }
+      },
+    "header": {
+      "title": "Studentservice"
+    }
+  },
+  "navigation": {
+    "button": {
+      "back": "Tillbaka"
+    }
+  },
+  "accessibility": {
+    "info": {
+      "desc": "När du söker salar, hus eller parkeringar på kartan kan följande symboler visas. De beskriver hur platsen är tillgänglighetsanpassad."
+    },
+    "icon": {
+      "handicapEntrance": "Tillgänglig entré",
+      "handicapLift": "Tillgänglig hiss",
+      "handicapToilet": "Tillgänglig toalett",
+      "handicapParking": "Tillgänglig parkering",
+      "hearingLoop": "Hörslinga"
+    },
+    "header": {
+      "title": "Symboler"
+    }
+  },
+  "error": {
+    "connectionlost": "All information kunde inte hämtas - kontrollera din internetuppkoppling och försök igen.",
+    "noGPSAndroid": "Information om din nuvarande plats kunde inte hämtas – kontrollera att trådlösa nätverk och GPS är påslagna under Platstjänster.",
+    "noGPSiOS": "Information om din nuvarande plats kunde inte hämtas – kontrollera att platstjänster är aktiverad under inställningar för integritetsskydd.",
+    "noGPS": "Information om din nuvarande plats kunde inte hämtas – kontrollera dina inställningar för platstjänster",
+    "button": "Stäng"
+  }
+}
