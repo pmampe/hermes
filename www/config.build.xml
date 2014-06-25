@@ -33,14 +33,14 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="se.su.it.handheld.app.hermes"
-        version="1.0.7"
-        versionCode="15">
+        id="@id@"
+        version="@version@"
+        versionCode="@versionCode@">
 
-  <name>Guide</name>
+  <name>@appName@</name>
 
   <description>
-    description
+    @description@
   </description>
 
   <author href="http://www.su.se" email="utveckling@it.su.se">
