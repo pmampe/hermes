@@ -1,0 +1,154 @@
+{
+  "common": {
+    "header": {
+      "back": "Back",
+      "home": "Home",
+      "menu": "Menu"
+    }
+  },
+
+  "map": {
+    "menu": {
+      "home": "Home",
+      "search": "Search",
+      "searchfor": "Search for ",
+      "directions": "Directions",
+      "cancel": "Cancel"
+    },
+
+    "titles": {
+      "buildings": "Buildings",
+      "departments": "Departments",
+      "computerlabs": "Computer labs",
+      "auditoriums": "Auditoriums",
+      "parking": "Parking spaces",
+      "restaurants": "Restaurants"
+    },
+
+    "infoWindow": {
+      "directions": "Directions",
+      "walking": "On foot",
+      "bicycling": "By bike",
+      "publicTransit": "By Public transport",
+      "car": "By Car",
+      "hearing_loop": {
+        "exists": "Hearing loop available",
+        "noexists": "Hearing loop not available"
+      },
+      "elevator": {
+        "exists": "Accessible lift available",
+        "noexists": "Accessible lift not available"
+      },
+      "toilet": {
+        "exists": "Accessible toilet available, floor",
+        "noexists": "Accessible toilet not available"
+      },
+      "entrance": {
+        "exists": "Accessible entrance available",
+        "show": "Show accessible entrances",
+        "hide": "Hide accessible entrances",
+        "noexists": "Accessible entrance not available"
+      },
+      "organization": {
+        "telephoneNumber": "Telephone number",
+        "webAddress": "Website",
+        "mailAddresses": "E-mail"
+      }
+    },
+
+    "current_position": {
+      "name": "You are here!"
+    },
+
+    "campusList": {
+      "choosecampus": "Choose campus:"
+    },
+
+    "search": {
+      "noresults": "No results"
+    }
+  },
+  "start": {
+    "menuItem": {
+      "buildings": "Buildings",
+      "departments": "Departments",
+      "auditoriums": "Auditoriums",
+      "computerLabs": "Computer labs",
+      "parkingspaces": "Parking spaces",
+      "restaurants": "Restaurants",
+      "sukatSearch": "Staff",
+      "studentService": "Student Service",
+      "accessibility": "Legend",
+      "sisu": "Courses & programmes",
+      "schedule": "Schedule"
+    },
+    "header": {
+      "title": "Stockholm University"
+    },
+
+    "sisu": {
+      "link": "http://sisu.it.su.se/search/en"
+    }
+  },
+  "studentService": {
+    "menu": {
+      "applicationAndAdmission": {
+        "title": "How to Apply"
+      },
+      "degreeAndCertificate": {
+        "title": "Qualifications & Degrees"
+      },
+      "guidanceCounseling": {
+        "title": "Study & Career Counselling"
+      },
+      "infoCentre": {
+          "title": "Infocentre"
+      },
+      "healthService": {
+          "title": "Student Health Service"
+      },
+      "studentDisabilityService": {
+          "title": "Support for Students with Disabilities"
+      },
+      "academicWritingService": {
+          "title": "Academic Writing Service"
+      },
+      "equality": {
+          "title": "Equal Treatment"
+      },
+      "orientation": {
+          "title": "Orientation Week"
+      }
+    },
+    "header": {
+      "title": "Student Service"
+    }
+  },
+  "navigation": {
+    "button": {
+      "back": "Back"
+    }
+  },
+  "accessibility": {
+    "info": {
+      "desc": "You may see the following symbols when searching for auditoriums, buildings or parking spaces. These symbols are used to indicate accessibility options for a specific area."
+    },
+    "icon": {
+      "handicapEntrance": "Accessible entrances",
+      "handicapLift": "Accessible lifts",
+      "handicapToilet": "Accessible toilets",
+      "handicapParking": "Accessible parking spaces",
+      "hearingLoop": "Hearing loop"
+    },
+    "header": {
+      "title": "Legend"
+    }
+  },
+  "error": {
+    "connectionlost": "Connection lost – check your internet connection and retry.",
+    "noGPSAndroid": "Your current position could not be found – please verify that wireless networks and GPS settings are enabled in Location services.",
+    "noGPSiOS": "Your current position could not be found – please verify that location services is activated under the privacy settings.",
+    "noGPS": "Your current position could not be found – please check your location settings.",
+    "button": "Close"
+  }
+}

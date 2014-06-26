@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="se.su.it.handheld.app.hermes" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="AndroidLaunchMode" value="singleTop" />
+    <feature name="App">
+        <param name="android-package" value="org.apache.cordova.App" />
+    </feature>
+    <feature name="GAPlugin">
+        <param name="android-package" value="com.adobe.plugins.GAPlugin" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Globalization">
+        <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" onload="true" value="org.apache.cordova.statusbar.StatusBar" />
+    </feature>
+    <name>Guide</name>
+    <description>
+        description
+    </description>
+    <author email="utveckling@it.su.se" href="http://www.su.se">
+		IT Services at Stockholm University
+	</author>
+    <license>
+		Copyright (c) 2013, IT Services, Stockholm University
+		All rights reserved.
+
+		Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+		following conditions are met:
+
+		Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+		disclaimer.
+
+		Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+		disclaimer in the documentation and/or other materials provided with the distribution.
+
+		Neither the name of Stockholm University nor the names of its contributors may be used to endorse or promote
+		products
+		derived from this software without specific prior written permission.
+
+		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+		INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+		DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+		SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+		SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+		WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+		OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+	</license>
+    <content src="index.html" />
+    <preference name="orientation" value="portrait" />
+    <preference name="Fullscreen" value="false" />
+    <preference name="SplashScreen" value="splash" />
+    <preference name="SplashScreenDelay" value="30000" />
+    <access origin="http://*.su.se" />
+    <access origin="https://*.su.se" />
+    <access origin="http://api-test.su.se" />
+    <access origin="http://mobileapp-dev.it.su.se" />
+    <access origin="http://*.gstatic.com" />
+    <access origin="http://debug.phonegap.com" />
+    <access origin="http://*.googleapis.com" />
+</widget>
