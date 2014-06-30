@@ -1,0 +1,285 @@
+/*
+ * Copyright (c) 2013, IT Services, Stockholm University
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * Neither the name of Stockholm University nor the names of its contributors
+ * may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+.ui-header .ui-title {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.ui-footer .ui-title {
+  margin-right: 20px;
+  margin-left: 20px;
+  white-space: normal;
+}
+
+.ui-footer {
+  position: absolute;
+  width: 100%;
+}
+
+.ui-btn-inner {
+  padding: .6em 7px;
+}
+
+.ui-body-e {
+  border: 1px solid #66eedd;
+  color: #222222;
+  text-shadow: 0 0 0 #fff;
+  background: #c2e4d2;
+}
+
+.map-content-container {
+  margin-top: 48px;
+}
+
+#page-map, #map-content, #map_canvas {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+#map_canvas {
+  min-height: 100%;
+}
+
+#map_square {
+  height: 120px;
+  width: 120px;
+  border: 2px solid #aaa;
+}
+
+.fading-msg {
+  padding: .6em;
+  text-shadow: none;
+  text-align: center;
+  margin: 120px auto;
+  font-weight: bold;
+  border: 0;
+  max-width: 260px;
+  min-width: 110px;
+}
+
+.iw a.hideRelated {
+  display: none;
+}
+
+/* Customize the search popup to stick to the top */
+
+/* --- Direction styles --- */
+.kd-buttonbar {
+  overflow: hidden;
+}
+
+.kd-buttonbar .kd-button:first-child {
+  margin-left: 0;
+}
+
+.dir-tm .kd-button {
+  min-width: 50px;
+  padding: 0;
+  width: 50px;
+}
+
+.kd-buttonbar .kd-button-left {
+  border-radius: 2px 0 0 2px;
+}
+
+.kd-buttonbar .kd-button-mid {
+  border-radius: 0 0 0 0;
+  margin-left: -1px;
+}
+
+.kd-buttonbar .kd-button-right {
+  border-radius: 0 2px 2px 0;
+  margin-left: -1px;
+}
+
+.kd-buttonbar .kd-button {
+  float: left;
+/ / margin : 0;
+/ / 0 0 0 16 px;
+  position: relative;
+  z-index: 1;
+}
+
+.kd-button.selected {
+  background-color: #EEEEEE;
+  background-image: -moz-linear-gradient(center top, #EEEEEE, #E0E0E0);
+  border: 1px solid #CCCCCC;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+  color: #333333;
+}
+
+.kd-button-left {
+  border-radius: 2px 0 0 2px;
+}
+
+.kd-button-mid {
+  border-radius: 0 0 0 0;
+  margin-left: -1px;
+}
+
+.kd-button-right {
+  border-radius: 0 2px 2px 0;
+  margin-left: -1px;
+}
+
+.kd-button {
+  background-color: #F5F5F5;
+  background-image: -moz-linear-gradient(center top, #F5F5F5, #F1F1F1);
+/ / border : 1 px solid rgba ( 0, 0, 0, 0.1 );
+  border-radius: 2px 2px 2px 2px;
+  color: #444444;
+  display: inline-block;
+  font-size: 85%;
+  font-weight: bold;
+  height: 27px;
+  line-height: 27px;
+  min-width: 54px;
+  padding: 0;
+/ / 8 px;
+  text-align: center;
+  transition: all 0.218s ease 0s;
+  width: 95%;
+}
+
+.dir-tm .kd-button img {
+  margin: 0;
+  opacity: 0.667;
+  vertical-align: -4px;
+}
+
+.kd-button.selected img {
+  opacity: 0.9 !important;
+}
+
+.kd-button img {
+  display: inline-block;
+  margin: -3px 0 0;
+  opacity: 0.55;
+  vertical-align: middle;
+}
+
+.dir-tm-b {
+  background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -340px transparent;
+  height: 14px;
+  width: 17px;
+  margin: 8px !important;
+}
+
+.dir-tm-d {
+  background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -96px transparent;
+  height: 12px;
+  width: 15px;
+  margin: 10px !important;
+}
+
+.dir-tm-r {
+  background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -426px transparent;
+  height: 15px;
+  width: 13px;
+  margin: 8px !important;
+}
+
+.dir-tm-w {
+  background: url("http://maps.gstatic.com/mapfiles/dir/dl6.png") no-repeat scroll 0 -489px transparent;
+  height: 16px;
+  width: 10px;
+  margin: 6px !important;
+}
+
+img {
+  -moz-user-select: none;
+  border: 0 none;
+  margin: 0;
+  padding: 0;
+}
+
+.kd-button.selected {
+  color: #333333;
+}
+
+/*
+.kd-button {
+    color: #444444;
+    font-size: 85%;
+    font-weight: bold;
+    line-height: 27px;
+    text-align: center;
+}
+*/
+
+a {
+  color: #1155CC;
+}
+
+/**
+**SearchView styling
+**/
+
+div.search-box .cancel-filter-button {
+  position: absolute;
+  right: 0px;
+  top: 6px;
+  display: none;
+  height: 28px;
+  line-height: 12px;
+  z-index: 2;
+}
+
+div.search-box form {
+    margin: 0;
+}
+
+div.search-box form.tight {
+  margin: 0 80px 0 0;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  /* Remove default */
+  -webkit-appearance: none;
+}
+
+div.noresults {
+  font-size: 12.5px;
+  font-weight: bold;
+  display: none;
+}
+
+#menupopup-popup {
+  right: 0 !important;
+  left: auto !important;
+}
+
+#menupopup-popup.ui-popup-active {
+  top: 0 !important;
+}
+
